@@ -1,13 +1,20 @@
 import { useState } from "react";
-import Modal from "react-bootstrap/Modal";
-import { Button, ToggleButton, ButtonGroup } from "react-bootstrap";
+import {
+  Container,
+  Modal,
+  Button,
+  ToggleButton,
+  ButtonGroup,
+} from "react-bootstrap";
 import Login from "./Login";
 import Register from "./Register";
 
+const modes = { Login: <Login />, Register: <Register /> }; //TODO: Add Manage Profile, Delete Account, and possibly Logout
+
 export default function AuthWindow() {
   const [display, setDisplay] = useState(false);
-  const modes = { Login: <Login/>, Register: <Register/> };
   const [currentMode, setCurrentMode] = useState(Object.keys(modes)[0]);
+
   function openWindow() {
     setDisplay(true);
   }
@@ -26,9 +33,9 @@ export default function AuthWindow() {
         size="lg"
         aria-labelledby="login-or-register-title"
         size="md"
+        centered
       >
         <Modal.Header
-          closeButton
           className="d-flex flex-column justify-items-center"
         >
           <Modal.Title
@@ -43,7 +50,9 @@ export default function AuthWindow() {
                   type="radio"
                   value={mode}
                   checked={currentMode === mode}
-                  onChange={(event)=> setCurrentMode(event.currentTarget.value)}
+                  onChange={(event) =>
+                    setCurrentMode(event.currentTarget.value)
+                  }
                 >
                   {mode}
                 </ToggleButton>
@@ -52,8 +61,13 @@ export default function AuthWindow() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>{modes[currentMode]}</Modal.Body>
-        <Modal.Footer>
-          <Button onClick={closeWindow}>Close</Button>
+        <Modal.Footer className="justify-content-between">
+          <Button onClick={closeWindow} variant="danger">
+            Cancel
+          </Button>
+          <Button onClick={closeWindow} variant="primary">
+            {currentMode}
+          </Button>
         </Modal.Footer>
       </Modal>
     </>
