@@ -1,0 +1,38 @@
+{
+  "name": "agility",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/vasiliosnicholas/Agility#readme",
+  "bugs": {
+    "url": "https://github.com/vasiliosnicholas/Agility/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vasiliosnicholas/Agility.git"
+  },
+  "license": "MIT",
+  "author": "Vasilios Nicholas, Aryan Yadav",
+  "type": "module",
+  "main": "./backend/index.js",
+  "scripts": {
+    "start": "node ./backend/index.js",
+    "dev": "node --watch ./backend/index.js",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.6.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-jest": "^29.15.4",
+    "eslint-plugin-prettier": "^5.5.6",
+    "globals": "^17.7.0",
+    "html-validate": "^11.5.5",
+    "jest": "^30.4.2",
+    "prettier": "^3.9.4"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "passport-local": "^1.0.0"
+  }
+}
