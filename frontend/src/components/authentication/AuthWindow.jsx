@@ -1,20 +1,19 @@
 import { useState } from "react";
-import {
-  Container,
-  Modal,
-  Button,
-  ToggleButton,
-  ButtonGroup,
-} from "react-bootstrap";
+import { useRef } from "react";
+import { Modal, Button, ToggleButton, ButtonGroup } from "react-bootstrap";
 import Login from "./Login";
 import Register from "./Register";
 
-const modes = { Login: <Login />, Register: <Register /> }; //TODO: Add Manage Profile, Delete Account, and possibly Logout
+//TODO: Add Manage Account, Delete Account, and possibly Logout
 
 export default function AuthWindow() {
+  const [formValid, setFormValid] = useState(false);
   const [display, setDisplay] = useState(false);
+  const modes = {
+    Login: <Login setSubmitStatus={setFormValid} />,
+    Register: <Register setSubmitStatus={setFormValid} />,
+  };
   const [currentMode, setCurrentMode] = useState(Object.keys(modes)[0]);
-
   function openWindow() {
     setDisplay(true);
   }
@@ -25,7 +24,7 @@ export default function AuthWindow() {
   return (
     <>
       <Button variant="primary" onClick={openWindow}>
-        Login/Register
+        Login | Register
       </Button>
       <Modal
         show={display}
@@ -35,9 +34,7 @@ export default function AuthWindow() {
         size="md"
         centered
       >
-        <Modal.Header
-          className="d-flex flex-column justify-items-center"
-        >
+        <Modal.Header className="d-flex flex-column justify-items-center">
           <Modal.Title
             id="login-or-register-title"
             className="d-flex flex-column justify-items-center"
@@ -50,9 +47,10 @@ export default function AuthWindow() {
                   type="radio"
                   value={mode}
                   checked={currentMode === mode}
-                  onChange={(event) =>
-                    setCurrentMode(event.currentTarget.value)
-                  }
+                  onChange={(event) => {
+                    setCurrentMode(event.currentTarget.value);
+                    setFormValid(false);
+                  }}
                 >
                   {mode}
                 </ToggleButton>
@@ -65,7 +63,12 @@ export default function AuthWindow() {
           <Button onClick={closeWindow} variant="danger">
             Cancel
           </Button>
-          <Button onClick={closeWindow} variant="primary">
+          <Button
+            onClick={closeWindow}
+            variant="primary"
+            type="Submit"
+            disabled={!formValid}
+          >
             {currentMode}
           </Button>
         </Modal.Footer>

@@ -1,5 +1,11 @@
 import { useState } from "react";
 import { Form, FloatingLabel } from "react-bootstrap";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const MIN_USERNAME_LENGTH = 5;
+const MIN_PASSWORD_LENGTH = 8;
 
 const accountTypes = [
   { name: "Manager", action: () => console.log("Manager Placeholder action") },
@@ -8,40 +14,104 @@ const accountTypes = [
     action: () => console.log("Developer Placeholder action"),
   },
 ];
+const schema = yup.object().shape({
+  AccountType: yup
+    .string()
+    .oneOf(Object.keys(accountTypes), "You must pick an account type."),
+  Username: yup.string().required().min(MIN_USERNAME_LENGTH),
+  Email: yup.string().required().email(),
+  Password: yup.string().required().min(MIN_PASSWORD_LENGTH),
+  ConfirmPassword: yup
+    .string()
+    .required()
+    .oneOf([yup.ref("Password")], "Passwords must be identical."),
+});
 
-export default function Register() {
-  const [selectedAccountType, setAccountType] = useState(undefined);
+export default function Register({ setSubmitStatus }) {
+  const [selectedAccountType, setAccountType] = useState(undefined); //TODO: Decide if we need additional fields depending on account type.
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema), mode: "all" });
+
+  const onSubmit = (event) => console.log(event);
+
   return (
-    <Form>
+    <Form noValidate onSubmit={handleSubmit(onSubmit)}>
       <FloatingLabel
         className="mb-3"
         controlId="account-type"
         label="Account Type"
       >
-        <Form.Select aria-label="Select Account Type" defaultValue={undefined}>
-          <option isInvalid>Select Account Type</option>
+        <Form.Select
+          aria-label="Select Account Type"
+          defaultValue={undefined}
+          isInvalid={!!errors.AccountType}
+          {...register("AccountType")}
+        >
+          <option>Select Account Type</option>
           {accountTypes.map((type, index) => (
-            <option key={type.name} value={type.name}>{type.name}</option>
+            <option key={index} value={type.name}>
+              {type.name}
+            </option>
           ))}
         </Form.Select>
+        <Form.Control.Feedback type="invalid">
+          {errors.AccountType?.message}
+        </Form.Control.Feedback>
       </FloatingLabel>
 
       <FloatingLabel className="mb-3" controlId="email" label="Email Address">
-        <Form.Control type="email" placeholder="name@example.com" autoFocus />
+        <Form.Control
+          type="email"
+          placeholder="name@example.com"
+          autoFocus
+          isInvalid={!!errors.Email}
+          {...register("Email")}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.Email?.message}
+        </Form.Control.Feedback>
       </FloatingLabel>
 
       <FloatingLabel className="mb-3" controlId="username" label="Username">
-        <Form.Control type="text" placeholder="Enter a username" />
+        <Form.Control
+          type="text"
+          placeholder="Enter a username"
+          isInvalid={!!errors.Username}
+          {...register("Username")}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.Username?.message}
+        </Form.Control.Feedback>
       </FloatingLabel>
       <FloatingLabel className="mb-3" controlId="password" label="Password">
-        <Form.Control type="password" placeholder="Enter a password" />
+        <Form.Control
+          type="password"
+          placeholder="Enter a password"
+          isInvalid={!!errors.Password}
+          {...register("Password")}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.Password?.message}
+        </Form.Control.Feedback>
       </FloatingLabel>
       <FloatingLabel
         className="mb-3"
         controlId="password-confirm"
         label="Confirm Password"
       >
-        <Form.Control type="password" placeholder="Re-enter your password" />
+        <Form.Control
+          type="password"
+          placeholder="Re-enter your password"
+          isInvalid={!!errors.ConfirmPassword}
+          {...register("ConfirmPassword")}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.ConfirmPassword?.message}
+        </Form.Control.Feedback>
       </FloatingLabel>
     </Form>
   );
