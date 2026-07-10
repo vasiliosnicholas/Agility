@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useRef } from "react";
 import { Modal, Button, ToggleButton, ButtonGroup } from "react-bootstrap";
 import Login from "./Login";
 import Register from "./Register";
