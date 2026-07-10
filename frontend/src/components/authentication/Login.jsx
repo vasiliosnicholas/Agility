@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Form, FloatingLabel } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -21,8 +21,10 @@ export default function Login({ setSubmitStatus, submit }) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({ resolver: yupResolver(schema), mode: "all" });
+
+  useEffect(() => setSubmitStatus(isValid), [isValid]);
 
   const onSubmit = (event) => console.log(event);
 

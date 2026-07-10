@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Form, FloatingLabel } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -15,15 +15,16 @@ const accountTypes = [
   },
 ];
 const schema = yup.object().shape({
-  AccountType: yup
-    .string()
-    .oneOf(Object.keys(accountTypes), "You must pick an account type."),
+  AccountType: yup.string().oneOf(
+    accountTypes.map(({name}) => name),
+    "You must pick an account type."
+  ),
   Username: yup.string().required().min(MIN_USERNAME_LENGTH),
   Email: yup.string().required().email(),
   Password: yup.string().required().min(MIN_PASSWORD_LENGTH),
   ConfirmPassword: yup
     .string()
-    .required()
+    .required("You must confirm your password")
     .oneOf([yup.ref("Password")], "Passwords must be identical."),
 });
 
@@ -33,8 +34,10 @@ export default function Register({ setSubmitStatus }) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({ resolver: yupResolver(schema), mode: "all" });
+
+  useEffect(() => setSubmitStatus(isValid), [isValid]);
 
   const onSubmit = (event) => console.log(event);
 
