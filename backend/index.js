@@ -1,5 +1,6 @@
 import express from "express";
 import session from "express-session";
+import path from "path";
 
 const HOST = process.env.HOST || "localhost";
 const PORT = process.env.PORT || 3000;
@@ -11,6 +12,12 @@ app.use(express.json());
 app.use(express.static("./frontend/dist"));
 
 //Add routes, middleware, db connection, and passport here
+app.get("/api");
+
+//for all other routes, serve index.html
+app.get("*splat", (req, res) => {
+  res.sendFile(path.resolve("./frontend/dist", "index.html"));
+});
 
 if (process.env.NODE_ENV == "production") {
   app.listen(PORT, () => {
