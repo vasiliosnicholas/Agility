@@ -94,11 +94,11 @@ export default function Register({ setSubmitStatus }) {
         <Form.Control
           type="password"
           placeholder="Enter a password"
-          isInvalid={!!errors.Password}
+          isInvalid={!!errors.Password || !!errors.ConfirmPassword}
           {...register("Password")}
         />
         <Form.Control.Feedback type="invalid">
-          {errors.Password?.message}
+          {errors.Password?.message || errors.ConfirmPassword?.message}
         </Form.Control.Feedback>
       </FloatingLabel>
       <FloatingLabel
