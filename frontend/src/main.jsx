@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/index.css";
 import IndexPage from "./pages/IndexPage.jsx";
 import Template from "./pages/Template.jsx";
+import Kanban from "./pages/Kanban.jsx";
 import { BrowserRouter, Routes, Route } from "react-router";
 
 createRoot(document.getElementById("root")).render(
@@ -11,7 +12,10 @@ createRoot(document.getElementById("root")).render(
     <Template>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<IndexPage />}></Route>
+          <Route path="/">
+            <Route index element={<IndexPage />}></Route>
+            <Route path="kanban" element={<Kanban />}></Route>
+          </Route>
         </Routes>
       </BrowserRouter>
     </Template>
