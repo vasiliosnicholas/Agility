@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.static("./frontend/dist"));
 
 //Add routes, middleware, db connection, and passport here
-app.get("/api");
+app.get("/api", (req, res) => res.send("API should show up here"));
 
 //for all other routes, serve index.html
 app.get("*splat", (req, res) => {
