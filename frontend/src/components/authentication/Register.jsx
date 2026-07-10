@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Form, FloatingLabel } from "react-bootstrap";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import useReactFormHook from "../../hooks/useReactFormHook";
 import * as yup from "yup";
 
 const MIN_USERNAME_LENGTH = 5;
@@ -16,7 +15,7 @@ const accountTypes = [
 ];
 const schema = yup.object().shape({
   AccountType: yup.string().oneOf(
-    accountTypes.map(({name}) => name),
+    accountTypes.map(({ name }) => name),
     "You must pick an account type."
   ),
   Username: yup.string().required().min(MIN_USERNAME_LENGTH),
@@ -28,21 +27,18 @@ const schema = yup.object().shape({
     .oneOf([yup.ref("Password")], "Passwords must be identical."),
 });
 
-export default function Register({ setSubmitStatus }) {
+export default function Register({ setSubmitStatus, formData, setFormData }) {
   const [selectedAccountType, setAccountType] = useState(undefined); //TODO: Decide if we need additional fields depending on account type.
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-  } = useForm({ resolver: yupResolver(schema), mode: "all" });
-
-  useEffect(() => setSubmitStatus(isValid), [isValid]);
-
-  const onSubmit = (event) => console.log(event);
+  const { register, errors } = useReactFormHook({
+    setSubmitStatus,
+    formData,
+    setFormData,
+    schema,
+  });
 
   return (
-    <Form noValidate onSubmit={handleSubmit(onSubmit)}>
+    <Form noValidate>
       <FloatingLabel
         className="mb-3"
         controlId="account-type"

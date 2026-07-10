@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
 import { Form, FloatingLabel } from "react-bootstrap";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import useReactFormHook from "../../hooks/useReactFormHook";
+
 import * as yup from "yup";
 
 const schema = yup.object().shape({
@@ -9,27 +8,16 @@ const schema = yup.object().shape({
   Password: yup.string().required(),
 });
 
-export default function Login({ setSubmitStatus, submit }) {
-  const [validated, setValidated] = useState(false);
-
-  function validateForm(event) {
-    if (event.currentTarget.checkValidity() === true) {
-      setSubmitStatus(true);
-      setValidated(true);
-    }
-  }
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-  } = useForm({ resolver: yupResolver(schema), mode: "all" });
-
-  useEffect(() => setSubmitStatus(isValid), [isValid]);
-
-  const onSubmit = (event) => console.log(event);
+export default function Login({ setSubmitStatus, formData, setFormData }) {
+  const { register, errors } = useReactFormHook({
+    setSubmitStatus,
+    formData,
+    setFormData,
+    schema,
+  });
 
   return (
-    <Form noValidate onSubmit={handleSubmit(onSubmit)}>
+    <Form noValidate>
       <FloatingLabel className="mb-3" controlId="username" label="Username">
         <Form.Control
           type="text"

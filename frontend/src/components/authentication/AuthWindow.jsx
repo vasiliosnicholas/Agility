@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Modal, Button, ToggleButton, ButtonGroup } from "react-bootstrap";
 import Login from "./Login";
 import Register from "./Register";
@@ -8,17 +8,32 @@ import Register from "./Register";
 export default function AuthWindow() {
   const [formValid, setFormValid] = useState(false);
   const [display, setDisplay] = useState(false);
-  const modes = {
-    Login: <Login setSubmitStatus={setFormValid} />,
-    Register: <Register setSubmitStatus={setFormValid} />,
-  };
-  const [currentMode, setCurrentMode] = useState(Object.keys(modes)[0]);
+  const modes = [
+    { name: "Login", Component: Login, route: "placeholder"},
+    { name: "Register", Component: Register, route: "placeholder"},
+  ];
+  // const [formsData, setFormsData] = useState(modes.map(() => undefined));
+  const formsData = useRef(modes.map(() => undefined));
+  const [currentMode, setCurrentMode] = useState(0);
   function openWindow() {
     setDisplay(true);
   }
   function closeWindow() {
     setDisplay(false);
   }
+  const CurrentComponent = modes[currentMode].Component;
+  
+  function setFormData(formData) {
+    formsData.current[currentMode] = formData;
+  }
+
+  function onSubmit() {
+    //add routes here
+    console.log(formsData.current[currentMode]);
+    //if response successful
+    closeWindow();
+  }
+
 
   return (
     <>
@@ -32,42 +47,41 @@ export default function AuthWindow() {
         size="md"
         centered
       >
-        <Modal.Header className="d-flex flex-column justify-items-center">
-          <Modal.Title
-            id="login-or-register-title"
-            className="d-flex flex-column justify-items-center"
-          >
+        <Modal.Header className="justify-content-center">
+          <Modal.Title id="login-or-register-title">
             <ButtonGroup aria-label="Login/Register Buttons">
-              {Object.keys(modes).map((mode, index) => (
+              {modes.map(({ name }, index) => (
                 <ToggleButton
                   key={index}
-                  id={`radio-btn-${mode}`}
+                  id={`radio-btn-${name}`}
                   type="radio"
-                  value={mode}
-                  checked={currentMode === mode}
+                  value={index}
+                  checked={currentMode == index}
                   onChange={(event) => {
                     setCurrentMode(event.currentTarget.value);
                     setFormValid(false);
                   }}
                 >
-                  {mode}
+                  {name}
                 </ToggleButton>
               ))}
             </ButtonGroup>
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>{modes[currentMode]}</Modal.Body>
+        <Modal.Body>
+          <CurrentComponent setSubmitStatus={setFormValid} formData={formsData.current[currentMode]} setFormData={setFormData} />
+        </Modal.Body>
         <Modal.Footer className="justify-content-between">
           <Button onClick={closeWindow} variant="danger">
             Cancel
           </Button>
           <Button
-            onClick={closeWindow}
+            onClick={onSubmit}
             variant="primary"
             type="Submit"
             disabled={!formValid}
           >
-            {currentMode}
+            {modes[currentMode].name}
           </Button>
         </Modal.Footer>
       </Modal>
