@@ -27,7 +27,6 @@ export default function AuthWindow() {
       </Button>
       <Modal
         show={display}
-        onHide={closeWindow}
         size="lg"
         aria-labelledby="login-or-register-title"
         size="md"
