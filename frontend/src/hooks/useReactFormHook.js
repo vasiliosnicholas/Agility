@@ -2,6 +2,15 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+/**
+ * Takes in a yup Schema and uses react-hook-form
+ * @param {Object} props See props below.
+ * @param {Function} props.setSubmitStatus 
+ * @param {Object} props.formData
+ * @param {Function} props.setFormData
+ * @param {Schema} props.schema
+ * @returns {Object} 
+ */
 export default function useReactFormHook({
   setSubmitStatus,
   formData,
@@ -23,6 +32,8 @@ export default function useReactFormHook({
       setValues(formData, { shouldValidate: true });
     }
   }, [formData]);
+
+  
   useEffect(
     () => setFormData(getValues()),
     Object.values(getValues()).length > 0
