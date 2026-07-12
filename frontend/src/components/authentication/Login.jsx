@@ -1,3 +1,4 @@
+import { useId } from "react";
 import { Form, FloatingLabel } from "react-bootstrap";
 import useReactFormHook from "../../hooks/useReactFormHook";
 
@@ -8,7 +9,12 @@ const schema = yup.object().shape({
   Password: yup.string().required(),
 });
 
-export default function Login({ setSubmitStatus, formData, setFormData }) {
+Login.formName = "Login";
+Login.formId = Login.formName;
+Login.route = "";
+
+
+export default function Login({ formId, setSubmitStatus, formData, setFormData }) {
   const { register, errors } = useReactFormHook({
     setSubmitStatus,
     formData,
@@ -16,8 +22,14 @@ export default function Login({ setSubmitStatus, formData, setFormData }) {
     schema,
   });
 
+  function onSubmit(event) {
+  alert("Logged in! Login");
+  event.preventDefault();
+  event.stopPropagation();
+}
+
   return (
-    <Form noValidate>
+    <Form id={Login.name} noValidate onSubmit={onSubmit}>
       <FloatingLabel className="mb-3" controlId="username" label="Username">
         <Form.Control
           type="text"

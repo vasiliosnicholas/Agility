@@ -27,7 +27,15 @@ const schema = yup.object().shape({
     .oneOf([yup.ref("Password")], "Passwords must be identical."),
 });
 
-export default function Register({ setSubmitStatus, formData, setFormData }) {
+Register.formName = "Register";
+Register.route = "";
+
+export default function Register({
+  formId,
+  setSubmitStatus,
+  formData,
+  setFormData,
+}) {
   const [selectedAccountType, setAccountType] = useState(undefined); //TODO: Decide if we need additional fields depending on account type.
 
   const { register, errors } = useReactFormHook({
@@ -37,8 +45,13 @@ export default function Register({ setSubmitStatus, formData, setFormData }) {
     schema,
   });
 
+  function onSubmit(event) {
+    alert("Registered Account!");
+    event.stopPropagation();
+  }
+
   return (
-    <Form noValidate>
+    <Form id={Register.name} noValidate onSubmit={onSubmit}>
       <FloatingLabel
         className="mb-3"
         controlId="account-type"
