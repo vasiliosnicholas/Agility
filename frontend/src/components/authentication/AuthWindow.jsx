@@ -1,39 +1,34 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import { Modal, Button, ToggleButton, ButtonGroup } from "react-bootstrap";
 import Login from "./Login";
 import Register from "./Register";
 
 //TODO: Add Manage Account, Delete Account, and possibly Logout
 
+const Modes = [Login, Register];
 export default function AuthWindow() {
-  const [formValid, setFormValid] = useState(false);
+  const [formValid, setSubmitStatus] = useState(false);
   const [display, setDisplay] = useState(false);
-  const modes = [
-    { name: "Login", Component: Login, route: "placeholder"},
-    { name: "Register", Component: Register, route: "placeholder"},
-  ];
-  // const [formsData, setFormsData] = useState(modes.map(() => undefined));
-  const formsData = useRef(modes.map(() => undefined));
+  const formsData = useRef(Modes.map(() => undefined));
   const [currentMode, setCurrentMode] = useState(0);
-  function openWindow() {
+
+  //current form component to display.
+  const CurrentFormComponent = Modes[currentMode];
+
+  //prevent redefinitions of setFormData using memomization
+  const setFormData = useCallback(
+    (formData) => {
+      formsData.current[currentMode] = formData;
+    },
+    [formsData, currentMode]
+  );
+
+  const openWindow = useCallback(() => {
     setDisplay(true);
-  }
-  function closeWindow() {
+  });
+  const closeWindow = useCallback(() => {
     setDisplay(false);
-  }
-  const CurrentComponent = modes[currentMode].Component;
-  
-  function setFormData(formData) {
-    formsData.current[currentMode] = formData;
-  }
-
-  function onSubmit() {
-    //add routes here
-    console.log(formsData.current[currentMode]);
-    //if response successful
-    closeWindow();
-  }
-
+  })
 
   return (
     <>
@@ -45,43 +40,47 @@ export default function AuthWindow() {
         size="lg"
         aria-labelledby="login-or-register-title"
         size="md"
+        onHide={closeWindow}
         centered
       >
         <Modal.Header className="justify-content-center">
           <Modal.Title id="login-or-register-title">
             <ButtonGroup aria-label="Login/Register Buttons">
-              {modes.map(({ name }, index) => (
+              {Modes.map(({ formName, formId }, index) => (
                 <ToggleButton
                   key={index}
-                  id={`radio-btn-${name}`}
+                  id={`radio-btn-${formId}`}
                   type="radio"
                   value={index}
                   checked={currentMode == index}
-                  onChange={(event) => {
-                    setCurrentMode(event.currentTarget.value);
-                    setFormValid(false);
-                  }}
+                  onChange={(event) =>
+                    setCurrentMode(event.currentTarget.value)
+                  }
                 >
-                  {name}
+                  {formName}
                 </ToggleButton>
               ))}
             </ButtonGroup>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <CurrentComponent setSubmitStatus={setFormValid} formData={formsData.current[currentMode]} setFormData={setFormData} />
+          <CurrentFormComponent
+            setSubmitStatus={setSubmitStatus}
+            formData={formsData.current[currentMode]}
+            setFormData={setFormData}
+          />
         </Modal.Body>
         <Modal.Footer className="justify-content-between">
           <Button onClick={closeWindow} variant="danger">
             Cancel
           </Button>
           <Button
-            onClick={onSubmit}
+            form={CurrentFormComponent.formId}
             variant="primary"
             type="Submit"
             disabled={!formValid}
           >
-            {modes[currentMode].name}
+            {Modes[currentMode].formName}
           </Button>
         </Modal.Footer>
       </Modal>
