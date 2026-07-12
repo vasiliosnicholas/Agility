@@ -5,11 +5,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 /**
  * Takes in a yup Schema and uses react-hook-form
  * @param {Object} props See props below.
- * @param {Function} props.setSubmitStatus 
+ * @param {Function} props.setSubmitStatus
  * @param {Object} props.formData
  * @param {Function} props.setFormData
  * @param {Schema} props.schema
- * @returns {Object} 
+ * @returns {Object}
  */
 export default function useReactFormHook({
   setSubmitStatus,
@@ -21,11 +21,11 @@ export default function useReactFormHook({
     register,
     watch,
     setValues,
-    getValues,
+    handleSubmit,
     formState: { errors, isValid },
   } = useForm({ resolver: yupResolver(schema), mode: "all" });
-  const watchFields = watch(); //TODO: See if subscribe is a better option.
-  useEffect(() => setSubmitStatus(isValid), [isValid]);
+  const values = watch(); //TODO: See if subscribe is a better option.
+  useEffect(() => setSubmitStatus(isValid), [isValid, setSubmitStatus]);
 
   useEffect(() => {
     if (formData) {
@@ -33,12 +33,11 @@ export default function useReactFormHook({
     }
   }, [formData]);
 
-  
   useEffect(
-    () => setFormData(getValues()),
-    Object.values(getValues()).length > 0
-      ? Object.values(getValues())
+    () => setFormData(values),
+    Object.values(values).length > 0
+      ? Object.values(values)
       : Object.values(schema.fields).map(() => undefined)
   );
-  return { register, errors };
+  return { register, handleSubmit, errors };
 }
