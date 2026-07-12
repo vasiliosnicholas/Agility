@@ -52,6 +52,13 @@ export default [
           singleQuote: false,
         },
       ],
+      "no-warning-comments": [
+        "warn",
+        {
+          terms: ["todo", "fixme"],
+          location: "start",
+        },
+      ],
     },
   },
   eslintConfigPrettier,

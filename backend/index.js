@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("./frontend/dist"));
 
-//Add routes, middleware, db connection, and passport here
+//TODO: Add routes, middleware, db connection, and passport here
 app.get("/api", (req, res) => res.send("API should show up here"));
 
 //for all other routes, serve index.html
