@@ -1,8 +1,8 @@
-import { useCallback, type SubmitEventHandler } from "react";
+import { useCallback, useId, type SubmitEventHandler } from "react";
 import { Form, FloatingLabel } from "react-bootstrap";
 import useReactFormHook from "../../hooks/useReactFormHook";
 import * as yup from "yup";
-import type { AuthFormComponent } from "./AuthFormComponents";
+import type { FormComponent } from "../FormComponents";
 
 const MIN_USERNAME_LENGTH = 5;
 const MIN_PASSWORD_LENGTH = 8;
@@ -28,13 +28,15 @@ const schema = yup.object().shape({
     .oneOf([yup.ref("Password")], "Passwords must be identical."),
 });
 
-const Register: AuthFormComponent = function ({
+const Register: FormComponent = function ({
   setSubmitStatus,
   formData,
+  setFormId,
   setFormData,
 }) {
-  // const [selectedAccountType, setAccountType] = useState(undefined); //TODO: Decide if we need additional fields depending on account type.
-
+  //TODO: Decide if we need additional fields depending on account type.
+  const formId = useId();
+  setFormId(formId);
   const { register, errors } = useReactFormHook({
     setSubmitStatus,
     formData,
@@ -49,7 +51,7 @@ const Register: AuthFormComponent = function ({
   }, []);
 
   return (
-    <Form id={Register.name} noValidate onSubmit={onSubmit}>
+    <Form id={formId} noValidate onSubmit={onSubmit}>
       <FloatingLabel
         className="mb-3"
         controlId="account-type"
@@ -129,6 +131,5 @@ const Register: AuthFormComponent = function ({
 };
 
 Register.formName = "Register";
-Register.formId = Register.formName;
 Register.route = "";
 export default Register;

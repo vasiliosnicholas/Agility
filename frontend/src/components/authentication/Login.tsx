@@ -1,19 +1,22 @@
-import { useCallback, type SubmitEventHandler } from "react";
+import { useCallback, useId, type SubmitEventHandler } from "react";
 import { Form, FloatingLabel } from "react-bootstrap";
 import useReactFormHook from "../../hooks/useReactFormHook";
 import * as yup from "yup";
-import type { AuthFormComponent } from "./AuthFormComponents";
+import type { FormComponent } from "../FormComponents";
 
 const schema = yup.object().shape({
   Username: yup.string().required(),
   Password: yup.string().required(),
 });
 
-const Login: AuthFormComponent = function ({
+const Login: FormComponent = function ({
   setSubmitStatus,
   formData,
+  setFormId,
   setFormData,
 }) {
+  const formId = useId();
+  setFormId(formId);
   const { register, errors } = useReactFormHook({
     setSubmitStatus,
     formData,
@@ -28,7 +31,7 @@ const Login: AuthFormComponent = function ({
   }, []);
 
   return (
-    <Form id={Login.name} noValidate onSubmit={onSubmit}>
+    <Form id={formId} noValidate onSubmit={onSubmit}>
       <FloatingLabel className="mb-3" controlId="username" label="Username">
         <Form.Control
           type="text"
@@ -57,6 +60,5 @@ const Login: AuthFormComponent = function ({
 };
 
 Login.formName = "Login";
-Login.formId = Login.formName;
 Login.route = "";
 export default Login;

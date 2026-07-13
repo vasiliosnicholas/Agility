@@ -2,6 +2,7 @@ import { useState, useRef, useCallback } from "react";
 import { Modal, Button, ToggleButton, ButtonGroup } from "react-bootstrap";
 import Login from "./Login";
 import Register from "./Register";
+import type { formIdSetter } from "../FormComponents";
 
 //TODO: Add Manage Account, Delete Account, and possibly Logout
 
@@ -13,6 +14,14 @@ export default function AuthWindow() {
     Modes.map(() => undefined)
   );
   const [currentMode, setCurrentMode] = useState(0);
+  const formId = useRef<string>("");
+
+  const setFormId: formIdSetter = useCallback(
+    (newId) => {
+      formId.current = newId;
+    },
+    [formId]
+  );
 
   //current form component to display.
   const CurrentFormComponent = Modes[currentMode];
@@ -47,10 +56,10 @@ export default function AuthWindow() {
         <Modal.Header className="justify-content-center">
           <Modal.Title id="login-or-register-title">
             <ButtonGroup aria-label="Login/Register Buttons">
-              {Modes.map(({ formName, formId }, index) => (
+              {Modes.map(({ formName }, index) => (
                 <ToggleButton
                   key={index}
-                  id={`radio-btn-${formId}`}
+                  id={`radio-btn-${formName}`}
                   type="radio"
                   value={index}
                   checked={currentMode == index}
@@ -74,6 +83,7 @@ export default function AuthWindow() {
               Figure out how to get rid of this error */
             }
             setFormData={setFormData}
+            setFormId={setFormId}
           />
         </Modal.Body>
         <Modal.Footer className="justify-content-between">
@@ -81,7 +91,7 @@ export default function AuthWindow() {
             Cancel
           </Button>
           <Button
-            form={CurrentFormComponent.formId}
+            form={formId.current}
             variant="primary"
             type="submit"
             disabled={!formValid}

@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { useForm, type FieldValues } from "react-hook-form";
 import type { AnyObjectSchema } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import type { AuthFormComponentProps } from "../components/authentication/AuthFormComponents";
+import type { FormBaseProps } from "../components/FormComponents";
 
-interface UseReactFormHookProps extends AuthFormComponentProps {
+interface UseReactFormHookProps extends FormBaseProps {
   schema: AnyObjectSchema;
 }
 
