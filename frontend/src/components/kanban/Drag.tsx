@@ -1,5 +1,5 @@
 import React from "react";
-import * as DragTypes from "./dragTypes.ts";
+import type * as DragTypes from "./dragTypes.d.ts";
 
 const DragContext = React.createContext<DragTypes.DragCtxValue | null>(null);
 

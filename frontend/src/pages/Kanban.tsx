@@ -1,8 +1,8 @@
 import React from "react";
 import KanbanList from "../components/kanban/KanbanList";
 import Drag from "../components/kanban/Drag";
-import type { DropPayload } from "../components/kanban/dragTypes.ts";
-import KanbanCard from "../components/kanban/KanbanCard";
+import type { DropPayload } from "../components/kanban/dragTypes";
+import KanbanCard from "../components/kanban/KanbanCard.tsx";
 
 const testData = [
     {
