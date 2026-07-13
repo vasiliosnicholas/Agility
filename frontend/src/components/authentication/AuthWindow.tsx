@@ -9,7 +9,9 @@ const Modes = [Login, Register];
 export default function AuthWindow() {
   const [formValid, setSubmitStatus] = useState(false);
   const [display, setDisplay] = useState(false);
-  const formsData = useRef(Modes.map(() => undefined));
+  const formsData = useRef<Array<object> | Array<undefined>>(
+    Modes.map(() => undefined)
+  );
   const [currentMode, setCurrentMode] = useState(0);
 
   //current form component to display.
@@ -17,7 +19,7 @@ export default function AuthWindow() {
 
   //prevent redefinitions of setFormData using memomization
   const setFormData = useCallback(
-    (formData) => {
+    (formData: object) => {
       formsData.current[currentMode] = formData;
     },
     [formsData, currentMode]
@@ -25,10 +27,10 @@ export default function AuthWindow() {
 
   const openWindow = useCallback(() => {
     setDisplay(true);
-  });
+  }, [setDisplay]);
   const closeWindow = useCallback(() => {
     setDisplay(false);
-  })
+  }, [setDisplay]);
 
   return (
     <>
@@ -39,7 +41,6 @@ export default function AuthWindow() {
         show={display}
         size="lg"
         aria-labelledby="login-or-register-title"
-        size="md"
         onHide={closeWindow}
         centered
       >
@@ -54,7 +55,7 @@ export default function AuthWindow() {
                   value={index}
                   checked={currentMode == index}
                   onChange={(event) =>
-                    setCurrentMode(event.currentTarget.value)
+                    setCurrentMode(parseInt(event.currentTarget.value))
                   }
                 >
                   {formName}
@@ -66,7 +67,12 @@ export default function AuthWindow() {
         <Modal.Body>
           <CurrentFormComponent
             setSubmitStatus={setSubmitStatus}
-            formData={formsData.current[currentMode]}
+            formData={
+              formsData.current[
+                currentMode
+              ] /*FIXME: this works because only want to re-render child. 
+              Figure out how to get rid of this error */
+            }
             setFormData={setFormData}
           />
         </Modal.Body>
@@ -77,7 +83,7 @@ export default function AuthWindow() {
           <Button
             form={CurrentFormComponent.formId}
             variant="primary"
-            type="Submit"
+            type="submit"
             disabled={!formValid}
           >
             {Modes[currentMode].formName}

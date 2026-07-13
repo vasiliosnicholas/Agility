@@ -1,20 +1,19 @@
-import { useId } from "react";
+import { useCallback, type SubmitEventHandler } from "react";
 import { Form, FloatingLabel } from "react-bootstrap";
 import useReactFormHook from "../../hooks/useReactFormHook";
-
 import * as yup from "yup";
+import type { AuthFormComponent } from "./AuthFormComponents";
 
 const schema = yup.object().shape({
   Username: yup.string().required(),
   Password: yup.string().required(),
 });
 
-Login.formName = "Login";
-Login.formId = Login.formName;
-Login.route = "";
-
-
-export default function Login({ formId, setSubmitStatus, formData, setFormData }) {
+const Login: AuthFormComponent = function ({
+  setSubmitStatus,
+  formData,
+  setFormData,
+}) {
   const { register, errors } = useReactFormHook({
     setSubmitStatus,
     formData,
@@ -22,11 +21,11 @@ export default function Login({ formId, setSubmitStatus, formData, setFormData }
     schema,
   });
 
-  function onSubmit(event) {
-  alert("Logged in! Login");
-  event.preventDefault();
-  event.stopPropagation();
-}
+  const onSubmit: SubmitEventHandler<HTMLFormElement> = useCallback((event) => {
+    alert("Logged in! Login");
+    event.preventDefault();
+    event.stopPropagation();
+  }, []);
 
   return (
     <Form id={Login.name} noValidate onSubmit={onSubmit}>
@@ -39,7 +38,7 @@ export default function Login({ formId, setSubmitStatus, formData, setFormData }
           {...register("Username")}
         />
         <Form.Control.Feedback type="invalid">
-          {errors.Username?.message}
+          {errors.Username?.message?.toString()}
         </Form.Control.Feedback>
       </FloatingLabel>
       <FloatingLabel className="mb-3" controlId="password" label="Password">
@@ -50,9 +49,14 @@ export default function Login({ formId, setSubmitStatus, formData, setFormData }
           {...register("Password")}
         />
         <Form.Control.Feedback type="invalid">
-          {errors.Password?.message}
+          {errors.Password?.message?.toString()}
         </Form.Control.Feedback>
       </FloatingLabel>
     </Form>
   );
-}
+};
+
+Login.formName = "Login";
+Login.formId = Login.formName;
+Login.route = "";
+export default Login;

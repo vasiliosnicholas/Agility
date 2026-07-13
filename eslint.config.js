@@ -1,6 +1,7 @@
 import globals from "globals";
 import js from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier";
+import tseslint from "typescript-eslint";
 import prettier from "eslint-plugin-prettier";
 
 export default [
@@ -14,6 +15,7 @@ export default [
         ecmaFeatures: {
           jsx: true,
         },
+        projectService: true,
       },
 
       globals: {
@@ -29,6 +31,7 @@ export default [
     rules: {
       // ESLint recommended rules
       ...js.configs.recommended.rules,
+      ...tseslint.configs.recommendedTypeChecked.rules,
 
       indent: [
         "error",
