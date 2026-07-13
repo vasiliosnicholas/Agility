@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useCallback, type SubmitEventHandler } from "react";
 import { Form, FloatingLabel } from "react-bootstrap";
 import useReactFormHook from "../../hooks/useReactFormHook";
 import * as yup from "yup";
+import type { AuthFormComponent } from "./AuthFormComponents";
 
 const MIN_USERNAME_LENGTH = 5;
 const MIN_PASSWORD_LENGTH = 8;
@@ -27,16 +28,12 @@ const schema = yup.object().shape({
     .oneOf([yup.ref("Password")], "Passwords must be identical."),
 });
 
-Register.formName = "Register";
-Register.route = "";
-
-export default function Register({
-  formId,
+const Register: AuthFormComponent = function ({
   setSubmitStatus,
   formData,
   setFormData,
 }) {
-  const [selectedAccountType, setAccountType] = useState(undefined); //TODO: Decide if we need additional fields depending on account type.
+  // const [selectedAccountType, setAccountType] = useState(undefined); //TODO: Decide if we need additional fields depending on account type.
 
   const { register, errors } = useReactFormHook({
     setSubmitStatus,
@@ -45,10 +42,11 @@ export default function Register({
     schema,
   });
 
-  function onSubmit(event) {
+  const onSubmit: SubmitEventHandler<HTMLFormElement> = useCallback((event) => {
     alert("Registered Account!");
+    event.preventDefault();
     event.stopPropagation();
-  }
+  }, []);
 
   return (
     <Form id={Register.name} noValidate onSubmit={onSubmit}>
@@ -71,7 +69,7 @@ export default function Register({
           ))}
         </Form.Select>
         <Form.Control.Feedback type="invalid">
-          {errors.AccountType?.message}
+          {errors.AccountType?.message?.toString()}
         </Form.Control.Feedback>
       </FloatingLabel>
 
@@ -84,7 +82,7 @@ export default function Register({
           {...register("Email")}
         />
         <Form.Control.Feedback type="invalid">
-          {errors.Email?.message}
+          {errors.Email?.message?.toString()}
         </Form.Control.Feedback>
       </FloatingLabel>
 
@@ -96,7 +94,7 @@ export default function Register({
           {...register("Username")}
         />
         <Form.Control.Feedback type="invalid">
-          {errors.Username?.message}
+          {errors.Username?.message?.toString()}
         </Form.Control.Feedback>
       </FloatingLabel>
       <FloatingLabel className="mb-3" controlId="password" label="Password">
@@ -107,7 +105,8 @@ export default function Register({
           {...register("Password")}
         />
         <Form.Control.Feedback type="invalid">
-          {errors.Password?.message || errors.ConfirmPassword?.message}
+          {errors.Password?.message?.toString() ||
+            errors.ConfirmPassword?.message?.toString()}
         </Form.Control.Feedback>
       </FloatingLabel>
       <FloatingLabel
@@ -122,9 +121,14 @@ export default function Register({
           {...register("ConfirmPassword")}
         />
         <Form.Control.Feedback type="invalid">
-          {errors.ConfirmPassword?.message}
+          {errors.ConfirmPassword?.message?.toString()}
         </Form.Control.Feedback>
       </FloatingLabel>
     </Form>
   );
-}
+};
+
+Register.formName = "Register";
+Register.formId = Register.formName;
+Register.route = "";
+export default Register;

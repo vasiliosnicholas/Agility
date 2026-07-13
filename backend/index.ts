@@ -24,7 +24,7 @@ if (process.env.NODE_ENV == "production") {
     console.log(`Agility server running on ${PORT}`);
   });
 } else {
-  app.listen(PORT, HOST, () => {
+  app.listen(typeof PORT === "string" ? parseInt(PORT) : PORT, HOST, () => {
     console.log(`Agility server running on http://${HOST}:${PORT}`);
   });
 }

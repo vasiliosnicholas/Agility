@@ -144,3 +144,7 @@ vite.config.ts.timestamp-*
 
 # environment files
 *.env
+
+# backend build
+dist/
+backend-dist/
