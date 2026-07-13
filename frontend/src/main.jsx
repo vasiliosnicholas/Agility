@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/index.css";
 import IndexPage from "./pages/IndexPage.jsx";
 import Template from "./pages/Template.jsx";
-import Kanban from "./pages/Kanban.jsx";
+import Kanban from "./pages/Kanban.tsx";
 import { BrowserRouter, Routes, Route } from "react-router";
 
 createRoot(document.getElementById("root")).render(
