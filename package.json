@@ -13,9 +13,9 @@
   "license": "MIT",
   "author": "Vasilios Nicholas, Aryan Yadav",
   "type": "module",
-  "main": "./backend/index.ts",
+  "main": "./dist/backend/index.js",
   "scripts": {
-    "start": "node ./backend/index.js",
+    "start": "node ./backend-dist/index.js",
     "build": "tsc -b",
     "dev": "node --watch ./backend/index.ts",
     "lint": "eslint ."

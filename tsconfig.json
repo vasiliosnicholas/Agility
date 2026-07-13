@@ -2,13 +2,13 @@
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
     // File Layout
-    // "rootDir": "./src",
-    // "outDir": "./dist",
+    "rootDir": "./backend",
+    "outDir": "./backend-dist",
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
     "module": "ES6",
-    "target": "esnext",
+    "target": "es6",
     "types": [],
     // For nodejs:
     // "lib": ["esnext"],
@@ -41,6 +41,5 @@
     "moduleDetection": "force",
     "skipLibCheck": true
   },
-  "exclude": ["frontend"]
-
+  "exclude": ["frontend", "backend-dist"]
 }
