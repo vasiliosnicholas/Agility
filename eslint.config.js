@@ -12,6 +12,7 @@ export default [
       ecmaVersion: "latest",
       sourceType: "module",
       parserOptions: {
+        tsConfigRootDir: import.meta.dirname,
         ecmaFeatures: {
           jsx: true,
         },

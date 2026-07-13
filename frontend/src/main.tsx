@@ -2,9 +2,9 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/index.css";
-import IndexPage from "./pages/IndexPage.js";
-import Template from "./pages/Template.js";
-import Kanban from "./pages/Kanban.js";
+import IndexPage from "./pages/IndexPage.tsx";
+import Template from "./pages/Template.tsx";
+import Kanban from "./pages/Kanban.tsx";
 import { BrowserRouter, Routes, Route } from "react-router";
 
 createRoot(document.getElementById("root")!).render(
