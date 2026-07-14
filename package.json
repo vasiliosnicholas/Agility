@@ -23,6 +23,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@tsconfig/node-ts": "^23.6.4",
+    "@types/bcrypt": "^6.0.0",
     "@types/express": "^5.0.6",
     "@types/express-session": "^1.19.0",
     "@types/node": "^24.13.2",
@@ -38,8 +39,10 @@
     "typescript-eslint": "^8.63.0"
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "express": "^5.2.1",
     "express-session": "^1.19.0",
+    "passport": "^0.7.0",
     "passport-local": "^1.0.0"
   }
 }
