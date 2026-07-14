@@ -20,6 +20,7 @@ const schema = yup.object().shape({
     "You must pick an account type."
   ),
   Username: yup.string().required().min(MIN_USERNAME_LENGTH),
+  Name: yup.string().required("Please enter your full name"),
   Email: yup.string().required().email(),
   Password: yup.string().required().min(MIN_PASSWORD_LENGTH),
   ConfirmPassword: yup
@@ -97,6 +98,17 @@ const Register: FormComponent = function ({
         />
         <Form.Control.Feedback type="invalid">
           {errors.Username?.message?.toString()}
+        </Form.Control.Feedback>
+      </FloatingLabel>
+      <FloatingLabel className="mb-3" controlId="name" label="Full Name">
+        <Form.Control
+          type="text"
+          placeholder="Enter your full name"
+          isInvalid={!!errors.Name}
+          {...register("Name")}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.Name?.message?.toString()}
         </Form.Control.Feedback>
       </FloatingLabel>
       <FloatingLabel className="mb-3" controlId="password" label="Password">
