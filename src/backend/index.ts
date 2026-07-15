@@ -2,6 +2,8 @@ import express from "express";
 import session from "express-session";
 import Authenticator from "./authentication/Authenticator.ts";
 import path from "path";
+import AuthRouter from "./routes/Auth.ts";
+import UsersRouter from "./routes/Users.ts";
 
 const SESSION_AGE_IN_HOURS = 0.5;
 
@@ -14,10 +16,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("./frontend/dist"));
 
-//TODO: Add routes, middleware, db connection, and passport here
 app.use(Authenticator.initialize());
 app.use(Authenticator.session());
 app.get("/api", (req, res) => res.send("API should show up here"));
+//TODO: Add routes/routers here
+app.use(AuthRouter);
+app.use(UsersRouter);
 
 // Session configuration
 app.use(
