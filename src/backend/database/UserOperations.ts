@@ -1,10 +1,10 @@
 import { loadEnvFile } from "process";
+import { ObjectId } from "mongodb";
 import type { User } from "../../shared/models/Users.ts";
 import {
   convertToUser,
   convertToUserDocument,
   getUsersCollection,
-  parseObjectId,
 } from "./Database.ts";
 
 try {
@@ -42,6 +42,20 @@ export async function getUserByUserName(username: string) {
     delete user.password;
   }
   return user;
+}
+
+/**
+ * Gets a User from the Database, with the password
+ * @param _id The User's _id to query for.
+ * @returns a User with all fields, with the password.
+ */
+export async function getUserById(_id: string) {
+  const userDocument = await (
+    await getUsersCollection()
+  ).findOne({
+    _id: new ObjectId(_id),
+  });
+  return userDocument ? convertToUser(userDocument) : null;
 }
 
 /**
