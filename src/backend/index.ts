@@ -3,6 +3,8 @@ import session from "express-session";
 import Authenticator from "./authentication/Authenticator.ts";
 import path from "path";
 
+const SESSION_AGE_IN_HOURS = 0.5;
+
 const HOST = process.env.HOST || "localhost";
 const PORT = process.env.PORT || 3000;
 
@@ -26,7 +28,7 @@ app.use(
     cookie: {
       secure: process.env.NODE_ENV == "production", //set to true based on env variable
       httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+      maxAge: SESSION_AGE_IN_HOURS * 60 * 60 * 1000,
     },
   })
 );
