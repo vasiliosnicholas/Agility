@@ -15,14 +15,15 @@
   "type": "module",
   "main": "./dist/backend/index.js",
   "scripts": {
-    "start": "node ./backend-dist/index.js",
+    "start": "node ./dist/backend/index.js",
     "build": "tsc -b",
-    "dev": "node --watch ./backend/index.ts",
+    "dev": "node --watch ./src/backend/index.ts",
     "lint": "eslint ."
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@tsconfig/node-ts": "^23.6.4",
+    "@types/bcrypt": "^6.0.0",
     "@types/express": "^5.0.6",
     "@types/express-session": "^1.19.0",
     "@types/node": "^24.13.2",
@@ -35,11 +36,15 @@
     "html-validate": "^11.5.5",
     "jest": "^30.4.2",
     "prettier": "^3.9.4",
+    "typescript": "^6.0.3",
     "typescript-eslint": "^8.63.0"
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "express": "^5.2.1",
     "express-session": "^1.19.0",
+    "mongodb": "7.4",
+    "passport": "^0.7.0",
     "passport-local": "^1.0.0"
   }
 }

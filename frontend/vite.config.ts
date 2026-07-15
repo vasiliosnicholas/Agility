@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import path from "path";
 
 // loadEnv("../.");
 
@@ -16,6 +17,12 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
+    },
+    fs: { allow: [".", "../src/shared"] },
+  },
+  resolve: {
+    alias: {
+      "@shared": path.resolve(__dirname, "../src/shared"),
     },
   },
 });
