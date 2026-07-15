@@ -3,7 +3,7 @@ import js from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier";
 import tseslint from "typescript-eslint";
 import prettier from "eslint-plugin-prettier";
-import { globalIgnores } from "eslint/config";
+import { defineConfig } from "eslint/config";
 
 const styling = {
   indent: [
@@ -36,8 +36,7 @@ const styling = {
     },
   ],
 };
-export default [
-  globalIgnores["backend-dist"],
+export default defineConfig([
   {
     files: ["**/*.{js,jsx,mjs,cjs}"],
 
@@ -72,10 +71,11 @@ export default [
     files: ["**/*.{ts,tsx}"],
     extends: [
       js.configs.recommended,
-      tseslint.configs.recommendedTypeChecked,
-      reactHooks.configs.flat.recommended,
-      reactRefresh.configs.vite,
+      ...tseslint.configs.recommendedTypeChecked,
     ],
+    plugins: {
+      prettier: prettier,
+    },
     rules: {
       "no-warning-comments": [
         "warn",
@@ -96,4 +96,4 @@ export default [
     },
   },
   eslintConfigPrettier,
-];
+]);
