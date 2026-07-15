@@ -6,7 +6,7 @@ export interface User {
   name: string;
   userName: string;
   email: string;
-  password: string;
+  password?: string;
 }
 
 // export interface DeveloperAccountSchema extends User {
@@ -22,7 +22,7 @@ export abstract class AbstractUserAccount implements User {
   name: string;
   userName: string;
   email: string;
-  password: string;
+  password?: string;
 
   constructor(
     accountType: string,
