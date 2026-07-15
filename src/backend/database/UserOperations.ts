@@ -1,4 +1,3 @@
-import bcrypt from "bcrypt";
 import { ObjectId } from "mongodb";
 import type { User } from "../../shared/models/Users.ts";
 import {
@@ -6,9 +5,31 @@ import {
   convertToUserDocument,
   getUsersCollection,
 } from "./Database.ts";
+import { hashPassword } from "../authentication/CredentialsManager.ts";
 
+async function getUsersHelper() {
+  return (await getUsersCollection()).find();
+}
+
+/**
+ * Gets alls users in the Users collection
+ * @returns An array with all users
+ */
 export async function getUsers() {
-  return (await getUsersCollection()).find().toArray();
+  return (await (await getUsersHelper()).toArray()).map((user) =>
+    convertToUser(user)
+  );
+}
+
+/**
+ * Gets alls users' metadata in the Users collection
+ * @returns An array with all users
+ */
+export async function getUsersMetadata() {
+  return (await getUsersCollection())
+    .find()
+    .project({ _id: 1, name: 1, username: 1 })
+    .toArray();
 }
 
 /**
@@ -61,7 +82,8 @@ export async function getUserById(_id: string) {
 export async function addUser(user: User) {
   if (await getUserByUserNameAdmin(user.userName))
     throw Error("Username already taken"); //user already exists
-  if (user.password) user.password = await bcrypt.hash(user.password, 10);
+  if (user.password)
+    user.password = await hashPassword(user.password); //TODO: add this to middleware
   else throw new Error("Attempting to create a user without a password!");
   return (await getUsersCollection()).insertOne(convertToUserDocument(user));
 }
