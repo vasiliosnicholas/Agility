@@ -1,6 +1,6 @@
 import { MongoClient, ObjectId } from "mongodb";
 import { loadEnvFile } from "process";
-import { AbstractUserAccount, type User } from "../../shared/models/Users.ts";
+import { type User } from "../../shared/models/Users.ts";
 
 const TIMEOUT_IN_MINS = 15;
 
@@ -97,4 +97,7 @@ export async function getTicketsCollection() {
 }
 
 //FIXME: add this somewhere else
-(await getUsersCollection()).createIndex({ username: 1 }, { unique: true });
+void (await getUsersCollection()).createIndex(
+  { username: 1 },
+  { unique: true }
+);
