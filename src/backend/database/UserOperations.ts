@@ -11,8 +11,8 @@ import {
 } from "./Database.ts";
 import { hashPassword } from "../authentication/CredentialsManager.ts";
 
-async function getUsersHelper() {
-  return (await getUsersCollection()).find();
+async function getUsersHelper(query: object = {}) {
+  return (await getUsersCollection()).find(query);
 }
 
 /**
@@ -20,15 +20,16 @@ async function getUsersHelper() {
  * @returns An array with all users
  */
 export async function getUsers() {
-  return (await (await getUsersHelper()).toArray()).map((user) =>
-    convertToUser(user)
-  );
-}
+  return (await (await getUsersHelper()).toArray()).map((user) => {
+    if (user && user.password) delete user.password;
+    convertToUser(user);
+  });
+} //TODO: Decide if needed.
 
 const devMetaData: Record<keyof UserMetaData, 1> = {
   _id: 1,
   name: 1,
-  userName: 1,
+  username: 1,
   email: 1,
 };
 
@@ -38,7 +39,7 @@ const devMetaData: Record<keyof UserMetaData, 1> = {
  */
 export async function getDevelopersMetadata() {
   return await (
-    await getUsersHelper()
+    await getUsersHelper({ accountType: AccountTypes.Developer })
   )
     .project<UserMetaData>(devMetaData)
     .toArray();
@@ -92,10 +93,33 @@ export async function getUserById(_id: string) {
  * @throws Error if the username was already taken.
  */
 export async function addUser(user: User) {
-  if (await getUserByUserNameAdmin(user.userName))
+  if (await getUserByUserNameAdmin(user.username))
     throw Error("Username already taken"); //user already exists
   if (user.password)
     user.password = await hashPassword(user.password); //TODO: add this to middleware
   else throw new Error("Attempting to create a user without a password!");
   return (await getUsersCollection()).insertOne(convertToUserDocument(user));
+}
+
+/**
+ * Updates any of the user fields
+ * @param user an instance of User to update
+ */
+export async function updateUser(user: User) {
+  if (!user._id) {
+    throw new Error("User doesn't have an id!");
+  }
+  if (!user.password) {
+    const oldUser = await getUserById(user._id);
+    if (oldUser) {
+      if (!oldUser.password)
+        throw new Error(
+          "Database error: current record of user doesn't have a password"
+        );
+      user.password = oldUser.password;
+    }
+  }
+  await (
+    await getUsersCollection()
+  ).updateOne({ _id: user._id }, convertToUserDocument(user));
 }
