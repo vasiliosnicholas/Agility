@@ -1,5 +1,6 @@
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 import { loadEnvFile } from "process";
+import type { User } from "../../shared/models/Users.ts";
 
 const TIMEOUT_IN_MINS = 15;
 
@@ -11,12 +12,14 @@ try {
 
 const URI = process.env.MONGODB_URI;
 const DB_NAME = process.env.DB_NAME;
+const USERS_COLLECTION = process.env.DB_USERS_COLLECTION_NAME;
+const TICKETS_COLLECTION = process.env.DB_TICKETS_COLLECTION_NAME;
+
 let connectionTimeout: ReturnType<typeof setTimeout> | undefined | null;
 
-if (!URI || !DB_NAME) {
-  const suffix = "is a required env variable";
+if (!URI || !DB_NAME || !USERS_COLLECTION || !TICKETS_COLLECTION) {
   throw new Error(
-    `${!URI ? `URI ${suffix}` : ""} ${!DB_NAME ? `DB_NAME ${suffix}` : ""}`
+    `MONGODB_URI, DB_NAME, DB_USERS_COLLECTION_NAME, and DB_TICKETS_COLLECTION_NAME are all required env variables`;
   );
 }
 
@@ -27,7 +30,9 @@ async function cleanupConnection() {
   connectionTimeout = null;
   console.log("MongoClient connection timed out");
 }
-
+/**
+ * Closes MongoClient Connection after TIMEOUT_IN_MINS time.
+ */
 function handleConnection() {
   if (connectionTimeout) {
     clearTimeout(connectionTimeout);
@@ -42,7 +47,7 @@ function handleConnection() {
  * Returns a Db containing Agility connections.
  * @returns a Db from a MongoDB cluster.
  */
-export default async function getAgilityDB() {
+async function getAgilityDB() {
   try {
     console.log("Received DB request.");
     await client.connect();
@@ -54,4 +59,19 @@ export default async function getAgilityDB() {
   } finally {
     handleConnection();
   }
+}
+
+export async function getUsersCollection() {
+  const db = await getAgilityDB();
+  if (USERS_COLLECTION && db) return db.collection<User>(USERS_COLLECTION);
+  throw new Error("Could not connect to Agility Db or could not find users collection in db");
+}
+
+export async function getTicketsCollection() {
+  const db = await getAgilityDB();
+  if (TICKETS_COLLECTION && db) return db.collection(TICKETS_COLLECTION); //FIXME: Add the ticket interface as  a generic to collection
+  throw new Error("Could not connect to Agility Db or could not find tickets collection in db");
+}
+interface objectWithIdProperty extends Object {
+  _id : InstanceType<typeof ObjectId> | undefined;
 }

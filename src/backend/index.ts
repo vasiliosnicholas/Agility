@@ -28,3 +28,4 @@ if (process.env.NODE_ENV == "production") {
     console.log(`Agility server running on http://${HOST}:${PORT}`);
   });
 }
+
