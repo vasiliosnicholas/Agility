@@ -18,10 +18,9 @@ app.use(express.static("./frontend/dist"));
 
 app.use(Authenticator.initialize());
 app.use(Authenticator.session());
-app.get("/api", (req, res) => res.send("API should show up here"));
 //TODO: Add routes/routers here
-app.use(AuthRouter);
-app.use(UsersRouter);
+app.use("/api", AuthRouter);
+app.use("/api", UsersRouter);
 
 // Session configuration
 app.use(
