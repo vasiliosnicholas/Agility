@@ -20,10 +20,37 @@ const testData = [
 ]
 
 export default function Kanban() {
-    const [data] = React.useState(testData);
+    const [data, setData] = React.useState(testData);
 
     function handleDrop({ dragItem, dragType, drop }: DropPayload) {
-        console.log(dragItem, dragType, drop);
+        if (dragType === "card" && drop !== null) {
+            const [newListPos, newCardPos] = drop.toString().split("-").map((string) => parseInt(string));
+
+            if (Number.isNaN(newListPos) || Number.isNaN(newCardPos)) {
+                return;
+            }
+
+            let finalCardPos: number = newCardPos;
+            let oldCardPos: number | undefined;
+            const oldListPos = data.findIndex((list) => {
+                oldCardPos = list.cards.findIndex((card) => card.id === dragItem);
+                return oldCardPos >= 0;
+            });
+
+            if (oldListPos < 0 || oldCardPos === undefined || oldCardPos < 0) {
+                return;
+            }
+
+            const newData = structuredClone(data);
+            const card = data[oldListPos].cards[oldCardPos];
+
+            if (newListPos === oldListPos && oldCardPos < newCardPos) {
+                finalCardPos--;
+            }
+            newData[oldListPos].cards.splice(oldCardPos, 1);
+            newData[newListPos].cards.splice(finalCardPos, 0, card);
+            setData(newData);
+          }
     };
 
     return (
@@ -32,18 +59,30 @@ export default function Kanban() {
                 <div className="kanban-container">
                     {data.map((list, listPos) => {
                         return (
-                            <KanbanList key={list.id} name={list.name}>
-                                {data[listPos].cards.map((card) => {
-                                    return (
-                                        <Drag.DragItem key={card.id} dragId={card.id} dragType="card"
-                                            className={`cursor-pointer ${activeItem === card.id
-                                                && activeType === "card" && isDragging ? "d-none" : "translate-x-0"}`}>
-                                            <KanbanCard title={card.title} description={card.description}
-                                                isBeingDragged={activeItem === card.id && activeType === "card"} />
-                                        </Drag.DragItem>
-                                    );
-                                })}
-                            </KanbanList>
+                            <div key={list.id} className="kanban-column">
+                                <KanbanList name={list.name}>
+                                    {data[listPos].cards.map((card, cardPos) => {
+                                        return (
+                                            <Drag.DropZone key={card.id} dropId={`${listPos}-${cardPos}`}
+                                                dropType="card" remember={true}>
+                                                <Drag.DropGuide dropId={`${listPos}-${cardPos}`} className="drop-guide" />
+                                                <Drag.DragItem dragId={card.id} dragType="card"
+                                                    className={`cursor-pointer ${activeItem === card.id
+                                                        && activeType === "card" && isDragging ? "d-none" : "translate-x-0"}`}>
+                                                    <KanbanCard title={card.title} description={card.description}
+                                                        isBeingDragged={activeItem === card.id && activeType === "card"} />
+                                                </Drag.DragItem>
+                                            </Drag.DropZone>
+                                        );
+                                    })}
+                                    <Drag.DropZone dropId={`${listPos}-${data[listPos].cards.length}`}
+                                        dropType="card" remember={true} className="kanban-list-end-zone">
+                                        <Drag.DropGuide dropId={`${listPos}-${data[listPos].cards.length}`} className="drop-guide" />
+                                    </Drag.DropZone>
+                                </KanbanList>
+                                <Drag.DropZone dropId={`${listPos}-${data[listPos].cards.length}`} className="flex-grow-1"
+                                    dropType="card" remember={true} />
+                            </div>
                         )
                     })}
                 </div>
