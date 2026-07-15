@@ -1,5 +1,9 @@
 import { ObjectId } from "mongodb";
-import type { User } from "../../shared/models/Users.ts";
+import {
+  type User,
+  type UserMetaData,
+  AccountTypes,
+} from "../../shared/models/Users.ts";
 import {
   convertToUser,
   convertToUserDocument,
@@ -21,14 +25,22 @@ export async function getUsers() {
   );
 }
 
+const devMetaData: Record<keyof UserMetaData, 1> = {
+  _id: 1,
+  name: 1,
+  userName: 1,
+  email: 1,
+};
+
 /**
- * Gets alls users' metadata in the Users collection
+ * Gets alls developers' metadata in the Users collection
  * @returns An array with all users
  */
-export async function getUsersMetadata() {
-  return (await getUsersCollection())
-    .find()
-    .project({ _id: 1, name: 1, username: 1 })
+export async function getDevelopersMetadata() {
+  return await (
+    await getUsersHelper()
+  )
+    .project<UserMetaData>(devMetaData)
     .toArray();
 }
 

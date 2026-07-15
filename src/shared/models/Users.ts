@@ -1,5 +1,14 @@
-export type DeveloperAccountType = "Developer";
-export type ManagerAccountType = "Manager";
+// export type DeveloperAccountType = "Developer";
+// export type ManagerAccountType = "Manager";
+
+/**
+ * For use when getting user from collection
+ */
+export enum AccountTypes {
+  Developer = "Developer",
+  Manager = "Manager",
+}
+
 export interface User {
   _id: string | undefined;
   accountType: string;
@@ -8,6 +17,8 @@ export interface User {
   email: string;
   password?: string;
 }
+
+export type UserMetaData = Pick<User, "_id" | "name" | "userName" | "email">;
 
 // export interface DeveloperAccountSchema extends User {
 // } //add any developer specific fields to this schema.
@@ -43,7 +54,7 @@ export abstract class AbstractUserAccount implements User {
 export class DeveloperAccount extends AbstractUserAccount {
   // implements DeveloperAccountSchema
   constructor(name: string, userName: string, email: string, password: string) {
-    super("Developer", name, userName, email, password);
+    super(AccountTypes.Developer, name, userName, email, password);
   }
 }
 
@@ -54,7 +65,7 @@ export class ManagerAccount
   developers: string[];
 
   constructor(name: string, userName: string, email: string, password: string) {
-    super("Manager", name, userName, email, password);
+    super(AccountTypes.Manager, name, userName, email, password);
     this.developers = new Array<string>();
   }
 }
