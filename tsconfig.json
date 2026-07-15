@@ -9,7 +9,7 @@
     // See also https://aka.ms/tsconfig/module
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "target": "ES6",
+    "target": "es2022",
     "lib": ["ESNext"],
     "types": ["node"],
     // For nodejs:
@@ -43,6 +43,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
+    "rewriteRelativeImportExtensions": true,
     "resolveJsonModule": true
   },
   "exclude": ["frontend", "dist"],
