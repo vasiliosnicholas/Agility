@@ -1,4 +1,4 @@
-import { loadEnvFile } from "process";
+import bcrypt from "bcrypt";
 import { ObjectId } from "mongodb";
 import type { User } from "../../shared/models/Users.ts";
 import {
@@ -6,12 +6,6 @@ import {
   convertToUserDocument,
   getUsersCollection,
 } from "./Database.ts";
-
-try {
-  loadEnvFile();
-} catch {
-  //variables already loaded.
-}
 
 export async function getUsers() {
   return (await getUsersCollection()).find().toArray();
@@ -67,5 +61,7 @@ export async function getUserById(_id: string) {
 export async function addUser(user: User) {
   if (await getUserByUserNameAdmin(user.userName))
     throw Error("Username already taken"); //user already exists
+  if (user.password) user.password = await bcrypt.hash(user.password, 10);
+  else throw new Error("Attempting to create a user without a password!");
   return (await getUsersCollection()).insertOne(convertToUserDocument(user));
 }
