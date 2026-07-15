@@ -1,7 +1,7 @@
 export type DeveloperAccountType = "Developer";
 export type ManagerAccountType = "Manager";
 export interface User {
-  _id?: string;
+  _id: string | undefined;
   accountType: string;
   name: string;
   userName: string;
@@ -17,7 +17,7 @@ export interface ManagerAccountSchema extends User {
 }
 
 export abstract class AbstractUserAccount implements User {
-  _id?: string;
+  _id: string | undefined;
   accountType: string;
   name: string;
   userName: string;
@@ -31,6 +31,7 @@ export abstract class AbstractUserAccount implements User {
     email: string,
     password: string
   ) {
+    this._id = undefined;
     this.accountType = accountType;
     this.name = name;
     this.userName = userName;
