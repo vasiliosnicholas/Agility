@@ -87,9 +87,6 @@ export async function getTicketsCollection() {
   if (TICKETS_COLLECTION && db) return db.collection(TICKETS_COLLECTION); 
   throw new Error("Could not connect to Agility Db or could not find tickets collection in db");
 }
-interface objectWithIdProperty extends Object {
-  _id : InstanceType<typeof ObjectId> | undefined;
-}
 
 //FIXME: add this somewhere else
 (await getUsersCollection()).createIndex({username: 1}, {unique: true})
