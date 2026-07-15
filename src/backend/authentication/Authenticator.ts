@@ -6,6 +6,7 @@ import {
 } from "../database/UserOperations.ts";
 import type { User } from "../../shared/models/Users.ts";
 import { validatePassword } from "./CredentialsManager.ts";
+
 type AsyncVerifyFunction = (
   ...args: Parameters<VerifyFunction>
 ) => Promise<void>;
