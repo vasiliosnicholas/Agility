@@ -1,26 +1,24 @@
 import { Router, type RequestHandler } from "express";
 import Authenticator from "../authentication/Authenticator.ts";
 import AuthenticationGuard from "../middleware/AuthenticationGuard.ts";
+import { addUser, updateUser } from "../database/UserOperations.ts";
 import {
-  addUser,
-  getUserByUserName,
-  getUserById,
-  updateUser,
-} from "../database/UserOperations.ts";
-import type { User } from "../../shared/models/Users.ts";
+  createUser,
+  type User,
+  type BaseUser,
+} from "../../shared/models/Users.ts";
 
 /**
  * Router for managing authentication.
  */
 const AuthRouter = Router({ mergeParams: true }); //TODO: see if mergeParams is even needed
 
-
 /**
  * Register
  */
-AuthRouter.post("/user", async (req, res) => {
+AuthRouter.post("/register", async (req, res) => {
   try {
-    const response = await addUser(req.body as User);
+    const response = await addUser(createUser(req.body as BaseUser));
     res.status(201).json(response);
   } catch (error) {
     res.status(500).json({ error: (error as Error).message });
@@ -31,7 +29,7 @@ AuthRouter.post("/user", async (req, res) => {
  * Login
  */
 AuthRouter.post(
-  "/user/:id",
+  "/login",
   Authenticator.authenticate("local", {
     successMessage: "Logged in!",
   }) as RequestHandler<{ id: string }>
@@ -45,7 +43,7 @@ const handleUserRequest: RequestHandler<object, any, User> = (req, res) => {
 /**
  * Get current user details
  */
-AuthRouter.get("/user/", AuthenticationGuard, handleUserRequest);
+AuthRouter.get("/user", AuthenticationGuard, handleUserRequest);
 
 const handleUserUpdateRequest: RequestHandler<object, any, User> = async (
   req,

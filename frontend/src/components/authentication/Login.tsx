@@ -2,14 +2,14 @@ import { useCallback, useId, type SubmitEventHandler } from "react";
 import { Form, FloatingLabel } from "react-bootstrap";
 import useReactFormHook from "../../hooks/useReactFormHook";
 import * as yup from "yup";
-import type { FormComponent } from "../FormComponents";
+import type { FormComponent, LoginFormData } from "../FormComponents";
 
 const schema = yup.object().shape({
-  Username: yup.string().required(),
-  Password: yup.string().required(),
+  username: yup.string().required(),
+  password: yup.string().required(),
 });
 
-const Login: FormComponent = function ({
+const Login: FormComponent<LoginFormData> = function ({
   setSubmitStatus,
   formData,
   setFormId,
@@ -17,18 +17,35 @@ const Login: FormComponent = function ({
 }) {
   const formId = useId();
   setFormId(formId);
-  const { register, errors } = useReactFormHook({
+  const { register, errors } = useReactFormHook<LoginFormData>({
     setSubmitStatus,
     formData,
     setFormData,
     schema,
   });
 
-  const onSubmit: SubmitEventHandler<HTMLFormElement> = useCallback((event) => {
-    alert("Logged in! Login");
-    event.preventDefault();
-    event.stopPropagation();
-  }, []);
+  const onSubmit = useCallback(
+    async (event) => {
+      event.preventDefault();
+      if (formData) {
+        const response = await fetch("/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        });
+        if (response.ok) {
+          alert("Logged in!");
+        } else {
+          console.error(response);
+          alert("Login unsuccessful");
+        }
+      } else {
+        alert("Nothing in form!");
+      }
+    },
+    [formData]
+  ) as SubmitEventHandler<HTMLFormElement>;
+
 
   return (
     <Form id={formId} noValidate onSubmit={onSubmit}>
@@ -37,22 +54,22 @@ const Login: FormComponent = function ({
           type="text"
           placeholder="Username"
           autoFocus
-          isInvalid={!!errors.Username}
-          {...register("Username")}
+          isInvalid={!!errors.username}
+          {...register("username")}
         />
         <Form.Control.Feedback type="invalid">
-          {errors.Username?.message?.toString()}
+          {errors.username?.message?.toString()}
         </Form.Control.Feedback>
       </FloatingLabel>
       <FloatingLabel className="mb-3" controlId="password" label="Password">
         <Form.Control
           type="password"
           placeholder="Password"
-          isInvalid={!!errors.Password}
-          {...register("Password")}
+          isInvalid={!!errors.password}
+          {...register("password")}
         />
         <Form.Control.Feedback type="invalid">
-          {errors.Password?.message?.toString()}
+          {errors.password?.message?.toString()}
         </Form.Control.Feedback>
       </FloatingLabel>
     </Form>
@@ -60,5 +77,4 @@ const Login: FormComponent = function ({
 };
 
 Login.formName = "Login";
-Login.route = "";
 export default Login;

@@ -2,34 +2,27 @@ import { useCallback, useId, type SubmitEventHandler } from "react";
 import { Form, FloatingLabel } from "react-bootstrap";
 import useReactFormHook from "../../hooks/useReactFormHook";
 import * as yup from "yup";
-import type { FormComponent } from "../FormComponents";
+import type { FormComponent, RegisterFormData } from "../FormComponents";
+import { AccountTypes } from "@shared/models/Users.ts";
 
 const MIN_USERNAME_LENGTH = 5;
 const MIN_PASSWORD_LENGTH = 8;
 
-const accountTypes = [
-  { name: "Manager", action: () => console.log("Manager Placeholder action") },
-  {
-    name: "Developer",
-    action: () => console.log("Developer Placeholder action"),
-  },
-];
 const schema = yup.object().shape({
-  AccountType: yup.string().oneOf(
-    accountTypes.map(({ name }) => name),
-    "You must pick an account type."
-  ),
-  Username: yup.string().required().min(MIN_USERNAME_LENGTH),
-  Name: yup.string().required("Please enter your full name"),
-  Email: yup.string().required().email(),
-  Password: yup.string().required().min(MIN_PASSWORD_LENGTH),
-  ConfirmPassword: yup
+  accountType: yup
+    .string()
+    .oneOf(Object.values(AccountTypes), "You must pick an account type."),
+  username: yup.string().required().min(MIN_USERNAME_LENGTH),
+  name: yup.string().required("Please enter your full name"),
+  email: yup.string().required().email(),
+  password: yup.string().required().min(MIN_PASSWORD_LENGTH),
+  confirmPassword: yup
     .string()
     .required("You must confirm your password")
-    .oneOf([yup.ref("Password")], "Passwords must be identical."),
+    .oneOf([yup.ref("password")], "Passwords must be identical."),
 });
 
-const Register: FormComponent = function ({
+const Register: FormComponent<RegisterFormData> = function ({
   setSubmitStatus,
   formData,
   setFormId,
@@ -38,19 +31,34 @@ const Register: FormComponent = function ({
   //TODO: Decide if we need additional fields depending on account type.
   const formId = useId();
   setFormId(formId);
-  const { register, errors } = useReactFormHook({
+  const { register, errors } = useReactFormHook<RegisterFormData>({
     setSubmitStatus,
     formData,
     setFormData,
     schema,
   });
 
-  const onSubmit: SubmitEventHandler<HTMLFormElement> = useCallback((event) => {
-    alert("Registered Account!");
-    event.preventDefault();
-    event.stopPropagation();
-  }, []);
-
+  const onSubmit = useCallback(
+    async (event) => {
+      event.preventDefault();
+      if (formData) {
+        const response = await fetch("/api/auth/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        });
+        if (response.ok) {
+          alert("Registered Account!");
+        } else {
+          alert("Registration unsuccessful");
+        }
+      } else {
+        alert("Nothing in form!");
+      }
+    },
+    [formData]
+  ) as SubmitEventHandler<HTMLFormElement>;
+  
   return (
     <Form id={formId} noValidate onSubmit={onSubmit}>
       <FloatingLabel
@@ -61,18 +69,18 @@ const Register: FormComponent = function ({
         <Form.Select
           aria-label="Select Account Type"
           defaultValue={undefined}
-          isInvalid={!!errors.AccountType}
-          {...register("AccountType")}
+          isInvalid={!!errors.accountType}
+          {...register("accountType")}
         >
           <option>Select Account Type</option>
-          {accountTypes.map((type, index) => (
-            <option key={index} value={type.name}>
-              {type.name}
+          {Object.values(AccountTypes).map((type, index) => (
+            <option key={index} value={type}>
+              {type}
             </option>
           ))}
         </Form.Select>
         <Form.Control.Feedback type="invalid">
-          {errors.AccountType?.message?.toString()}
+          {errors.accountType?.message?.toString()}
         </Form.Control.Feedback>
       </FloatingLabel>
 
@@ -81,11 +89,11 @@ const Register: FormComponent = function ({
           type="email"
           placeholder="name@example.com"
           autoFocus
-          isInvalid={!!errors.Email}
-          {...register("Email")}
+          isInvalid={!!errors.email}
+          {...register("email")}
         />
         <Form.Control.Feedback type="invalid">
-          {errors.Email?.message?.toString()}
+          {errors.email?.message?.toString()}
         </Form.Control.Feedback>
       </FloatingLabel>
 
@@ -93,34 +101,34 @@ const Register: FormComponent = function ({
         <Form.Control
           type="text"
           placeholder="Enter a username"
-          isInvalid={!!errors.Username}
-          {...register("Username")}
+          isInvalid={!!errors.username}
+          {...register("username")}
         />
         <Form.Control.Feedback type="invalid">
-          {errors.Username?.message?.toString()}
+          {errors.username?.message?.toString()}
         </Form.Control.Feedback>
       </FloatingLabel>
       <FloatingLabel className="mb-3" controlId="name" label="Full Name">
         <Form.Control
           type="text"
           placeholder="Enter your full name"
-          isInvalid={!!errors.Name}
-          {...register("Name")}
+          isInvalid={!!errors.name}
+          {...register("name")}
         />
         <Form.Control.Feedback type="invalid">
-          {errors.Name?.message?.toString()}
+          {errors.name?.message?.toString()}
         </Form.Control.Feedback>
       </FloatingLabel>
       <FloatingLabel className="mb-3" controlId="password" label="Password">
         <Form.Control
           type="password"
           placeholder="Enter a password"
-          isInvalid={!!errors.Password || !!errors.ConfirmPassword}
-          {...register("Password")}
+          isInvalid={!!errors.password || !!errors.ConfirmPassword}
+          {...register("password")}
         />
         <Form.Control.Feedback type="invalid">
-          {errors.Password?.message?.toString() ||
-            errors.ConfirmPassword?.message?.toString()}
+          {errors.password?.message?.toString() ||
+            errors.confirmPassword?.message?.toString()}
         </Form.Control.Feedback>
       </FloatingLabel>
       <FloatingLabel
@@ -131,11 +139,11 @@ const Register: FormComponent = function ({
         <Form.Control
           type="password"
           placeholder="Re-enter your password"
-          isInvalid={!!errors.ConfirmPassword}
-          {...register("ConfirmPassword")}
+          isInvalid={!!errors.confirmPassword}
+          {...register("confirmPassword")}
         />
         <Form.Control.Feedback type="invalid">
-          {errors.ConfirmPassword?.message?.toString()}
+          {errors.confirmPassword?.message?.toString()}
         </Form.Control.Feedback>
       </FloatingLabel>
     </Form>
@@ -143,5 +151,4 @@ const Register: FormComponent = function ({
 };
 
 Register.formName = "Register";
-Register.route = "";
 export default Register;

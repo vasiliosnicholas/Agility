@@ -2,7 +2,7 @@ import { useState, useRef, useCallback } from "react";
 import { Modal, Button, ToggleButton, ButtonGroup } from "react-bootstrap";
 import Login from "./Login";
 import Register from "./Register";
-import type { formIdSetter } from "../FormComponents";
+import type { FormData, formIdSetter } from "../FormComponents";
 
 //TODO: Add Manage Account, Delete Account, and possibly Logout
 
@@ -10,7 +10,7 @@ const Modes = [Login, Register];
 export default function AuthWindow() {
   const [formValid, setSubmitStatus] = useState(false);
   const [display, setDisplay] = useState(false);
-  const formsData = useRef<Array<object> | Array<undefined>>(
+  const formsData = useRef<Array<FormData> | Array<undefined>>(
     Modes.map(() => undefined)
   );
   const [currentMode, setCurrentMode] = useState(0);
@@ -28,7 +28,7 @@ export default function AuthWindow() {
 
   //prevent redefinitions of setFormData using memomization
   const setFormData = useCallback(
-    (formData: object) => {
+    (formData: FormData) => {
       formsData.current[currentMode] = formData;
     },
     [formsData, currentMode]

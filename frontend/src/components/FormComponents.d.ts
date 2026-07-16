@@ -1,20 +1,33 @@
 import type React from "react";
 import type { FC } from "react";
+import type { BaseUser, User } from "@shared/models/Users.ts";
+import type { FieldValues } from "react-hook-form";
 
-export interface FormBaseProps {
+export interface FormBaseProps<FormDataType extends FormData> {
   setSubmitStatus: React.Dispatch<React.SetStateAction<boolean>>;
-  formData: object | undefined;
-  setFormData: React.Dispatch<React.SetStateAction<object>>;
+  formData: FormDataType | undefined;
+  setFormData: React.Dispatch<React.SetStateAction<FormData>>;
 }
 
-export type formIdSetter =  (formId: string) => void
+export type formIdSetter = (formId: string) => void;
 
-export interface FormComponentProps extends FormBaseProps {
+export interface FormComponentProps<
+  FormDataType,
+> extends FormBaseProps<FormDataType> {
   setFormId: formIdSetter;
 }
 
-export interface FormComponent extends FC<FormComponentProps> {
-  (FormComponentProps: FormComponentProps): React.JSX.Element;
+export interface FormComponent<FormDataType extends FormData> extends FC<
+  FormComponentProps<FormDataType>
+> {
+  (FormComponentProps: FormComponentProps<FormDataType>): React.JSX.Element;
   formName: string;
-  route: string;
+}
+
+export type FormData = FieldValues;
+
+export interface LoginFormData
+  extends FormData, Partial<Pick<User, "username" | "password">> {}
+export interface RegisterFormData extends FormData, Partial<BaseUser> {
+  confirmPassword?: string;
 }

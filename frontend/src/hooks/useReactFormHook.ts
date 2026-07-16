@@ -4,7 +4,9 @@ import type { AnyObjectSchema } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import type { FormBaseProps } from "../components/FormComponents";
 
-interface UseReactFormHookProps extends FormBaseProps {
+interface UseReactFormHookProps<
+  Fields extends FieldValues,
+> extends FormBaseProps<Fields> {
   schema: AnyObjectSchema;
 }
 
@@ -22,7 +24,7 @@ export default function useReactFormHook<Fields extends FieldValues>({
   formData,
   setFormData,
   schema,
-}: UseReactFormHookProps) {
+}: UseReactFormHookProps<Fields>) {
   const {
     register,
     watch,

@@ -16,12 +16,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("./frontend/dist"));
 
-app.use(Authenticator.initialize());
-app.use(Authenticator.session());
-//TODO: Add routes/routers here
-app.use("/api", AuthRouter);
-app.use("/api", UsersRouter);
-
 // Session configuration
 app.use(
   session({
@@ -35,6 +29,12 @@ app.use(
     },
   })
 );
+
+app.use(Authenticator.initialize());
+app.use(Authenticator.session());
+//TODO: Add routes/routers here
+app.use("/api/auth", AuthRouter);
+app.use("/api/users", UsersRouter);
 
 //for all other routes, serve index.html
 app.get("*splat", (req, res) => {

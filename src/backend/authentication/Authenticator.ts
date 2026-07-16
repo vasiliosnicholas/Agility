@@ -11,6 +11,8 @@ type AsyncVerifyFunction = (
   ...args: Parameters<VerifyFunction>
 ) => Promise<void>;
 
+const MESSAGE = { message: "Username or password incorrect" };
+
 const handleAuthentication: AsyncVerifyFunction = async (
   username,
   password,
@@ -20,7 +22,7 @@ const handleAuthentication: AsyncVerifyFunction = async (
     const user = await getUserByUserNameAdmin(username);
     if (!user) {
       //user doesn't exist
-      return done(null, false);
+      return done(null, false, MESSAGE);
     }
     if (!user.password) {
       //user doesn't have a password, critical error.
@@ -33,7 +35,7 @@ const handleAuthentication: AsyncVerifyFunction = async (
       delete user.password;
       return done(null, user);
     }
-    return done(null, false); //password didn't match
+    return done(null, false, MESSAGE); //password didn't match
   } catch (error) {
     return done(error);
   }
@@ -41,8 +43,7 @@ const handleAuthentication: AsyncVerifyFunction = async (
 
 passport.use(
   new LocalStrategy(
-    (username, password, done) =>
-      void handleAuthentication(username, password, done)
+    handleAuthentication as (...args: Parameters<VerifyFunction>) => void
   )
 );
 

@@ -10,13 +10,19 @@ export const AccountTypes = {
   Manager: "Manager",
 };
 
-export interface User {
-  _id: string | undefined;
-  accountType: string;
+export interface UserPrototype {
   name: string;
   username: string;
   email: string;
   password?: string;
+}
+
+export interface BaseUser extends UserPrototype {
+  accountType: string;
+}
+
+export interface User extends BaseUser {
+  _id: string | undefined;
 }
 
 export type UserMetaData = Pick<User, "_id" | "name" | "username" | "email">;
@@ -34,39 +40,45 @@ export abstract class AbstractUserAccount implements User {
   name: string;
   username: string;
   email: string;
-  password?: string;
+  password: string;
 
-  constructor(
-    accountType: string,
-    name: string,
-    userName: string,
-    email: string,
-    password: string
-  ) {
+  constructor({ accountType, name, username, email, password }: BaseUser) {
     this._id = undefined;
     this.accountType = accountType;
     this.name = name;
-    this.username = userName;
+    this.username = username;
     this.email = email;
+    if (!password)
+      throw new Error("Cannot create UserAccount without password!");
     this.password = password;
   }
 }
 
-export class DeveloperAccount extends AbstractUserAccount {
+class DeveloperAccount extends AbstractUserAccount {
   // implements DeveloperAccountSchema
-  constructor(name: string, username: string, email: string, password: string) {
-    super(AccountTypes.Developer, name, username, email, password);
+  constructor(user: UserPrototype) {
+    super({ accountType: AccountTypes.Developer, ...user });
   }
 }
 
-export class ManagerAccount
+class ManagerAccount
   extends AbstractUserAccount
   implements ManagerAccountSchema
 {
   developers: string[];
-
-  constructor(name: string, username: string, email: string, password: string) {
-    super(AccountTypes.Manager, name, username, email, password);
+  constructor(user: UserPrototype) {
+    super({ accountType: AccountTypes.Manager, ...user });
     this.developers = new Array<string>();
+  }
+}
+
+export function createUser({ accountType, ...userPrototype }: BaseUser) {
+  switch (accountType) {
+    case AccountTypes.Developer:
+      return new DeveloperAccount(userPrototype);
+    case AccountTypes.Manager:
+      return new ManagerAccount(userPrototype);
+    default:
+      throw new Error("Incorrect account type!");
   }
 }
