@@ -2,6 +2,7 @@ import express from "express";
 import session from "express-session";
 import Authenticator from "./authentication/Authenticator.ts";
 import path from "path";
+import { AuthenticationGuard } from "./middleware/AuthenticationMiddleware.ts";
 import AuthRouter from "./routes/Auth.ts";
 import UsersRouter from "./routes/Users.ts";
 
@@ -36,8 +37,12 @@ app.use(Authenticator.session());
 app.use("/api/auth", AuthRouter);
 app.use("/api/users", UsersRouter);
 
-//for all other routes, serve index.html
-app.get("*splat", (req, res) => {
+app.get("/login", (req, res) => {
+  res.sendFile(path.resolve("./frontend/dist", "index.html"));
+});
+
+//for all other routes, serve index.html if authenticated
+app.get("*splat", AuthenticationGuard, (req, res) => {
   res.sendFile(path.resolve("./frontend/dist", "index.html"));
 });
 
