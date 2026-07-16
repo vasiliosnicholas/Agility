@@ -6,6 +6,10 @@ import type { FormData, formIdSetter } from "../FormComponents";
 
 //TODO: Add Manage Account, Delete Account, and possibly Logout
 
+function successfulCallback(route: string | undefined) {
+  if (route) window.location.href = route;
+}
+
 const Modes = [Login, Register];
 export default function AuthWindow() {
   const [formValid, setSubmitStatus] = useState(false);
@@ -84,7 +88,7 @@ export default function AuthWindow() {
             }
             setFormData={setFormData}
             setFormId={setFormId}
-            successfulCallback={closeWindow}
+            successfulCallback={successfulCallback}
           />
         </Modal.Body>
         <Modal.Footer className="justify-content-between">

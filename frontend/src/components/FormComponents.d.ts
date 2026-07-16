@@ -15,7 +15,7 @@ export interface FormComponentProps<
   FormDataType,
 > extends FormBaseProps<FormDataType> {
   setFormId: formIdSetter;
-  successfulCallback: () => void;
+  successfulCallback: (route?: string) => void;
 }
 
 export interface FormComponent<FormDataType extends FormData> extends FC<

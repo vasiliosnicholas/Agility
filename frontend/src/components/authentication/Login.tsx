@@ -37,7 +37,7 @@ const Login: FormComponent<LoginFormData> = function ({
         if (response.ok) {
           alert("Logged in!");
           if (successfulCallback) {
-            successfulCallback();
+            successfulCallback("/kanban");
           }
         } else {
           alert(`Username or password incorrect`);
