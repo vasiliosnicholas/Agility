@@ -5,7 +5,7 @@ import "./styles/index.css";
 import IndexPage from "./pages/IndexPage.tsx";
 import Template from "./pages/Template.tsx";
 import Kanban from "./pages/Kanban.tsx";
-import Login from "./pages/Login.tsx";
+import Login from "./pages/LoginPage.tsx";
 import { BrowserRouter, Routes, Route } from "react-router";
 
 createRoot(document.getElementById("root")!).render(
