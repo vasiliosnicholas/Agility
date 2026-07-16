@@ -23,21 +23,3 @@ export async function validatePassword(
 ) {
   return await bcrypt.compare(password, hashedPassword);
 }
-
-export type UserRequestHandler = RequestHandler<object, any, User>;
-
-/**
- * Middleware that takes a post request.
- * @param req a Request instance
- * @param res a Response instance.
- * @param next Express NextFunction
- */
-export const hashUserPassword: UserRequestHandler = async function (
-  req,
-  res,
-  next
-) {
-  if (req.body.password)
-    req.body.password = await hashPassword(req.body.password);
-  next();
-};

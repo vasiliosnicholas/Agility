@@ -1,5 +1,5 @@
 import { Router } from "express";
-import AuthenticationGuard from "../middleware/AuthenticationGuard.ts";
+import { AuthenticationGuard } from "../middleware/AuthenticationMiddleware.ts";
 import {
   getUserById,
   getUserByUserName,

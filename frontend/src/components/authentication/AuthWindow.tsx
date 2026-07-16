@@ -84,6 +84,7 @@ export default function AuthWindow() {
             }
             setFormData={setFormData}
             setFormId={setFormId}
+            successfulCallback={closeWindow}
           />
         </Modal.Body>
         <Modal.Footer className="justify-content-between">

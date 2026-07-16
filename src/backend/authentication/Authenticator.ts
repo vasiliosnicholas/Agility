@@ -13,6 +13,13 @@ type AsyncVerifyFunction = (
 
 const MESSAGE = { message: "Username or password incorrect" };
 
+/**
+ * Middleware for login using password
+ * @param username string representing username
+ * @param password string representing password
+ * @param done method that handles login cases.
+ * @returns Promise<void>
+ */
 const handleAuthentication: AsyncVerifyFunction = async (
   username,
   password,
@@ -57,6 +64,9 @@ async function deserializeUser(
 ) {
   try {
     const user = await getUserById(_id);
+    if (!user) {
+      throw new Error("User for current session not found!");
+    }
     done(null, user);
   } catch (error) {
     done(error);

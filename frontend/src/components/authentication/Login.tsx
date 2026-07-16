@@ -1,4 +1,4 @@
-import { useId, type SubmitEventHandler } from "react";
+import { useCallback, useId, type SubmitEventHandler } from "react";
 import { Form, FloatingLabel } from "react-bootstrap";
 import useReactFormHook from "../../hooks/useReactFormHook";
 import type { SubmitHandler } from "react-hook-form";
@@ -6,32 +6,16 @@ import * as yup from "yup";
 import type { FormComponent, LoginFormData } from "../FormComponents";
 
 const schema = yup.object().shape({
-  username: yup.string().required(),
-  password: yup.string().required(),
+  username: yup.string().required("A username is required to login"),
+  password: yup.string().required("A password is required to login"),
 });
-
-const submitHandler: SubmitHandler<LoginFormData> = async (data) => {
-  if (data) {
-    const response = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    if (response.ok) {
-      alert("Logged in!");
-    } else {
-      alert("Login unsuccessful");
-    }
-  } else {
-    alert("Nothing in form!");
-  }
-};
 
 const Login: FormComponent<LoginFormData> = function ({
   setSubmitStatus,
   formData,
   setFormId,
   setFormData,
+  successfulCallback,
 }) {
   const formId = useId();
   setFormId(formId);
@@ -42,6 +26,28 @@ const Login: FormComponent<LoginFormData> = function ({
     schema,
   });
 
+  const submitHandler = useCallback(
+    async (data) => {
+      if (data) {
+        const response = await fetch("/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        if (response.ok) {
+          alert("Logged in!");
+          if (successfulCallback) {
+            successfulCallback();
+          }
+        } else {
+          alert(`Username or password incorrect`);
+        }
+      } else {
+        alert("Nothing in form!");
+      }
+    },
+    [successfulCallback]
+  ) as SubmitHandler<LoginFormData>;
 
   return (
     <Form

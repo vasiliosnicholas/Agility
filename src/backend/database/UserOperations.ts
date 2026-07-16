@@ -95,31 +95,34 @@ export async function getUserById(_id: string) {
 export async function addUser(user: User) {
   if (await getUserByUserNameAdmin(user.username))
     throw Error("Username already taken"); //user already exists
-  if (user.password)
-    user.password = await hashPassword(user.password); //TODO: add this to middleware
-  else throw new Error("Attempting to create a user without a password!");
+  // if (user.password)
+  //   user.password = await hashPassword(user.password); //TODO: add this to middleware
+  // else throw new Error("Attempting to create a user without a password!");
   return (await getUsersCollection()).insertOne(convertToUserDocument(user));
 }
 
 /**
  * Updates any of the user fields
- * @param user an instance of User to update
+ * @param userFieldsToUpdate an instance of User to update
  */
-export async function updateUser(user: User) {
-  if (!user._id) {
+export async function updateUser(userFieldsToUpdate: User) {
+  if (!userFieldsToUpdate._id) {
     throw new Error("User doesn't have an id!");
   }
-  if (!user.password) {
-    const oldUser = await getUserById(user._id);
+  if (!userFieldsToUpdate.password) {
+    const oldUser = await getUserById(userFieldsToUpdate._id);
     if (oldUser) {
       if (!oldUser.password)
         throw new Error(
           "Database error: current record of user doesn't have a password"
         );
-      user.password = oldUser.password;
+      userFieldsToUpdate.password = oldUser.password;
     }
   }
   await (
     await getUsersCollection()
-  ).updateOne({ _id: user._id }, convertToUserDocument(user));
+  ).updateOne(
+    { _id: userFieldsToUpdate._id },
+    convertToUserDocument(userFieldsToUpdate)
+  );
 }

@@ -1,4 +1,4 @@
-import { useId, type SubmitEventHandler } from "react";
+import { useCallback, useId, type SubmitEventHandler } from "react";
 import { Form, FloatingLabel } from "react-bootstrap";
 import useReactFormHook from "../../hooks/useReactFormHook";
 import type { SubmitHandler } from "react-hook-form";
@@ -8,43 +8,35 @@ import { AccountTypes } from "@shared/models/Users.ts";
 
 const MIN_USERNAME_LENGTH = 5;
 const MIN_PASSWORD_LENGTH = 8;
-
+const requiredMessage = (field: string) => `A ${field} is required to register`;
+const minCharMessage = (field: string, minLength: number) =>
+  `${field} must be at least ${minLength} characters`;
 const schema = yup.object().shape({
   accountType: yup
     .string()
     .oneOf(Object.values(AccountTypes), "You must pick an account type."),
-  username: yup.string().required().min(MIN_USERNAME_LENGTH),
+  username: yup
+    .string()
+    .required(requiredMessage("username"))
+    .min(MIN_USERNAME_LENGTH, minCharMessage("Username", MIN_USERNAME_LENGTH)),
   name: yup.string().required("Please enter your full name"),
-  email: yup.string().required().email(),
-  password: yup.string().required().min(MIN_PASSWORD_LENGTH),
+  email: yup.string().required(requiredMessage("Username")).email(),
+  password: yup
+    .string()
+    .required(requiredMessage("password"))
+    .min(MIN_PASSWORD_LENGTH, minCharMessage("Password", MIN_PASSWORD_LENGTH)),
   confirmPassword: yup
     .string()
     .required("You must confirm your password")
     .oneOf([yup.ref("password")], "Passwords must be identical."),
 });
 
-const submitHandler: SubmitHandler<RegisterFormData> = async (data) => {
-  if (data) {
-    const response = await fetch("/api/auth/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    if (response.ok) {
-      alert("Registered Account!");
-    } else {
-      alert("Registration unsuccessful");
-    }
-  } else {
-    alert("Nothing in form!");
-  }
-};
-
 const Register: FormComponent<RegisterFormData> = function ({
   setSubmitStatus,
   formData,
   setFormId,
   setFormData,
+  successfulCallback,
 }) {
   //TODO: Decide if we need additional fields depending on account type.
   const formId = useId();
@@ -57,6 +49,29 @@ const Register: FormComponent<RegisterFormData> = function ({
       schema,
     }
   );
+  const submitHandler = useCallback(
+    async (data) => {
+      if (data) {
+        const response = await fetch("/api/auth/user", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        if (response.ok) {
+          alert("Registered Account!");
+          if (successfulCallback) {
+            successfulCallback();
+          }
+        } else {
+          console.log(response);
+          alert("Registration unsuccessful");
+        }
+      } else {
+        alert("Nothing in form!");
+      }
+    },
+    [successfulCallback]
+  ) as SubmitHandler<RegisterFormData>;
 
   return (
     <Form

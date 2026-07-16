@@ -95,9 +95,12 @@ export async function getTicketsCollection() {
     "Could not connect to Agility Db or could not find tickets collection in db"
   );
 }
-
-//FIXME: add this somewhere else
-void (await getUsersCollection()).createIndex(
-  { username: 1 },
-  { unique: true }
-);
+try {
+  //FIXME: add this somewhere else
+  void (await getUsersCollection()).createIndex(
+    { username: 1 },
+    { unique: true }
+  );
+} catch (error) {
+  console.error((error as Error).message);
+}
