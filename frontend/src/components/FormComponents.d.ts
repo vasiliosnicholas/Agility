@@ -1,7 +1,7 @@
-import type React from "react";
-import type { FC } from "react";
+import type { FC, JSX } from "react";
 import type { BaseUser, User } from "@shared/models/Users.ts";
 import type { FieldValues } from "react-hook-form";
+import type { FormComponent, FormData } from "./FormComponents";
 
 export interface FormBaseProps<FormDataType extends FormData> {
   setSubmitStatus: React.Dispatch<React.SetStateAction<boolean>>;
@@ -21,7 +21,7 @@ export interface FormComponentProps<
 export interface FormComponent<FormDataType extends FormData> extends FC<
   FormComponentProps<FormDataType>
 > {
-  (FormComponentProps: FormComponentProps<FormDataType>): React.JSX.Element;
+  (FormComponentProps: FormComponentProps<FormDataType>): JSX.Element;
   formName: string;
 }
 
@@ -31,4 +31,9 @@ export interface LoginFormData
   extends FormData, Partial<Pick<User, "username" | "password">> {}
 export interface RegisterFormData extends FormData, Partial<BaseUser> {
   confirmPassword?: string;
+}
+type FormWindowComponentProps = { Modes: FormComponent<FormData>[] };
+
+export interface FormWindowComponent extends FC<FormWindowComponentProps> {
+  (Props: FormWindowComponentProps): JSX.Element;
 }
