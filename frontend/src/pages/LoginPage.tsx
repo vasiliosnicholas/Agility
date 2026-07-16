@@ -4,7 +4,7 @@ export default function Login() {
   return (
     <Container className="d-flex flex-column align-items-center justify-content-center min-vh-100">
       <main className="d-flex flex-column align-items-center justify-content-center bg-warning rounded-2 p-3">
-        <header className="d-flex flex-column align-items-center bg-body rounded-2 p-2">
+        <header className="d-flex flex-column align-items-center bg-body rounded-2 p-2 mb-3">
           <h1 className="text-center">
             {" "}
             {`${
