@@ -4,9 +4,7 @@ import type { AnyObjectSchema } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import type { FormBaseProps } from "../components/FormComponents";
 
-interface UseReactFormHookProps<
-  Fields extends FieldValues,
-> extends FormBaseProps<Fields> {
+interface UseReactFormHookProps<Fields extends FieldValues> extends FormBaseProps<Fields> {
   schema: AnyObjectSchema;
 }
 
@@ -32,8 +30,11 @@ export default function useReactFormHook<Fields extends FieldValues>({
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<Fields>({ resolver: yupResolver(schema), mode: "all" });
-  const values: object = watch(); //TODO: See if subscribe is a better option.
-  useEffect(() => setSubmitStatus(isValid), [isValid, setSubmitStatus]);
+  const values: Fields = watch(); //TODO: See if subscribe is a better option.
+  useEffect(() => {
+    setSubmitStatus(isValid);
+    setFormData(values);
+  }, [values, isValid, setSubmitStatus, setFormData]);
 
   useEffect(() => {
     if (formData) {

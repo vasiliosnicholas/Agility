@@ -1,6 +1,7 @@
-import { useCallback, useId, type SubmitEventHandler } from "react";
+import { useId, type SubmitEventHandler } from "react";
 import { Form, FloatingLabel } from "react-bootstrap";
 import useReactFormHook from "../../hooks/useReactFormHook";
+import type { SubmitHandler } from "react-hook-form";
 import * as yup from "yup";
 import type { FormComponent, RegisterFormData } from "../FormComponents";
 import { AccountTypes } from "@shared/models/Users.ts";
@@ -22,6 +23,23 @@ const schema = yup.object().shape({
     .oneOf([yup.ref("password")], "Passwords must be identical."),
 });
 
+const submitHandler: SubmitHandler<RegisterFormData> = async (data) => {
+  if (data) {
+    const response = await fetch("/api/auth/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    if (response.ok) {
+      alert("Registered Account!");
+    } else {
+      alert("Registration unsuccessful");
+    }
+  } else {
+    alert("Nothing in form!");
+  }
+};
+
 const Register: FormComponent<RegisterFormData> = function ({
   setSubmitStatus,
   formData,
@@ -31,36 +49,23 @@ const Register: FormComponent<RegisterFormData> = function ({
   //TODO: Decide if we need additional fields depending on account type.
   const formId = useId();
   setFormId(formId);
-  const { register, errors } = useReactFormHook<RegisterFormData>({
-    setSubmitStatus,
-    formData,
-    setFormData,
-    schema,
-  });
+  const { register, handleSubmit, errors } = useReactFormHook<RegisterFormData>(
+    {
+      setSubmitStatus,
+      formData,
+      setFormData,
+      schema,
+    }
+  );
 
-  const onSubmit = useCallback(
-    async (event) => {
-      event.preventDefault();
-      if (formData) {
-        const response = await fetch("/api/auth/register", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        });
-        if (response.ok) {
-          alert("Registered Account!");
-        } else {
-          alert("Registration unsuccessful");
-        }
-      } else {
-        alert("Nothing in form!");
-      }
-    },
-    [formData]
-  ) as SubmitEventHandler<HTMLFormElement>;
-  
   return (
-    <Form id={formId} noValidate onSubmit={onSubmit}>
+    <Form
+      id={formId}
+      noValidate
+      onSubmit={
+        handleSubmit(submitHandler) as SubmitEventHandler<HTMLFormElement>
+      }
+    >
       <FloatingLabel
         className="mb-3"
         controlId="account-type"

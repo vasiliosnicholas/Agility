@@ -30,9 +30,11 @@ AuthRouter.post("/register", async (req, res) => {
  */
 AuthRouter.post(
   "/login",
-  Authenticator.authenticate("local", {
-    successMessage: "Logged in!",
-  }) as RequestHandler<{ id: string }>
+  Authenticator.authenticate("local") as RequestHandler<{ id: string }>,
+  (req, res) => {
+    if (req.user)
+      res.status(201).json({ message: `Logged in as ${req.user.username}` });
+  }
 );
 
 const handleUserRequest: RequestHandler<object, any, User> = (req, res) => {

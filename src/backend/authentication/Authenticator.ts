@@ -33,7 +33,7 @@ const handleAuthentication: AsyncVerifyFunction = async (
     if (isValid) {
       //password matches
       delete user.password;
-      return done(null, user);
+      return done(null, user, { message: `Logged in as ${username}` });
     }
     return done(null, false, MESSAGE); //password didn't match
   } catch (error) {

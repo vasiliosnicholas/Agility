@@ -1,6 +1,7 @@
-import { useCallback, useId, type SubmitEventHandler } from "react";
+import { useId, type SubmitEventHandler } from "react";
 import { Form, FloatingLabel } from "react-bootstrap";
 import useReactFormHook from "../../hooks/useReactFormHook";
+import type { SubmitHandler } from "react-hook-form";
 import * as yup from "yup";
 import type { FormComponent, LoginFormData } from "../FormComponents";
 
@@ -8,6 +9,23 @@ const schema = yup.object().shape({
   username: yup.string().required(),
   password: yup.string().required(),
 });
+
+const submitHandler: SubmitHandler<LoginFormData> = async (data) => {
+  if (data) {
+    const response = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    if (response.ok) {
+      alert("Logged in!");
+    } else {
+      alert("Login unsuccessful");
+    }
+  } else {
+    alert("Nothing in form!");
+  }
+};
 
 const Login: FormComponent<LoginFormData> = function ({
   setSubmitStatus,
@@ -17,38 +35,22 @@ const Login: FormComponent<LoginFormData> = function ({
 }) {
   const formId = useId();
   setFormId(formId);
-  const { register, errors } = useReactFormHook<LoginFormData>({
+  const { register, handleSubmit, errors } = useReactFormHook<LoginFormData>({
     setSubmitStatus,
     formData,
     setFormData,
     schema,
   });
 
-  const onSubmit = useCallback(
-    async (event) => {
-      event.preventDefault();
-      if (formData) {
-        const response = await fetch("/api/auth/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        });
-        if (response.ok) {
-          alert("Logged in!");
-        } else {
-          console.error(response);
-          alert("Login unsuccessful");
-        }
-      } else {
-        alert("Nothing in form!");
-      }
-    },
-    [formData]
-  ) as SubmitEventHandler<HTMLFormElement>;
-
 
   return (
-    <Form id={formId} noValidate onSubmit={onSubmit}>
+    <Form
+      id={formId}
+      noValidate
+      onSubmit={
+        handleSubmit(submitHandler) as SubmitEventHandler<HTMLFormElement>
+      }
+    >
       <FloatingLabel className="mb-3" controlId="username" label="Username">
         <Form.Control
           type="text"
