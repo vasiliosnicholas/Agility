@@ -7,13 +7,19 @@ import PhaseTimeline from "../components/kanban/PhaseTimeline.tsx";
 
 const testData = [
     {
-        id: 1, name: "In Progress", cards: [
+        id: 1, name: "To-Do", className: "kanban-list-to-do", cards: [
             { id: 1, title: "Card 1", description: "Lorem" },
             { id: 2, title: "Card 2", description: "Ipsum" },
         ]
     },
     {
-        id: 2, name: "Done", cards: [
+        id: 2, name: "In Progress", className: "kanban-list-in-progress", cards: [
+            { id: 1, title: "Card 1", description: "Dolor" },
+            { id: 2, title: "Card 2", description: "Ipsum" },
+        ]
+    },
+    {
+        id: 3, name: "Completed", className: "kanban-list-completed", cards: [
             { id: 3, title: "Card 3", description: "Dolor" },
             { id: 4, title: "Card 4", description: "Sit" },
         ]
@@ -63,7 +69,7 @@ export default function Kanban() {
                         {data.map((list, listPos) => {
                             return (
                                 <div key={list.id} className="kanban-column">
-                                    <KanbanList name={list.name}>
+                                    <KanbanList name={list.name} count={list.cards.length} className={list.className}>
                                         {data[listPos].cards.map((card, cardPos) => {
                                             return (
                                                 <Drag.DropZone key={card.id} dropId={`${listPos}-${cardPos}`}
