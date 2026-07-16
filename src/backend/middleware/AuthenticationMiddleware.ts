@@ -14,7 +14,7 @@ export const AuthenticationGuard: RequestHandler = (req, res, next) => {
     next();
   } else if (req.isUnauthenticated()) {
     if (!req.baseUrl.includes("/api") || req.baseUrl == "/api/auth") {
-      res.status(401).redirect("/login"); //route is not authentication guarded.
+      res.status(401).redirect(`/login${req.user ? "#sessionExpired" : ""}`); //route is not authentication guarded.
     } else {
       res.status(401).json({ message: "Not logged in" });
     }
