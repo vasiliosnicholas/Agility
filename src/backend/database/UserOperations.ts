@@ -1,14 +1,48 @@
-import bcrypt from "bcrypt";
 import { ObjectId } from "mongodb";
-import type { User } from "../../shared/models/Users.ts";
+import {
+  type User,
+  type UserMetaData,
+  AccountTypes,
+} from "../../shared/models/Users.ts";
 import {
   convertToUser,
   convertToUserDocument,
   getUsersCollection,
 } from "./Database.ts";
+import { hashPassword } from "../authentication/CredentialsManager.ts";
 
+async function getUsersHelper(query: object = {}) {
+  return (await getUsersCollection()).find(query);
+}
+
+/**
+ * Gets alls users in the Users collection
+ * @returns An array with all users
+ */
 export async function getUsers() {
-  return (await getUsersCollection()).find().toArray();
+  return (await (await getUsersHelper()).toArray()).map((user) => {
+    if (user && user.password) delete user.password;
+    convertToUser(user);
+  });
+} //TODO: Decide if needed.
+
+const devMetaData: Record<keyof UserMetaData, 1> = {
+  _id: 1,
+  name: 1,
+  username: 1,
+  email: 1,
+};
+
+/**
+ * Gets alls developers' metadata in the Users collection
+ * @returns An array with all users
+ */
+export async function getDevelopersMetadata() {
+  return await (
+    await getUsersHelper({ accountType: AccountTypes.Developer })
+  )
+    .project<UserMetaData>(devMetaData)
+    .toArray();
 }
 
 /**
@@ -59,9 +93,36 @@ export async function getUserById(_id: string) {
  * @throws Error if the username was already taken.
  */
 export async function addUser(user: User) {
-  if (await getUserByUserNameAdmin(user.userName))
+  if (await getUserByUserNameAdmin(user.username))
     throw Error("Username already taken"); //user already exists
-  if (user.password) user.password = await bcrypt.hash(user.password, 10);
-  else throw new Error("Attempting to create a user without a password!");
+  // if (user.password)
+  //   user.password = await hashPassword(user.password); //TODO: add this to middleware
+  // else throw new Error("Attempting to create a user without a password!");
   return (await getUsersCollection()).insertOne(convertToUserDocument(user));
+}
+
+/**
+ * Updates any of the user fields
+ * @param userFieldsToUpdate an instance of User to update
+ */
+export async function updateUser(userFieldsToUpdate: User) {
+  if (!userFieldsToUpdate._id) {
+    throw new Error("User doesn't have an id!");
+  }
+  if (!userFieldsToUpdate.password) {
+    const oldUser = await getUserById(userFieldsToUpdate._id);
+    if (oldUser) {
+      if (!oldUser.password)
+        throw new Error(
+          "Database error: current record of user doesn't have a password"
+        );
+      userFieldsToUpdate.password = oldUser.password;
+    }
+  }
+  await (
+    await getUsersCollection()
+  ).updateOne(
+    { _id: userFieldsToUpdate._id },
+    convertToUserDocument(userFieldsToUpdate)
+  );
 }

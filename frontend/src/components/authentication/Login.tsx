@@ -1,58 +1,83 @@
 import { useCallback, useId, type SubmitEventHandler } from "react";
 import { Form, FloatingLabel } from "react-bootstrap";
 import useReactFormHook from "../../hooks/useReactFormHook";
+import type { SubmitHandler } from "react-hook-form";
 import * as yup from "yup";
-import type { FormComponent } from "../FormComponents";
+import type { FormComponent, LoginFormData } from "../FormComponents";
 
 const schema = yup.object().shape({
-  Username: yup.string().required(),
-  Password: yup.string().required(),
+  username: yup.string().required("A username is required to login"),
+  password: yup.string().required("A password is required to login"),
 });
 
-const Login: FormComponent = function ({
+const Login: FormComponent<LoginFormData> = function ({
   setSubmitStatus,
   formData,
   setFormId,
   setFormData,
+  successfulCallback,
 }) {
   const formId = useId();
   setFormId(formId);
-  const { register, errors } = useReactFormHook({
+  const { register, handleSubmit, errors } = useReactFormHook<LoginFormData>({
     setSubmitStatus,
     formData,
     setFormData,
     schema,
   });
 
-  const onSubmit: SubmitEventHandler<HTMLFormElement> = useCallback((event) => {
-    alert("Logged in! Login");
-    event.preventDefault();
-    event.stopPropagation();
-  }, []);
+  const submitHandler = useCallback(
+    async (data) => {
+      if (data) {
+        const response = await fetch("/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        if (response.ok) {
+          alert("Logged in!");
+          if (successfulCallback) {
+            successfulCallback("/kanban");
+          }
+        } else {
+          alert(`Username or password incorrect`);
+        }
+      } else {
+        alert("Nothing in form!");
+      }
+    },
+    [successfulCallback]
+  ) as SubmitHandler<LoginFormData>;
 
   return (
-    <Form id={formId} noValidate onSubmit={onSubmit}>
+    <Form
+      id={formId}
+      noValidate
+      onSubmit={
+        handleSubmit(submitHandler) as SubmitEventHandler<HTMLFormElement>
+      }
+    >
       <FloatingLabel className="mb-3" controlId="username" label="Username">
         <Form.Control
           type="text"
           placeholder="Username"
           autoFocus
-          isInvalid={!!errors.Username}
-          {...register("Username")}
+          isInvalid={!!errors.username}
+          {...register("username")}
         />
         <Form.Control.Feedback type="invalid">
-          {errors.Username?.message?.toString()}
+          {errors.username?.message?.toString()}
         </Form.Control.Feedback>
       </FloatingLabel>
       <FloatingLabel className="mb-3" controlId="password" label="Password">
         <Form.Control
           type="password"
           placeholder="Password"
-          isInvalid={!!errors.Password}
-          {...register("Password")}
+          isInvalid={!!errors.password}
+          {...register("password")}
         />
         <Form.Control.Feedback type="invalid">
-          {errors.Password?.message?.toString()}
+          {errors.password?.message?.toString()}
         </Form.Control.Feedback>
       </FloatingLabel>
     </Form>
@@ -60,5 +85,4 @@ const Login: FormComponent = function ({
 };
 
 Login.formName = "Login";
-Login.route = "";
 export default Login;

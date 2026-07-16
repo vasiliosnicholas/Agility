@@ -5,6 +5,7 @@ import "./styles/index.css";
 import IndexPage from "./pages/IndexPage.tsx";
 import Template from "./pages/Template.tsx";
 import Kanban from "./pages/Kanban.tsx";
+import Login from "./pages/LoginPage.tsx";
 import { BrowserRouter, Routes, Route } from "react-router";
 
 createRoot(document.getElementById("root")!).render(
@@ -14,6 +15,7 @@ createRoot(document.getElementById("root")!).render(
         <Routes>
           <Route path="/">
             <Route index element={<IndexPage />}></Route>
+            <Route path="login" element={<Login />}></Route>
             <Route path="kanban" element={<Kanban />}></Route>
           </Route>
         </Routes>

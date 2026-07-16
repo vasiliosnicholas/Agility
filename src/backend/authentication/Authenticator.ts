@@ -1,4 +1,3 @@
-import bcrypt from "bcrypt";
 import passport from "passport";
 import { Strategy as LocalStrategy, type VerifyFunction } from "passport-local";
 import {
@@ -6,10 +5,21 @@ import {
   getUserByUserNameAdmin,
 } from "../database/UserOperations.ts";
 import type { User } from "../../shared/models/Users.ts";
+import { validatePassword } from "./CredentialsManager.ts";
+
 type AsyncVerifyFunction = (
   ...args: Parameters<VerifyFunction>
 ) => Promise<void>;
 
+const MESSAGE = { message: "Username or password incorrect" };
+
+/**
+ * Middleware for login using password
+ * @param username string representing username
+ * @param password string representing password
+ * @param done method that handles login cases.
+ * @returns Promise<void>
+ */
 const handleAuthentication: AsyncVerifyFunction = async (
   username,
   password,
@@ -18,26 +28,29 @@ const handleAuthentication: AsyncVerifyFunction = async (
   try {
     const user = await getUserByUserNameAdmin(username);
     if (!user) {
-      return done(null, false);
+      //user doesn't exist
+      return done(null, false, MESSAGE);
     }
     if (!user.password) {
+      //user doesn't have a password, critical error.
       //this would happen if user document doesn't have password in mongodb.
       throw new Error("Error authenticating. Database Corruption.");
     }
-    const isValid = await bcrypt.compare(password, user.password);
+    const isValid = await validatePassword(password, user.password);
     if (isValid) {
+      //password matches
       delete user.password;
-      return done(null, user);
+      return done(null, user, { message: `Logged in as ${username}` });
     }
-    return done(null, false);
+    return done(null, false, MESSAGE); //password didn't match
   } catch (error) {
     return done(error);
   }
 };
+
 passport.use(
   new LocalStrategy(
-    (username, password, done) =>
-      void handleAuthentication(username, password, done)
+    handleAuthentication as (...args: Parameters<VerifyFunction>) => void
   )
 );
 
@@ -51,6 +64,9 @@ async function deserializeUser(
 ) {
   try {
     const user = await getUserById(_id);
+    if (!user) {
+      throw new Error("User for current session not found!");
+    }
     done(null, user);
   } catch (error) {
     done(error);

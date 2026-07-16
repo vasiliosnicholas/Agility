@@ -2,6 +2,11 @@ import express from "express";
 import session from "express-session";
 import Authenticator from "./authentication/Authenticator.ts";
 import path from "path";
+import { AuthenticationGuard } from "./middleware/AuthenticationMiddleware.ts";
+import AuthRouter from "./routes/Auth.ts";
+import UsersRouter from "./routes/Users.ts";
+
+const SESSION_AGE_IN_HOURS = 0.5;
 
 const HOST = process.env.HOST || "localhost";
 const PORT = process.env.PORT || 3000;
@@ -12,11 +17,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("./frontend/dist"));
 
-//TODO: Add routes, middleware, db connection, and passport here
-app.use(Authenticator.initialize());
-app.use(Authenticator.session());
-app.get("/api", (req, res) => res.send("API should show up here"));
-
 // Session configuration
 app.use(
   session({
@@ -26,13 +26,23 @@ app.use(
     cookie: {
       secure: process.env.NODE_ENV == "production", //set to true based on env variable
       httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+      maxAge: SESSION_AGE_IN_HOURS * 60 * 60 * 1000,
     },
   })
 );
 
-//for all other routes, serve index.html
-app.get("*splat", (req, res) => {
+app.use(Authenticator.initialize());
+app.use(Authenticator.session());
+//TODO: Add routes/routers here
+app.use("/api/auth", AuthRouter);
+app.use("/api/users", UsersRouter);
+
+app.get("/login", (req, res) => {
+  res.sendFile(path.resolve("./frontend/dist", "index.html"));
+});
+
+//for all other routes, serve index.html if authenticated
+app.get("*splat", AuthenticationGuard, (req, res) => {
   res.sendFile(path.resolve("./frontend/dist", "index.html"));
 });
 
