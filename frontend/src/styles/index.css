@@ -127,6 +127,98 @@
   background-color: var(--surface-quiet);
 }
 
+.navbar {
+  padding-block: 0.75rem;
+  background-color: rgb(255 255 255 / 0.88);
+  border-bottom: 1px solid rgb(44 44 44 / 0.12);
+  backdrop-filter: blur(10px);
+}
+
+.navbar-container {
+  width: min(calc(100% - 4rem), 80rem);
+  margin-inline: auto;
+  padding-inline: 0;
+}
+
+.navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-right: 2rem;
+  color: var(--ink);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.navbar-logo {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.navbar-logo .fill-todo {
+  fill: var(--status-todo-fill);
+}
+
+.navbar-logo .fill-progress {
+  fill: var(--status-progress-fill);
+}
+
+.navbar-logo .fill-completed {
+  fill: var(--status-completed-fill);
+}
+
+.navbar-links {
+  gap: 0.25rem;
+}
+
+.navbar-links .nav-link {
+  padding: 0.45rem 0.75rem;
+  border-radius: 0.5rem;
+  color: var(--ink-muted);
+  font-size: 0.925rem;
+  font-weight: 500;
+}
+
+.navbar-links .nav-link.active {
+  color: var(--burnup-stroke);
+  background-color: rgb(90 143 148 / 0.12);
+}
+
+.navbar-user {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--ink-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.navbar-avatar {
+  display: inline-grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  border: 1px solid rgb(77 120 124 / 0.25);
+  border-radius: 50%;
+  color: var(--burnup-stroke);
+  background-color: rgb(90 143 148 / 0.12);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.navbar-role {
+  margin-left: 0.15rem;
+  padding: 0.35rem 0.55rem;
+  border: 1px solid rgb(123 94 167 / 0.2);
+  color: var(--status-todo-text);
+  background-color: rgb(226 213 241 / 0.55);
+  font-size: 0.675rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
 .kanban-page-content {
   width: min(calc(100% - 4rem), 80rem);
   margin-inline: auto;
