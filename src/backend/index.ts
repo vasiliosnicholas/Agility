@@ -29,7 +29,7 @@ app.use(
       httpOnly: true,
       maxAge: SESSION_AGE_IN_HOURS * 60 * 60 * 1000,
     },
-  })
+  }),
 );
 
 app.use(Authenticator.initialize());
@@ -39,9 +39,15 @@ app.use("/api/auth", AuthRouter);
 app.use("/api/users", UsersRouter);
 app.use("/api/kanban", KanbanRouter);
 
-app.get("/login", (req, res) => {
-  res.sendFile(path.resolve("./frontend/dist", "index.html"));
-});
+/**
+ * Add any public routes to this array
+ */
+const PUBLIC_ROUTES = ["/login", "/unauthorized"];
+for (const route of PUBLIC_ROUTES) {
+  app.get(route, (req, res) => {
+    res.sendFile(path.resolve("./frontend/dist", "index.html"));
+  });
+}
 
 //for all other routes, serve index.html if authenticated
 app.get("*splat", AuthenticationGuard, (req, res) => {

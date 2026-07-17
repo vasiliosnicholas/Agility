@@ -1,6 +1,7 @@
 import type { RequestHandler } from "express";
 import type { User } from "../../shared/models/Users.ts";
 import { hashPassword } from "../authentication/CredentialsManager.ts";
+import type { UserRequestHandler } from "../ExpressTypes.d.ts";
 
 /**
  * Any auth guarded api requests are directed to /login
@@ -27,6 +28,30 @@ export const AuthenticationGuard: RequestHandler = (req, res, next) => {
     next(new Error(errorMessage));
   }
 };
+
+/**
+ *  Middleware to guard routes to specific account types.
+ * @param accountType a string representing the account type
+ * @returns 
+ */
+const AccountTypeGuardPrototype: (accountType: string) => UserRequestHandler =
+  (accountType) => (req, res, next) => {
+    try {
+      if (!req.user)
+        throw new Error(
+          "No user credentials can't access account type guarded route"
+        );
+      else {
+        if (req.user.accountType !== accountType) {
+          res.redirect(`/unauthorized`);
+        } else {
+          next();
+        }
+      }
+    } catch (error) {
+      res.status(500).json({ message: (error as Error).message });
+    }
+  };
 
 /**
  * Middleware that takes a post request and hashes user password.

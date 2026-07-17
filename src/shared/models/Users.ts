@@ -5,7 +5,9 @@
  * For use when getting user from collection
  */
 
-export const AccountTypes = {
+export type AccountTypeEnum = Record<string, string>;
+
+export const AccountTypes: AccountTypeEnum = {
   Developer: "Developer",
   Manager: "Manager",
 };
@@ -27,8 +29,9 @@ export interface User extends BaseUser {
 
 export type UserMetaData = Pick<User, "_id" | "name" | "username" | "email">;
 
-// export interface DeveloperAccountSchema extends User {
-// } //add any developer specific fields to this schema.
+export interface DeveloperAccountSchema extends User {
+  manager: string | undefined;
+} //add any developer specific fields to this schema.
 
 export interface ManagerAccountSchema extends User {
   developers: Array<string>; //Will be array of MongoDB ObjectId
@@ -54,8 +57,11 @@ export abstract class AbstractUserAccount implements User {
   }
 }
 
-class DeveloperAccount extends AbstractUserAccount {
-  // implements DeveloperAccountSchema
+class DeveloperAccount
+  extends AbstractUserAccount
+  implements DeveloperAccountSchema
+{
+  manager: string | undefined; //stores id of developer's manager, by default null until manager assigns them.
   constructor(user: UserPrototype) {
     super({ accountType: AccountTypes.Developer, ...user });
   }
@@ -68,7 +74,7 @@ class ManagerAccount
   developers: string[];
   constructor(user: UserPrototype) {
     super({ accountType: AccountTypes.Manager, ...user });
-    this.developers = new Array<string>();
+    this.developers = new Array<string>(); //stores id's of developers
   }
 }
 
