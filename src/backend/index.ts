@@ -1,11 +1,15 @@
-import express from "express";
+import express, { type RequestHandler } from "express";
 import session from "express-session";
 import Authenticator from "./authentication/Authenticator.ts";
 import path from "path";
-import { AuthenticationGuard } from "./middleware/AuthenticationMiddleware.ts";
+import {
+  AuthenticationGuard,
+  AccountTypeGuardFactoryFunction,
+} from "./middleware/AuthenticationMiddleware.ts";
 import AuthRouter from "./routes/Auth.ts";
 import UsersRouter from "./routes/Users.ts";
 import KanbanRouter from "./routes/Kanban.ts";
+import { AccountTypes } from "../shared/models/Users.ts";
 
 const SESSION_AGE_IN_HOURS = 0.5;
 
@@ -29,7 +33,7 @@ app.use(
       httpOnly: true,
       maxAge: SESSION_AGE_IN_HOURS * 60 * 60 * 1000,
     },
-  }),
+  })
 );
 
 app.use(Authenticator.initialize());
@@ -39,20 +43,53 @@ app.use("/api/auth", AuthRouter);
 app.use("/api/users", UsersRouter);
 app.use("/api/kanban", KanbanRouter);
 
+const serveSinglePage: RequestHandler = (req, res) =>
+  res.sendFile(path.resolve("./frontend/dist", "index.html"));
+
+/**
+ * Helper function for linking the SPA back to index.html
+ * @param routes an Array of strings representing routes.
+ * @param middleware an Array of Express.RequestHandlers to add to the middleware stack prior to serving the page.
+ */
+function serveSinglePageAppPages(
+  routes: string[],
+  middleware?: RequestHandler[]
+) {
+  for (const route of routes) {
+    if (middleware) {
+      app.get(route, ...middleware, serveSinglePage);
+    } else {
+      app.get(route, serveSinglePage);
+    }
+  }
+}
+
 /**
  * Add any public routes to this array
  */
 const PUBLIC_ROUTES = ["/login", "/unauthorized"];
-for (const route of PUBLIC_ROUTES) {
-  app.get(route, (req, res) => {
-    res.sendFile(path.resolve("./frontend/dist", "index.html"));
-  });
-}
+serveSinglePageAppPages(PUBLIC_ROUTES);
 
-//for all other routes, serve index.html IFF authenticated
-app.get("*splat", AuthenticationGuard, (req, res) => {
-  res.sendFile(path.resolve("./frontend/dist", "index.html"));
-});
+/**
+ * Serve index.html IFF authenticated
+ */
+const AUTH_GUARDED_ROUTES = ["/kanban"];
+serveSinglePageAppPages(AUTH_GUARDED_ROUTES, [AuthenticationGuard]);
+
+/**
+ * Server Manager pages
+ */
+const MANAGER_PAGES = ["/manager"];
+serveSinglePageAppPages(
+  MANAGER_PAGES,
+  AccountTypeGuardFactoryFunction(AccountTypes.Manager)
+);
+
+/**
+ * catch all
+ * react-router will serve the Not Found page
+ */
+serveSinglePageAppPages(["*splat"]);
 
 if (process.env.NODE_ENV == "production") {
   app.listen(PORT, () => {
