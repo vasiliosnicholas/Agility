@@ -5,6 +5,8 @@
   --ink-axis: #555555;
   --surface-quiet: #f5f5f5;
 
+  --status-backlog-fill: rgb(187 213 240);
+  --status-backlog-text: #3f6f9f;
   --status-todo-fill: rgb(226 213 241);
   --status-todo-text: #7b5ea7;
   --status-progress-fill: rgb(249 230 179);
@@ -91,6 +93,10 @@
   color: var(--ink-axis);
 }
 
+.text-backlog {
+  color: var(--status-backlog-text);
+}
+
 .text-todo {
   color: var(--status-todo-text);
 }
@@ -101,6 +107,10 @@
 
 .text-completed {
   color: var(--status-completed-text);
+}
+
+.fill-backlog {
+  background-color: var(--status-backlog-fill);
 }
 
 .fill-todo {
@@ -414,6 +424,10 @@
   background-color: transparent;
 }
 
+.kanban-container-manager {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 .kanban-column {
   display: flex;
   flex-direction: column;
@@ -430,6 +444,10 @@
   background-color: var(--bs-secondary-bg);
   border: var(--bs-border-width) solid var(--bs-border-color);
   border-radius: var(--bs-border-radius-lg);
+}
+
+.kanban-list-backlog {
+  background-color: rgba(from var(--status-backlog-fill) r g b / 0.3);
 }
 
 .kanban-list-to-do {
@@ -487,6 +505,18 @@
   color: var(--bs-secondary-color);
 }
 
+.card-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.65rem;
+}
+
+.card-badges .priority-badge {
+  margin-top: 0;
+}
+
 .priority-badge {
   margin-top: 0.65rem;
   padding: 0.35rem 0.55rem;
@@ -494,6 +524,18 @@
   font-weight: 700;
   letter-spacing: 0.02em;
   line-height: 1;
+}
+
+.assignee-badge {
+  padding: 0.35rem 0.55rem;
+  border: 1px solid rgb(63 111 159 / 0.28);
+  color: var(--status-backlog-text);
+  background-color: var(--status-backlog-fill) !important;
+  font-size: 0.675rem;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: normal;
+  text-align: left;
 }
 
 .priority-badge-urgent {

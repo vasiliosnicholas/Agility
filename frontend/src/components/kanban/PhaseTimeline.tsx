@@ -89,17 +89,21 @@ export default function PhaseTimeline({
     phase,
     tickets,
 }: PhaseTimelineProps) {
+    const phaseTickets = tickets.filter(
+        (ticket) => ticket.phaseId === phase._id,
+    );
     const counts = {
-        todo: tickets.filter((ticket) => ticket.status === TicketStatuses.Todo)
-            .length,
-        inProgress: tickets.filter(
+        todo: phaseTickets.filter(
+            (ticket) => ticket.status === TicketStatuses.Todo,
+        ).length,
+        inProgress: phaseTickets.filter(
             (ticket) => ticket.status === TicketStatuses.InProgress,
         ).length,
-        completed: tickets.filter(
+        completed: phaseTickets.filter(
             (ticket) => ticket.status === TicketStatuses.Completed,
         ).length,
     };
-    const total = tickets.length;
+    const total = phaseTickets.length;
     const phaseLength = Math.max(phase.duration, 1);
     const phaseStart = parseDateFromDateTimeString(phase.startsAt);
     const phaseEnd = addDays(phaseStart, phaseLength);
@@ -121,7 +125,7 @@ export default function PhaseTimeline({
         { length: Math.max(phaseLength - 1, 0) },
         (_, index) => index + 1,
     ).filter((day) => day !== midDay);
-    const completedDays = tickets
+    const completedDays = phaseTickets
         .filter((ticket) => ticket.completedAt !== null)
         .map((ticket) =>
             dayIndex(new Date(ticket.completedAt as string), phaseStart),

@@ -5,6 +5,7 @@ interface CardProps {
     title: string;
     description?: string;
     priority: TicketPriority;
+    assigneeName?: string;
     isBeingDragged?: boolean;
 }
 
@@ -20,6 +21,7 @@ function Card({
     title,
     description,
     priority,
+    assigneeName,
     isBeingDragged = false,
 }: CardProps) {
     const priorityBadge = PRIORITY_BADGES[priority];
@@ -29,14 +31,23 @@ function Card({
             <div className="card-body">
                 <h5 className="card-title">{title}</h5>
                 {description && <p className="card-description">{description}</p>}
-                {priorityBadge && (
-                    <Badge
-                        pill
-                        bg="light"
-                        className={`priority-badge ${priorityBadge.className}`}
-                    >
-                        {priorityBadge.label}
-                    </Badge>
+                {(priorityBadge || assigneeName) && (
+                    <div className="card-badges">
+                        {priorityBadge && (
+                            <Badge
+                                pill
+                                bg="light"
+                                className={`priority-badge ${priorityBadge.className}`}
+                            >
+                                {priorityBadge.label}
+                            </Badge>
+                        )}
+                        {assigneeName && (
+                            <Badge pill bg="light" className="assignee-badge">
+                                Assigned to: {assigneeName}
+                            </Badge>
+                        )}
+                    </div>
                 )}
             </div>
         </div>

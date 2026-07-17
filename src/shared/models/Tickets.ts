@@ -1,4 +1,5 @@
 export const TicketStatuses = {
+  Backlog: "backlog",
   Todo: "todo",
   InProgress: "inProgress",
   Completed: "completed",
@@ -19,8 +20,8 @@ export type TicketPriority = 0 | 1 | 2 | 3;
 export interface TicketPrototype {
   title: string;
   description?: string;
-  phaseId: string;
-  assigneeId: string;
+  phaseId: string | null;
+  assigneeId: string | null;
   status?: TicketStatus;
   priority?: TicketPriority;
   completedAt?: string | null;
@@ -32,8 +33,8 @@ export class Ticket {
   description?: string;
   status: TicketStatus;
   priority: TicketPriority;
-  phaseId: string;
-  assigneeId: string;
+  phaseId: string | null;
+  assigneeId: string | null;
   completedAt: string | null;
 
   constructor({

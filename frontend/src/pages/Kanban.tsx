@@ -7,6 +7,7 @@ import {
     type UpdateTicketErrorResponse,
     type UpdateTicketStatusRequest,
 } from "@shared/models/Tickets.ts";
+import { AccountTypes } from "@shared/models/Users.ts";
 import KanbanList from "../components/kanban/KanbanList";
 import Drag from "../components/kanban/Drag";
 import type { DropPayload } from "../components/kanban/dragTypes";
@@ -22,6 +23,11 @@ interface KanbanColumn {
 }
 
 const COLUMN_DEFINITIONS: Omit<KanbanColumn, "cards">[] = [
+    {
+        id: TicketStatuses.Backlog,
+        name: "Backlog",
+        className: "kanban-list-backlog",
+    },
     {
         id: TicketStatuses.Todo,
         name: "To-Do",
@@ -39,10 +45,29 @@ const COLUMN_DEFINITIONS: Omit<KanbanColumn, "cards">[] = [
     },
 ];
 
-function groupTickets(tickets: StoredTicket[]): KanbanColumn[] {
-    return COLUMN_DEFINITIONS.map((column) => ({
+function groupTickets(
+    tickets: StoredTicket[],
+    includeBacklog: boolean,
+): KanbanColumn[] {
+    const definitions = includeBacklog
+        ? COLUMN_DEFINITIONS
+        : COLUMN_DEFINITIONS.filter(
+            (column) => column.id !== TicketStatuses.Backlog,
+        );
+    return definitions.map((column) => ({
         ...column,
-        cards: tickets.filter((ticket) => ticket.status === column.id),
+        cards:
+            column.id === TicketStatuses.Backlog
+                ? tickets.filter(
+                    (ticket) =>
+                        ticket.assigneeId === null &&
+                        ticket.status !== TicketStatuses.Completed,
+                )
+                : tickets.filter(
+                    (ticket) =>
+                        ticket.assigneeId !== null &&
+                        ticket.status === column.id,
+                ),
     }));
 }
 
@@ -62,7 +87,12 @@ export default function Kanban() {
 
             const loadedData = (await response.json()) as KanbanData;
             setKanbanData(loadedData);
-            setColumns(groupTickets(loadedData.tickets));
+            setColumns(
+                groupTickets(
+                    loadedData.tickets,
+                    loadedData.user.accountType === AccountTypes.Manager,
+                ),
+            );
             setActionError(null);
             setError(null);
         } catch (loadError) {
@@ -139,6 +169,16 @@ export default function Kanban() {
             const updatedCard: StoredTicket = {
                 ...card,
                 status: destinationStatus,
+                phaseId: destinationStatus === TicketStatuses.Backlog
+                    ? null
+                    : card.assigneeId === null
+                      ? (kanbanData.phase?._id ?? null)
+                      : card.phaseId,
+                assigneeId: destinationStatus === TicketStatuses.Backlog
+                    ? null
+                    : card.assigneeId === null
+                      ? (kanbanData.user._id ?? null)
+                      : card.assigneeId,
                 completedAt:
                     destinationStatus === TicketStatuses.Completed
                         ? new Date().toISOString()
@@ -240,6 +280,14 @@ export default function Kanban() {
         );
     }
 
+    const isManager = kanbanData.user.accountType === AccountTypes.Manager;
+    const assigneeNames = new Map<string, string>();
+    for (const teamMember of kanbanData.teamMembers ?? []) {
+        if (teamMember._id) {
+            assigneeNames.set(teamMember._id, teamMember.name);
+        }
+    }
+
     return (
         <div className="kanban-page">
             <AppNavbar user={kanbanData.user} />
@@ -260,15 +308,20 @@ export default function Kanban() {
                     </div>
                 )}
                 {kanbanData.phase ? (
-                    <>
-                        <PhaseTimeline
-                            user={kanbanData.user}
-                            phase={kanbanData.phase}
-                            tickets={kanbanData.tickets}
-                        />
-                        <Drag handleDrop={(payload) => void handleDrop(payload)}>
+                    <PhaseTimeline
+                        user={kanbanData.user}
+                        phase={kanbanData.phase}
+                        tickets={kanbanData.tickets}
+                    />
+                ) : (
+                    <p className="kanban-message">There is no active phase.</p>
+                )}
+                {(kanbanData.phase || isManager) && (
+                    <Drag handleDrop={(payload) => void handleDrop(payload)}>
                             {({ activeItem, activeType, isDragging }) => (
-                                <div className="kanban-container">
+                                <div
+                                    className={`kanban-container${isManager ? " kanban-container-manager" : ""}`}
+                                >
                                     {columns.map((list, listPos) => (
                                         <div key={list.id} className="kanban-column">
                                             <KanbanList
@@ -301,6 +354,13 @@ export default function Kanban() {
                                                                 title={card.title}
                                                                 description={card.description}
                                                                 priority={card.priority}
+                                                                assigneeName={
+                                                                    card.assigneeId
+                                                                        ? assigneeNames.get(
+                                                                            card.assigneeId,
+                                                                        )
+                                                                        : undefined
+                                                                }
                                                                 isBeingDragged={
                                                                     activeItem === card._id &&
                                                                     activeType === "card"
@@ -331,10 +391,7 @@ export default function Kanban() {
                                     ))}
                                 </div>
                             )}
-                        </Drag>
-                    </>
-                ) : (
-                    <p className="kanban-message">There is no active phase.</p>
+                    </Drag>
                 )}
             </main>
         </div>

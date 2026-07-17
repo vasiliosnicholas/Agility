@@ -45,6 +45,28 @@ export async function getDevelopersMetadata() {
     .toArray();
 }
 
+export async function getUsersMetadataByIds(userIds: string[]) {
+  const objectIds = userIds
+    .filter((id) => ObjectId.isValid(id))
+    .map((id) => new ObjectId(id));
+  const users = await (
+    await getUsersCollection()
+  )
+    .find({ _id: { $in: objectIds } })
+    .project<{
+      _id: ObjectId;
+      name: string;
+      username: string;
+      email: string;
+    }>(devMetaData)
+    .toArray();
+
+  return users.map((user) => ({
+    ...user,
+    _id: user._id.toHexString(),
+  })) satisfies UserMetaData[];
+}
+
 /**
  * Gets a User from the Database, including the password
  * @param username The User's username to query for.

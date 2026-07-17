@@ -23,8 +23,40 @@ export async function getTicketsForPhaseAndAssignee(
   return ticketDocuments.map(convertToTicket);
 }
 
+export async function getTicketsForManager(
+  phaseId: string | null,
+  teamAssigneeIds: string[]
+): Promise<StoredTicket[]> {
+  const backlogFilter = {
+    assigneeId: null,
+    status: { $ne: TicketStatuses.Completed },
+  };
+  const filter = phaseId
+    ? {
+        $or: [
+          backlogFilter,
+          {
+            phaseId: new ObjectId(phaseId),
+            assigneeId: {
+              $in: teamAssigneeIds.map((id) => new ObjectId(id)),
+            },
+          },
+        ],
+      }
+    : backlogFilter;
+  const ticketDocuments = await (
+    await getTicketsCollection()
+  )
+    .find(filter)
+    .sort({ priority: 1, title: 1 })
+    .toArray();
+
+  return ticketDocuments.map(convertToTicket);
+}
+
 export async function updateTicketStatusForAssignee(
   ticketId: string,
+  phaseId: string,
   assigneeId: string,
   status: TicketStatus
 ): Promise<StoredTicket | null> {
@@ -32,6 +64,7 @@ export async function updateTicketStatusForAssignee(
   const updatedTicket = await tickets.findOneAndUpdate(
     {
       _id: new ObjectId(ticketId),
+      phaseId: new ObjectId(phaseId),
       assigneeId: new ObjectId(assigneeId),
     },
     {
@@ -44,4 +77,74 @@ export async function updateTicketStatusForAssignee(
   );
 
   return updatedTicket ? convertToTicket(updatedTicket) : null;
+}
+
+export async function updateTicketStatusForManager(
+  ticketId: string,
+  phaseId: string,
+  teamAssigneeIds: string[],
+  claimAssigneeId: string,
+  status: TicketStatus
+): Promise<StoredTicket | null> {
+  const tickets = await getTicketsCollection();
+  const ticketObjectId = new ObjectId(ticketId);
+  const phaseObjectId = new ObjectId(phaseId);
+  const teamObjectIds = teamAssigneeIds.map((id) => new ObjectId(id));
+
+  if (status === TicketStatuses.Backlog) {
+    const movedToBacklog = await tickets.findOneAndUpdate(
+      {
+        _id: ticketObjectId,
+        phaseId: phaseObjectId,
+        assigneeId: { $in: teamObjectIds },
+      },
+      {
+        $set: {
+          status,
+          phaseId: null,
+          assigneeId: null,
+          completedAt: null,
+        },
+      },
+      { returnDocument: "after" }
+    );
+    return movedToBacklog ? convertToTicket(movedToBacklog) : null;
+  }
+
+  const updatedTeamTicket = await tickets.findOneAndUpdate(
+    {
+      _id: ticketObjectId,
+      phaseId: phaseObjectId,
+      assigneeId: { $in: teamObjectIds },
+    },
+    {
+      $set: {
+        status,
+        completedAt: status === TicketStatuses.Completed ? new Date() : null,
+      },
+    },
+    { returnDocument: "after" }
+  );
+  if (updatedTeamTicket) {
+    return convertToTicket(updatedTeamTicket);
+  }
+
+  const claimedBacklogTicket = await tickets.findOneAndUpdate(
+    {
+      _id: ticketObjectId,
+      assigneeId: null,
+      status: { $ne: TicketStatuses.Completed },
+    },
+    {
+      $set: {
+        status,
+        phaseId: phaseObjectId,
+        assigneeId: new ObjectId(claimAssigneeId),
+        completedAt: status === TicketStatuses.Completed ? new Date() : null,
+      },
+    },
+    { returnDocument: "after" }
+  );
+
+  return claimedBacklogTicket ? convertToTicket(claimedBacklogTicket) : null;
 }
