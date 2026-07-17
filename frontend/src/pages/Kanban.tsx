@@ -3,6 +3,7 @@ import type { KanbanData } from "@shared/models/Kanban.ts";
 import {
     TicketStatuses,
     type StoredTicket,
+    type TicketCreationStatus,
     type TicketStatus,
     type UpdateTicketErrorResponse,
     type UpdateTicketStatusRequest,
@@ -14,6 +15,8 @@ import type { DropPayload } from "../components/kanban/dragTypes";
 import KanbanCard from "../components/kanban/KanbanCard.tsx";
 import PhaseTimeline from "../components/kanban/PhaseTimeline.tsx";
 import AppNavbar from "../components/AppNavbar.tsx";
+import NewTicketModal from "../components/kanban/NewTicketModal.tsx";
+import Button from "react-bootstrap/Button";
 
 interface KanbanColumn {
     id: TicketStatus;
@@ -76,6 +79,9 @@ export default function Kanban() {
     const [columns, setColumns] = React.useState<KanbanColumn[]>([]);
     const [error, setError] = React.useState<string | null>(null);
     const [actionError, setActionError] = React.useState<string | null>(null);
+    const [newTicketStatus, setNewTicketStatus] =
+        React.useState<TicketCreationStatus>(TicketStatuses.Todo);
+    const [showNewTicketModal, setShowNewTicketModal] = React.useState(false);
     const isUpdatingTicket = React.useRef(false);
 
     const loadKanban = React.useCallback(async (signal?: AbortSignal) => {
@@ -120,6 +126,24 @@ export default function Kanban() {
         void loadInitialKanban();
         return () => controller.abort();
     }, [loadKanban]);
+
+    function openNewTicketModal(status: TicketCreationStatus) {
+        setNewTicketStatus(status);
+        setShowNewTicketModal(true);
+    }
+
+    function handleTicketCreated(ticket: StoredTicket) {
+        if (!kanbanData) return;
+
+        const updatedTickets = [...kanbanData.tickets, ticket];
+        setKanbanData({ ...kanbanData, tickets: updatedTickets });
+        setColumns(
+            groupTickets(
+                updatedTickets,
+                kanbanData.user.accountType === AccountTypes.Manager,
+            ),
+        );
+    }
 
     async function handleDrop({ dragItem, dragType, drop }: DropPayload) {
         if (
@@ -280,7 +304,6 @@ export default function Kanban() {
         );
     }
 
-    const isManager = kanbanData.user.accountType === AccountTypes.Manager;
     const assigneeNames = new Map<string, string>();
     for (const teamMember of kanbanData.teamMembers ?? []) {
         if (teamMember._id) {
@@ -316,11 +339,12 @@ export default function Kanban() {
                 ) : (
                     <p className="kanban-message">There is no active phase.</p>
                 )}
-                {(kanbanData.phase || isManager) && (
+                {(kanbanData.phase || kanbanData.user.accountType === AccountTypes.Manager) && (
                     <Drag handleDrop={(payload) => void handleDrop(payload)}>
                             {({ activeItem, activeType, isDragging }) => (
                                 <div
-                                    className={`kanban-container${isManager ? " kanban-container-manager" : ""}`}
+                                    className={`kanban-container${kanbanData.user.accountType === AccountTypes.Manager
+                                        ? " kanban-container-manager" : ""}`}
                                 >
                                     {columns.map((list, listPos) => (
                                         <div key={list.id} className="kanban-column">
@@ -380,6 +404,30 @@ export default function Kanban() {
                                                         className="drop-guide"
                                                     />
                                                 </Drag.DropZone>
+                                                {((list.id === TicketStatuses.Todo &&
+                                                    kanbanData.phase) ||
+                                                    list.id ===
+                                                        TicketStatuses.Backlog) && (
+                                                    <Button
+                                                        type="button"
+                                                        variant="light"
+                                                        className="new-ticket-button"
+                                                        aria-label={`Create a new ticket in ${list.name}`}
+                                                        onClick={() =>
+                                                            openNewTicketModal(
+                                                                list.id ===
+                                                                    TicketStatuses.Backlog
+                                                                    ? TicketStatuses.Backlog
+                                                                    : TicketStatuses.Todo,
+                                                            )
+                                                        }
+                                                    >
+                                                        <span aria-hidden="true">
+                                                            +
+                                                        </span>{" "}
+                                                        New Ticket
+                                                    </Button>
+                                                )}
                                             </KanbanList>
                                             <Drag.DropZone
                                                 dropId={`${listPos}-${list.cards.length}`}
@@ -393,6 +441,12 @@ export default function Kanban() {
                             )}
                     </Drag>
                 )}
+                <NewTicketModal
+                    show={showNewTicketModal}
+                    status={newTicketStatus}
+                    onHide={() => setShowNewTicketModal(false)}
+                    onCreated={handleTicketCreated}
+                />
             </main>
         </div>
     );

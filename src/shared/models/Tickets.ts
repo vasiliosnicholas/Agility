@@ -3,9 +3,18 @@ export const TicketStatuses = {
   Todo: "todo",
   InProgress: "inProgress",
   Completed: "completed",
-};
+} as const;
 
 export type TicketStatus = (typeof TicketStatuses)[keyof typeof TicketStatuses];
+export type TicketCreationStatus =
+  typeof TicketStatuses.Backlog | typeof TicketStatuses.Todo;
+
+export interface CreateTicketRequest {
+  title: string;
+  description?: string;
+  priority: TicketPriority;
+  status: TicketCreationStatus;
+}
 
 export interface UpdateTicketStatusRequest {
   status: TicketStatus;

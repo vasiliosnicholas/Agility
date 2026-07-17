@@ -1,10 +1,43 @@
 import { ObjectId } from "mongodb";
 import {
   TicketStatuses,
+  type CreateTicketRequest,
   type StoredTicket,
   type TicketStatus,
 } from "../../shared/models/Tickets.ts";
-import { convertToTicket, getTicketsCollection } from "./Database.ts";
+import {
+  convertToTicket,
+  getTicketsCollection,
+  type TicketDocument,
+} from "./Database.ts";
+
+interface CreateTicketOptions extends CreateTicketRequest {
+  phaseId: string | null;
+  assigneeId: string | null;
+}
+
+export async function createTicket({
+  title,
+  description,
+  priority,
+  status,
+  phaseId,
+  assigneeId,
+}: CreateTicketOptions): Promise<StoredTicket> {
+  const ticketDocument: TicketDocument = {
+    _id: new ObjectId(),
+    title,
+    ...(description ? { description } : {}),
+    priority,
+    status,
+    phaseId: phaseId ? new ObjectId(phaseId) : null,
+    assigneeId: assigneeId ? new ObjectId(assigneeId) : null,
+    completedAt: null,
+  };
+
+  await (await getTicketsCollection()).insertOne(ticketDocument);
+  return convertToTicket(ticketDocument);
+}
 
 export async function getTicketsForPhaseAndAssignee(
   phaseId: string,
