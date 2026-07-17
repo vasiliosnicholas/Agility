@@ -42,9 +42,20 @@ UsersRouter.get("/users/:id", async (req, res) => {
   }
 });
 
+/**
+ * Route for getting developers metadata
+ */
 UsersRouter.get(
   "/developers",
-  ...AccountTypeGuardFactoryFunction(AccountTypes.Manager)
+  ...AccountTypeGuardFactoryFunction(AccountTypes.Manager),
+  async (req, res) => {
+    try {
+      const developers = await getDevelopersMetadata();
+      res.status(201).json(developers);
+    } catch (error) {
+      res.status(500).json({ error: (error as Error).message });
+    }
+  }
 );
 
 export default UsersRouter;

@@ -32,17 +32,20 @@ export interface User extends BaseUser {
 export type UserMetaData = Pick<User, "_id" | "name" | "username" | "email">;
 
 /**
- * A Developer
+ * Developer type
  */
 export interface Developer extends User {
   manager: string | undefined; //wil be either a ObjectId or null in MongoDb
 }
 
+/**
+ * Manager type
+ */
 export interface Manager extends User {
   developers: Array<string>; //Will be array of MongoDB ObjectId
 }
 
-export abstract class AbstractUserAccount implements User {
+abstract class AbstractUserAccount implements User {
   _id: string | undefined;
   accountType: string;
   name: string;

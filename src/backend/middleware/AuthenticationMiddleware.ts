@@ -8,7 +8,7 @@ import type { UserRequestHandler } from "../ExpressTypes.d.ts";
  * Any other paths are sent 401 status code with a json object containing a message or an error.
  * @param req
  * @param res
- * @param next expres next function
+ * @param next express next function
  */
 export const AuthenticationGuard: RequestHandler = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -46,10 +46,10 @@ export const AccountTypeGuardFactoryFunction: (
           "No user credentials can't access account type guarded route"
         );
       else {
-        if (req.user.accountType !== accountType) {
-          res.redirect(`/unauthorized`);
-        } else {
+        if (req.user.accountType === accountType) {
           next();
+        } else {
+          res.redirect(`/unauthorized`);
         }
       }
     } catch (error) {
