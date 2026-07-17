@@ -8,7 +8,7 @@ import type { UserRequestHandler } from "../ExpressTypes.d.ts";
  * Any other paths are sent 401 status code with a json object containing a message or an error.
  * @param req
  * @param res
- * @param next
+ * @param next expres next function
  */
 export const AuthenticationGuard: RequestHandler = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -30,12 +30,16 @@ export const AuthenticationGuard: RequestHandler = (req, res, next) => {
 };
 
 /**
- *  Middleware to guard routes to specific account types.
- * @param accountType a string representing the account type
- * @returns 
+ * Tuple of Middleware to guard routes to specific account types.
+ * Simply rest the return type to an express function
+ * that accepts a RequestHandler rest parameter.
+ * @param accountType a string representing the accounttype to guard the route to.
+ * @returns a tuple (fixed list of length 2) with middleware: [AuthenticationGuard, AccountTypeGuard]
  */
-const AccountTypeGuardPrototype: (accountType: string) => UserRequestHandler =
-  (accountType) => (req, res, next) => {
+export const AccountTypeGuardFactoryFunction: (
+  accountType: string
+) => [RequestHandler, UserRequestHandler] = (accountType) => {
+  const AccountTypeGuard: UserRequestHandler = (req, res, next) => {
     try {
       if (!req.user)
         throw new Error(
@@ -52,6 +56,8 @@ const AccountTypeGuardPrototype: (accountType: string) => UserRequestHandler =
       res.status(500).json({ message: (error as Error).message });
     }
   };
+  return [AuthenticationGuard, AccountTypeGuard];
+};
 
 /**
  * Middleware that takes a post request and hashes user password.

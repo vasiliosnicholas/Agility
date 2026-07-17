@@ -49,7 +49,7 @@ for (const route of PUBLIC_ROUTES) {
   });
 }
 
-//for all other routes, serve index.html if authenticated
+//for all other routes, serve index.html IFF authenticated
 app.get("*splat", AuthenticationGuard, (req, res) => {
   res.sendFile(path.resolve("./frontend/dist", "index.html"));
 });

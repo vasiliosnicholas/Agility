@@ -1,11 +1,14 @@
 import { Router } from "express";
-import { AuthenticationGuard } from "../middleware/AuthenticationMiddleware.ts";
+import { type User, AccountTypes } from "../../shared/models/Users.ts";
+import {
+  AuthenticationGuard,
+  AccountTypeGuardFactoryFunction,
+} from "../middleware/AuthenticationMiddleware.ts";
 import {
   getUserById,
   getUserByUserName,
   getDevelopersMetadata,
 } from "../database/UserOperations.ts";
-import type { User } from "../../shared/models/Users.ts";
 
 /**
  * Instance of router that requires authentication on all routes for getting user data
@@ -38,5 +41,10 @@ UsersRouter.get("/users/:id", async (req, res) => {
     res.status(401).json({ error: (error as Error).message });
   }
 });
+
+UsersRouter.get(
+  "/developers",
+  ...AccountTypeGuardFactoryFunction(AccountTypes.Manager)
+);
 
 export default UsersRouter;
