@@ -1,6 +1,8 @@
 import { MongoClient, ObjectId } from "mongodb";
 import { loadEnvFile } from "process";
 import { type User } from "../../shared/models/Users.ts";
+import { type StoredTicket, type Ticket } from "../../shared/models/Tickets.ts";
+import { type StoredPhase, type Phase } from "../../shared/models/Phases.ts";
 
 const TIMEOUT_IN_MINS = 15;
 
@@ -14,6 +16,7 @@ const URI = process.env.MONGODB_URI;
 const DB_NAME = process.env.DB_NAME;
 const USERS_COLLECTION = process.env.DB_USERS_COLLECTION_NAME;
 const TICKETS_COLLECTION = process.env.DB_TICKETS_COLLECTION_NAME;
+const PHASES_COLLECTION = process.env.DB_PHASES_COLLECTION_NAME || "phases";
 
 let connectionTimeout: ReturnType<typeof setTimeout> | undefined | null;
 
@@ -65,6 +68,21 @@ export interface UserDocument extends Omit<User, "_id"> {
   _id: ObjectId | string;
 }
 
+export interface TicketDocument extends Omit<
+  Ticket,
+  "_id" | "phaseId" | "assigneeId" | "completedAt"
+> {
+  _id: ObjectId;
+  phaseId: ObjectId;
+  assigneeId: ObjectId;
+  completedAt: Date | null;
+}
+
+export interface PhaseDocument extends Omit<Phase, "_id" | "startsAt"> {
+  _id: ObjectId;
+  startsAt: Date;
+}
+
 export function convertToUserDocument(user: User): UserDocument {
   return { ...user, _id: new ObjectId(user._id) }; //should work since unpack everything first, then overwrite _id with ObjectId
 }
@@ -78,6 +96,24 @@ export function convertToUser(userDocument: UserDocument): User {
   return user;
 }
 
+export function convertToTicket(ticketDocument: TicketDocument): StoredTicket {
+  return {
+    ...ticketDocument,
+    _id: ticketDocument._id.toHexString(),
+    phaseId: ticketDocument.phaseId.toHexString(),
+    assigneeId: ticketDocument.assigneeId.toHexString(),
+    completedAt: ticketDocument.completedAt?.toISOString() ?? null,
+  };
+}
+
+export function convertToPhase(phaseDocument: PhaseDocument): StoredPhase {
+  return {
+    ...phaseDocument,
+    _id: phaseDocument._id.toHexString(),
+    startsAt: phaseDocument.startsAt.toISOString(),
+  };
+}
+
 export async function getUsersCollection() {
   const db = await getAgilityDB();
   if (USERS_COLLECTION && db)
@@ -89,10 +125,18 @@ export async function getUsersCollection() {
 
 export async function getTicketsCollection() {
   const db = await getAgilityDB();
-  //FIXME: Add the TicketDocument interface as a generic to collection call
-  if (TICKETS_COLLECTION && db) return db.collection(TICKETS_COLLECTION);
+  if (TICKETS_COLLECTION && db)
+    return db.collection<TicketDocument>(TICKETS_COLLECTION);
   throw new Error(
     "Could not connect to Agility Db or could not find tickets collection in db"
+  );
+}
+
+export async function getPhasesCollection() {
+  const db = await getAgilityDB();
+  if (db) return db.collection<PhaseDocument>(PHASES_COLLECTION);
+  throw new Error(
+    "Could not connect to Agility Db or could not find phases collection in db"
   );
 }
 try {

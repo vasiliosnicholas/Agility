@@ -12,6 +12,13 @@
   --status-completed-fill: rgb(212 234 212);
   --status-completed-text: #5b9e6f;
 
+  --priority-urgent-fill: rgb(246 202 205);
+  --priority-urgent-text: #9d4148;
+  --priority-high-fill: rgb(249 230 179);
+  --priority-high-text: #8a6c18;
+  --priority-low-fill: rgb(207 229 234);
+  --priority-low-text: #477983;
+
   --burnup-top: #5a8f94;
   --burnup-mid: #7aa3a8;
   --burnup-stroke: #4d787c;
@@ -222,6 +229,12 @@
 .kanban-page-content {
   width: min(calc(100% - 4rem), 80rem);
   margin-inline: auto;
+}
+
+.kanban-message {
+  padding-block: 3rem;
+  color: var(--ink-muted);
+  text-align: center;
 }
 
 .progress-timeline {
@@ -472,6 +485,33 @@
   margin-bottom: 0;
   font-size: 0.875rem;
   color: var(--bs-secondary-color);
+}
+
+.priority-badge {
+  margin-top: 0.65rem;
+  padding: 0.35rem 0.55rem;
+  font-size: 0.675rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.priority-badge-urgent {
+  border: 1px solid rgb(157 65 72 / 0.28);
+  color: var(--priority-urgent-text);
+  background-color: var(--priority-urgent-fill) !important;
+}
+
+.priority-badge-high {
+  border: 1px solid rgb(138 108 24 / 0.25);
+  color: var(--priority-high-text);
+  background-color: var(--priority-high-fill) !important;
+}
+
+.priority-badge-low {
+  border: 1px solid rgb(71 121 131 / 0.25);
+  color: var(--priority-low-text);
+  background-color: var(--priority-low-fill) !important;
 }
 
 .translate-x-0 {

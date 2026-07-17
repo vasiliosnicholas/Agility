@@ -13,13 +13,31 @@ export default function AppNavbar({ user }: AppNavbarProps) {
         <Navbar className="navbar">
             <Container fluid className="navbar-container">
                 <Navbar.Brand as={Link} to="/kanban" className="navbar-brand">
-                    <svg
-                        className="navbar-logo"
-                        viewBox="0 0 18 18"
-                    >
-                        <rect className="fill-todo" x="1" y="2" width="4" height="14" rx="1.5" />
-                        <rect className="fill-progress" x="7" y="0" width="4" height="16" rx="1.5" />
-                        <rect className="fill-completed" x="13" y="4" width="4" height="12" rx="1.5" />
+                    <svg className="navbar-logo" viewBox="0 0 18 18">
+                        <rect
+                            className="fill-todo"
+                            x="1"
+                            y="2"
+                            width="4"
+                            height="14"
+                            rx="1.5"
+                        />
+                        <rect
+                            className="fill-progress"
+                            x="7"
+                            y="0"
+                            width="4"
+                            height="16"
+                            rx="1.5"
+                        />
+                        <rect
+                            className="fill-completed"
+                            x="13"
+                            y="4"
+                            width="4"
+                            height="12"
+                            rx="1.5"
+                        />
                     </svg>
                     <span>Agility</span>
                 </Navbar.Brand>

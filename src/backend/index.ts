@@ -5,6 +5,7 @@ import path from "path";
 import { AuthenticationGuard } from "./middleware/AuthenticationMiddleware.ts";
 import AuthRouter from "./routes/Auth.ts";
 import UsersRouter from "./routes/Users.ts";
+import KanbanRouter from "./routes/Kanban.ts";
 
 const SESSION_AGE_IN_HOURS = 0.5;
 
@@ -36,6 +37,7 @@ app.use(Authenticator.session());
 //TODO: Add routes/routers here
 app.use("/api/auth", AuthRouter);
 app.use("/api/users", UsersRouter);
+app.use("/api/kanban", KanbanRouter);
 
 app.get("/login", (req, res) => {
   res.sendFile(path.resolve("./frontend/dist", "index.html"));
