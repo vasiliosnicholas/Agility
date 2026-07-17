@@ -6,6 +6,14 @@ export const TicketStatuses = {
 
 export type TicketStatus = (typeof TicketStatuses)[keyof typeof TicketStatuses];
 
+export interface UpdateTicketStatusRequest {
+  status: TicketStatus;
+}
+
+export interface UpdateTicketErrorResponse {
+  message: string;
+}
+
 export type TicketPriority = 0 | 1 | 2 | 3;
 
 export interface TicketPrototype {

@@ -1,5 +1,9 @@
 import { ObjectId } from "mongodb";
-import type { StoredTicket } from "../../shared/models/Tickets.ts";
+import {
+  TicketStatuses,
+  type StoredTicket,
+  type TicketStatus,
+} from "../../shared/models/Tickets.ts";
 import { convertToTicket, getTicketsCollection } from "./Database.ts";
 
 export async function getTicketsForPhaseAndAssignee(
@@ -17,4 +21,27 @@ export async function getTicketsForPhaseAndAssignee(
     .toArray();
 
   return ticketDocuments.map(convertToTicket);
+}
+
+export async function updateTicketStatusForAssignee(
+  ticketId: string,
+  assigneeId: string,
+  status: TicketStatus
+): Promise<StoredTicket | null> {
+  const tickets = await getTicketsCollection();
+  const updatedTicket = await tickets.findOneAndUpdate(
+    {
+      _id: new ObjectId(ticketId),
+      assigneeId: new ObjectId(assigneeId),
+    },
+    {
+      $set: {
+        status,
+        completedAt: status === TicketStatuses.Completed ? new Date() : null,
+      },
+    },
+    { returnDocument: "after" }
+  );
+
+  return updatedTicket ? convertToTicket(updatedTicket) : null;
 }

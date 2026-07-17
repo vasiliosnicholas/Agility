@@ -1,6 +1,12 @@
 import React from "react";
 import type { KanbanData } from "@shared/models/Kanban.ts";
-import { TicketStatuses, type StoredTicket, type TicketStatus} from "@shared/models/Tickets.ts";
+import {
+    TicketStatuses,
+    type StoredTicket,
+    type TicketStatus,
+    type UpdateTicketErrorResponse,
+    type UpdateTicketStatusRequest,
+} from "@shared/models/Tickets.ts";
 import KanbanList from "../components/kanban/KanbanList";
 import Drag from "../components/kanban/Drag";
 import type { DropPayload } from "../components/kanban/dragTypes";
@@ -44,43 +50,54 @@ export default function Kanban() {
     const [kanbanData, setKanbanData] = React.useState<KanbanData | null>(null);
     const [columns, setColumns] = React.useState<KanbanColumn[]>([]);
     const [error, setError] = React.useState<string | null>(null);
+    const [actionError, setActionError] = React.useState<string | null>(null);
+    const isUpdatingTicket = React.useRef(false);
+
+    const loadKanban = React.useCallback(async (signal?: AbortSignal) => {
+        try {
+            const response = await fetch("/api/kanban", { signal });
+            if (!response.ok) {
+                throw new Error("Could not load your Kanban board.");
+            }
+
+            const loadedData = (await response.json()) as KanbanData;
+            setKanbanData(loadedData);
+            setColumns(groupTickets(loadedData.tickets));
+            setActionError(null);
+            setError(null);
+        } catch (loadError) {
+            if (
+                loadError instanceof DOMException &&
+                loadError.name === "AbortError"
+            ) {
+                return;
+            }
+            setError(
+                loadError instanceof Error
+                    ? loadError.message
+                    : "Could not load your Kanban board.",
+            );
+        }
+    }, []);
 
     React.useEffect(() => {
         const controller = new AbortController();
 
-        async function loadKanban() {
-            try {
-                const response = await fetch("/api/kanban", {
-                    signal: controller.signal,
-                });
-                if (!response.ok) {
-                    throw new Error("Could not load your Kanban board.");
-                }
-
-                const loadedData = (await response.json()) as KanbanData;
-                setKanbanData(loadedData);
-                setColumns(groupTickets(loadedData.tickets));
-            } catch (loadError) {
-                if (
-                    loadError instanceof DOMException &&
-                    loadError.name === "AbortError"
-                ) {
-                    return;
-                }
-                setError(
-                    loadError instanceof Error
-                        ? loadError.message
-                        : "Could not load your Kanban board.",
-                );
-            }
+        async function loadInitialKanban() {
+            await loadKanban(controller.signal);
         }
 
-        void loadKanban();
+        void loadInitialKanban();
         return () => controller.abort();
-    }, []);
+    }, [loadKanban]);
 
-    function handleDrop({ dragItem, dragType, drop }: DropPayload) {
-        if (dragType === "card" && drop !== null) {
+    async function handleDrop({ dragItem, dragType, drop }: DropPayload) {
+        if (
+            dragType === "card" &&
+            drop !== null &&
+            kanbanData &&
+            !isUpdatingTicket.current
+        ) {
             const [newListPos, newCardPos] = drop
                 .toString()
                 .split("-")
@@ -101,6 +118,10 @@ export default function Kanban() {
                 return;
             }
 
+            if (newListPos < 0 || newListPos >= columns.length) {
+                return;
+            }
+
             const newColumns = structuredClone(columns);
             const card = columns[oldListPos].cards[oldCardPos];
 
@@ -108,8 +129,92 @@ export default function Kanban() {
                 finalCardPos--;
             }
             newColumns[oldListPos].cards.splice(oldCardPos, 1);
-            newColumns[newListPos].cards.splice(finalCardPos, 0, card);
+            if (newListPos === oldListPos) {
+                newColumns[newListPos].cards.splice(finalCardPos, 0, card);
+                setColumns(newColumns);
+                return;
+            }
+
+            const destinationStatus = newColumns[newListPos].id;
+            const updatedCard: StoredTicket = {
+                ...card,
+                status: destinationStatus,
+                completedAt:
+                    destinationStatus === TicketStatuses.Completed
+                        ? new Date().toISOString()
+                        : null,
+            };
+            newColumns[newListPos].cards.splice(finalCardPos, 0, updatedCard);
+
+            const previousColumns = columns;
+            const previousKanbanData = kanbanData;
+            const ticketsFromPreviousData = kanbanData.tickets.map((ticket) =>
+                ticket._id === card._id ? updatedCard : ticket,
+            );
+
             setColumns(newColumns);
+            setKanbanData({ ...kanbanData, tickets: ticketsFromPreviousData });
+            setActionError(null);
+            isUpdatingTicket.current = true;
+
+            try {
+                const request: UpdateTicketStatusRequest = {
+                    status: destinationStatus,
+                };
+                const response = await fetch(`/api/kanban/tickets/${card._id}`, {
+                    method: "PATCH",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(request),
+                });
+
+                if (!response.ok) {
+                    let responseError: UpdateTicketErrorResponse | null = null;
+                    try {
+                        responseError =
+                            (await response.json()) as UpdateTicketErrorResponse;
+                    } catch {
+                        // The fallback below will handlw non-JSON server errors.
+                    }
+
+                    setColumns(previousColumns);
+                    setKanbanData(previousKanbanData);
+                    setActionError(
+                        responseError?.message ??
+                        "Could not update this ticket. Refresh the board before continuing.",
+                    );
+                    return;
+                }
+
+                const savedTicket = (await response.json()) as StoredTicket;
+                setColumns((currentColumns) =>
+                    currentColumns.map((column) => ({
+                        ...column,
+                        cards: column.cards.map((ticket) =>
+                            ticket._id === savedTicket._id ? savedTicket : ticket,
+                        ),
+                    })),
+                );
+                setKanbanData((currentData) =>
+                    currentData
+                        ? {
+                            ...currentData,
+                            tickets: currentData.tickets.map((ticket) =>
+                                ticket._id === savedTicket._id
+                                    ? savedTicket
+                                    : ticket,
+                            ),
+                        }
+                        : currentData,
+                );
+            } catch {
+                setColumns(previousColumns);
+                setKanbanData(previousKanbanData);
+                setActionError(
+                    "Could not update this ticket. Refresh the board before continuing.",
+                );
+            } finally {
+                isUpdatingTicket.current = false;
+            }
         }
     }
 
@@ -139,6 +244,21 @@ export default function Kanban() {
         <div className="kanban-page">
             <AppNavbar user={kanbanData.user} />
             <main className="kanban-page-content">
+                {actionError && (
+                    <div
+                        className="alert alert-warning d-flex align-items-center justify-content-between gap-3"
+                        role="alert"
+                    >
+                        <span>{actionError}</span>
+                        <button
+                            type="button"
+                            className="btn btn-sm btn-outline-dark flex-shrink-0"
+                            onClick={() => void loadKanban()}
+                        >
+                            Refresh board
+                        </button>
+                    </div>
+                )}
                 {kanbanData.phase ? (
                     <>
                         <PhaseTimeline
@@ -146,7 +266,7 @@ export default function Kanban() {
                             phase={kanbanData.phase}
                             tickets={kanbanData.tickets}
                         />
-                        <Drag handleDrop={handleDrop}>
+                        <Drag handleDrop={(payload) => void handleDrop(payload)}>
                             {({ activeItem, activeType, isDragging }) => (
                                 <div className="kanban-container">
                                     {columns.map((list, listPos) => (
