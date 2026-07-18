@@ -211,6 +211,26 @@
   font-weight: 500;
 }
 
+.navbar-user-menu .dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.35rem;
+  border: 0;
+  color: inherit;
+  background: transparent;
+}
+
+.navbar-user-menu .dropdown-toggle::after {
+  margin-left: 0.45rem;
+  color: var(--ink-muted);
+}
+
+.navbar-user-menu .dropdown-toggle:hover,
+.navbar-user-menu .dropdown-toggle:focus-visible,
+.navbar-user-menu .dropdown-toggle.show {
+  color: var(--burnup-stroke);
+}
+
 .navbar-avatar {
   display: inline-grid;
   width: 2rem;
@@ -499,6 +519,33 @@
   cursor: grabbing;
 }
 
+.card-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.card-header-row .card-title {
+  margin-bottom: 0;
+}
+
+.card-delete {
+  flex-shrink: 0;
+  padding: 0;
+  border: 0;
+  color: var(--bs-secondary-color);
+  background: transparent;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.card-delete:hover,
+.card-delete:focus-visible {
+  color: var(--bs-danger);
+}
+
 .new-ticket-button {
   width: 100%;
   min-height: 4.75rem;
@@ -725,12 +772,19 @@
 
 .management-section-header {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: 1rem;
   padding: 0.85rem 1rem;
   border-bottom: var(--bs-border-width) solid var(--bs-border-color);
   background-color: var(--bs-secondary-bg);
+}
+
+.management-section-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  min-width: 0;
 }
 
 .management-section-title {
@@ -745,6 +799,31 @@
 .management-section-count {
   color: var(--bs-secondary-color);
   font-size: var(--type-meta-size);
+}
+
+.management-add-button,
+.management-delete-button {
+  flex-shrink: 0;
+  border: 1px solid var(--bs-border-color);
+  color: var(--bs-body-color);
+  background-color: var(--bs-body-bg);
+  font-size: var(--type-meta-size);
+  font-weight: 600;
+}
+
+.management-add-button:hover,
+.management-add-button:focus-visible,
+.management-delete-button:hover,
+.management-delete-button:focus-visible {
+  border-color: var(--bs-secondary-color);
+  background-color: var(--bs-secondary-bg);
+}
+
+.management-list-actions {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .management-list {
@@ -800,4 +879,65 @@
   letter-spacing: 0.06em;
   line-height: 1;
   text-transform: uppercase;
+}
+
+.manage-tickets {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.manage-tickets-heading {
+  margin: 0 0 0.65rem;
+  color: var(--bs-secondary-color);
+  font-size: var(--type-meta-size);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.manage-tickets-empty {
+  margin: 0;
+  color: var(--bs-secondary-color);
+  font-size: var(--type-meta-size);
+}
+
+.manage-tickets-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.manage-tickets-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.65rem 0;
+  border-bottom: var(--bs-border-width) solid var(--bs-border-color);
+}
+
+.manage-tickets-item:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.manage-tickets-item:first-child {
+  padding-top: 0;
+}
+
+.manage-tickets-item-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.manage-tickets-item-title {
+  font-size: var(--type-body-size);
+  font-weight: 600;
+}
+
+.manage-tickets-item-meta {
+  color: var(--bs-secondary-color);
+  font-size: var(--type-meta-size);
 }

@@ -1,6 +1,10 @@
+import type { StoredTicket } from "./Tickets.ts";
+import type { UserMetaData } from "./Users.ts";
+
 export const PhaseStatuses = {
   Active: "active",
   Planned: "planned",
+  Completed: "completed",
 } as const;
 
 export type PhaseStatus = (typeof PhaseStatuses)[keyof typeof PhaseStatuses];
@@ -34,4 +38,26 @@ export type StoredPhase = Phase & { _id: string };
 export interface PhaseListResponse {
   phases: StoredPhase[];
   currentPhaseId: string | null;
+}
+
+/** Aggregated payload for the Plan Phases manage-tickets modal (KanbanData-style). */
+export interface PhaseTicketsManageData {
+  tickets: StoredTicket[];
+  backlogTickets: StoredTicket[];
+  teamMembers: UserMetaData[];
+}
+
+export interface CreatePhaseRequest {
+  startsAt: string;
+  duration: number;
+}
+
+export interface DeletePhaseRequest {
+  confirmMoveTicketsToBacklog?: boolean;
+}
+
+export interface DeletePhaseErrorResponse {
+  message: string;
+  ticketCount?: number;
+  requiresConfirmation?: boolean;
 }

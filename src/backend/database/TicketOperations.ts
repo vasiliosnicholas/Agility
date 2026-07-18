@@ -181,3 +181,141 @@ export async function updateTicketStatusForManager(
 
   return claimedBacklogTicket ? convertToTicket(claimedBacklogTicket) : null;
 }
+
+export async function countTicketsForPhase(phaseId: string): Promise<number> {
+  return (await getTicketsCollection()).countDocuments({
+    phaseId: new ObjectId(phaseId),
+  });
+}
+
+export async function getBacklogTickets(): Promise<StoredTicket[]> {
+  const ticketDocuments = await (
+    await getTicketsCollection()
+  )
+    .find({
+      assigneeId: null,
+      status: { $ne: TicketStatuses.Completed },
+    })
+    .sort({ priority: 1, title: 1 })
+    .toArray();
+
+  return ticketDocuments.map(convertToTicket);
+}
+
+export async function getTicketsForPhase(
+  phaseId: string
+): Promise<StoredTicket[]> {
+  const ticketDocuments = await (
+    await getTicketsCollection()
+  )
+    .find({ phaseId: new ObjectId(phaseId) })
+    .sort({ priority: 1, title: 1 })
+    .toArray();
+
+  return ticketDocuments.map(convertToTicket);
+}
+
+export async function assignBacklogTicketToPhase(
+  ticketId: string,
+  phaseId: string,
+  assigneeId: string
+): Promise<StoredTicket | null> {
+  const updatedTicket = await (
+    await getTicketsCollection()
+  ).findOneAndUpdate(
+    {
+      _id: new ObjectId(ticketId),
+      assigneeId: null,
+      status: { $ne: TicketStatuses.Completed },
+    },
+    {
+      $set: {
+        status: TicketStatuses.Todo,
+        phaseId: new ObjectId(phaseId),
+        assigneeId: new ObjectId(assigneeId),
+        completedAt: null,
+      },
+    },
+    { returnDocument: "after" }
+  );
+
+  return updatedTicket ? convertToTicket(updatedTicket) : null;
+}
+
+export async function moveTicketToBacklogFromPhase(
+  ticketId: string,
+  phaseId: string
+): Promise<StoredTicket | null> {
+  const updatedTicket = await (
+    await getTicketsCollection()
+  ).findOneAndUpdate(
+    {
+      _id: new ObjectId(ticketId),
+      phaseId: new ObjectId(phaseId),
+    },
+    {
+      $set: {
+        status: TicketStatuses.Backlog,
+        phaseId: null,
+        assigneeId: null,
+        completedAt: null,
+      },
+    },
+    { returnDocument: "after" }
+  );
+
+  return updatedTicket ? convertToTicket(updatedTicket) : null;
+}
+
+export async function moveTicketsToBacklogForPhase(
+  phaseId: string
+): Promise<number> {
+  const result = await (
+    await getTicketsCollection()
+  ).updateMany(
+    { phaseId: new ObjectId(phaseId) },
+    {
+      $set: {
+        status: TicketStatuses.Backlog,
+        phaseId: null,
+        assigneeId: null,
+        completedAt: null,
+      },
+    }
+  );
+
+  return result.modifiedCount;
+}
+
+export async function moveIncompleteTicketsToBacklogForPhase(
+  phaseId: string
+): Promise<number> {
+  const result = await (
+    await getTicketsCollection()
+  ).updateMany(
+    {
+      phaseId: new ObjectId(phaseId),
+      status: {
+        $in: [TicketStatuses.Todo, TicketStatuses.InProgress],
+      },
+    },
+    {
+      $set: {
+        status: TicketStatuses.Backlog,
+        phaseId: null,
+        assigneeId: null,
+        completedAt: null,
+      },
+    }
+  );
+
+  return result.modifiedCount;
+}
+
+export async function deleteTicket(ticketId: string): Promise<boolean> {
+  const result = await (
+    await getTicketsCollection()
+  ).deleteOne({ _id: new ObjectId(ticketId) });
+
+  return result.deletedCount === 1;
+}

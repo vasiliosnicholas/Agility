@@ -127,6 +127,12 @@ export default function Kanban() {
         return () => controller.abort();
     }, [loadKanban]);
 
+    React.useEffect(() => {
+        if (actionError) {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+    }, [actionError]);
+
     function openNewTicketModal(status: TicketCreationStatus) {
         setNewTicketStatus(status);
         setShowNewTicketModal(true);
@@ -143,6 +149,37 @@ export default function Kanban() {
                 kanbanData.user.accountType === AccountTypes.Manager,
             ),
         );
+    }
+
+    async function handleDeleteTicket(ticketId: string) {
+        if (!kanbanData) return;
+        if (!window.confirm("Delete this ticket? This cannot be undone.")) {
+            return;
+        }
+
+        setActionError(null);
+        try {
+            const response = await fetch(`/api/kanban/tickets/${ticketId}`, {
+                method: "DELETE",
+            });
+            if (!response.ok) {
+                setActionError("Could not delete this ticket.");
+                return;
+            }
+
+            const updatedTickets = kanbanData.tickets.filter(
+                (ticket) => ticket._id !== ticketId,
+            );
+            setKanbanData({ ...kanbanData, tickets: updatedTickets });
+            setColumns(
+                groupTickets(
+                    updatedTickets,
+                    kanbanData.user.accountType === AccountTypes.Manager,
+                ),
+            );
+        } catch {
+            setActionError("Could not delete this ticket.");
+        }
     }
 
     async function handleDrop({ dragItem, dragType, drop }: DropPayload) {
@@ -298,7 +335,7 @@ export default function Kanban() {
         return (
             <div className="kanban-page">
                 <main className="kanban-page-content">
-                    <p className="kanban-message">Loading Kanban board…</p>
+                    <p className="kanban-message">Loading Tasks Page…</p>
                 </main>
             </div>
         );
@@ -388,6 +425,16 @@ export default function Kanban() {
                                                                 isBeingDragged={
                                                                     activeItem === card._id &&
                                                                     activeType === "card"
+                                                                }
+                                                                onDelete={
+                                                                    kanbanData.user
+                                                                        .accountType ===
+                                                                    AccountTypes.Manager
+                                                                        ? () =>
+                                                                              void handleDeleteTicket(
+                                                                                  card._id,
+                                                                              )
+                                                                        : undefined
                                                                 }
                                                             />
                                                         </Drag.DragItem>

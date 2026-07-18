@@ -7,6 +7,7 @@ interface CardProps {
     priority: TicketPriority;
     assigneeName?: string;
     isBeingDragged?: boolean;
+    onDelete?: () => void;
 }
 
 const PRIORITY_BADGES: Partial<
@@ -23,13 +24,30 @@ function Card({
     priority,
     assigneeName,
     isBeingDragged = false,
+    onDelete,
 }: CardProps) {
     const priorityBadge = PRIORITY_BADGES[priority];
 
     return (
         <div className={`card${isBeingDragged ? " card-rotated" : ""}`}>
             <div className="card-body">
-                <h5 className="card-title">{title}</h5>
+                <div className="card-header-row">
+                    <h5 className="card-title">{title}</h5>
+                    {onDelete && (
+                        <button
+                            type="button"
+                            className="card-delete"
+                            aria-label={`Delete ${title}`}
+                            onPointerDown={(event) => event.stopPropagation()}
+                            onClick={(event) => {
+                                event.stopPropagation();
+                                onDelete();
+                            }}
+                        >
+                            ×
+                        </button>
+                    )}
+                </div>
                 {description && <p className="card-description">{description}</p>}
                 {(priorityBadge || assigneeName) && (
                     <div className="card-badges">
