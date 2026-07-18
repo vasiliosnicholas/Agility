@@ -1,5 +1,5 @@
-import { Badge, Container, Nav, Navbar } from "react-bootstrap";
-import { Link, NavLink } from "react-router";
+import { Badge, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Link, NavLink, useNavigate } from "react-router";
 import { AccountTypes, type User } from "@shared/models/Users.ts";
 
 interface AppNavbarProps {
@@ -7,7 +7,17 @@ interface AppNavbarProps {
 }
 
 export default function AppNavbar({ user }: AppNavbarProps) {
+    const navigate = useNavigate();
     const isManager = user.accountType === AccountTypes.Manager;
+
+    async function handleLogout() {
+        try {
+            await fetch("/api/auth/logout", { method: "POST" });
+        } catch {
+            // Navigate to login regardless of fail.
+        }
+        void navigate("/login", { replace: true });
+    }
 
     return (
         <Navbar className="navbar">
@@ -52,17 +62,34 @@ export default function AppNavbar({ user }: AppNavbarProps) {
                     )}
                 </Nav>
 
-                <div className="navbar-user" aria-label="Current user">
-                    <span className="navbar-avatar">
-                        {user.name.charAt(0).toUpperCase()}
-                    </span>
-                    <span>{user.name}</span>
-                    {isManager && (
-                        <Badge pill bg="light" className="navbar-role">
-                            ADMIN
-                        </Badge>
-                    )}
-                </div>
+                <Nav>
+                    <NavDropdown
+                        align="end"
+                        className="navbar-user-menu"
+                        title={
+                            <span className="navbar-user">
+                                <span className="navbar-avatar">
+                                    {user.name.charAt(0).toUpperCase()}
+                                </span>
+                                <span>{user.name}</span>
+                                {isManager && (
+                                    <Badge
+                                        pill
+                                        bg="light"
+                                        className="navbar-role"
+                                    >
+                                        ADMIN
+                                    </Badge>
+                                )}
+                            </span>
+                        }
+                        id="navbar-user-menu"
+                    >
+                        <NavDropdown.Item onClick={() => void handleLogout()}>
+                            Log out
+                        </NavDropdown.Item>
+                    </NavDropdown>
+                </Nav>
             </Container>
         </Navbar>
     );

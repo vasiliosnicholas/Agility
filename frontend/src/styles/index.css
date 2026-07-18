@@ -211,6 +211,26 @@
   font-weight: 500;
 }
 
+.navbar-user-menu .dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.35rem;
+  border: 0;
+  color: inherit;
+  background: transparent;
+}
+
+.navbar-user-menu .dropdown-toggle::after {
+  margin-left: 0.45rem;
+  color: var(--ink-muted);
+}
+
+.navbar-user-menu .dropdown-toggle:hover,
+.navbar-user-menu .dropdown-toggle:focus-visible,
+.navbar-user-menu .dropdown-toggle.show {
+  color: var(--burnup-stroke);
+}
+
 .navbar-avatar {
   display: inline-grid;
   width: 2rem;
