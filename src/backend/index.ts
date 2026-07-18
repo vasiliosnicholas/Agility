@@ -1,16 +1,24 @@
-import express from "express";
+import express, { type RequestHandler } from "express";
 import session from "express-session";
 import Authenticator from "./authentication/Authenticator.ts";
 import path from "path";
-import { AuthenticationGuard } from "./middleware/AuthenticationMiddleware.ts";
+import {
+  AuthenticationGuard,
+  AccountTypeGuardFactoryFunction,
+} from "./middleware/AuthenticationMiddleware.ts";
 import AuthRouter from "./routes/Auth.ts";
 import UsersRouter from "./routes/Users.ts";
 import KanbanRouter from "./routes/Kanban.ts";
+import { AccountTypes } from "../shared/models/Users.ts";
 
 const SESSION_AGE_IN_HOURS = 0.5;
 
 const HOST = process.env.HOST || "localhost";
 const PORT = process.env.PORT || 3000;
+if (process.env.NODE_ENV == "production" && !process.env.SESSION_SECRET) {
+  throw new Error("SESSION_SECRET required during production");
+}
+const SESSION_SECRET = process.env.SESSION_SECRET || "your-secret-key";
 
 const app = express();
 
@@ -21,7 +29,7 @@ app.use(express.static("./frontend/dist"));
 // Session configuration
 app.use(
   session({
-    secret: "your-secret-key-change-in-production", //TODO: decide what to do for this maybe use crypto or bcrypt again
+    secret: SESSION_SECRET, //TODO: decide what to do for this maybe use crypto or bcrypt again
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -39,14 +47,53 @@ app.use("/api/auth", AuthRouter);
 app.use("/api/users", UsersRouter);
 app.use("/api/kanban", KanbanRouter);
 
-app.get("/login", (req, res) => {
+const serveSinglePage: RequestHandler = (req, res) =>
   res.sendFile(path.resolve("./frontend/dist", "index.html"));
-});
 
-//for all other routes, serve index.html if authenticated
-app.get("*splat", AuthenticationGuard, (req, res) => {
-  res.sendFile(path.resolve("./frontend/dist", "index.html"));
-});
+/**
+ * Helper function for linking the SPA back to index.html
+ * @param routes an Array of strings representing routes.
+ * @param middleware an Array of Express.RequestHandlers to add to the middleware stack prior to serving the page.
+ */
+function serveSinglePageAppPages(
+  routes: string[],
+  middleware?: RequestHandler[]
+) {
+  for (const route of routes) {
+    if (middleware) {
+      app.get(route, ...middleware, serveSinglePage);
+    } else {
+      app.get(route, serveSinglePage);
+    }
+  }
+}
+
+/**
+ * Add any public routes to this array
+ */
+const PUBLIC_ROUTES = ["/login", "/unauthorized"];
+serveSinglePageAppPages(PUBLIC_ROUTES);
+
+/**
+ * Serve index.html IFF authenticated
+ */
+const AUTH_GUARDED_ROUTES = ["/kanban"];
+serveSinglePageAppPages(AUTH_GUARDED_ROUTES, [AuthenticationGuard]);
+
+/**
+ * Server Manager pages
+ */
+const MANAGER_PAGES = ["/manager"];
+serveSinglePageAppPages(
+  MANAGER_PAGES,
+  AccountTypeGuardFactoryFunction(AccountTypes.Manager)
+);
+
+/**
+ * catch all
+ * react-router will serve the Not Found page
+ */
+serveSinglePageAppPages(["*splat"]);
 
 if (process.env.NODE_ENV == "production") {
   app.listen(PORT, () => {

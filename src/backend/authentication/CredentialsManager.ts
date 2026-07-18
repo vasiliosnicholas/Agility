@@ -1,6 +1,4 @@
 import bcrypt from "bcrypt";
-import type { RequestHandler } from "express";
-import type { User } from "../../shared/models/Users.ts";
 
 /**
  * Hashes a password.

@@ -35,7 +35,6 @@ const Login: FormComponent<LoginFormData> = function ({
           body: JSON.stringify(data),
         });
         if (response.ok) {
-          alert("Logged in!");
           if (successfulCallback) {
             successfulCallback("/kanban");
           }

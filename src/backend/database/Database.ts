@@ -22,7 +22,7 @@ let connectionTimeout: ReturnType<typeof setTimeout> | undefined | null;
 
 if (!URI || !DB_NAME || !USERS_COLLECTION || !TICKETS_COLLECTION) {
   throw new Error(
-    `MONGODB_URI, DB_NAME, DB_USERS_COLLECTION_NAME, and DB_TICKETS_COLLECTION_NAME are all required env variables`
+    `MONGODB_URI, DB_NAME, DB_USERS_COLLECTION_NAME, and DB_TICKETS_COLLECTION_NAME are all required env variables`,
   );
 }
 
@@ -42,7 +42,7 @@ function handleConnection() {
   }
   connectionTimeout = setTimeout(
     () => void cleanupConnection(),
-    TIMEOUT_IN_MINS * 60000
+    TIMEOUT_IN_MINS * 60000,
   );
 }
 
@@ -65,7 +65,7 @@ async function getAgilityDB() {
 }
 
 export interface UserDocument extends Omit<User, "_id"> {
-  _id: ObjectId | string;
+  _id: ObjectId;
 }
 
 export interface TicketDocument extends Omit<
@@ -92,8 +92,7 @@ export function convertToUser(userDocument: UserDocument): User {
     typeof userDocument._id == "string"
       ? userDocument._id
       : userDocument._id.toHexString();
-  const user = { ...userDocument, _id: id };
-  return user;
+  return { ...userDocument, _id: id };
 }
 
 export function convertToTicket(ticketDocument: TicketDocument): StoredTicket {
@@ -119,7 +118,7 @@ export async function getUsersCollection() {
   if (USERS_COLLECTION && db)
     return db.collection<UserDocument>(USERS_COLLECTION);
   throw new Error(
-    "Could not connect to Agility Db or could not find users collection in db"
+    "Could not connect to Agility Db or could not find users collection in db",
   );
 }
 
@@ -128,7 +127,7 @@ export async function getTicketsCollection() {
   if (TICKETS_COLLECTION && db)
     return db.collection<TicketDocument>(TICKETS_COLLECTION);
   throw new Error(
-    "Could not connect to Agility Db or could not find tickets collection in db"
+    "Could not connect to Agility Db or could not find tickets collection in db",
   );
 }
 
@@ -136,14 +135,14 @@ export async function getPhasesCollection() {
   const db = await getAgilityDB();
   if (db) return db.collection<PhaseDocument>(PHASES_COLLECTION);
   throw new Error(
-    "Could not connect to Agility Db or could not find phases collection in db"
+    "Could not connect to Agility Db or could not find phases collection in db",
   );
 }
 try {
   //FIXME: add this somewhere else
   void (await getUsersCollection()).createIndex(
     { username: 1 },
-    { unique: true }
+    { unique: true },
   );
 } catch (error) {
   console.error((error as Error).message);

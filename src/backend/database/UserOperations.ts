@@ -9,7 +9,6 @@ import {
   convertToUserDocument,
   getUsersCollection,
 } from "./Database.ts";
-import { hashPassword } from "../authentication/CredentialsManager.ts";
 
 async function getUsersHelper(query: object = {}) {
   return (await getUsersCollection()).find(query);
@@ -39,7 +38,7 @@ const devMetaData: Record<keyof UserMetaData, 1> = {
  */
 export async function getDevelopersMetadata() {
   return await (
-    await getUsersHelper({ accountType: AccountTypes.Developer })
+    await getUsersHelper({ accountType: AccountTypes.Developer, manager: null })
   )
     .project<UserMetaData>(devMetaData)
     .toArray();
@@ -99,11 +98,11 @@ export async function getUserByUserName(username: string) {
  * @param _id The User's _id to query for.
  * @returns a User with all fields, with the password.
  */
-export async function getUserById(_id: string) {
+export async function getUserById(_id: string | ObjectId) {
   const userDocument = await (
     await getUsersCollection()
   ).findOne({
-    _id: new ObjectId(_id),
+    _id: typeof _id == "string" ? new ObjectId(_id) : _id,
   });
   return userDocument ? convertToUser(userDocument) : null;
 }
@@ -117,34 +116,48 @@ export async function getUserById(_id: string) {
 export async function addUser(user: User) {
   if (await getUserByUserNameAdmin(user.username))
     throw Error("Username already taken"); //user already exists
-  // if (user.password)
-  //   user.password = await hashPassword(user.password); //TODO: add this to middleware
-  // else throw new Error("Attempting to create a user without a password!");
   return (await getUsersCollection()).insertOne(convertToUserDocument(user));
+}
+
+async function deleteUserById(_id: string | ObjectId) {
+  await (
+    await getUsersCollection()
+  ).deleteOne({ _id: typeof _id == "string" ? new ObjectId(_id) : _id });
+}
+
+export async function deleteUser(user: User) {
+  await deleteUserById(convertToUserDocument(user)._id);
 }
 
 /**
  * Updates any of the user fields
  * @param userFieldsToUpdate an instance of User to update
  */
-export async function updateUser(userFieldsToUpdate: User) {
-  if (!userFieldsToUpdate._id) {
+export async function updateUser(
+  user: User,
+  userFieldsToUpdate: Partial<User>,
+) {
+  if (!user._id) {
     throw new Error("User doesn't have an id!");
   }
-  if (!userFieldsToUpdate.password) {
-    const oldUser = await getUserById(userFieldsToUpdate._id);
-    if (oldUser) {
-      if (!oldUser.password)
-        throw new Error(
-          "Database error: current record of user doesn't have a password"
-        );
-      userFieldsToUpdate.password = oldUser.password;
-    }
+
+  const userDocument = convertToUserDocument(user);
+
+  //Special case where changing account type
+  if (
+    userFieldsToUpdate.accountType &&
+    userFieldsToUpdate.accountType !== user.accountType
+  ) {
+    //delete old user accountType from DB
+    await deleteUser(user);
+    /* Merge user with userFieldsToUpdate and add new user to DB
+     * Since old user has an ObjectId in their _id field,
+     * should just insert new document with same ObjectId as old one.
+     */
+    await addUser({ ...user, ...userFieldsToUpdate });
+  } else {
+    await (
+      await getUsersCollection()
+    ).updateOne({ _id: userDocument._id }, userFieldsToUpdate);
   }
-  await (
-    await getUsersCollection()
-  ).updateOne(
-    { _id: userFieldsToUpdate._id },
-    convertToUserDocument(userFieldsToUpdate)
-  );
 }

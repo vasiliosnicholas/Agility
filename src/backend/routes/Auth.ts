@@ -5,7 +5,7 @@ import {
   AuthenticationGuard,
   SecureUserPassword,
 } from "../middleware/AuthenticationMiddleware.ts";
-import { addUser, updateUser } from "../database/UserOperations.ts";
+import { addUser, deleteUser, updateUser } from "../database/UserOperations.ts";
 import { createUser, type User } from "../../shared/models/Users.ts";
 
 /**
@@ -37,7 +37,7 @@ AuthRouter.post(
     else {
       res.status(500).json({ message: "Error authenticating" });
     }
-  }
+  },
 );
 
 /**
@@ -65,9 +65,14 @@ const handleUserRequest: UserRequestHandler = (req, res) => {
  */
 AuthRouter.get("/user", AuthenticationGuard, handleUserRequest);
 
+/**
+ * Handles updating user fields.
+ * @param req
+ * @param res
+ */
 const handleUserUpdateRequest: UserRequestHandler = async (req, res) => {
   try {
-    const response = await updateUser(req.user as User);
+    const response = await updateUser(req.user as User, req.body);
     res.status(201).json(response);
   } catch (error) {
     res.status(304).json({ error: (error as Error).message });
@@ -79,9 +84,19 @@ const handleUserUpdateRequest: UserRequestHandler = async (req, res) => {
  */
 AuthRouter.put("/user", AuthenticationGuard, handleUserUpdateRequest);
 
+const handleUserAccountDelete: UserRequestHandler = async (req, res) => {
+  try {
+    if (!req.user) throw new Error("Not signed in or session expired");
+    const response = await deleteUser(req.user);
+    res.status(201).json(response);
+  } catch (error) {
+    res.status(401).json({ error: (error as Error).message });
+  }
+};
+
 /**
- * Delete user details
+ * Delete current userAccount
  */
-AuthRouter.delete("/user", AuthenticationGuard);
+AuthRouter.delete("/user", AuthenticationGuard, handleUserAccountDelete);
 
 export default AuthRouter;

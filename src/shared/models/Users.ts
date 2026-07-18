@@ -3,8 +3,9 @@
 
 /**
  * For use when getting user from collection
+ * or just simply keeping track of account types accross
+ * multiple modules
  */
-
 export const AccountTypes = {
   Developer: "Developer",
   Manager: "Manager",
@@ -25,16 +26,26 @@ export interface User extends BaseUser {
   _id: string | undefined;
 }
 
+/**
+ * For extracting/receiving user metadata.
+ */
 export type UserMetaData = Pick<User, "_id" | "name" | "username" | "email">;
 
-// export interface DeveloperAccountSchema extends User {
-// } //add any developer specific fields to this schema.
+/**
+ * Developer type
+ */
+export interface Developer extends User {
+  manager: string | undefined; //wil be either a ObjectId or null in MongoDb
+}
 
-export interface ManagerAccountSchema extends User {
+/**
+ * Manager type
+ */
+export interface Manager extends User {
   developers: Array<string>; //Will be array of MongoDB ObjectId
 }
 
-export abstract class AbstractUserAccount implements User {
+abstract class AbstractUserAccount implements User {
   _id: string | undefined;
   accountType: string;
   name: string;
@@ -54,21 +65,18 @@ export abstract class AbstractUserAccount implements User {
   }
 }
 
-class DeveloperAccount extends AbstractUserAccount {
-  // implements DeveloperAccountSchema
+class DeveloperAccount extends AbstractUserAccount implements Developer {
+  manager: string | undefined; //stores id of developer's manager, by default null until manager assigns them.
   constructor(user: UserPrototype) {
     super({ accountType: AccountTypes.Developer, ...user });
   }
 }
 
-class ManagerAccount
-  extends AbstractUserAccount
-  implements ManagerAccountSchema
-{
+class ManagerAccount extends AbstractUserAccount implements Manager {
   developers: string[];
   constructor(user: UserPrototype) {
     super({ accountType: AccountTypes.Manager, ...user });
-    this.developers = new Array<string>();
+    this.developers = new Array<string>(); //stores id's of developers
   }
 }
 
