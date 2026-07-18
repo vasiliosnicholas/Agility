@@ -1,19 +1,12 @@
 import { Router } from "express";
-import { type User, AccountTypes } from "../../shared/models/Users.ts";
-import {
-  AuthenticationGuard,
-  AccountTypeGuardFactoryFunction,
-} from "../middleware/AuthenticationMiddleware.ts";
-import {
-  getUserById,
-  getUserByUserName,
-  getDevelopersMetadata,
-} from "../database/UserOperations.ts";
+import { type User } from "../../shared/models/Users.ts";
+import { AuthenticationGuard } from "../middleware/AuthenticationMiddleware.ts";
+import { getUserById, getUserByUserName } from "../database/UserOperations.ts";
 
 /**
  * Instance of router that requires authentication on all routes for getting user data
  */
-const UsersRouter = Router({ mergeParams: true }); //TODO: see if mergeParams is even needed
+export const UsersRouter = Router({ mergeParams: true }); //TODO: see if mergeParams is even needed
 
 //add authentication guard to all routes.
 UsersRouter.use(AuthenticationGuard);
@@ -32,7 +25,7 @@ UsersRouter.get("/users/:id", async (req, res) => {
     const query = (req.query.by || "username") as string; //default to search by username
     if (!GET_OPS[query])
       throw new Error(
-        `by must equal to one of the following value ${Object.keys(GET_OPS).join(", ")}`
+        `by must equal to one of the following value ${Object.keys(GET_OPS).join(", ")}`,
       );
     const data = await GET_OPS[query](id);
     res.json(data);
@@ -41,21 +34,5 @@ UsersRouter.get("/users/:id", async (req, res) => {
     res.status(401).json({ error: (error as Error).message });
   }
 });
-
-/**
- * Route for getting developers metadata
- */
-UsersRouter.get(
-  "/developers",
-  ...AccountTypeGuardFactoryFunction(AccountTypes.Manager),
-  async (req, res) => {
-    try {
-      const developers = await getDevelopersMetadata();
-      res.status(201).json(developers);
-    } catch (error) {
-      res.status(500).json({ error: (error as Error).message });
-    }
-  }
-);
 
 export default UsersRouter;
