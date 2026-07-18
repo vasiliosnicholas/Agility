@@ -12,14 +12,19 @@ import KanbanRouter from "./routes/Kanban.ts";
 import PhasesRouter from "./routes/Phases.ts";
 import { AccountTypes } from "../shared/models/Users.ts";
 
-const SESSION_AGE_IN_HOURS = 0.5;
-
 const HOST = process.env.HOST || "localhost";
 const PORT = process.env.PORT || 3000;
+
+//Assert SESSION_SECRET environmental variable exists
 if (process.env.NODE_ENV == "production" && !process.env.SESSION_SECRET) {
   throw new Error("SESSION_SECRET required during production");
 }
 const SESSION_SECRET = process.env.SESSION_SECRET || "your-secret-key";
+
+//Optional SESSION_AGE environmental variable.
+const SESSION_AGE_IN_HOURS = process.env.SESSION_AGE_IN_HOURS
+  ? parseFloat(process.env.SESSION_AGE_IN_HOURS)
+  : 0.5;
 
 const app = express();
 
@@ -30,7 +35,7 @@ app.use(express.static("./frontend/dist"));
 // Session configuration
 app.use(
   session({
-    secret: SESSION_SECRET, //TODO: decide what to do for this maybe use crypto or bcrypt again
+    secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -83,7 +88,7 @@ const AUTH_GUARDED_ROUTES = ["/kanban"];
 serveSinglePageAppPages(AUTH_GUARDED_ROUTES, [AuthenticationGuard]);
 
 /**
- * Server Manager pages
+ * Serve Manager pages
  */
 const MANAGER_PAGES = ["/manager", "/phases"];
 serveSinglePageAppPages(

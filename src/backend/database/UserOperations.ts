@@ -1,5 +1,7 @@
 import { ObjectId } from "mongodb";
 import {
+  type Developer,
+  type Manager,
   type User,
   type UserMetaData,
   AccountTypes,
@@ -135,7 +137,7 @@ export async function deleteUser(user: User) {
  */
 export async function updateUser(
   user: User,
-  userFieldsToUpdate: Partial<User>,
+  userFieldsToUpdate: Partial<User> | Partial<Developer> | Partial<Manager>,
 ) {
   if (!user._id) {
     throw new Error("User doesn't have an id!");
@@ -160,4 +162,16 @@ export async function updateUser(
       await getUsersCollection()
     ).updateOne({ _id: userDocument._id }, userFieldsToUpdate);
   }
+}
+
+/**
+ * Updates a Developer's manager.
+ * @param developer a Developer account
+ * @param manager A Manager account to set developer's manager field to.
+ * @returns results of operation.
+ */
+export async function updateManager(developer: Developer, manager: Manager) {
+  return await updateUser(developer, {
+    manager: manager._id,
+  });
 }

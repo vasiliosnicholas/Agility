@@ -48,7 +48,7 @@ const FormWindow: FormWindowComponent = ({ Modes}) => {
 
   return (
     <>
-      <Button variant="primary" onClick={openWindow}>
+      <Button variant="primary" onClick={openWindow} className="modal-submit">
         {Modes.map(({ formName }) => formName).join(" | ")}
       </Button>
       <Modal
@@ -57,9 +57,10 @@ const FormWindow: FormWindowComponent = ({ Modes}) => {
         aria-labelledby="login-or-register-title"
         onHide={closeWindow}
         centered
+        className="kanban-modal"
       >
-        <Modal.Header className="justify-content-center">
-          <Modal.Title id="login-or-register-title">
+        <Modal.Header className="justify-content-center modal-header">
+          <Modal.Title id="login-or-register-title" className="modal-title">
             <ButtonGroup aria-label="Login/Register Buttons">
               {Modes.map(({ formName }, index) => (
                 <ToggleButton
@@ -71,6 +72,7 @@ const FormWindow: FormWindowComponent = ({ Modes}) => {
                   onChange={(event) =>
                     setCurrentMode(parseInt(event.currentTarget.value))
                   }
+                  className="modal-submit"
                 >
                   {formName}
                 </ToggleButton>
@@ -93,7 +95,7 @@ const FormWindow: FormWindowComponent = ({ Modes}) => {
           />
         </Modal.Body>
         <Modal.Footer className="justify-content-between">
-          <Button onClick={closeWindow} variant="danger">
+          <Button onClick={closeWindow} variant="danger" className="modal-cancel">
             Cancel
           </Button>
           <Button
@@ -101,6 +103,7 @@ const FormWindow: FormWindowComponent = ({ Modes}) => {
             variant="primary"
             type="submit"
             disabled={!formValid}
+            className="modal-submit"
           >
             {Modes[currentMode].formName}
           </Button>

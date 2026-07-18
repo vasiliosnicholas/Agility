@@ -589,8 +589,7 @@
 .modal-form .form-control:focus,
 .modal-form .form-select:focus {
   border-color: var(--modal-accent-text);
-  box-shadow: 0 0 0 0.2rem
-    rgba(from var(--modal-accent-fill) r g b / 0.45);
+  box-shadow: 0 0 0 0.2rem rgba(from var(--modal-accent-fill) r g b / 0.45);
 }
 
 .modal-form .form-floating > label {
@@ -626,11 +625,24 @@
 }
 
 .modal-submit:hover,
-.modal-submit:focus-visible {
+.modal-submit:focus-visible,
+.modal-submit:active,
+.btn-check:checked + .btn,
+.modal-submit:disabled {
   border-color: var(--modal-accent-text);
   color: var(--modal-accent-text);
   background-color: var(--modal-accent-fill);
   filter: brightness(0.96);
+}
+
+.modal-submit:disabled {
+  filter: brightness(0.7);
+  background-color: var(--modal-accent-fill) + gray;
+  color: white;
+}
+
+.btn-check:checked + .btn {
+  background-color: var(--modal-accent-fill) + white;
 }
 
 .card-description {

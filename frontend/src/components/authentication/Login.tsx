@@ -55,6 +55,7 @@ const Login: FormComponent<LoginFormData> = function ({
       onSubmit={
         handleSubmit(submitHandler) as SubmitEventHandler<HTMLFormElement>
       }
+      className="modal-form"
     >
       <FloatingLabel className="mb-3" controlId="username" label="Username">
         <Form.Control

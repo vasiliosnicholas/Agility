@@ -18,15 +18,15 @@ export default function LoginPage({
   children,
 }: LoginPageProps) {
   return (
-    <Modal show centered size="lg">
-      <Modal.Header className={elementAlignment}>
-        <h1 className={textAlignment}>
+    <Modal show centered size="lg" className="kanban-modal">
+      <Modal.Header className={`${elementAlignment} modal-header`}>
+        <h1 className={`${textAlignment} modal-title`}>
           {`${
             window.location.hash ? "You have been signed out" : defaultTitle
           }`}
         </h1>
       </Modal.Header>
-      <Modal.Body className={elementAlignment}>
+      <Modal.Body className={`${elementAlignment} modal-body`}>
         {children ? (
           children
         ) : (
@@ -37,7 +37,7 @@ export default function LoginPage({
         )}
       </Modal.Body>
 
-      <Modal.Footer className={elementAlignment}>
+      <Modal.Footer className={`${elementAlignment} modal-footer`}>
         <AuthWindow
           Modes={window.location.hash ? [Login] : [Login, Register]}
         ></AuthWindow>
