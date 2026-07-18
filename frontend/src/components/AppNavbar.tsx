@@ -1,5 +1,5 @@
 import { Badge, Container, Nav, Navbar } from "react-bootstrap";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 import { AccountTypes, type User } from "@shared/models/Users.ts";
 
 interface AppNavbarProps {
@@ -42,9 +42,14 @@ export default function AppNavbar({ user }: AppNavbarProps) {
                     <span>Agility</span>
                 </Navbar.Brand>
                 <Nav className="navbar-links me-auto">
-                    <Nav.Link as={Link} to="/kanban" active>
+                    <Nav.Link as={NavLink} to="/kanban">
                         Tasks
                     </Nav.Link>
+                    {isManager && (
+                        <Nav.Link as={NavLink} to="/phases">
+                            Plan Phases
+                        </Nav.Link>
+                    )}
                 </Nav>
 
                 <div className="navbar-user" aria-label="Current user">

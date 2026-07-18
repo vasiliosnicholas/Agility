@@ -48,9 +48,9 @@ function isTicketPriority(value: unknown): value is TicketPriority {
 function getManagerTeamIds(userId: string, developers: unknown): string[] {
   const developerIds = Array.isArray(developers)
     ? developers.flatMap((id) => {
-        if (id instanceof ObjectId) return [id.toHexString()];
-        return typeof id === "string" && ObjectId.isValid(id) ? [id] : [];
-      })
+      if (id instanceof ObjectId) return [id.toHexString()];
+      return typeof id === "string" && ObjectId.isValid(id) ? [id] : [];
+    })
     : [];
   return [...new Set([userId, ...developerIds])];
 }
@@ -179,21 +179,21 @@ KanbanRouter.patch("/tickets/:ticketId", async (req, res) => {
 
     const updatedTicket = isManager
       ? await updateTicketStatusForManager(
-          ticketId,
-          phase._id,
-          getManagerTeamIds(
-            req.user._id,
-            "developers" in req.user ? req.user.developers : []
-          ),
+        ticketId,
+        phase._id,
+        getManagerTeamIds(
           req.user._id,
-          status
-        )
+          "developers" in req.user ? req.user.developers : []
+        ),
+        req.user._id,
+        status
+      )
       : await updateTicketStatusForAssignee(
-          ticketId,
-          phase._id,
-          req.user._id,
-          status
-        );
+        ticketId,
+        phase._id,
+        req.user._id,
+        status
+      );
     if (updatedTicket) {
       res.json(updatedTicket);
       return;

@@ -9,6 +9,7 @@ import {
 import AuthRouter from "./routes/Auth.ts";
 import UsersRouter from "./routes/Users.ts";
 import KanbanRouter from "./routes/Kanban.ts";
+import PhasesRouter from "./routes/Phases.ts";
 import { AccountTypes } from "../shared/models/Users.ts";
 
 const SESSION_AGE_IN_HOURS = 0.5;
@@ -46,6 +47,7 @@ app.use(Authenticator.session());
 app.use("/api/auth", AuthRouter);
 app.use("/api/users", UsersRouter);
 app.use("/api/kanban", KanbanRouter);
+app.use("/api/phases", PhasesRouter);
 
 const serveSinglePage: RequestHandler = (req, res) =>
   res.sendFile(path.resolve("./frontend/dist", "index.html"));
@@ -83,7 +85,7 @@ serveSinglePageAppPages(AUTH_GUARDED_ROUTES, [AuthenticationGuard]);
 /**
  * Server Manager pages
  */
-const MANAGER_PAGES = ["/manager"];
+const MANAGER_PAGES = ["/manager", "/phases"];
 serveSinglePageAppPages(
   MANAGER_PAGES,
   AccountTypeGuardFactoryFunction(AccountTypes.Manager)

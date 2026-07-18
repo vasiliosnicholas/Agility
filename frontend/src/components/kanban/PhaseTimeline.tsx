@@ -2,37 +2,17 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 import type { StoredPhase } from "@shared/models/Phases.ts";
 import { TicketStatuses, type StoredTicket } from "@shared/models/Tickets.ts";
 import type { User } from "@shared/models/Users.ts";
+import {
+    addDays,
+    dayIndex,
+    formatDayMonth,
+    parseDateFromDateTimeString,
+} from "../../utils/phaseDates.ts";
 
 interface PhaseTimelineProps {
     user: Pick<User, "name">;
     phase: StoredPhase;
     tickets: StoredTicket[];
-}
-
-function formatDayMonth(date: Date): string {
-    return date.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
-}
-
-function addDays(date: Date, days: number): Date {
-    const next = new Date(date);
-    next.setDate(next.getDate() + days);
-    return next;
-}
-
-function dayIndex(date: Date, start: Date): number {
-    const msPerDay = 24 * 60 * 60 * 1000;
-    const dateDay = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
-    const startDay = Date.UTC(
-        start.getFullYear(),
-        start.getMonth(),
-        start.getDate(),
-    );
-    return Math.round((dateDay - startDay) / msPerDay);
-}
-
-function parseDateFromDateTimeString(value: string): Date {
-    const [year, month, day] = value.slice(0, 10).split("-").map(Number);
-    return new Date(year, month - 1, day);
 }
 
 const BURNUP_VIEW_WIDTH = 100;

@@ -679,3 +679,113 @@
 .kanban-list-end-zone {
   min-height: 0.5rem;
 }
+
+.management-page {
+  padding-block: 2rem 3rem;
+}
+
+.management-page-header {
+  padding-bottom: 1.25rem;
+  border-bottom: var(--bs-border-width) solid var(--bs-border-color);
+}
+
+.management-page-header h1,
+.management-page-header p {
+  margin-bottom: 0;
+}
+
+.management-page-header p {
+  margin-top: 0.45rem;
+}
+
+.management-sections {
+  display: grid;
+  gap: 1.25rem;
+  padding-top: 1.5rem;
+}
+
+.management-section {
+  overflow: hidden;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius-lg);
+  background-color: var(--bs-body-bg);
+}
+
+.management-section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  border-bottom: var(--bs-border-width) solid var(--bs-border-color);
+  background-color: var(--bs-secondary-bg);
+}
+
+.management-section-title {
+  margin: 0;
+  color: var(--bs-secondary-color);
+  font-size: var(--type-meta-size);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.management-section-count {
+  color: var(--bs-secondary-color);
+  font-size: var(--type-meta-size);
+}
+
+.management-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.management-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: var(--bs-border-width) solid var(--bs-border-color);
+}
+
+.management-list-item:last-child {
+  border-bottom: 0;
+}
+
+.management-list-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.management-list-title {
+  color: var(--bs-body-color);
+  font-size: var(--type-body-size);
+  font-weight: 600;
+}
+
+.management-list-meta,
+.management-list-empty {
+  color: var(--bs-secondary-color);
+  font-size: var(--type-meta-size);
+}
+
+.management-list-empty {
+  padding: 1rem;
+}
+
+.management-status-badge {
+  flex-shrink: 0;
+  padding: 0.35rem 0.55rem;
+  border: 1px solid rgb(91 158 111 / 0.28);
+  color: var(--status-completed-text);
+  background-color: var(--status-completed-fill) !important;
+  font-size: 0.675rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-transform: uppercase;
+}
