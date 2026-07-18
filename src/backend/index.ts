@@ -15,6 +15,10 @@ const SESSION_AGE_IN_HOURS = 0.5;
 
 const HOST = process.env.HOST || "localhost";
 const PORT = process.env.PORT || 3000;
+if (process.env.NODE_ENV == "production" && !process.env.SESSION_SECRET) {
+  throw new Error("SESSION_SECRET required during production");
+}
+const SESSION_SECRET = process.env.SESSION_SECRET || "your-secret-key";
 
 const app = express();
 
@@ -25,7 +29,7 @@ app.use(express.static("./frontend/dist"));
 // Session configuration
 app.use(
   session({
-    secret: "your-secret-key-change-in-production", //TODO: decide what to do for this maybe use crypto or bcrypt again
+    secret: SESSION_SECRET, //TODO: decide what to do for this maybe use crypto or bcrypt again
     resave: false,
     saveUninitialized: false,
     cookie: {
