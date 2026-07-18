@@ -67,3 +67,8 @@ export class Ticket {
 }
 
 export type StoredTicket = Ticket & { _id: string };
+
+export interface AssignPhaseTicketRequest {
+  ticketId: string;
+  assigneeId: string;
+}

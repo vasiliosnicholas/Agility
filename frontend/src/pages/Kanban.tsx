@@ -298,7 +298,7 @@ export default function Kanban() {
         return (
             <div className="kanban-page">
                 <main className="kanban-page-content">
-                    <p className="kanban-message">Loading Kanban board…</p>
+                    <p className="kanban-message">Loading Tasks Page…</p>
                 </main>
             </div>
         );

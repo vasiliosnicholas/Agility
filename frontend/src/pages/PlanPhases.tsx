@@ -1,7 +1,12 @@
 import React from "react";
-import type { PhaseListResponse } from "@shared/models/Phases.ts";
+import type {
+    DeletePhaseErrorResponse,
+    PhaseListResponse,
+} from "@shared/models/Phases.ts";
 import type { User } from "@shared/models/Users.ts";
 import AppNavbar from "../components/AppNavbar.tsx";
+import ManagePhaseTicketsModal from "../components/phases/ManagePhaseTicketsModal.tsx";
+import NewPhaseModal from "../components/phases/NewPhaseModal.tsx";
 import PhaseSection, {
     type PhaseListItemView,
 } from "../components/phases/PhaseSection.tsx";
@@ -68,10 +73,39 @@ export default function PlanPhases() {
     const [phaseData, setPhaseData] =
         React.useState<PhaseListResponse | null>(null);
     const [error, setError] = React.useState<string | null>(null);
+    const [actionError, setActionError] = React.useState<string | null>(null);
+    const [showNewPhaseModal, setShowNewPhaseModal] = React.useState(false);
+    const [managingPhaseId, setManagingPhaseId] = React.useState<string | null>(
+        null,
+    );
     const groupedPhases = React.useMemo(
         () => groupPhases(phaseData),
         [phaseData],
     );
+
+    const loadPhases = React.useCallback(async (signal?: AbortSignal) => {
+        try {
+            const phasesResponse = await fetch("/api/phases", { signal });
+            if (!phasesResponse.ok) {
+                throw new Error("Could not load phases.");
+            }
+            setPhaseData((await phasesResponse.json()) as PhaseListResponse);
+            setActionError(null);
+            setError(null);
+        } catch (loadError) {
+            if (
+                loadError instanceof DOMException &&
+                loadError.name === "AbortError"
+            ) {
+                return;
+            }
+            setError(
+                loadError instanceof Error
+                    ? loadError.message
+                    : "Could not load phases.",
+            );
+        }
+    }, []);
 
     React.useEffect(() => {
         const controller = new AbortController();
@@ -87,16 +121,7 @@ export default function PlanPhases() {
 
                 const loadedUser = (await userResponse.json()) as User;
                 setUser(loadedUser);
-
-                const phasesResponse = await fetch("/api/phases", {
-                    signal: controller.signal,
-                });
-                if (!phasesResponse.ok) {
-                    throw new Error("Could not load phases.");
-                }
-                setPhaseData(
-                    (await phasesResponse.json()) as PhaseListResponse,
-                );
+                await loadPhases(controller.signal);
             } catch (loadError) {
                 if (
                     loadError instanceof DOMException &&
@@ -114,7 +139,68 @@ export default function PlanPhases() {
 
         void loadPlanPhases();
         return () => controller.abort();
-    }, []);
+    }, [loadPhases]);
+
+    async function handlePhaseCreated() {
+        await loadPhases();
+    }
+
+    async function handleDeletePhase(phaseId: string) {
+        setActionError(null);
+
+        async function sendDelete(confirmMoveTicketsToBacklog?: boolean) {
+            return fetch(`/api/phases/${phaseId}`, {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(
+                    confirmMoveTicketsToBacklog
+                        ? { confirmMoveTicketsToBacklog: true }
+                        : {},
+                ),
+            });
+        }
+
+        try {
+            let response = await sendDelete();
+
+            if (response.status === 409) {
+                let deleteError: DeletePhaseErrorResponse | null = null;
+                try {
+                    deleteError =
+                        (await response.json()) as DeletePhaseErrorResponse;
+                } catch {
+                    // Fall through to generic error handling.
+                }
+
+                if (deleteError?.requiresConfirmation) {
+                    const ticketCount = deleteError.ticketCount ?? 0;
+                    const confirmed = window.confirm(
+                        `${ticketCount} ticket${ticketCount === 1 ? "" : "s"} will be moved to backlog if you delete this phase. Continue?`,
+                    );
+                    if (!confirmed) return;
+                    response = await sendDelete(true);
+                }
+            }
+
+            if (!response.ok) {
+                let responseError: DeletePhaseErrorResponse | null = null;
+                try {
+                    responseError =
+                        (await response.json()) as DeletePhaseErrorResponse;
+                } catch {
+                    // Keep the fallback message for non-JSON errors.
+                }
+                setActionError(
+                    responseError?.message ?? "Could not delete this phase.",
+                );
+                return;
+            }
+
+            await loadPhases();
+        } catch {
+            setActionError("Could not delete this phase.");
+        }
+    }
 
     if (!user) {
         return (
@@ -141,6 +227,11 @@ export default function PlanPhases() {
                         Review the active schedule and upcoming phases.
                     </p>
                 </header>
+                {actionError && (
+                    <p className="kanban-message" role="alert">
+                        {actionError}
+                    </p>
+                )}
                 {error ? (
                     <p className="kanban-message" role="alert">
                         {error}
@@ -152,6 +243,11 @@ export default function PlanPhases() {
                             title="Planned"
                             phases={groupedPhases.planned}
                             emptyMessage="There are no planned phases."
+                            onAddPhase={() => setShowNewPhaseModal(true)}
+                            onManageTickets={setManagingPhaseId}
+                            onDeletePhase={(phaseId) =>
+                                void handleDeletePhase(phaseId)
+                            }
                         />
                         <PhaseSection
                             id="past-phases"
@@ -164,6 +260,16 @@ export default function PlanPhases() {
                     <p className="kanban-message">Loading phases…</p>
                 )}
             </main>
+            <NewPhaseModal
+                show={showNewPhaseModal}
+                onHide={() => setShowNewPhaseModal(false)}
+                onCreated={() => void handlePhaseCreated()}
+            />
+            <ManagePhaseTicketsModal
+                show={managingPhaseId !== null}
+                phaseId={managingPhaseId}
+                onHide={() => setManagingPhaseId(null)}
+            />
         </div>
     );
 }
