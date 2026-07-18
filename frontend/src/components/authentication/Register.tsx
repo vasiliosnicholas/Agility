@@ -20,7 +20,7 @@ const schema = yup.object().shape({
     .required(requiredMessage("username"))
     .min(MIN_USERNAME_LENGTH, minCharMessage("Username", MIN_USERNAME_LENGTH)),
   name: yup.string().required("Please enter your full name"),
-  email: yup.string().required(requiredMessage("Username")).email(),
+  email: yup.string().required(requiredMessage("email")).email(),
   password: yup
     .string()
     .required(requiredMessage("password"))
@@ -80,6 +80,7 @@ const Register: FormComponent<RegisterFormData> = function ({
       onSubmit={
         handleSubmit(submitHandler) as SubmitEventHandler<HTMLFormElement>
       }
+      className="modal-form"
     >
       <FloatingLabel
         className="mb-3"
