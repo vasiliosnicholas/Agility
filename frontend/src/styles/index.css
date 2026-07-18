@@ -499,6 +499,33 @@
   cursor: grabbing;
 }
 
+.card-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.card-header-row .card-title {
+  margin-bottom: 0;
+}
+
+.card-delete {
+  flex-shrink: 0;
+  padding: 0;
+  border: 0;
+  color: var(--bs-secondary-color);
+  background: transparent;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.card-delete:hover,
+.card-delete:focus-visible {
+  color: var(--bs-danger);
+}
+
 .new-ticket-button {
   width: 100%;
   min-height: 4.75rem;

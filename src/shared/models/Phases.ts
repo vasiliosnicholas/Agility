@@ -4,6 +4,7 @@ import type { UserMetaData } from "./Users.ts";
 export const PhaseStatuses = {
   Active: "active",
   Planned: "planned",
+  Completed: "completed",
 } as const;
 
 export type PhaseStatus = (typeof PhaseStatuses)[keyof typeof PhaseStatuses];

@@ -286,3 +286,36 @@ export async function moveTicketsToBacklogForPhase(
 
   return result.modifiedCount;
 }
+
+export async function moveIncompleteTicketsToBacklogForPhase(
+  phaseId: string
+): Promise<number> {
+  const result = await (
+    await getTicketsCollection()
+  ).updateMany(
+    {
+      phaseId: new ObjectId(phaseId),
+      status: {
+        $in: [TicketStatuses.Todo, TicketStatuses.InProgress],
+      },
+    },
+    {
+      $set: {
+        status: TicketStatuses.Backlog,
+        phaseId: null,
+        assigneeId: null,
+        completedAt: null,
+      },
+    }
+  );
+
+  return result.modifiedCount;
+}
+
+export async function deleteTicket(ticketId: string): Promise<boolean> {
+  const result = await (
+    await getTicketsCollection()
+  ).deleteOne({ _id: new ObjectId(ticketId) });
+
+  return result.deletedCount === 1;
+}

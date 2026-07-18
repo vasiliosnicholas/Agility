@@ -2,6 +2,7 @@ import { ObjectId } from "mongodb";
 import {
   PhaseStatuses,
   type CreatePhaseRequest,
+  type PhaseStatus,
   type StoredPhase,
 } from "../../shared/models/Phases.ts";
 import {
@@ -9,6 +10,7 @@ import {
   getPhasesCollection,
   type PhaseDocument,
 } from "./Database.ts";
+import { moveIncompleteTicketsToBacklogForPhase } from "./TicketOperations.ts";
 
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
 
@@ -34,6 +36,17 @@ function rangesOverlap(
   return first.start < second.end && second.start < first.end;
 }
 
+function getPhaseStatusBasedonToday(
+  startsAt: Date,
+  duration: number,
+  today: number
+): PhaseStatus {
+  const { start, end } = phaseRange(startsAt, duration);
+  if (end <= today) return PhaseStatuses.Completed;
+  if (start <= today && today < end) return PhaseStatuses.Active;
+  return PhaseStatuses.Planned;
+}
+
 export async function getPhases(): Promise<StoredPhase[]> {
   const phaseDocuments = await (
     await getPhasesCollection()
@@ -45,12 +58,40 @@ export async function getPhases(): Promise<StoredPhase[]> {
   return phaseDocuments.map(convertToPhase);
 }
 
-export async function getActivePhase(): Promise<StoredPhase | null> {
-  const phaseDocument = await (
-    await getPhasesCollection()
-  ).findOne({ status: PhaseStatuses.Active }, { sort: { startsAt: -1 } });
+/* Reconcile phase with current date if we need to. */
+export async function reconcilePhaseSchedule(): Promise<StoredPhase | null> {
+  const phases = await getPhases();
+  const today = toUtcDayStart(new Date());
+  const collection = await getPhasesCollection();
+  let activePhase: StoredPhase | null = null;
 
-  return phaseDocument ? convertToPhase(phaseDocument) : null;
+  for (const phase of phases) {
+    const phaseStatus = getPhaseStatusBasedonToday(
+      new Date(phase.startsAt),
+      phase.duration,
+      today
+    );
+
+    if (phaseStatus !== phase.status) {
+      await collection.updateOne(
+        { _id: new ObjectId(phase._id) },
+        { $set: { status: phaseStatus } }
+      );
+      if (phaseStatus === PhaseStatuses.Completed) {
+        await moveIncompleteTicketsToBacklogForPhase(phase._id);
+      }
+    }
+
+    if (phaseStatus === PhaseStatuses.Active) {
+      activePhase = { ...phase, status: PhaseStatuses.Active };
+    }
+  }
+
+  return activePhase;
+}
+
+export async function getActivePhase(): Promise<StoredPhase | null> {
+  return reconcilePhaseSchedule();
 }
 
 export async function findOverlappingPhase({

@@ -45,10 +45,8 @@ function isValidDuration(value: unknown): value is number {
 
 PhasesRouter.get("/", ...ManagerGuards, async (_req, res) => {
   try {
-    const [phases, currentPhase] = await Promise.all([
-      getPhases(),
-      getActivePhase(),
-    ]);
+    const currentPhase = await getActivePhase();
+    const phases = await getPhases();
     const response: PhaseListResponse = {
       phases,
       currentPhaseId: currentPhase?._id ?? null,

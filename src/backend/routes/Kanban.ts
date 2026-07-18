@@ -14,6 +14,7 @@ import { AccountTypes } from "../../shared/models/Users.ts";
 import { getActivePhase } from "../database/PhaseOperations.ts";
 import {
   createTicket,
+  deleteTicket,
   getTicketsForManager,
   getTicketsForPhaseAndAssignee,
   updateTicketStatusForAssignee,
@@ -198,6 +199,36 @@ KanbanRouter.patch("/tickets/:ticketId", async (req, res) => {
   } catch (error) {
     console.error("Error updating Kanban ticket", error);
     res.status(500).json({ message: "Could not update ticket" });
+  }
+});
+
+KanbanRouter.delete("/tickets/:ticketId", async (req, res) => {
+  try {
+    if (!req.user?._id) {
+      res.status(401).json({ message: "Authenticated user not found" });
+      return;
+    }
+    if (req.user.accountType !== AccountTypes.Manager) {
+      res.status(403).json({ message: "Only managers can delete tickets" });
+      return;
+    }
+
+    const ticketId = req.params.ticketId;
+    if (typeof ticketId !== "string" || !ObjectId.isValid(ticketId)) {
+      res.status(400).json({ message: "Invalid ticket ID" });
+      return;
+    }
+
+    const deleted = await deleteTicket(ticketId);
+    if (!deleted) {
+      res.status(404).json({ message: "Ticket not found" });
+      return;
+    }
+
+    res.status(204).send();
+  } catch (error) {
+    console.error("Error deleting Kanban ticket", error);
+    res.status(500).json({ message: "Could not delete ticket" });
   }
 });
 

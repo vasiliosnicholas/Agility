@@ -1,7 +1,9 @@
 import React from "react";
-import type {
-    DeletePhaseErrorResponse,
-    PhaseListResponse,
+import {
+    PhaseStatuses,
+    type DeletePhaseErrorResponse,
+    type PhaseListResponse,
+    type PhaseStatus,
 } from "@shared/models/Phases.ts";
 import type { User } from "@shared/models/Users.ts";
 import AppNavbar from "../components/AppNavbar.tsx";
@@ -14,7 +16,6 @@ import {
     addDays,
     formatPhaseDate,
     parseDateFromDateTimeString,
-    startOfToday,
 } from "../utils/phaseDates.ts";
 
 interface GroupedPhases {
@@ -23,6 +24,7 @@ interface GroupedPhases {
 }
 
 interface ComputedPhase extends PhaseListItemView {
+    status: PhaseStatus;
     startsAt: number;
     endsAt: number;
 }
@@ -39,7 +41,6 @@ function toListItem({
 function groupPhases(data: PhaseListResponse | null): GroupedPhases {
     if (!data) return { planned: [], past: [] };
 
-    const today = startOfToday().getTime();
     const phaseItems: ComputedPhase[] = data.phases.map((phase) => {
         const startsAt = parseDateFromDateTimeString(phase.startsAt);
         const endsAt = addDays(startsAt, Math.max(phase.duration, 1));
@@ -47,19 +48,21 @@ function groupPhases(data: PhaseListResponse | null): GroupedPhases {
             id: phase._id,
             dateRange: `${formatPhaseDate(startsAt)} – ${formatPhaseDate(endsAt)}`,
             duration: phase.duration,
-            isActive: phase._id === data.currentPhaseId,
+            isActive: phase.status === PhaseStatuses.Active,
+            status: phase.status,
             startsAt: startsAt.getTime(),
             endsAt: endsAt.getTime(),
         };
     });
 
-    const active = phaseItems.find(({ isActive }) => isActive);
-    const remaining = phaseItems.filter(({ isActive }) => !isActive);
-    const planned = remaining
-        .filter(({ endsAt }) => endsAt > today)
+    const active = phaseItems.find(
+        ({ status }) => status === PhaseStatuses.Active,
+    );
+    const planned = phaseItems
+        .filter(({ status }) => status === PhaseStatuses.Planned)
         .sort((first, second) => first.startsAt - second.startsAt);
-    const past = remaining
-        .filter(({ endsAt }) => endsAt <= today)
+    const past = phaseItems
+        .filter(({ status }) => status === PhaseStatuses.Completed)
         .sort((first, second) => second.endsAt - first.endsAt);
 
     return {
