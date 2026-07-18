@@ -1,7 +1,7 @@
 export const PhaseStatuses = {
   Active: "active",
   Planned: "planned",
-};
+} as const;
 
 export type PhaseStatus = (typeof PhaseStatuses)[keyof typeof PhaseStatuses];
 
@@ -30,3 +30,8 @@ export class Phase {
 }
 
 export type StoredPhase = Phase & { _id: string };
+
+export interface PhaseListResponse {
+  phases: StoredPhase[];
+  currentPhaseId: string | null;
+}

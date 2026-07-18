@@ -73,8 +73,8 @@ export interface TicketDocument extends Omit<
   "_id" | "phaseId" | "assigneeId" | "completedAt"
 > {
   _id: ObjectId;
-  phaseId: ObjectId;
-  assigneeId: ObjectId;
+  phaseId: ObjectId | null;
+  assigneeId: ObjectId | null;
   completedAt: Date | null;
 }
 
@@ -99,8 +99,8 @@ export function convertToTicket(ticketDocument: TicketDocument): StoredTicket {
   return {
     ...ticketDocument,
     _id: ticketDocument._id.toHexString(),
-    phaseId: ticketDocument.phaseId.toHexString(),
-    assigneeId: ticketDocument.assigneeId.toHexString(),
+    phaseId: ticketDocument.phaseId?.toHexString() ?? null,
+    assigneeId: ticketDocument.assigneeId?.toHexString() ?? null,
     completedAt: ticketDocument.completedAt?.toISOString() ?? null,
   };
 }

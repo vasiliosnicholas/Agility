@@ -1,0 +1,169 @@
+import React from "react";
+import type { PhaseListResponse } from "@shared/models/Phases.ts";
+import type { User } from "@shared/models/Users.ts";
+import AppNavbar from "../components/AppNavbar.tsx";
+import PhaseSection, {
+    type PhaseListItemView,
+} from "../components/phases/PhaseSection.tsx";
+import {
+    addDays,
+    formatPhaseDate,
+    parseDateFromDateTimeString,
+    startOfToday,
+} from "../utils/phaseDates.ts";
+
+interface GroupedPhases {
+    planned: PhaseListItemView[];
+    past: PhaseListItemView[];
+}
+
+interface ComputedPhase extends PhaseListItemView {
+    startsAt: number;
+    endsAt: number;
+}
+
+function toListItem({
+    id,
+    dateRange,
+    duration,
+    isActive,
+}: ComputedPhase): PhaseListItemView {
+    return { id, dateRange, duration, isActive };
+}
+
+function groupPhases(data: PhaseListResponse | null): GroupedPhases {
+    if (!data) return { planned: [], past: [] };
+
+    const today = startOfToday().getTime();
+    const phaseItems: ComputedPhase[] = data.phases.map((phase) => {
+        const startsAt = parseDateFromDateTimeString(phase.startsAt);
+        const endsAt = addDays(startsAt, Math.max(phase.duration, 1));
+        return {
+            id: phase._id,
+            dateRange: `${formatPhaseDate(startsAt)} – ${formatPhaseDate(endsAt)}`,
+            duration: phase.duration,
+            isActive: phase._id === data.currentPhaseId,
+            startsAt: startsAt.getTime(),
+            endsAt: endsAt.getTime(),
+        };
+    });
+
+    const active = phaseItems.find(({ isActive }) => isActive);
+    const remaining = phaseItems.filter(({ isActive }) => !isActive);
+    const planned = remaining
+        .filter(({ endsAt }) => endsAt > today)
+        .sort((first, second) => first.startsAt - second.startsAt);
+    const past = remaining
+        .filter(({ endsAt }) => endsAt <= today)
+        .sort((first, second) => second.endsAt - first.endsAt);
+
+    return {
+        planned: [...(active ? [active] : []), ...planned].map(toListItem),
+        past: past.map(toListItem),
+    };
+}
+
+export default function PlanPhases() {
+    const [user, setUser] = React.useState<User | null>(null);
+    const [phaseData, setPhaseData] =
+        React.useState<PhaseListResponse | null>(null);
+    const [error, setError] = React.useState<string | null>(null);
+    const groupedPhases = React.useMemo(
+        () => groupPhases(phaseData),
+        [phaseData],
+    );
+
+    React.useEffect(() => {
+        const controller = new AbortController();
+
+        async function loadPlanPhases() {
+            try {
+                const userResponse = await fetch("/api/auth/user", {
+                    signal: controller.signal,
+                });
+                if (!userResponse.ok) {
+                    throw new Error("Could not load your account.");
+                }
+
+                const loadedUser = (await userResponse.json()) as User;
+                setUser(loadedUser);
+
+                const phasesResponse = await fetch("/api/phases", {
+                    signal: controller.signal,
+                });
+                if (!phasesResponse.ok) {
+                    throw new Error("Could not load phases.");
+                }
+                setPhaseData(
+                    (await phasesResponse.json()) as PhaseListResponse,
+                );
+            } catch (loadError) {
+                if (
+                    loadError instanceof DOMException &&
+                    loadError.name === "AbortError"
+                ) {
+                    return;
+                }
+                setError(
+                    loadError instanceof Error
+                        ? loadError.message
+                        : "Could not load phases.",
+                );
+            }
+        }
+
+        void loadPlanPhases();
+        return () => controller.abort();
+    }, []);
+
+    if (!user) {
+        return (
+            <div className="kanban-page">
+                <main className="kanban-page-content">
+                    <p
+                        className="kanban-message"
+                        role={error ? "alert" : undefined}
+                    >
+                        {error ?? "Loading phases…"}
+                    </p>
+                </main>
+            </div>
+        );
+    }
+
+    return (
+        <div className="kanban-page">
+            <AppNavbar user={user} />
+            <main className="kanban-page-content management-page">
+                <header className="management-page-header">
+                    <h1 className="type-hero">Plan Phases</h1>
+                    <p className="type-body text-muted">
+                        Review the active schedule and upcoming phases.
+                    </p>
+                </header>
+                {error ? (
+                    <p className="kanban-message" role="alert">
+                        {error}
+                    </p>
+                ) : phaseData ? (
+                    <div className="management-sections">
+                        <PhaseSection
+                            id="planned-phases"
+                            title="Planned"
+                            phases={groupedPhases.planned}
+                            emptyMessage="There are no planned phases."
+                        />
+                        <PhaseSection
+                            id="past-phases"
+                            title="Past"
+                            phases={groupedPhases.past}
+                            emptyMessage="There are no past phases."
+                        />
+                    </div>
+                ) : (
+                    <p className="kanban-message">Loading phases…</p>
+                )}
+            </main>
+        </div>
+    );
+}

@@ -2,37 +2,17 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 import type { StoredPhase } from "@shared/models/Phases.ts";
 import { TicketStatuses, type StoredTicket } from "@shared/models/Tickets.ts";
 import type { User } from "@shared/models/Users.ts";
+import {
+    addDays,
+    dayIndex,
+    formatDayMonth,
+    parseDateFromDateTimeString,
+} from "../../utils/phaseDates.ts";
 
 interface PhaseTimelineProps {
     user: Pick<User, "name">;
     phase: StoredPhase;
     tickets: StoredTicket[];
-}
-
-function formatDayMonth(date: Date): string {
-    return date.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
-}
-
-function addDays(date: Date, days: number): Date {
-    const next = new Date(date);
-    next.setDate(next.getDate() + days);
-    return next;
-}
-
-function dayIndex(date: Date, start: Date): number {
-    const msPerDay = 24 * 60 * 60 * 1000;
-    const dateDay = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
-    const startDay = Date.UTC(
-        start.getFullYear(),
-        start.getMonth(),
-        start.getDate(),
-    );
-    return Math.round((dateDay - startDay) / msPerDay);
-}
-
-function parseDateFromDateTimeString(value: string): Date {
-    const [year, month, day] = value.slice(0, 10).split("-").map(Number);
-    return new Date(year, month - 1, day);
 }
 
 const BURNUP_VIEW_WIDTH = 100;
@@ -89,17 +69,21 @@ export default function PhaseTimeline({
     phase,
     tickets,
 }: PhaseTimelineProps) {
+    const phaseTickets = tickets.filter(
+        (ticket) => ticket.phaseId === phase._id,
+    );
     const counts = {
-        todo: tickets.filter((ticket) => ticket.status === TicketStatuses.Todo)
-            .length,
-        inProgress: tickets.filter(
+        todo: phaseTickets.filter(
+            (ticket) => ticket.status === TicketStatuses.Todo,
+        ).length,
+        inProgress: phaseTickets.filter(
             (ticket) => ticket.status === TicketStatuses.InProgress,
         ).length,
-        completed: tickets.filter(
+        completed: phaseTickets.filter(
             (ticket) => ticket.status === TicketStatuses.Completed,
         ).length,
     };
-    const total = tickets.length;
+    const total = phaseTickets.length;
     const phaseLength = Math.max(phase.duration, 1);
     const phaseStart = parseDateFromDateTimeString(phase.startsAt);
     const phaseEnd = addDays(phaseStart, phaseLength);
@@ -121,7 +105,7 @@ export default function PhaseTimeline({
         { length: Math.max(phaseLength - 1, 0) },
         (_, index) => index + 1,
     ).filter((day) => day !== midDay);
-    const completedDays = tickets
+    const completedDays = phaseTickets
         .filter((ticket) => ticket.completedAt !== null)
         .map((ticket) =>
             dayIndex(new Date(ticket.completedAt as string), phaseStart),
