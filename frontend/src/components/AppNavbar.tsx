@@ -63,7 +63,7 @@ export default function AppNavbar({ user }: AppNavbarProps) {
           )}
         </Nav>
 
-        <div className="navbar-user" aria-label="Current user">
+        <Nav className="navbar-user" aria-label="Current user">
           <ProfileDropdown
             profileComponent={
               <span className="navbar-avatar">
@@ -78,7 +78,7 @@ export default function AppNavbar({ user }: AppNavbarProps) {
               ADMIN
             </Badge>
           )}
-        </div>
+        </Nav>
       </Container>
     </Navbar>
   );
