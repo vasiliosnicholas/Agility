@@ -11,7 +11,7 @@ import { createUser, type User } from "../../shared/models/Users.ts";
 /**
  * Router for managing authentication.
  */
-const AuthRouter = Router({ mergeParams: true }); //TODO: see if mergeParams is even needed
+const AuthRouter = Router({ mergeParams: true });
 
 /**
  * Register
@@ -37,7 +37,7 @@ AuthRouter.post(
     else {
       res.status(500).json({ message: "Error authenticating" });
     }
-  },
+  }
 );
 
 /**
@@ -50,8 +50,15 @@ AuthRouter.post("/user", SecureUserPassword, registerUser);
  */
 AuthRouter.post("/logout", AuthenticationGuard, (req, res, next) => {
   req.logout((error) => {
-    if (error) return next(error);
-    res.status(200).json({ message: "Logout successful" });
+    if (error) {
+      res.status(500).json({ error: "Unable to logout" });
+      return next(error);
+    } else {
+      res.status(200).json({ message: "Logout successful" });
+      req.session.destroy(() => {
+        return;
+      });
+    }
   });
 });
 
@@ -88,6 +95,9 @@ const handleUserAccountDelete: UserRequestHandler = async (req, res) => {
   try {
     if (!req.user) throw new Error("Not signed in or session expired");
     const response = await deleteUser(req.user);
+    req.session.destroy(() => {
+      return;
+    });
     res.status(201).json(response);
   } catch (error) {
     res.status(401).json({ error: (error as Error).message });

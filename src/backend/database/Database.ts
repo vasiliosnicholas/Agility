@@ -139,7 +139,6 @@ export async function getPhasesCollection() {
   );
 }
 try {
-  //FIXME: add this somewhere else
   void (await getUsersCollection()).createIndex(
     { username: 1 },
     { unique: true },

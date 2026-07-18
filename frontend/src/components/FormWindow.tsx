@@ -12,10 +12,10 @@ function successfulCallback(route: string | undefined) {
   if (route) window.location.href = route;
 }
 
-const FormWindow: FormWindowComponent = ({ Modes}) => {
+const FormWindow: FormWindowComponent = ({ Modes, ModalButton = Button, initialFormsData}) => {
   const [formValid, setSubmitStatus] = useState(false);
   const [display, setDisplay] = useState(false);
-  const formsData = useRef<Array<FormData> | Array<undefined>>(
+  const formsData = useRef<Array<FormData> | Array<undefined>>(initialFormsData ? initialFormsData :
     Modes.map(() => undefined)
   );
   const [currentMode, setCurrentMode] = useState(0);
@@ -27,7 +27,7 @@ const FormWindow: FormWindowComponent = ({ Modes}) => {
     },
     [formId]
   );
-
+  
   //current form component to display.
   const CurrentFormComponent = Modes[currentMode];
 
@@ -48,9 +48,9 @@ const FormWindow: FormWindowComponent = ({ Modes}) => {
 
   return (
     <>
-      <Button variant="primary" onClick={openWindow} className="modal-submit">
+      <ModalButton onClick={openWindow}>
         {Modes.map(({ formName }) => formName).join(" | ")}
-      </Button>
+      </ModalButton>
       <Modal
         show={display}
         size="lg"

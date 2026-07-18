@@ -43,11 +43,13 @@ export default function useReactFormHook<Fields extends FieldValues>({
   } = useForm<Fields>({
     resolver: yupResolver(schema),
     mode: "all",
-    defaultValues: defaultValues,
+    defaultValues: formData
+      ? (formData as DefaultValues<Fields>)
+      : defaultValues,
   });
   const values: Fields = watch(); //TODO: See if subscribe is a better option.
   const init = useRef(true);
-
+  // console.log(formData);
   useEffect(() => {
     setSubmitStatus(isValid);
     setFormData(values);
@@ -61,7 +63,7 @@ export default function useReactFormHook<Fields extends FieldValues>({
     }
   }, [reset, isSubmitSuccessful, setFormData, clearErrors]);
 
-  //only want this to run if formData and setValues changes, which only happens when antire child component is re
+  //only want this to run if formData and setValues changes, which only happens when antire child component is re-rendered
   useEffect(() => {
     if (formData && init.current) {
       setValues(formData, { shouldValidate: true });

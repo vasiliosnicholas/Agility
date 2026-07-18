@@ -32,7 +32,11 @@ export interface LoginFormData
 export interface RegisterFormData extends FormData, Partial<BaseUser> {
   confirmPassword?: string;
 }
-type FormWindowComponentProps = { Modes: FormComponent<FormData>[] };
+type FormWindowComponentProps = {
+  Modes: FormComponent<FormData>[];
+  ModalButton?: FC;
+  initialFormsData?: FormData[] | undefined;
+};
 
 export interface FormWindowComponent extends FC<FormWindowComponentProps> {
   (Props: FormWindowComponentProps): JSX.Element;

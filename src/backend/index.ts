@@ -88,7 +88,7 @@ const AUTH_GUARDED_ROUTES = ["/kanban"];
 serveSinglePageAppPages(AUTH_GUARDED_ROUTES, [AuthenticationGuard]);
 
 /**
- * Serve Manager pages
+ * Serve Manager pages IFF User is Manager
  */
 const MANAGER_PAGES = ["/manager", "/phases"];
 serveSinglePageAppPages(

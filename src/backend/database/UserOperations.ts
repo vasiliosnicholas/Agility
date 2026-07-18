@@ -137,7 +137,7 @@ export async function deleteUser(user: User) {
  */
 export async function updateUser(
   user: User,
-  userFieldsToUpdate: Partial<User> | Partial<Developer> | Partial<Manager>,
+  userFieldsToUpdate: Partial<User> | Partial<Developer> | Partial<Manager>
 ) {
   if (!user._id) {
     throw new Error("User doesn't have an id!");
@@ -173,5 +173,20 @@ export async function updateUser(
 export async function updateManager(developer: Developer, manager: Manager) {
   return await updateUser(developer, {
     manager: manager._id,
+  });
+}
+
+/**
+ * Updates a Manager's developers
+ * @param manager an instance of Manager.
+ * @param developers an array of managers.
+ * @returns results of operation.
+ */
+export async function updateDevelopers(
+  manager: Manager,
+  developers: Developer[]
+) {
+  return await updateUser(manager, {
+    developers: developers.map(({ _id }) => _id as string),
   });
 }

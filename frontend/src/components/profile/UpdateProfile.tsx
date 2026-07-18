@@ -1,10 +1,10 @@
-import { useCallback, useId, type SubmitEventHandler } from "react";
+import { useCallback, useId, useState, type SubmitEventHandler } from "react";
 import { Form, FloatingLabel } from "react-bootstrap";
 import useReactFormHook from "../../hooks/useReactFormHook";
 import type { SubmitHandler } from "react-hook-form";
 import * as yup from "yup";
 import type { FormComponent, RegisterFormData } from "../FormComponents";
-import { AccountTypes } from "@shared/models/Users.ts";
+import { AccountTypes, type User } from "@shared/models/Users.ts";
 
 const MIN_USERNAME_LENGTH = 5;
 const MIN_PASSWORD_LENGTH = 8;
@@ -31,19 +31,46 @@ const schema = yup.object().shape({
     .oneOf([yup.ref("password")], "Passwords must be identical."),
 });
 
-const Register: FormComponent<RegisterFormData> = function ({
+const fetchUserInfo = async () => {
+  const response = await fetch("/api/auth/user");
+
+  if (response.ok) {
+    const user = (await response.json()) as User;
+    const userData: RegisterFormData = {
+      accountType: user.accountType,
+      name: user.name,
+      username: user.username,
+      email: user.email,
+      password: undefined,
+      confirmPassword: undefined,
+    };
+    return userData;
+  }
+  return undefined;
+};
+
+const UpdateProfile: FormComponent<RegisterFormData> = function ({
   setSubmitStatus,
   formData,
   setFormId,
   setFormData,
   successfulCallback,
 }) {
+  const [initialFormData, setInitialFormData] = useState<
+    RegisterFormData | undefined
+  >();
+  const handleSetFormData = useCallback(async () => {
+    const formData = await fetchUserInfo();
+    setInitialFormData(formData);
+  }, [setInitialFormData]) as () => void;
+
+  handleSetFormData();
   const formId = useId();
   setFormId(formId);
   const { register, handleSubmit, errors } = useReactFormHook<RegisterFormData>(
     {
       setSubmitStatus,
-      formData,
+      formData: initialFormData ? initialFormData : formData,
       setFormData,
       schema,
     }
@@ -52,18 +79,18 @@ const Register: FormComponent<RegisterFormData> = function ({
     async (data) => {
       if (data) {
         const response = await fetch("/api/auth/user", {
-          method: "POST",
+          method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
         if (response.ok) {
-          alert("Registered Account!");
+          alert("Updated Account!");
           if (successfulCallback) {
             successfulCallback();
           }
         } else {
           console.log(response);
-          alert("Registration unsuccessful");
+          alert("Update unsuccessful");
         }
       } else {
         alert("Nothing in form!");
@@ -170,5 +197,5 @@ const Register: FormComponent<RegisterFormData> = function ({
   );
 };
 
-Register.formName = "Register";
-export default Register;
+UpdateProfile.formName = "Update Profile";
+export default UpdateProfile;
