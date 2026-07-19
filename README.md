@@ -19,10 +19,10 @@ For our live demo, the database hosts sample project phases and tickets with moc
 
 ## Live Demo and Documentation
 
-* **[Deployed Site Link](#)**(https://agility-1qtf.onrender.com/)
-* **[Live Demo Video Walkthrough](#)** _(placeholder)_
-* **[Project slides](#)**(https://docs.google.com/presentation/d/1lX3IiBtWi5AElx8y_LpXDi7BWCgt_Duwegf3cOfrIPI/edit?usp=sharing)
-* **[Design Document](#)**(https://docs.google.com/document/d/159umoDcDq4ZdloeNzaaqiC0UZGvfEbOEEepKRk__HHQ/edit?usp=sharing)
+- **[Deployed Site Link](https://agility-1qtf.onrender.com/)**
+- **[Live Demo Video Walkthrough]** _(placeholder)_
+- **[Project slides](https://docs.google.com/presentation/d/1lX3IiBtWi5AElx8y_LpXDi7BWCgt_Duwegf3cOfrIPI/edit?usp=sharing)**
+- **[Design Document](https://docs.google.com/document/d/159umoDcDq4ZdloeNzaaqiC0UZGvfEbOEEepKRk__HHQ/edit?usp=sharing)**
 
 ## Authors
 
