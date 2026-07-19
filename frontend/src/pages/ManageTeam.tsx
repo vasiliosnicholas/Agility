@@ -101,7 +101,7 @@ export default function ManageDevs() {
   return (
     <>
       <AppNavbar
-        user={manager ? manager : { name: "Error", accountType: "Error" }}
+        user={manager ? manager : { name: "", accountType: "" }}
       ></AppNavbar>
       <h1 className="my-5 py-3 text-center">
         {" "}
