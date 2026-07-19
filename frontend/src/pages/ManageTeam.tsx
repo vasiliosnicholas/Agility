@@ -1,9 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import {
-  Container,
-  Row,
-  Col,
-} from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import AppNavbar from "../components/AppNavbar";
 import type { User } from "@shared/models/Users";
 
@@ -38,11 +34,10 @@ async function handleConcurrentUpdate(
     fetch(`/api/developers/${developer._id}`, {
       method: devUpdateMethod,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(developer)
+      body: JSON.stringify(developer),
     }),
   ]);
 }
-
 
 type UserTuple = [User[] | undefined, User[] | undefined];
 
@@ -108,8 +103,10 @@ export default function ManageDevs() {
       <AppNavbar
         user={manager ? manager : { name: "Error", accountType: "Error" }}
       ></AppNavbar>
-      <h1 className="my-5 py-3 text-center"> {`${manager ? manager.name : "Loading"}'s Team`}</h1>
-
+      <h1 className="my-5 py-3 text-center">
+        {" "}
+        {`${manager ? manager.name : "Loading"}'s Team`}
+      </h1>
 
       <Container fluid>
         <Row>
