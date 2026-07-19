@@ -9,6 +9,7 @@ interface AppNavbarProps {
 
 export default function AppNavbar({ user }: AppNavbarProps) {
   const isManager = user.accountType === AccountTypes.Manager;
+
   return (
     <Navbar className="navbar">
       <Container fluid className="navbar-container">

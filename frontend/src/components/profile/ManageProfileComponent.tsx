@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { NavDropdown } from "react-bootstrap";
 import { DropdownSubmenu } from "react-bootstrap-submenu";
 import DeleteProfile from "./DeleteProfile";
