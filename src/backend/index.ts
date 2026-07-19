@@ -49,6 +49,8 @@ app.use(
   }),
 );
 
+app.set("trust proxy", 1);
+
 app.use(Authenticator.initialize());
 app.use(Authenticator.session());
 //TODO: Add routes/routers here
