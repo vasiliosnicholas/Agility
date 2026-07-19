@@ -67,10 +67,10 @@ export const AccountTypeGuardFactoryFunction: (
  */
 export const SecureUserPassword: RequestHandler<object, any, User> =
   async function (req, res, next) {
-    if (req.body.password)
+    if (req.body.password) {
       //for login requests
       req.body.password = await hashPassword(req.body.password);
-    else if (req.user && req.user?.password) {
+    } else if (req.user && req.user?.password) {
       delete req.user.password;
     }
     next();

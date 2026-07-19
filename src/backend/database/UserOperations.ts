@@ -10,6 +10,7 @@ import {
   convertToUser,
   convertToUserDocument,
   getUsersCollection,
+  type UserDocument,
 } from "./Database.ts";
 
 async function getUsersHelper(query: object = {}) {
@@ -171,7 +172,9 @@ export async function updateUser(
     ).updateOne(
       { _id: userDocument._id },
       {
-        $set: userFieldsToUpdate as MatchKeysAndValues<UserDocument>,
+        $set: userFieldsToUpdate as MatchKeysAndValues<
+          UserDocument & Developer & Manager
+        >,
       }
     );
   }

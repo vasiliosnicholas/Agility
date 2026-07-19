@@ -4,7 +4,7 @@ import useReactFormHook from "../../hooks/useReactFormHook";
 import type { SubmitHandler } from "react-hook-form";
 import * as yup from "yup";
 import type { FormComponent, RegisterFormData } from "../FormComponents";
-import { AccountTypes, type User } from "@shared/models/Users.ts";
+import { type User } from "@shared/models/Users.ts";
 
 const MIN_USERNAME_LENGTH = 5;
 const MIN_PASSWORD_LENGTH = 8;
@@ -12,9 +12,6 @@ const requiredMessage = (field: string) => `A ${field} is required to register`;
 const minCharMessage = (field: string, minLength: number) =>
   `${field} must be at least ${minLength} characters`;
 const schema = yup.object().shape({
-  accountType: yup
-    .string()
-    .oneOf(Object.values(AccountTypes), "You must pick an account type."),
   username: yup
     .string()
     .required(requiredMessage("username"))
@@ -78,6 +75,7 @@ const UpdateProfile: FormComponent<RegisterFormData> = function ({
   const submitHandler = useCallback(
     async (data) => {
       if (data) {
+        delete data.confirmPassword;
         const response = await fetch("/api/auth/user", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -108,28 +106,6 @@ const UpdateProfile: FormComponent<RegisterFormData> = function ({
       }
       className="modal-form"
     >
-      <FloatingLabel
-        className="mb-3"
-        controlId="account-type"
-        label="Account Type"
-      >
-        <Form.Select
-          aria-label="Select Account Type"
-          defaultValue={undefined}
-          isInvalid={!!errors.accountType}
-          {...register("accountType")}
-        >
-          <option>Select Account Type</option>
-          {Object.values(AccountTypes).map((type, index) => (
-            <option key={index} value={type}>
-              {type}
-            </option>
-          ))}
-        </Form.Select>
-        <Form.Control.Feedback type="invalid">
-          {errors.accountType?.message?.toString()}
-        </Form.Control.Feedback>
-      </FloatingLabel>
 
       <FloatingLabel className="mb-3" controlId="email" label="Email Address">
         <Form.Control

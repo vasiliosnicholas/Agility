@@ -3,12 +3,11 @@ import {
   Container,
   Row,
   Col,
-  ListGroup,
-  Badge,
-  type BadgeProps,
 } from "react-bootstrap";
 import AppNavbar from "../components/AppNavbar";
 import type { User } from "@shared/models/Users";
+
+import ListDevs from "../components/management/ListDevs";
 
 const fetchManagerInfo = async () => {
   const response = await fetch("/api/auth/user");
@@ -44,58 +43,7 @@ async function handleConcurrentUpdate(
   ]);
 }
 
-interface ListDevsPropTypes {
-  developers: User[] | undefined;
-  action: (developer: User) => () => void;
-  actionName: string;
-  bg?: BadgeProps["bg"];
-}
 
-const ListDevs = ({
-  developers,
-  action,
-  actionName,
-  bg = undefined,
-}: ListDevsPropTypes) => {
-  return (
-    <ListGroup as="ol" numbered>
-      {developers ? (
-        developers.map((user, index) => (
-          <ListGroup.Item
-            key={index}
-            as="li"
-            className="d-flex justify-content-between align-items-start mb-2 overflow-auto"
-          >
-            <div className="ms-2 me-auto">
-              <div className="fw-bold">{user.name}</div>
-              <small>{`@${user.username}`}</small>
-            </div>
-            <Badge
-              bg="primary"
-              as="a"
-              href={`mailto:${user.email}`}
-              className="text-decoration-none px-3 mx-1"
-              pill
-            >
-              Email
-            </Badge>
-            <Badge
-              as="button"
-              bg={bg}
-              onClick={action(user) as React.MouseEventHandler<HTMLElement>}
-              className="px-3 mx-1"
-              pill
-            >
-              {actionName}
-            </Badge>
-          </ListGroup.Item>
-        ))
-      ) : (
-        <p className="text-center mt-3">No developers in this category</p>
-      )}
-    </ListGroup>
-  );
-};
 type UserTuple = [User[] | undefined, User[] | undefined];
 
 export default function ManageDevs() {
@@ -160,9 +108,8 @@ export default function ManageDevs() {
       <AppNavbar
         user={manager ? manager : { name: "Error", accountType: "Error" }}
       ></AppNavbar>
-      <div className="mb-5"></div>
-      <div className="mb-5"></div>
-      <div className="mb-5"></div>
+      <h1 className="my-5 py-3 text-center"> {`${manager ? manager.name : "Loading"}'s Team`}</h1>
+
 
       <Container fluid>
         <Row>
@@ -174,7 +121,7 @@ export default function ManageDevs() {
               developers={assignedDevs}
               action={handleUnassignment}
               actionName="Unassign"
-              bg="primary"
+              bg="danger"
             />
           </Col>
           <Col className="kanban-modal">

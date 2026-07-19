@@ -89,7 +89,12 @@ const handleUserUpdateRequest: UserRequestHandler = async (req, res) => {
 /**
  * Update user details
  */
-AuthRouter.put("/user", AuthenticationGuard, handleUserUpdateRequest);
+AuthRouter.put(
+  "/user",
+  AuthenticationGuard,
+  SecureUserPassword,
+  handleUserUpdateRequest
+);
 
 const handleUserAccountDelete: UserRequestHandler = async (req, res) => {
   try {
