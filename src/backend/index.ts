@@ -33,6 +33,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("./frontend/dist"));
 
+console.log(process.env.NODE_ENV == "production");
+
 // Session configuration
 app.use(
   session({
@@ -44,8 +46,10 @@ app.use(
       httpOnly: true,
       maxAge: SESSION_AGE_IN_HOURS * 60 * 60 * 1000,
     },
-  })
+  }),
 );
+
+app.set("trust proxy", 1);
 
 app.use(Authenticator.initialize());
 app.use(Authenticator.session());
@@ -66,7 +70,7 @@ const serveSinglePage: RequestHandler = (req, res) =>
  */
 function serveSinglePageAppPages(
   routes: string[],
-  middleware?: RequestHandler[]
+  middleware?: RequestHandler[],
 ) {
   for (const route of routes) {
     if (middleware) {
@@ -95,7 +99,7 @@ serveSinglePageAppPages(AUTH_GUARDED_ROUTES, [AuthenticationGuard]);
 const MANAGER_PAGES = ["/team", "/phases"];
 serveSinglePageAppPages(
   MANAGER_PAGES,
-  AccountTypeGuardFactoryFunction(AccountTypes.Manager)
+  AccountTypeGuardFactoryFunction(AccountTypes.Manager),
 );
 
 /**

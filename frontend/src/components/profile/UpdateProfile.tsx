@@ -8,7 +8,7 @@ import { type User } from "@shared/models/Users.ts";
 
 const MIN_USERNAME_LENGTH = 5;
 const MIN_PASSWORD_LENGTH = 8;
-const requiredMessage = (field: string) => `A ${field} is required to register`;
+const requiredMessage = (field: string) => `A ${field} is required in order to update your account`;
 const minCharMessage = (field: string, minLength: number) =>
   `${field} must be at least ${minLength} characters`;
 const schema = yup.object().shape({
