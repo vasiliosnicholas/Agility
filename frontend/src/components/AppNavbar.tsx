@@ -1,4 +1,4 @@
-import { Badge, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Badge, Container, Nav, Navbar } from "react-bootstrap";
 import { Link, NavLink, useNavigate } from "react-router";
 import { AccountTypes, type User } from "@shared/models/Users.ts";
 import ProfileDropdown from "./profile/ProfileComponent";
@@ -10,15 +10,6 @@ interface AppNavbarProps {
 export default function AppNavbar({ user }: AppNavbarProps) {
     const navigate = useNavigate();
   const isManager = user.accountType === AccountTypes.Manager;
-
-    async function handleLogout() {
-        try {
-            await fetch("/api/auth/logout", { method: "POST" });
-        } catch {
-            // Navigate to login regardless of fail.
-        }
-        void navigate("/login", { replace: true });
-    }
 
   return (
     <Navbar className="navbar">
