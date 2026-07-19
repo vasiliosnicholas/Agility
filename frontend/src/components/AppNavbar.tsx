@@ -1,4 +1,4 @@
-import { Badge, Container, Nav, Navbar } from "react-bootstrap";
+import { Badge, Container, Nav, Navbar, Spinner } from "react-bootstrap";
 import { Link, NavLink } from "react-router";
 import { AccountTypes, type User } from "@shared/models/Users.ts";
 import ProfileDropdown from "./profile/ProfileComponent";
@@ -62,12 +62,12 @@ export default function AppNavbar({ user }: AppNavbarProps) {
           <ProfileDropdown
             profileComponent={
               <span className="navbar-avatar">
-                {user.name.charAt(0).toUpperCase()}
+                {user.name ? user.name.charAt(0).toUpperCase() : <Spinner animation="border" />}
               </span>
             }
           ></ProfileDropdown>
 
-          <span>{user.name}</span>
+          <span>{user.name ? user.name : <Spinner animation="border" />}</span>
           {isManager && (
             <Badge pill bg="light" className="navbar-role">
               ADMIN
