@@ -114,9 +114,9 @@ export default function ManageDevs() {
       <Container fluid>
         <Row>
           <Col className="kanban-modal">
-            <h3 className="text-center modal-title my-5">
-              Developers assigned to your Team
-            </h3>
+            <h2 className="text-center modal-title my-5">
+              Developers assigned to your team
+            </h2>
             <ListDevs
               developers={assignedDevs}
               action={handleUnassignment}
@@ -125,9 +125,9 @@ export default function ManageDevs() {
             />
           </Col>
           <Col className="kanban-modal">
-            <h3 className="text-center modal-title my-5">
+            <h2 className="text-center modal-title my-5">
               Unassigned developers
-            </h3>
+            </h2>
             <ListDevs
               developers={unassignedDevs}
               action={handleAssignment}
