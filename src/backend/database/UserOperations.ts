@@ -1,4 +1,4 @@
-import { ObjectId } from "mongodb";
+import { ObjectId, type MatchKeysAndValues } from "mongodb";
 import {
   type Developer,
   type Manager,
@@ -147,6 +147,9 @@ export async function updateUser(
   if (!user._id) {
     throw new Error("User doesn't have an id!");
   }
+  if (!userFieldsToUpdate) {
+    throw new Error("No fields to update");
+  }
 
   const userDocument = convertToUserDocument(user);
 
@@ -161,11 +164,16 @@ export async function updateUser(
      * Since old user has an ObjectId in their _id field,
      * should just insert new document with same ObjectId as old one.
      */
-    await addUser({ ...user, ...userFieldsToUpdate });
+    return await addUser({ ...user, ...userFieldsToUpdate });
   } else {
-    await (
+    return await (
       await getUsersCollection()
-    ).updateOne({ _id: userDocument._id }, userFieldsToUpdate);
+    ).updateOne(
+      { _id: userDocument._id },
+      {
+        $set: userFieldsToUpdate as MatchKeysAndValues<UserDocument>,
+      }
+    );
   }
 }
 
@@ -175,9 +183,12 @@ export async function updateUser(
  * @param manager A Manager account to set developer's manager field to.
  * @returns results of operation.
  */
-export async function updateManager(developer: Developer, manager: Manager) {
+export async function updateManager(
+  developer: Developer,
+  manager: Manager | null
+) {
   return await updateUser(developer, {
-    manager: manager._id,
+    manager: manager ? manager._id : undefined,
   });
 }
 
@@ -189,9 +200,14 @@ export async function updateManager(developer: Developer, manager: Manager) {
  */
 export async function updateDevelopers(
   manager: Manager,
-  developers: Developer[]
+  developers: Developer[] | undefined
 ) {
+  if (!manager._id) {
+    throw new Error("User doesn't have an id!");
+  }
   return await updateUser(manager, {
-    developers: developers.map(({ _id }) => _id as string),
+    developers: developers
+      ? (developers.map(({ _id }) => _id) as string[])
+      : [],
   });
 }

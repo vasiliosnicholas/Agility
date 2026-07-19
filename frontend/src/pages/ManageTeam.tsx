@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import {
   Container,
   Row,
@@ -21,13 +21,32 @@ const fetchUnassignedDevs = async () => {
 };
 
 const fetchAssignedDevs = async () => {
-  const response = await fetch("/api/developers/&assigned=true");
+  const response = await fetch("/api/developers?assigned=true");
   return response.ok ? ((await response.json()) as User[]) : undefined;
 };
 
+async function handleConcurrentUpdate(
+  developer: User,
+  newAssignedDevs: User[],
+  devUpdateMethod: "PUT" | "DELETE"
+) {
+  return Promise.all([
+    fetch("/api/developers", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newAssignedDevs),
+    }),
+    fetch(`/api/developers/${developer._id}`, {
+      method: devUpdateMethod,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(developer)
+    }),
+  ]);
+}
+
 interface ListDevsPropTypes {
   developers: User[] | undefined;
-  action: React.MouseEventHandler<HTMLElement>;
+  action: (developer: User) => () => void;
   actionName: string;
   bg?: BadgeProps["bg"];
 }
@@ -63,7 +82,7 @@ const ListDevs = ({
             <Badge
               as="button"
               bg={bg}
-              onClick={action}
+              onClick={action(user) as React.MouseEventHandler<HTMLElement>}
               className="px-3 mx-1"
               pill
             >
@@ -77,36 +96,64 @@ const ListDevs = ({
     </ListGroup>
   );
 };
+type UserTuple = [User[] | undefined, User[] | undefined];
 
 export default function ManageDevs() {
   const [manager, setManager] = useState<User | undefined>();
-  const [assignedDevs, setAssignedDevs] = useState<User[] | undefined>();
-  const [unassignedDevs, setUnassignedDevs] = useState<User[] | undefined>();
+  const [[assignedDevs, unassignedDevs], setAssignedAndUnassignedDevs] =
+    useState<UserTuple>([undefined, undefined]);
   const handleSetManager = useCallback(async () => {
     const user = await fetchManagerInfo();
     setManager(user);
   }, [setManager]) as () => void;
 
-  const handleSetAssignedDevs = useCallback(async () => {
-    const devs = await fetchAssignedDevs();
-    setAssignedDevs(devs);
-  }, [setAssignedDevs]) as () => void;
+  const handleSetDevs = useCallback(async () => {
+    const devs = await Promise.all([
+      fetchAssignedDevs(),
+      fetchUnassignedDevs(),
+    ]);
+    setAssignedAndUnassignedDevs(devs);
+  }, [setAssignedAndUnassignedDevs]) as () => void;
 
-  const handleSetUnassignedDevs = useCallback(async () => {
-    const devs = await fetchUnassignedDevs();
-    setUnassignedDevs(devs);
-  }, [setUnassignedDevs]) as () => void;
-
-  function handleAssignment(developerId: string): React.MouseEventHandler<HTMLElement> {
-    return () => {};
+  function handleAssignment(developer: User) {
+    return async () => {
+      const newAssignedDevs = assignedDevs
+        ? [...assignedDevs, developer]
+        : [developer];
+      const newUnAssignedDevs = unassignedDevs
+        ? unassignedDevs.filter((dev) => dev._id !== developer._id)
+        : [];
+      const [assignDevelopersResponse, assignManagerResponse] =
+        await handleConcurrentUpdate(developer, newAssignedDevs, "PUT");
+      if (assignDevelopersResponse.ok && assignManagerResponse.ok) {
+        setAssignedAndUnassignedDevs([newAssignedDevs, newUnAssignedDevs]);
+      } else {
+        alert(`Error assigning ${developer.username}`);
+      }
+    };
   }
-  function handleUnassignment(developerId: string): React.MouseEventHandler<HTMLElement> {
-    return () => {}
-  }
 
-  handleSetManager();
-  handleSetAssignedDevs();
-  handleSetUnassignedDevs();
+  function handleUnassignment(developer: User) {
+    return async () => {
+      const newUnAssignedDevs = unassignedDevs
+        ? [...unassignedDevs, developer]
+        : [developer];
+      const newAssignedDevs = assignedDevs
+        ? assignedDevs.filter((dev) => dev._id !== developer._id)
+        : [];
+      const [assignDevelopersResponse, assignManagerResponse] =
+        await handleConcurrentUpdate(developer, newAssignedDevs, "DELETE");
+      if (assignDevelopersResponse.ok && assignManagerResponse.ok) {
+        setAssignedAndUnassignedDevs([newAssignedDevs, newUnAssignedDevs]);
+      } else {
+        alert(`Error unassigning ${developer.username}`);
+      }
+    };
+  }
+  useEffect(() => {
+    handleSetManager();
+    handleSetDevs();
+  }, [handleSetManager, handleSetDevs]);
 
   return (
     <>
@@ -125,9 +172,7 @@ export default function ManageDevs() {
             </h3>
             <ListDevs
               developers={assignedDevs}
-              action={() => {
-                return;
-              }}
+              action={handleUnassignment}
               actionName="Unassign"
               bg="primary"
             />
@@ -138,9 +183,7 @@ export default function ManageDevs() {
             </h3>
             <ListDevs
               developers={unassignedDevs}
-              action={() => {
-                return;
-              }}
+              action={handleAssignment}
               actionName="Assign"
               bg="primary"
             />

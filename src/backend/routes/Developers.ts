@@ -3,6 +3,7 @@ import { AccountTypeGuardFactoryFunction } from "../middleware/AuthenticationMid
 import {
   getDevelopersMetadata,
   updateManager,
+  updateDevelopers,
 } from "../database/UserOperations.ts";
 import {
   AccountTypes,
@@ -49,6 +50,24 @@ DevelopersRouter.put("/:id", async (req, res) => {
     );
     res.status(201).json(updateResponse);
   } catch (error) {
+    console.error("Set developer's manager:", error);
+    res.status(500).json({ message: (error as Error).message });
+  }
+});
+
+/**
+ * Remove developer's manager
+ */
+DevelopersRouter.delete("/:id", async (req, res) => {
+  try {
+    if (!req.user) {
+      throw new Error("Error user must be authenticated for this route");
+    }
+
+    const updateResponse = await updateManager(req.body as Developer, null);
+    res.status(201).json(updateResponse);
+  } catch (error) {
+    console.error("Remove developer's manager:", error);
     res.status(500).json({ message: (error as Error).message });
   }
 });
@@ -62,12 +81,13 @@ DevelopersRouter.put("/", async (req, res) => {
       throw new Error("Error user must be authenticated for this route");
     }
 
-    const updateResponse = await updateManager(
-      req.body as Developer,
-      req.user as Manager
+    const updateResponse = await updateDevelopers(
+      req.user as Manager,
+      req.body as Developer[]
     );
     res.status(201).json(updateResponse);
   } catch (error) {
+    console.error("Set manager's developer:", error);
     res.status(500).json({ message: (error as Error).message });
   }
 });

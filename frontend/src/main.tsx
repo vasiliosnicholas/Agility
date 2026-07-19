@@ -6,7 +6,7 @@ import IndexPage from "./pages/IndexPage.tsx";
 import Kanban from "./pages/Kanban.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import PlanPhases from "./pages/PlanPhases.tsx";
-import ManageDevs from "./pages/ManageDevs.tsx";
+import ManageDevs from "./pages/ManageTeam.tsx";
 import Unauthorized from "./pages/Unauthorized.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import { BrowserRouter, Routes, Route } from "react-router";
