@@ -33,7 +33,7 @@ For our live demo, the database hosts sample project phases and tickets with moc
 
 The goal of Agility is to make agile project management simpler and more approachable than typical tools. Managers can plan phases, assign developers to a team, create and assign tickets, and track progress on a Kanban board. Developers can create tickets for themselves and act on tickets assigned by their manager — all in one place.
 
-This project was created as the third project for CS5610 Web Development at Northeastern University, during the Summer 2026 semester.
+This project was created as the third project for [CS5610 Web Development](https://johnguerra.co/classes/webDevelopment_online_summer_2026/) at Northeastern University, during the Summer 2026 semester.
 
 From a technical standpoint, the project was built to practice full-stack web development using Node.js, Express, MongoDB, TypeScript, and a React single-page application. Specific objectives include:
 
