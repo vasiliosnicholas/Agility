@@ -1,5 +1,5 @@
 import { Badge, Container, Nav, Navbar } from "react-bootstrap";
-import { Link, NavLink, useNavigate } from "react-router";
+import { Link, NavLink } from "react-router";
 import { AccountTypes, type User } from "@shared/models/Users.ts";
 import ProfileDropdown from "./profile/ProfileComponent";
 
@@ -8,7 +8,6 @@ interface AppNavbarProps {
 }
 
 export default function AppNavbar({ user }: AppNavbarProps) {
-    const navigate = useNavigate();
   const isManager = user.accountType === AccountTypes.Manager;
 
   return (
