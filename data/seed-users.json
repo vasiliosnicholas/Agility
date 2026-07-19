@@ -1,0 +1,58 @@
+[{
+  "_id": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "accountType": "Developer",
+  "name": "Aryan Yadav",
+  "username": "yadav1aryan",
+  "email": "yadav1aryanfh@gmail.com",
+  "password": "$2b$10$ZI7ExdVoztphELr7x1lX.eX4BfwJ1MqoO7PM.29T15r7Y2L4/z4/2",
+  "manager": "6a5a4ad1955af4b61b0b1ee6"
+},
+{
+  "_id": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "accountType": "Developer",
+  "name": "Vasilios Nicholas",
+  "username": "vasilios",
+  "email": "info@example.com",
+  "password": "$2b$10$PNZizmhfHywN6wxo.Xb7.OgLRIh0DcSxIm4p5/jNQ4v76D4tUGfDi",
+  "manager": "6a5a4ad1955af4b61b0b1ee6"
+},
+{
+  "_id": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "accountType": "Manager",
+  "name": "Manager",
+  "username": "manager",
+  "email": "info@example.com",
+  "password": "$2b$10$vnp3v0MlbZZsWudRN5gmUOjiUflit3Xe.w3VuAp.nK1kcAIuBS7sm",
+  "developers": [
+    "6a59791958e9c95a599b1963",
+    "6a59cb0a0dd19e4e0edb3120"
+  ]
+},
+{
+  "_id": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "accountType": "Developer",
+  "name": "John Doe",
+  "username": "exampleperson",
+  "email": "example@example.com",
+  "password": "$2b$10$mThfyME1Rjm5yKobDuMwiuJ7BRC1vvFPfDARn/H4kghjFLomMHfV6",
+  "manager": null
+},
+{
+  "_id": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "accountType": "Developer",
+  "name": "Jane Doe",
+  "username": "janee",
+  "email": "jd@example.com",
+  "password": "$2b$10$PLg.U1Oj0aFq5fLIx0wA5eY.iv5oXTjTlaXCEEcsZvRmlyiOgAreW",
+  "manager": null
+}]

@@ -1,182 +1,4720 @@
-[
-  {
-    "title": "Moodboard for Resort 27 capsule",
-    "description": "Compile fabric swatches, color stories, and reference imagery for the resort capsule kickoff with design and merchandising.",
-    "priority": 1,
-    "status": "backlog",
-    "phaseId": null,
-    "assigneeId": null,
-    "completedAt": null
+[{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b95a"
   },
-  {
-    "title": "Source organic cotton jersey mills",
-    "description": "Shortlist three mills that can supply GOTS-certified jersey in ivory, black, and soft sage for the basics program.",
-    "priority": 2,
-    "status": "backlog",
-    "phaseId": null,
-    "assigneeId": null,
-    "completedAt": null
+  "title": "Moodboard for Resort 27 capsule",
+  "description": "Compile fabric swatches, color stories, and reference imagery for the resort capsule kickoff with design and merchandising.",
+  "priority": 1,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
   },
-  {
-    "title": "Tech pack: draped satin slip dress",
-    "description": "Finalize graded measurements, construction notes, and trim callouts for the bias-cut satin slip before sampling.",
-    "priority": 0,
-    "status": "backlog",
-    "phaseId": null,
-    "assigneeId": null,
-    "completedAt": null
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
   },
-  {
-    "title": "Fit session for tailored wool blazer",
-    "description": "Schedule sample fitting with the house model and document shoulder, lapel, and sleeve revisions for the second proto.",
-    "priority": 1,
-    "status": "backlog",
-    "phaseId": null,
-    "assigneeId": null,
-    "completedAt": null
-  },
-  {
-    "title": "Update line sheet for wholesale market",
-    "description": "Refresh SKUs, wholesale prices, and delivery windows for the upcoming market appointments with specialty retailers.",
-    "priority": 2,
-    "status": "backlog",
-    "phaseId": null,
-    "assigneeId": null,
-    "completedAt": null
-  },
-  {
-    "title": "Approve embroidery artwork for evening set",
-    "description": "Review digital embroidery placements on the bodice and sleeve of the evening co-ord and send signed-off files to the atelier.",
-    "priority": 1,
-    "status": "backlog",
-    "phaseId": null,
-    "assigneeId": null,
-    "completedAt": null
-  },
-  {
-    "title": "Costing sheet for leather trench",
-    "description": "Build full BOM costing including leather panels, lining, hardware, and labor so merchandising can set the retail target.",
-    "priority": 0,
-    "status": "backlog",
-    "phaseId": null,
-    "assigneeId": null,
-    "completedAt": null
-  },
-  {
-    "title": "Photo lookbook shot list",
-    "description": "Define looks, model lineup, and prop notes for the studio lookbook shoot covering daywear and evening heroes.",
-    "priority": 2,
-    "status": "backlog",
-    "phaseId": null,
-    "assigneeId": null,
-    "completedAt": null
-  },
-  {
-    "title": "Select hardware for handbag capsule",
-    "description": "Choose clasp, zipper pull, and foot finishes that match the metal tone across the mini and tote silhouettes.",
-    "priority": 2,
-    "status": "backlog",
-    "phaseId": null,
-    "assigneeId": null,
-    "completedAt": null
-  },
-  {
-    "title": "Pattern correction: wide-leg trouser rise",
-    "description": "Adjust front and back rise after fit comments; update nested patterns and re-cut the muslin for confirmation.",
-    "priority": 1,
-    "status": "backlog",
-    "phaseId": null,
-    "assigneeId": null,
-    "completedAt": null
-  },
-  {
-    "title": "Care label copy for knitwear",
-    "description": "Draft fiber content, wash, and dry-clean instructions that meet labeling requirements for the cashmere blend knits.",
-    "priority": 3,
-    "status": "backlog",
-    "phaseId": null,
-    "assigneeId": null,
-    "completedAt": null
-  },
-  {
-    "title": "Vendor follow-up on silk georgette delay",
-    "description": "Confirm revised ship date for the printed georgette and assess impact on sample room deadlines.",
-    "priority": 0,
-    "status": "backlog",
-    "phaseId": null,
-    "assigneeId": null,
-    "completedAt": null
-  },
-  {
-    "title": "Sketch variants for bridal party jumpsuit",
-    "description": "Explore three neckline and sash options while keeping the fluid wide leg; prepare flats for client review.",
-    "priority": 2,
-    "status": "backlog",
-    "phaseId": null,
-    "assigneeId": null,
-    "completedAt": null
-  },
-  {
-    "title": "QC checklist for production samples",
-    "description": "Define stitch quality, measurement tolerance, and pressing standards for the factory PP sample review.",
-    "priority": 1,
-    "status": "backlog",
-    "phaseId": null,
-    "assigneeId": null,
-    "completedAt": null
-  },
-  {
-    "title": "Sustainability story for website PDP",
-    "description": "Write short product-page copy covering regenerative wool and low-impact dyes for the outerwear drop.",
-    "priority": 3,
-    "status": "backlog",
-    "phaseId": null,
-    "assigneeId": null,
-    "completedAt": null
-  },
-  {
-    "title": "Book atelier overtime for show pieces",
-    "description": "Confirm weekend hours and headcount needed to finish hand-finished runway looks before the show call.",
-    "priority": 0,
-    "status": "backlog",
-    "phaseId": null,
-    "assigneeId": null,
-    "completedAt": null
-  },
-  {
-    "title": "Colorway approval: spring print family",
-    "description": "Review strike-offs for the botanical print in clay, ink, and porcelain; mark approved colorways for bulk.",
-    "priority": 1,
-    "status": "backlog",
-    "phaseId": null,
-    "assigneeId": null,
-    "completedAt": null
-  },
-  {
-    "title": "Size run plan for denim program",
-    "description": "Propose size curve and ratio for the high-rise straight jean based on last season sell-through.",
-    "priority": 2,
-    "status": "backlog",
-    "phaseId": null,
-    "assigneeId": null,
-    "completedAt": null
-  },
-  {
-    "title": "Accessory pairing guide for stylists",
-    "description": "Map belts, scarves, and footwear to key ready-to-wear looks for wholesale showroom styling.",
-    "priority": 3,
-    "status": "backlog",
-    "phaseId": null,
-    "assigneeId": null,
-    "completedAt": null
-  },
-  {
-    "title": "Archive digitization: past season patterns",
-    "description": "Scan and file last three seasons of master patterns with naming conventions for the design archive.",
-    "priority": 3,
-    "status": "backlog",
-    "phaseId": null,
-    "assigneeId": null,
-    "completedAt": null
+  "completedAt": {
+    "$date": "2026-07-16T17:40:01.734Z"
   }
-]
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b95b"
+  },
+  "title": "Source organic cotton jersey mills",
+  "description": "Shortlist three mills that can supply GOTS-certified jersey in ivory, black, and soft sage for the basics program.",
+  "priority": 2,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b95c"
+  },
+  "title": "Tech pack: draped satin slip dress",
+  "description": "Finalize graded measurements, construction notes, and trim callouts for the bias-cut satin slip before sampling.",
+  "priority": 0,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b95d"
+  },
+  "title": "Fit session for tailored wool blazer",
+  "description": "Schedule sample fitting with the house model and document shoulder, lapel, and sleeve revisions for the second proto.",
+  "priority": 1,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": {
+    "$date": "2026-07-16T14:44:04.815Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b95e"
+  },
+  "title": "Update line sheet for wholesale market",
+  "description": "Refresh SKUs, wholesale prices, and delivery windows for the upcoming market appointments with specialty retailers.",
+  "priority": 2,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b95f"
+  },
+  "title": "Approve embroidery artwork for evening set",
+  "description": "Review digital embroidery placements on the bodice and sleeve of the evening co-ord and send signed-off files to the atelier.",
+  "priority": 1,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b960"
+  },
+  "title": "Costing sheet for leather trench",
+  "description": "Build full BOM costing including leather panels, lining, hardware, and labor so merchandising can set the retail target.",
+  "priority": 0,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b961"
+  },
+  "title": "Photo lookbook shot list",
+  "description": "Define looks, model lineup, and prop notes for the studio lookbook shoot covering daywear and evening heroes.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b962"
+  },
+  "title": "Select hardware for handbag capsule",
+  "description": "Choose clasp, zipper pull, and foot finishes that match the metal tone across the mini and tote silhouettes.",
+  "priority": 2,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": {
+    "$date": "2026-07-18T10:34:11.238Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b963"
+  },
+  "title": "Pattern correction: wide-leg trouser rise",
+  "description": "Adjust front and back rise after fit comments; update nested patterns and re-cut the muslin for confirmation.",
+  "priority": 1,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b964"
+  },
+  "title": "Care label copy for knitwear",
+  "description": "Draft fiber content, wash, and dry-clean instructions that meet labeling requirements for the cashmere blend knits.",
+  "priority": 3,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b965"
+  },
+  "title": "Vendor follow-up on silk georgette delay",
+  "description": "Confirm revised ship date for the printed georgette and assess impact on sample room deadlines.",
+  "priority": 0,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b966"
+  },
+  "title": "Sketch variants for bridal party jumpsuit",
+  "description": "Explore three neckline and sash options while keeping the fluid wide leg; prepare flats for client review.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b967"
+  },
+  "title": "QC checklist for production samples",
+  "description": "Define stitch quality, measurement tolerance, and pressing standards for the factory PP sample review.",
+  "priority": 1,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": {
+    "$date": "2026-07-15T02:14:28.685Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b968"
+  },
+  "title": "Sustainability story for website PDP",
+  "description": "Write short product-page copy covering regenerative wool and low-impact dyes for the outerwear drop.",
+  "priority": 3,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": {
+    "$date": "2026-07-17T15:01:33.885Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b969"
+  },
+  "title": "Book atelier overtime for show pieces",
+  "description": "Confirm weekend hours and headcount needed to finish hand-finished runway looks before the show call.",
+  "priority": 0,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b96a"
+  },
+  "title": "Colorway approval: spring print family",
+  "description": "Review strike-offs for the botanical print in clay, ink, and porcelain; mark approved colorways for bulk.",
+  "priority": 1,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b96b"
+  },
+  "title": "Size run plan for denim program",
+  "description": "Propose size curve and ratio for the high-rise straight jean based on last season sell-through.",
+  "priority": 2,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b96c"
+  },
+  "title": "Accessory pairing guide for stylists",
+  "description": "Map belts, scarves, and footwear to key ready-to-wear looks for wholesale showroom styling.",
+  "priority": 3,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b96d"
+  },
+  "title": "Archive digitization: past season patterns",
+  "description": "Scan and file last three seasons of master patterns with naming conventions for the design archive.",
+  "priority": 3,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b96e"
+  },
+  "title": "Costing sheet for tailored wool blazer",
+  "description": "Build full BOM costing including materials, labor, and hardware so merchandising can set the retail target for the tailored wool blazer.",
+  "priority": 2,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b96f"
+  },
+  "title": "Fit session for leather trench",
+  "description": "Schedule sample fitting with the house model and document revisions for the second proto of the leather trench.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b970"
+  },
+  "title": "Pattern correction: wide-leg trouser",
+  "description": "Adjust pattern pieces after fit comments; update nested patterns and re-cut the muslin for the wide-leg trouser.",
+  "priority": 3,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b971"
+  },
+  "title": "Colorway approval: cashmere crewneck",
+  "description": "Review strike-offs and mark approved colorways for bulk on the cashmere crewneck.",
+  "priority": 3,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b972"
+  },
+  "title": "Source mills for silk georgette blouse",
+  "description": "Shortlist suppliers that can meet quality, MOQ, and lead-time needs for the silk georgette blouse.",
+  "priority": 0,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": {
+    "$date": "2026-07-16T21:34:16.132Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b973"
+  },
+  "title": "QC checklist for bridal party jumpsuit",
+  "description": "Define stitch quality, measurement tolerance, and pressing standards for the bridal party jumpsuit PP sample review.",
+  "priority": 1,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b974"
+  },
+  "title": "Approve artwork for evening co-ord set",
+  "description": "Review placements and send signed-off files to the atelier for the evening co-ord set.",
+  "priority": 1,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b975"
+  },
+  "title": "Update line sheet: handbag mini tote",
+  "description": "Refresh SKUs, wholesale prices, and delivery windows for the handbag mini tote ahead of market appointments.",
+  "priority": 2,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": {
+    "$date": "2026-07-18T19:10:31.617Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b976"
+  },
+  "title": "Sample room brief: resort linen shirt",
+  "description": "Issue cutting tickets, trim kits, and due dates so the sample room can start the resort linen shirt.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b977"
+  },
+  "title": "Vendor follow-up: high-rise straight jean",
+  "description": "Confirm revised ship dates and assess impact on sample room deadlines for the high-rise straight jean.",
+  "priority": 2,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b978"
+  },
+  "title": "Sketch variants for botanical print dress",
+  "description": "Explore three design options and prepare flats for merchandising review of the botanical print dress.",
+  "priority": 3,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b979"
+  },
+  "title": "Care label copy: bias-cut midi skirt",
+  "description": "Draft fiber content, wash, and dry-clean instructions that meet labeling requirements for the bias-cut midi skirt.",
+  "priority": 3,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b97a"
+  },
+  "title": "Photo shot list: shearling collar coat",
+  "description": "Define looks, model lineup, and prop notes for photographing the shearling collar coat in the lookbook.",
+  "priority": 0,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": {
+    "$date": "2026-07-16T17:28:42.787Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b97b"
+  },
+  "title": "Sustainability notes: knit polo",
+  "description": "Write short PDP copy covering materials and low-impact finishes for the knit polo.",
+  "priority": 1,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b97c"
+  },
+  "title": "Size run plan: column evening gown",
+  "description": "Propose size curve and ratio for the column evening gown based on last season sell-through.",
+  "priority": 1,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b97d"
+  },
+  "title": "Hardware selection: suede loafer",
+  "description": "Choose clasp, zipper, and finish options that match the metal tone for the suede loafer.",
+  "priority": 2,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b97e"
+  },
+  "title": "Archive patterns: printed silk scarf",
+  "description": "Scan and file master patterns with naming conventions for the printed silk scarf in the design archive.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b97f"
+  },
+  "title": "Press sample pack: cigarette pant",
+  "description": "Pack and track press samples of the cigarette pant for editors covering the upcoming drop.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b980"
+  },
+  "title": "Factory trim card: mesh bodywear tank",
+  "description": "Assemble buttons, zippers, labels, and hangtags for the mesh bodywear tank production pack.",
+  "priority": 3,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b981"
+  },
+  "title": "Grade rules: structured tote",
+  "description": "Update grade rules across the size run and circulate the revised nested set for the structured tote.",
+  "priority": 3,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b982"
+  },
+  "title": "Wash recipe: pleated chiffon dress",
+  "description": "Lock laundry recipe, hand-feel target, and whisker map with the wash partner for the pleated chiffon dress.",
+  "priority": 0,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b983"
+  },
+  "title": "Embroidery placement: quilted bomber",
+  "description": "Approve stitch files and placement boards before the atelier begins the quilted bomber.",
+  "priority": 1,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": {
+    "$date": "2026-07-18T01:45:07.843Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b984"
+  },
+  "title": "Book overtime for crochet cover-up",
+  "description": "Confirm weekend hours and headcount needed to finish hand-finished work on the crochet cover-up.",
+  "priority": 1,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b985"
+  },
+  "title": "Buyer appointment prep: tuxedo shirt",
+  "description": "Style the tuxedo shirt on forms and print line sheets for specialty retailer walkthroughs.",
+  "priority": 2,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b986"
+  },
+  "title": "Compliance review: straw wide-brim hat",
+  "description": "Check fiber claims, hardware certs, and care copy for regulatory readiness on the straw wide-brim hat.",
+  "priority": 2,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b987"
+  },
+  "title": "Proto review notes: stretch work trouser",
+  "description": "Consolidate design, tech, and merchandising comments from the first proto of the stretch work trouser.",
+  "priority": 2,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b988"
+  },
+  "title": "Lining approval: velvet dinner jacket",
+  "description": "Select lining quality, color, and pocketing for construction of the velvet dinner jacket.",
+  "priority": 3,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b989"
+  },
+  "title": "Delivery window: kidswear party dress",
+  "description": "Align ex-factory and in-store dates with planning so the kidswear party dress hits the right drop.",
+  "priority": 3,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": {
+    "$date": "2026-07-17T01:29:39.895Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b98a"
+  },
+  "title": "Styling guide: maternity wrap",
+  "description": "Map belts, footwear, and jewelry pairings to the maternity wrap for showroom stylists.",
+  "priority": 0,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b98b"
+  },
+  "title": "Tech pack: recycled nylon windbreaker",
+  "description": "Finalize graded measurements, construction notes, and trim callouts for the recycled nylon windbreaker before sampling.",
+  "priority": 1,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b98c"
+  },
+  "title": "Costing sheet for beaded evening clutch",
+  "description": "Build full BOM costing including materials, labor, and hardware so merchandising can set the retail target for the beaded evening clutch.",
+  "priority": 1,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b98d"
+  },
+  "title": "Fit session for oxford cloth shirt",
+  "description": "Schedule sample fitting with the house model and document revisions for the second proto of the oxford cloth shirt.",
+  "priority": 2,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": {
+    "$date": "2026-07-15T07:10:52.965Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b98e"
+  },
+  "title": "Pattern correction: flared midi boot",
+  "description": "Adjust pattern pieces after fit comments; update nested patterns and re-cut the muslin for the flared midi boot.",
+  "priority": 2,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b98f"
+  },
+  "title": "Colorway approval: organic terry robe",
+  "description": "Review strike-offs and mark approved colorways for bulk on the organic terry robe.",
+  "priority": 2,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b990"
+  },
+  "title": "Source mills for seersucker summer suit",
+  "description": "Shortlist suppliers that can meet quality, MOQ, and lead-time needs for the seersucker summer suit.",
+  "priority": 3,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b991"
+  },
+  "title": "QC checklist for lace bridal bodice",
+  "description": "Define stitch quality, measurement tolerance, and pressing standards for the lace bridal bodice PP sample review.",
+  "priority": 3,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b992"
+  },
+  "title": "Approve artwork for recycled puffer vest",
+  "description": "Review placements and send signed-off files to the atelier for the recycled puffer vest.",
+  "priority": 0,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b993"
+  },
+  "title": "Update line sheet: silk slip skirt",
+  "description": "Refresh SKUs, wholesale prices, and delivery windows for the silk slip skirt ahead of market appointments.",
+  "priority": 1,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b994"
+  },
+  "title": "Sample room brief: canvas espadrille",
+  "description": "Issue cutting tickets, trim kits, and due dates so the sample room can start the canvas espadrille.",
+  "priority": 1,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b995"
+  },
+  "title": "Vendor follow-up: graphic collab tee",
+  "description": "Confirm revised ship dates and assess impact on sample room deadlines for the graphic collab tee.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b996"
+  },
+  "title": "Sketch variants for culotte jumpsuit",
+  "description": "Explore three design options and prepare flats for merchandising review of the culotte jumpsuit.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b997"
+  },
+  "title": "Care label copy: faux shearling coat",
+  "description": "Draft fiber content, wash, and dry-clean instructions that meet labeling requirements for the faux shearling coat.",
+  "priority": 2,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": {
+    "$date": "2026-07-17T15:11:19.633Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b998"
+  },
+  "title": "Photo shot list: metallic holiday sandal",
+  "description": "Define looks, model lineup, and prop notes for photographing the metallic holiday sandal in the lookbook.",
+  "priority": 3,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b999"
+  },
+  "title": "Sustainability notes: utility chore coat",
+  "description": "Write short PDP copy covering materials and low-impact finishes for the utility chore coat.",
+  "priority": 3,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": {
+    "$date": "2026-07-17T23:33:27.556Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b99a"
+  },
+  "title": "Size run plan: swim brief set",
+  "description": "Propose size curve and ratio for the swim brief set based on last season sell-through.",
+  "priority": 0,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": {
+    "$date": "2026-07-17T21:51:43.011Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b99b"
+  },
+  "title": "Hardware selection: tartan wrap skirt",
+  "description": "Choose clasp, zipper, and finish options that match the metal tone for the tartan wrap skirt.",
+  "priority": 1,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": {
+    "$date": "2026-07-15T05:16:26.487Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b99c"
+  },
+  "title": "Archive patterns: cashmere beanie",
+  "description": "Scan and file master patterns with naming conventions for the cashmere beanie in the design archive.",
+  "priority": 1,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b99d"
+  },
+  "title": "Press sample pack: atelier corset bodice",
+  "description": "Pack and track press samples of the atelier corset bodice for editors covering the upcoming drop.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b99e"
+  },
+  "title": "Factory trim card: cargo utility pant",
+  "description": "Assemble buttons, zippers, labels, and hangtags for the cargo utility pant production pack.",
+  "priority": 2,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b99f"
+  },
+  "title": "Grade rules: organza overlay gown",
+  "description": "Update grade rules across the size run and circulate the revised nested set for the organza overlay gown.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9a0"
+  },
+  "title": "Wash recipe: leather belt capsule",
+  "description": "Lock laundry recipe, hand-feel target, and whisker map with the wash partner for the leather belt capsule.",
+  "priority": 3,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9a1"
+  },
+  "title": "Embroidery placement: merino base layer",
+  "description": "Approve stitch files and placement boards before the atelier begins the merino base layer.",
+  "priority": 3,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": {
+    "$date": "2026-07-18T01:01:40.618Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9a2"
+  },
+  "title": "Book overtime for Resort 27 moodboard looks",
+  "description": "Confirm weekend hours and headcount needed to finish hand-finished work on the Resort 27 moodboard looks.",
+  "priority": 0,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9a3"
+  },
+  "title": "Buyer appointment prep: wholesale market heroes",
+  "description": "Style the wholesale market heroes on forms and print line sheets for specialty retailer walkthroughs.",
+  "priority": 1,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9a4"
+  },
+  "title": "Compliance review: FW outerwear drop",
+  "description": "Check fiber claims, hardware certs, and care copy for regulatory readiness on the FW outerwear drop.",
+  "priority": 1,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9a5"
+  },
+  "title": "Proto review notes: holiday gift edit",
+  "description": "Consolidate design, tech, and merchandising comments from the first proto of the holiday gift edit.",
+  "priority": 2,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9a6"
+  },
+  "title": "Lining approval: showroom RTW rack",
+  "description": "Select lining quality, color, and pocketing for construction of the showroom RTW rack.",
+  "priority": 2,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9a7"
+  },
+  "title": "Delivery window: denim wash program",
+  "description": "Align ex-factory and in-store dates with planning so the denim wash program hits the right drop.",
+  "priority": 2,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": {
+    "$date": "2026-07-18T18:17:58.996Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9a8"
+  },
+  "title": "Styling guide: knitwear basics line",
+  "description": "Map belts, footwear, and jewelry pairings to the knitwear basics line for showroom stylists.",
+  "priority": 3,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9a9"
+  },
+  "title": "Tech pack: handloom craft capsule",
+  "description": "Finalize graded measurements, construction notes, and trim callouts for the handloom craft capsule before sampling.",
+  "priority": 3,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9aa"
+  },
+  "title": "Costing sheet for jewelry pairing edit",
+  "description": "Build full BOM costing including materials, labor, and hardware so merchandising can set the retail target for the jewelry pairing edit.",
+  "priority": 0,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9ab"
+  },
+  "title": "Fit session for spa robe assortment",
+  "description": "Schedule sample fitting with the house model and document revisions for the second proto of the spa robe assortment.",
+  "priority": 1,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9ac"
+  },
+  "title": "Pattern correction: ski softshell set",
+  "description": "Adjust pattern pieces after fit comments; update nested patterns and re-cut the muslin for the ski softshell set.",
+  "priority": 1,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": {
+    "$date": "2026-07-18T03:06:52.666Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9ad"
+  },
+  "title": "Colorway approval: evening shirting",
+  "description": "Review strike-offs and mark approved colorways for bulk on the evening shirting.",
+  "priority": 2,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9ae"
+  },
+  "title": "Source mills for accessories hardware kit",
+  "description": "Shortlist suppliers that can meet quality, MOQ, and lead-time needs for the accessories hardware kit.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9af"
+  },
+  "title": "QC checklist for bridal veil sample",
+  "description": "Define stitch quality, measurement tolerance, and pressing standards for the bridal veil sample PP sample review.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9b0"
+  },
+  "title": "Approve artwork for leather crossbody",
+  "description": "Review placements and send signed-off files to the atelier for the leather crossbody.",
+  "priority": 3,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9b1"
+  },
+  "title": "Update line sheet: wool overcoat",
+  "description": "Refresh SKUs, wholesale prices, and delivery windows for the wool overcoat ahead of market appointments.",
+  "priority": 3,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9b2"
+  },
+  "title": "Sample room brief: barrel-leg jean",
+  "description": "Issue cutting tickets, trim kits, and due dates so the sample room can start the barrel-leg jean.",
+  "priority": 0,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9b3"
+  },
+  "title": "Vendor follow-up: embroidery evening sleeve",
+  "description": "Confirm revised ship dates and assess impact on sample room deadlines for the embroidery evening sleeve.",
+  "priority": 1,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9b4"
+  },
+  "title": "Sketch variants for organic cotton jersey tee",
+  "description": "Explore three design options and prepare flats for merchandising review of the organic cotton jersey tee.",
+  "priority": 1,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9b5"
+  },
+  "title": "Care label copy: cashmere blend cardigan",
+  "description": "Draft fiber content, wash, and dry-clean instructions that meet labeling requirements for the cashmere blend cardigan.",
+  "priority": 2,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9b6"
+  },
+  "title": "Photo shot list: satin bias camisole",
+  "description": "Define looks, model lineup, and prop notes for photographing the satin bias camisole in the lookbook.",
+  "priority": 2,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9b7"
+  },
+  "title": "Sustainability notes: tailored waistcoat",
+  "description": "Write short PDP copy covering materials and low-impact finishes for the tailored waistcoat.",
+  "priority": 2,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": {
+    "$date": "2026-07-18T11:40:00.489Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9b8"
+  },
+  "title": "Size run plan: pleated tennis skirt",
+  "description": "Propose size curve and ratio for the pleated tennis skirt based on last season sell-through.",
+  "priority": 3,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": {
+    "$date": "2026-07-18T09:29:28.886Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9b9"
+  },
+  "title": "Hardware selection: rib knit dress",
+  "description": "Choose clasp, zipper, and finish options that match the metal tone for the rib knit dress.",
+  "priority": 3,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": {
+    "$date": "2026-07-16T18:54:49.587Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9ba"
+  },
+  "title": "Archive patterns: nylon parachute pant",
+  "description": "Scan and file master patterns with naming conventions for the nylon parachute pant in the design archive.",
+  "priority": 0,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": {
+    "$date": "2026-07-16T09:22:21.137Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9bb"
+  },
+  "title": "Press sample pack: cotton poplin shirt",
+  "description": "Pack and track press samples of the cotton poplin shirt for editors covering the upcoming drop.",
+  "priority": 1,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": {
+    "$date": "2026-07-15T21:37:16.923Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9bc"
+  },
+  "title": "Factory trim card: double-faced wool coat",
+  "description": "Assemble buttons, zippers, labels, and hangtags for the double-faced wool coat production pack.",
+  "priority": 1,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9bd"
+  },
+  "title": "Grade rules: crystal-embellished heel",
+  "description": "Update grade rules across the size run and circulate the revised nested set for the crystal-embellished heel.",
+  "priority": 2,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": {
+    "$date": "2026-07-15T14:20:07.513Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9be"
+  },
+  "title": "Wash recipe: canvas weekender",
+  "description": "Lock laundry recipe, hand-feel target, and whisker map with the wash partner for the canvas weekender.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9bf"
+  },
+  "title": "Embroidery placement: silk foulard set",
+  "description": "Approve stitch files and placement boards before the atelier begins the silk foulard set.",
+  "priority": 2,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9c0"
+  },
+  "title": "Book overtime for raw-hem denim jacket",
+  "description": "Confirm weekend hours and headcount needed to finish hand-finished work on the raw-hem denim jacket.",
+  "priority": 3,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": {
+    "$date": "2026-07-17T19:34:29.529Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9c1"
+  },
+  "title": "Buyer appointment prep: smocked midi dress",
+  "description": "Style the smocked midi dress on forms and print line sheets for specialty retailer walkthroughs.",
+  "priority": 3,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9c2"
+  },
+  "title": "Compliance review: boxy cropped blazer",
+  "description": "Check fiber claims, hardware certs, and care copy for regulatory readiness on the boxy cropped blazer.",
+  "priority": 0,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": {
+    "$date": "2026-07-16T05:57:37.251Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9c3"
+  },
+  "title": "Proto review notes: fluid wide-leg pant",
+  "description": "Consolidate design, tech, and merchandising comments from the first proto of the fluid wide-leg pant.",
+  "priority": 1,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9c4"
+  },
+  "title": "Lining approval: cropped trench",
+  "description": "Select lining quality, color, and pocketing for construction of the cropped trench.",
+  "priority": 1,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9c5"
+  },
+  "title": "Delivery window: boucle jacket",
+  "description": "Align ex-factory and in-store dates with planning so the boucle jacket hits the right drop.",
+  "priority": 2,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": {
+    "$date": "2026-07-15T20:32:56.754Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9c6"
+  },
+  "title": "Styling guide: pointelle knit top",
+  "description": "Map belts, footwear, and jewelry pairings to the pointelle knit top for showroom stylists.",
+  "priority": 2,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": {
+    "$date": "2026-07-17T18:04:09.239Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9c7"
+  },
+  "title": "Tech pack: wrapped leather sandal",
+  "description": "Finalize graded measurements, construction notes, and trim callouts for the wrapped leather sandal before sampling.",
+  "priority": 2,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": {
+    "$date": "2026-07-15T02:54:32.941Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9c8"
+  },
+  "title": "Costing sheet for padded nylon shoulder bag",
+  "description": "Build full BOM costing including materials, labor, and hardware so merchandising can set the retail target for the padded nylon shoulder bag.",
+  "priority": 3,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": {
+    "$date": "2026-07-17T04:49:07.203Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9c9"
+  },
+  "title": "Fit session for cut-out knit dress",
+  "description": "Schedule sample fitting with the house model and document revisions for the second proto of the cut-out knit dress.",
+  "priority": 3,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9ca"
+  },
+  "title": "Pattern correction: tailored shorts",
+  "description": "Adjust pattern pieces after fit comments; update nested patterns and re-cut the muslin for the tailored shorts.",
+  "priority": 0,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9cb"
+  },
+  "title": "Colorway approval: asymmetric hem skirt",
+  "description": "Review strike-offs and mark approved colorways for bulk on the asymmetric hem skirt.",
+  "priority": 1,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9cc"
+  },
+  "title": "Source mills for logo jacquard scarf",
+  "description": "Shortlist suppliers that can meet quality, MOQ, and lead-time needs for the logo jacquard scarf.",
+  "priority": 1,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": {
+    "$date": "2026-07-15T11:03:52.834Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9cd"
+  },
+  "title": "QC checklist for fleece half-zip",
+  "description": "Define stitch quality, measurement tolerance, and pressing standards for the fleece half-zip PP sample review.",
+  "priority": 2,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9ce"
+  },
+  "title": "Approve artwork for sequin mini dress",
+  "description": "Review placements and send signed-off files to the atelier for the sequin mini dress.",
+  "priority": 2,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9cf"
+  },
+  "title": "Update line sheet: waxed cotton field jacket",
+  "description": "Refresh SKUs, wholesale prices, and delivery windows for the waxed cotton field jacket ahead of market appointments.",
+  "priority": 2,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9d0"
+  },
+  "title": "Sample room brief: draped satin slip dress",
+  "description": "Issue cutting tickets, trim kits, and due dates so the sample room can start the draped satin slip dress.",
+  "priority": 3,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9d1"
+  },
+  "title": "Vendor follow-up: tailored wool blazer",
+  "description": "Confirm revised ship dates and assess impact on sample room deadlines for the tailored wool blazer.",
+  "priority": 3,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9d2"
+  },
+  "title": "Sketch variants for leather trench",
+  "description": "Explore three design options and prepare flats for merchandising review of the leather trench.",
+  "priority": 0,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9d3"
+  },
+  "title": "Care label copy: wide-leg trouser",
+  "description": "Draft fiber content, wash, and dry-clean instructions that meet labeling requirements for the wide-leg trouser.",
+  "priority": 1,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": {
+    "$date": "2026-07-15T10:42:24.658Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9d4"
+  },
+  "title": "Photo shot list: cashmere crewneck",
+  "description": "Define looks, model lineup, and prop notes for photographing the cashmere crewneck in the lookbook.",
+  "priority": 1,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9d5"
+  },
+  "title": "Sustainability notes: silk georgette blouse",
+  "description": "Write short PDP copy covering materials and low-impact finishes for the silk georgette blouse.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9d6"
+  },
+  "title": "Size run plan: bridal party jumpsuit",
+  "description": "Propose size curve and ratio for the bridal party jumpsuit based on last season sell-through.",
+  "priority": 2,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9d7"
+  },
+  "title": "Hardware selection: evening co-ord set",
+  "description": "Choose clasp, zipper, and finish options that match the metal tone for the evening co-ord set.",
+  "priority": 2,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": {
+    "$date": "2026-07-17T08:39:28.959Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9d8"
+  },
+  "title": "Archive patterns: handbag mini tote",
+  "description": "Scan and file master patterns with naming conventions for the handbag mini tote in the design archive.",
+  "priority": 3,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9d9"
+  },
+  "title": "Press sample pack: resort linen shirt",
+  "description": "Pack and track press samples of the resort linen shirt for editors covering the upcoming drop.",
+  "priority": 3,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": {
+    "$date": "2026-07-17T15:03:33.888Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9da"
+  },
+  "title": "Factory trim card: high-rise straight jean",
+  "description": "Assemble buttons, zippers, labels, and hangtags for the high-rise straight jean production pack.",
+  "priority": 0,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9db"
+  },
+  "title": "Grade rules: botanical print dress",
+  "description": "Update grade rules across the size run and circulate the revised nested set for the botanical print dress.",
+  "priority": 1,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": {
+    "$date": "2026-07-15T19:33:57.244Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9dc"
+  },
+  "title": "Wash recipe: bias-cut midi skirt",
+  "description": "Lock laundry recipe, hand-feel target, and whisker map with the wash partner for the bias-cut midi skirt.",
+  "priority": 1,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": {
+    "$date": "2026-07-17T11:40:12.236Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9dd"
+  },
+  "title": "Embroidery placement: shearling collar coat",
+  "description": "Approve stitch files and placement boards before the atelier begins the shearling collar coat.",
+  "priority": 2,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9de"
+  },
+  "title": "Book overtime for knit polo",
+  "description": "Confirm weekend hours and headcount needed to finish hand-finished work on the knit polo.",
+  "priority": 2,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": {
+    "$date": "2026-07-17T08:38:25.360Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9df"
+  },
+  "title": "Buyer appointment prep: column evening gown",
+  "description": "Style the column evening gown on forms and print line sheets for specialty retailer walkthroughs.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9e0"
+  },
+  "title": "Compliance review: suede loafer",
+  "description": "Check fiber claims, hardware certs, and care copy for regulatory readiness on the suede loafer.",
+  "priority": 3,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9e1"
+  },
+  "title": "Proto review notes: printed silk scarf",
+  "description": "Consolidate design, tech, and merchandising comments from the first proto of the printed silk scarf.",
+  "priority": 3,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": {
+    "$date": "2026-07-15T00:55:43.716Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9e2"
+  },
+  "title": "Lining approval: cigarette pant",
+  "description": "Select lining quality, color, and pocketing for construction of the cigarette pant.",
+  "priority": 0,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9e3"
+  },
+  "title": "Delivery window: mesh bodywear tank",
+  "description": "Align ex-factory and in-store dates with planning so the mesh bodywear tank hits the right drop.",
+  "priority": 1,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": {
+    "$date": "2026-07-18T20:22:08.684Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9e4"
+  },
+  "title": "Styling guide: structured tote",
+  "description": "Map belts, footwear, and jewelry pairings to the structured tote for showroom stylists.",
+  "priority": 1,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9e5"
+  },
+  "title": "Tech pack: pleated chiffon dress",
+  "description": "Finalize graded measurements, construction notes, and trim callouts for the pleated chiffon dress before sampling.",
+  "priority": 2,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": {
+    "$date": "2026-07-18T15:05:04.241Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9e6"
+  },
+  "title": "Costing sheet for quilted bomber",
+  "description": "Build full BOM costing including materials, labor, and hardware so merchandising can set the retail target for the quilted bomber.",
+  "priority": 2,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9e7"
+  },
+  "title": "Fit session for crochet cover-up",
+  "description": "Schedule sample fitting with the house model and document revisions for the second proto of the crochet cover-up.",
+  "priority": 2,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": {
+    "$date": "2026-07-16T16:58:17.804Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9e8"
+  },
+  "title": "Pattern correction: tuxedo shirt",
+  "description": "Adjust pattern pieces after fit comments; update nested patterns and re-cut the muslin for the tuxedo shirt.",
+  "priority": 3,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9e9"
+  },
+  "title": "Colorway approval: straw wide-brim hat",
+  "description": "Review strike-offs and mark approved colorways for bulk on the straw wide-brim hat.",
+  "priority": 3,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9ea"
+  },
+  "title": "Source mills for stretch work trouser",
+  "description": "Shortlist suppliers that can meet quality, MOQ, and lead-time needs for the stretch work trouser.",
+  "priority": 0,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": {
+    "$date": "2026-07-16T16:25:56.529Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9eb"
+  },
+  "title": "QC checklist for velvet dinner jacket",
+  "description": "Define stitch quality, measurement tolerance, and pressing standards for the velvet dinner jacket PP sample review.",
+  "priority": 1,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": {
+    "$date": "2026-07-15T11:32:32.160Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9ec"
+  },
+  "title": "Approve artwork for kidswear party dress",
+  "description": "Review placements and send signed-off files to the atelier for the kidswear party dress.",
+  "priority": 1,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9ed"
+  },
+  "title": "Update line sheet: maternity wrap",
+  "description": "Refresh SKUs, wholesale prices, and delivery windows for the maternity wrap ahead of market appointments.",
+  "priority": 2,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9ee"
+  },
+  "title": "Sample room brief: recycled nylon windbreaker",
+  "description": "Issue cutting tickets, trim kits, and due dates so the sample room can start the recycled nylon windbreaker.",
+  "priority": 2,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9ef"
+  },
+  "title": "Vendor follow-up: beaded evening clutch",
+  "description": "Confirm revised ship dates and assess impact on sample room deadlines for the beaded evening clutch.",
+  "priority": 2,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9f0"
+  },
+  "title": "Sketch variants for oxford cloth shirt",
+  "description": "Explore three design options and prepare flats for merchandising review of the oxford cloth shirt.",
+  "priority": 3,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9f1"
+  },
+  "title": "Care label copy: flared midi boot",
+  "description": "Draft fiber content, wash, and dry-clean instructions that meet labeling requirements for the flared midi boot.",
+  "priority": 3,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9f2"
+  },
+  "title": "Photo shot list: organic terry robe",
+  "description": "Define looks, model lineup, and prop notes for photographing the organic terry robe in the lookbook.",
+  "priority": 0,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9f3"
+  },
+  "title": "Sustainability notes: seersucker summer suit",
+  "description": "Write short PDP copy covering materials and low-impact finishes for the seersucker summer suit.",
+  "priority": 1,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9f4"
+  },
+  "title": "Size run plan: lace bridal bodice",
+  "description": "Propose size curve and ratio for the lace bridal bodice based on last season sell-through.",
+  "priority": 1,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9f5"
+  },
+  "title": "Hardware selection: recycled puffer vest",
+  "description": "Choose clasp, zipper, and finish options that match the metal tone for the recycled puffer vest.",
+  "priority": 2,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9f6"
+  },
+  "title": "Archive patterns: silk slip skirt",
+  "description": "Scan and file master patterns with naming conventions for the silk slip skirt in the design archive.",
+  "priority": 2,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9f7"
+  },
+  "title": "Press sample pack: canvas espadrille",
+  "description": "Pack and track press samples of the canvas espadrille for editors covering the upcoming drop.",
+  "priority": 2,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9f8"
+  },
+  "title": "Factory trim card: graphic collab tee",
+  "description": "Assemble buttons, zippers, labels, and hangtags for the graphic collab tee production pack.",
+  "priority": 3,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": {
+    "$date": "2026-07-15T04:04:18.751Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9f9"
+  },
+  "title": "Grade rules: culotte jumpsuit",
+  "description": "Update grade rules across the size run and circulate the revised nested set for the culotte jumpsuit.",
+  "priority": 3,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": {
+    "$date": "2026-07-15T11:21:22.651Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9fa"
+  },
+  "title": "Wash recipe: faux shearling coat",
+  "description": "Lock laundry recipe, hand-feel target, and whisker map with the wash partner for the faux shearling coat.",
+  "priority": 0,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9fb"
+  },
+  "title": "Embroidery placement: metallic holiday sandal",
+  "description": "Approve stitch files and placement boards before the atelier begins the metallic holiday sandal.",
+  "priority": 1,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": {
+    "$date": "2026-07-17T22:01:30.297Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9fc"
+  },
+  "title": "Book overtime for utility chore coat",
+  "description": "Confirm weekend hours and headcount needed to finish hand-finished work on the utility chore coat.",
+  "priority": 1,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9fd"
+  },
+  "title": "Buyer appointment prep: swim brief set",
+  "description": "Style the swim brief set on forms and print line sheets for specialty retailer walkthroughs.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9fe"
+  },
+  "title": "Compliance review: tartan wrap skirt",
+  "description": "Check fiber claims, hardware certs, and care copy for regulatory readiness on the tartan wrap skirt.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78b9ff"
+  },
+  "title": "Proto review notes: cashmere beanie",
+  "description": "Consolidate design, tech, and merchandising comments from the first proto of the cashmere beanie.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba00"
+  },
+  "title": "Lining approval: atelier corset bodice",
+  "description": "Select lining quality, color, and pocketing for construction of the atelier corset bodice.",
+  "priority": 3,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": {
+    "$date": "2026-07-18T17:35:32.701Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba01"
+  },
+  "title": "Delivery window: cargo utility pant",
+  "description": "Align ex-factory and in-store dates with planning so the cargo utility pant hits the right drop.",
+  "priority": 3,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba02"
+  },
+  "title": "Styling guide: organza overlay gown",
+  "description": "Map belts, footwear, and jewelry pairings to the organza overlay gown for showroom stylists.",
+  "priority": 0,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba03"
+  },
+  "title": "Tech pack: leather belt capsule",
+  "description": "Finalize graded measurements, construction notes, and trim callouts for the leather belt capsule before sampling.",
+  "priority": 1,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba04"
+  },
+  "title": "Costing sheet for merino base layer",
+  "description": "Build full BOM costing including materials, labor, and hardware so merchandising can set the retail target for the merino base layer.",
+  "priority": 1,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba05"
+  },
+  "title": "Fit session for Resort 27 moodboard looks",
+  "description": "Schedule sample fitting with the house model and document revisions for the second proto of the Resort 27 moodboard looks.",
+  "priority": 2,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba06"
+  },
+  "title": "Pattern correction: wholesale market heroes",
+  "description": "Adjust pattern pieces after fit comments; update nested patterns and re-cut the muslin for the wholesale market heroes.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba07"
+  },
+  "title": "Colorway approval: FW outerwear drop",
+  "description": "Review strike-offs and mark approved colorways for bulk on the FW outerwear drop.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba08"
+  },
+  "title": "Source mills for holiday gift edit",
+  "description": "Shortlist suppliers that can meet quality, MOQ, and lead-time needs for the holiday gift edit.",
+  "priority": 3,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba09"
+  },
+  "title": "QC checklist for showroom RTW rack",
+  "description": "Define stitch quality, measurement tolerance, and pressing standards for the showroom RTW rack PP sample review.",
+  "priority": 3,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba0a"
+  },
+  "title": "Approve artwork for denim wash program",
+  "description": "Review placements and send signed-off files to the atelier for the denim wash program.",
+  "priority": 0,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba0b"
+  },
+  "title": "Update line sheet: knitwear basics line",
+  "description": "Refresh SKUs, wholesale prices, and delivery windows for the knitwear basics line ahead of market appointments.",
+  "priority": 1,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": {
+    "$date": "2026-07-18T00:27:54.464Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba0c"
+  },
+  "title": "Sample room brief: handloom craft capsule",
+  "description": "Issue cutting tickets, trim kits, and due dates so the sample room can start the handloom craft capsule.",
+  "priority": 1,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba0d"
+  },
+  "title": "Vendor follow-up: jewelry pairing edit",
+  "description": "Confirm revised ship dates and assess impact on sample room deadlines for the jewelry pairing edit.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba0e"
+  },
+  "title": "Sketch variants for spa robe assortment",
+  "description": "Explore three design options and prepare flats for merchandising review of the spa robe assortment.",
+  "priority": 2,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba0f"
+  },
+  "title": "Care label copy: ski softshell set",
+  "description": "Draft fiber content, wash, and dry-clean instructions that meet labeling requirements for the ski softshell set.",
+  "priority": 2,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba10"
+  },
+  "title": "Photo shot list: evening shirting",
+  "description": "Define looks, model lineup, and prop notes for photographing the evening shirting in the lookbook.",
+  "priority": 3,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba11"
+  },
+  "title": "Sustainability notes: accessories hardware kit",
+  "description": "Write short PDP copy covering materials and low-impact finishes for the accessories hardware kit.",
+  "priority": 3,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba12"
+  },
+  "title": "Size run plan: bridal veil sample",
+  "description": "Propose size curve and ratio for the bridal veil sample based on last season sell-through.",
+  "priority": 0,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba13"
+  },
+  "title": "Hardware selection: leather crossbody",
+  "description": "Choose clasp, zipper, and finish options that match the metal tone for the leather crossbody.",
+  "priority": 1,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba14"
+  },
+  "title": "Archive patterns: wool overcoat",
+  "description": "Scan and file master patterns with naming conventions for the wool overcoat in the design archive.",
+  "priority": 1,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba15"
+  },
+  "title": "Press sample pack: barrel-leg jean",
+  "description": "Pack and track press samples of the barrel-leg jean for editors covering the upcoming drop.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba16"
+  },
+  "title": "Factory trim card: embroidery evening sleeve",
+  "description": "Assemble buttons, zippers, labels, and hangtags for the embroidery evening sleeve production pack.",
+  "priority": 2,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": {
+    "$date": "2026-07-17T09:39:21.616Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba17"
+  },
+  "title": "Grade rules: organic cotton jersey tee",
+  "description": "Update grade rules across the size run and circulate the revised nested set for the organic cotton jersey tee.",
+  "priority": 2,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": {
+    "$date": "2026-07-17T04:25:10.138Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba18"
+  },
+  "title": "Wash recipe: cashmere blend cardigan",
+  "description": "Lock laundry recipe, hand-feel target, and whisker map with the wash partner for the cashmere blend cardigan.",
+  "priority": 3,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba19"
+  },
+  "title": "Embroidery placement: satin bias camisole",
+  "description": "Approve stitch files and placement boards before the atelier begins the satin bias camisole.",
+  "priority": 3,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": {
+    "$date": "2026-07-15T20:20:22.737Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba1a"
+  },
+  "title": "Book overtime for tailored waistcoat",
+  "description": "Confirm weekend hours and headcount needed to finish hand-finished work on the tailored waistcoat.",
+  "priority": 0,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba1b"
+  },
+  "title": "Buyer appointment prep: pleated tennis skirt",
+  "description": "Style the pleated tennis skirt on forms and print line sheets for specialty retailer walkthroughs.",
+  "priority": 1,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": {
+    "$date": "2026-07-19T04:14:58.963Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba1c"
+  },
+  "title": "Compliance review: rib knit dress",
+  "description": "Check fiber claims, hardware certs, and care copy for regulatory readiness on the rib knit dress.",
+  "priority": 1,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba1d"
+  },
+  "title": "Proto review notes: nylon parachute pant",
+  "description": "Consolidate design, tech, and merchandising comments from the first proto of the nylon parachute pant.",
+  "priority": 2,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba1e"
+  },
+  "title": "Lining approval: cotton poplin shirt",
+  "description": "Select lining quality, color, and pocketing for construction of the cotton poplin shirt.",
+  "priority": 2,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba1f"
+  },
+  "title": "Delivery window: double-faced wool coat",
+  "description": "Align ex-factory and in-store dates with planning so the double-faced wool coat hits the right drop.",
+  "priority": 2,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba20"
+  },
+  "title": "Styling guide: crystal-embellished heel",
+  "description": "Map belts, footwear, and jewelry pairings to the crystal-embellished heel for showroom stylists.",
+  "priority": 3,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba21"
+  },
+  "title": "Tech pack: canvas weekender",
+  "description": "Finalize graded measurements, construction notes, and trim callouts for the canvas weekender before sampling.",
+  "priority": 3,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba22"
+  },
+  "title": "Costing sheet for silk foulard set",
+  "description": "Build full BOM costing including materials, labor, and hardware so merchandising can set the retail target for the silk foulard set.",
+  "priority": 0,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba23"
+  },
+  "title": "Fit session for raw-hem denim jacket",
+  "description": "Schedule sample fitting with the house model and document revisions for the second proto of the raw-hem denim jacket.",
+  "priority": 1,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": {
+    "$date": "2026-07-16T20:48:33.570Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba24"
+  },
+  "title": "Pattern correction: smocked midi dress",
+  "description": "Adjust pattern pieces after fit comments; update nested patterns and re-cut the muslin for the smocked midi dress.",
+  "priority": 1,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": {
+    "$date": "2026-07-18T22:55:54.073Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba25"
+  },
+  "title": "Colorway approval: boxy cropped blazer",
+  "description": "Review strike-offs and mark approved colorways for bulk on the boxy cropped blazer.",
+  "priority": 2,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba26"
+  },
+  "title": "Source mills for fluid wide-leg pant",
+  "description": "Shortlist suppliers that can meet quality, MOQ, and lead-time needs for the fluid wide-leg pant.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba27"
+  },
+  "title": "QC checklist for cropped trench",
+  "description": "Define stitch quality, measurement tolerance, and pressing standards for the cropped trench PP sample review.",
+  "priority": 2,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba28"
+  },
+  "title": "Approve artwork for boucle jacket",
+  "description": "Review placements and send signed-off files to the atelier for the boucle jacket.",
+  "priority": 3,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba29"
+  },
+  "title": "Update line sheet: pointelle knit top",
+  "description": "Refresh SKUs, wholesale prices, and delivery windows for the pointelle knit top ahead of market appointments.",
+  "priority": 3,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba2a"
+  },
+  "title": "Sample room brief: wrapped leather sandal",
+  "description": "Issue cutting tickets, trim kits, and due dates so the sample room can start the wrapped leather sandal.",
+  "priority": 0,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": {
+    "$date": "2026-07-17T01:58:34.503Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba2b"
+  },
+  "title": "Vendor follow-up: padded nylon shoulder bag",
+  "description": "Confirm revised ship dates and assess impact on sample room deadlines for the padded nylon shoulder bag.",
+  "priority": 1,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba2c"
+  },
+  "title": "Sketch variants for cut-out knit dress",
+  "description": "Explore three design options and prepare flats for merchandising review of the cut-out knit dress.",
+  "priority": 1,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": {
+    "$date": "2026-07-16T22:44:59.872Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba2d"
+  },
+  "title": "Care label copy: tailored shorts",
+  "description": "Draft fiber content, wash, and dry-clean instructions that meet labeling requirements for the tailored shorts.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba2e"
+  },
+  "title": "Photo shot list: asymmetric hem skirt",
+  "description": "Define looks, model lineup, and prop notes for photographing the asymmetric hem skirt in the lookbook.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba2f"
+  },
+  "title": "Sustainability notes: logo jacquard scarf",
+  "description": "Write short PDP copy covering materials and low-impact finishes for the logo jacquard scarf.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba30"
+  },
+  "title": "Size run plan: fleece half-zip",
+  "description": "Propose size curve and ratio for the fleece half-zip based on last season sell-through.",
+  "priority": 3,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba31"
+  },
+  "title": "Hardware selection: sequin mini dress",
+  "description": "Choose clasp, zipper, and finish options that match the metal tone for the sequin mini dress.",
+  "priority": 3,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba32"
+  },
+  "title": "Archive patterns: waxed cotton field jacket",
+  "description": "Scan and file master patterns with naming conventions for the waxed cotton field jacket in the design archive.",
+  "priority": 0,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba33"
+  },
+  "title": "Press sample pack: draped satin slip dress",
+  "description": "Pack and track press samples of the draped satin slip dress for editors covering the upcoming drop.",
+  "priority": 1,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba34"
+  },
+  "title": "Factory trim card: tailored wool blazer",
+  "description": "Assemble buttons, zippers, labels, and hangtags for the tailored wool blazer production pack.",
+  "priority": 1,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": {
+    "$date": "2026-07-18T03:48:14.525Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba35"
+  },
+  "title": "Grade rules: leather trench",
+  "description": "Update grade rules across the size run and circulate the revised nested set for the leather trench.",
+  "priority": 2,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba36"
+  },
+  "title": "Wash recipe: wide-leg trouser",
+  "description": "Lock laundry recipe, hand-feel target, and whisker map with the wash partner for the wide-leg trouser.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba37"
+  },
+  "title": "Embroidery placement: cashmere crewneck",
+  "description": "Approve stitch files and placement boards before the atelier begins the cashmere crewneck.",
+  "priority": 2,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba38"
+  },
+  "title": "Book overtime for silk georgette blouse",
+  "description": "Confirm weekend hours and headcount needed to finish hand-finished work on the silk georgette blouse.",
+  "priority": 3,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": {
+    "$date": "2026-07-17T13:39:16.878Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba39"
+  },
+  "title": "Buyer appointment prep: bridal party jumpsuit",
+  "description": "Style the bridal party jumpsuit on forms and print line sheets for specialty retailer walkthroughs.",
+  "priority": 3,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba3a"
+  },
+  "title": "Compliance review: evening co-ord set",
+  "description": "Check fiber claims, hardware certs, and care copy for regulatory readiness on the evening co-ord set.",
+  "priority": 0,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba3b"
+  },
+  "title": "Proto review notes: handbag mini tote",
+  "description": "Consolidate design, tech, and merchandising comments from the first proto of the handbag mini tote.",
+  "priority": 1,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba3c"
+  },
+  "title": "Lining approval: resort linen shirt",
+  "description": "Select lining quality, color, and pocketing for construction of the resort linen shirt.",
+  "priority": 1,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba3d"
+  },
+  "title": "Delivery window: high-rise straight jean",
+  "description": "Align ex-factory and in-store dates with planning so the high-rise straight jean hits the right drop.",
+  "priority": 2,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": {
+    "$date": "2026-07-18T23:10:00.270Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba3e"
+  },
+  "title": "Styling guide: botanical print dress",
+  "description": "Map belts, footwear, and jewelry pairings to the botanical print dress for showroom stylists.",
+  "priority": 2,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": {
+    "$date": "2026-07-17T12:07:25.021Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba3f"
+  },
+  "title": "Tech pack: bias-cut midi skirt",
+  "description": "Finalize graded measurements, construction notes, and trim callouts for the bias-cut midi skirt before sampling.",
+  "priority": 2,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba40"
+  },
+  "title": "Costing sheet for shearling collar coat",
+  "description": "Build full BOM costing including materials, labor, and hardware so merchandising can set the retail target for the shearling collar coat.",
+  "priority": 3,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba41"
+  },
+  "title": "Fit session for knit polo",
+  "description": "Schedule sample fitting with the house model and document revisions for the second proto of the knit polo.",
+  "priority": 3,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba42"
+  },
+  "title": "Pattern correction: column evening gown",
+  "description": "Adjust pattern pieces after fit comments; update nested patterns and re-cut the muslin for the column evening gown.",
+  "priority": 0,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba43"
+  },
+  "title": "Colorway approval: suede loafer",
+  "description": "Review strike-offs and mark approved colorways for bulk on the suede loafer.",
+  "priority": 1,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": {
+    "$date": "2026-07-17T01:12:20.010Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba44"
+  },
+  "title": "Source mills for printed silk scarf",
+  "description": "Shortlist suppliers that can meet quality, MOQ, and lead-time needs for the printed silk scarf.",
+  "priority": 1,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": {
+    "$date": "2026-07-15T11:06:18.353Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba45"
+  },
+  "title": "QC checklist for cigarette pant",
+  "description": "Define stitch quality, measurement tolerance, and pressing standards for the cigarette pant PP sample review.",
+  "priority": 2,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": {
+    "$date": "2026-07-17T04:22:25.490Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba46"
+  },
+  "title": "Approve artwork for mesh bodywear tank",
+  "description": "Review placements and send signed-off files to the atelier for the mesh bodywear tank.",
+  "priority": 2,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba47"
+  },
+  "title": "Update line sheet: structured tote",
+  "description": "Refresh SKUs, wholesale prices, and delivery windows for the structured tote ahead of market appointments.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba48"
+  },
+  "title": "Sample room brief: pleated chiffon dress",
+  "description": "Issue cutting tickets, trim kits, and due dates so the sample room can start the pleated chiffon dress.",
+  "priority": 3,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba49"
+  },
+  "title": "Vendor follow-up: quilted bomber",
+  "description": "Confirm revised ship dates and assess impact on sample room deadlines for the quilted bomber.",
+  "priority": 3,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": {
+    "$date": "2026-07-17T14:51:01.649Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba4a"
+  },
+  "title": "Sketch variants for crochet cover-up",
+  "description": "Explore three design options and prepare flats for merchandising review of the crochet cover-up.",
+  "priority": 0,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": {
+    "$date": "2026-07-18T05:35:39.513Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba4b"
+  },
+  "title": "Care label copy: tuxedo shirt",
+  "description": "Draft fiber content, wash, and dry-clean instructions that meet labeling requirements for the tuxedo shirt.",
+  "priority": 1,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba4c"
+  },
+  "title": "Photo shot list: straw wide-brim hat",
+  "description": "Define looks, model lineup, and prop notes for photographing the straw wide-brim hat in the lookbook.",
+  "priority": 1,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba4d"
+  },
+  "title": "Sustainability notes: stretch work trouser",
+  "description": "Write short PDP copy covering materials and low-impact finishes for the stretch work trouser.",
+  "priority": 2,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": {
+    "$date": "2026-07-19T02:38:38.054Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba4e"
+  },
+  "title": "Size run plan: velvet dinner jacket",
+  "description": "Propose size curve and ratio for the velvet dinner jacket based on last season sell-through.",
+  "priority": 2,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": {
+    "$date": "2026-07-18T05:19:44.056Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba4f"
+  },
+  "title": "Hardware selection: kidswear party dress",
+  "description": "Choose clasp, zipper, and finish options that match the metal tone for the kidswear party dress.",
+  "priority": 2,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba50"
+  },
+  "title": "Archive patterns: maternity wrap",
+  "description": "Scan and file master patterns with naming conventions for the maternity wrap in the design archive.",
+  "priority": 3,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": {
+    "$date": "2026-07-15T04:11:37.529Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba51"
+  },
+  "title": "Press sample pack: recycled nylon windbreaker",
+  "description": "Pack and track press samples of the recycled nylon windbreaker for editors covering the upcoming drop.",
+  "priority": 3,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba52"
+  },
+  "title": "Factory trim card: beaded evening clutch",
+  "description": "Assemble buttons, zippers, labels, and hangtags for the beaded evening clutch production pack.",
+  "priority": 0,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba53"
+  },
+  "title": "Grade rules: oxford cloth shirt",
+  "description": "Update grade rules across the size run and circulate the revised nested set for the oxford cloth shirt.",
+  "priority": 1,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": {
+    "$date": "2026-07-15T22:10:12.772Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba54"
+  },
+  "title": "Wash recipe: flared midi boot",
+  "description": "Lock laundry recipe, hand-feel target, and whisker map with the wash partner for the flared midi boot.",
+  "priority": 1,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba55"
+  },
+  "title": "Embroidery placement: organic terry robe",
+  "description": "Approve stitch files and placement boards before the atelier begins the organic terry robe.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba56"
+  },
+  "title": "Book overtime for seersucker summer suit",
+  "description": "Confirm weekend hours and headcount needed to finish hand-finished work on the seersucker summer suit.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba57"
+  },
+  "title": "Buyer appointment prep: lace bridal bodice",
+  "description": "Style the lace bridal bodice on forms and print line sheets for specialty retailer walkthroughs.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba58"
+  },
+  "title": "Compliance review: recycled puffer vest",
+  "description": "Check fiber claims, hardware certs, and care copy for regulatory readiness on the recycled puffer vest.",
+  "priority": 3,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": {
+    "$date": "2026-07-17T15:20:07.459Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba59"
+  },
+  "title": "Proto review notes: silk slip skirt",
+  "description": "Consolidate design, tech, and merchandising comments from the first proto of the silk slip skirt.",
+  "priority": 3,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba5a"
+  },
+  "title": "Lining approval: canvas espadrille",
+  "description": "Select lining quality, color, and pocketing for construction of the canvas espadrille.",
+  "priority": 0,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba5b"
+  },
+  "title": "Delivery window: graphic collab tee",
+  "description": "Align ex-factory and in-store dates with planning so the graphic collab tee hits the right drop.",
+  "priority": 1,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba5c"
+  },
+  "title": "Styling guide: culotte jumpsuit",
+  "description": "Map belts, footwear, and jewelry pairings to the culotte jumpsuit for showroom stylists.",
+  "priority": 1,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba5d"
+  },
+  "title": "Tech pack: faux shearling coat",
+  "description": "Finalize graded measurements, construction notes, and trim callouts for the faux shearling coat before sampling.",
+  "priority": 2,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba5e"
+  },
+  "title": "Costing sheet for metallic holiday sandal",
+  "description": "Build full BOM costing including materials, labor, and hardware so merchandising can set the retail target for the metallic holiday sandal.",
+  "priority": 2,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": {
+    "$date": "2026-07-17T11:53:12.733Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba5f"
+  },
+  "title": "Fit session for utility chore coat",
+  "description": "Schedule sample fitting with the house model and document revisions for the second proto of the utility chore coat.",
+  "priority": 2,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba60"
+  },
+  "title": "Pattern correction: swim brief set",
+  "description": "Adjust pattern pieces after fit comments; update nested patterns and re-cut the muslin for the swim brief set.",
+  "priority": 3,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba61"
+  },
+  "title": "Colorway approval: tartan wrap skirt",
+  "description": "Review strike-offs and mark approved colorways for bulk on the tartan wrap skirt.",
+  "priority": 3,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba62"
+  },
+  "title": "Source mills for cashmere beanie",
+  "description": "Shortlist suppliers that can meet quality, MOQ, and lead-time needs for the cashmere beanie.",
+  "priority": 0,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba63"
+  },
+  "title": "QC checklist for atelier corset bodice",
+  "description": "Define stitch quality, measurement tolerance, and pressing standards for the atelier corset bodice PP sample review.",
+  "priority": 1,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba64"
+  },
+  "title": "Approve artwork for cargo utility pant",
+  "description": "Review placements and send signed-off files to the atelier for the cargo utility pant.",
+  "priority": 1,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba65"
+  },
+  "title": "Update line sheet: organza overlay gown",
+  "description": "Refresh SKUs, wholesale prices, and delivery windows for the organza overlay gown ahead of market appointments.",
+  "priority": 2,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba66"
+  },
+  "title": "Sample room brief: leather belt capsule",
+  "description": "Issue cutting tickets, trim kits, and due dates so the sample room can start the leather belt capsule.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba67"
+  },
+  "title": "Vendor follow-up: merino base layer",
+  "description": "Confirm revised ship dates and assess impact on sample room deadlines for the merino base layer.",
+  "priority": 2,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba68"
+  },
+  "title": "Sketch variants for Resort 27 moodboard looks",
+  "description": "Explore three design options and prepare flats for merchandising review of the Resort 27 moodboard looks.",
+  "priority": 3,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": {
+    "$date": "2026-07-17T22:39:17.569Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba69"
+  },
+  "title": "Care label copy: wholesale market heroes",
+  "description": "Draft fiber content, wash, and dry-clean instructions that meet labeling requirements for the wholesale market heroes.",
+  "priority": 3,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba6a"
+  },
+  "title": "Photo shot list: FW outerwear drop",
+  "description": "Define looks, model lineup, and prop notes for photographing the FW outerwear drop in the lookbook.",
+  "priority": 0,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba6b"
+  },
+  "title": "Sustainability notes: holiday gift edit",
+  "description": "Write short PDP copy covering materials and low-impact finishes for the holiday gift edit.",
+  "priority": 1,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba6c"
+  },
+  "title": "Size run plan: showroom RTW rack",
+  "description": "Propose size curve and ratio for the showroom RTW rack based on last season sell-through.",
+  "priority": 1,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba6d"
+  },
+  "title": "Hardware selection: denim wash program",
+  "description": "Choose clasp, zipper, and finish options that match the metal tone for the denim wash program.",
+  "priority": 2,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba6e"
+  },
+  "title": "Archive patterns: knitwear basics line",
+  "description": "Scan and file master patterns with naming conventions for the knitwear basics line in the design archive.",
+  "priority": 2,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba6f"
+  },
+  "title": "Press sample pack: handloom craft capsule",
+  "description": "Pack and track press samples of the handloom craft capsule for editors covering the upcoming drop.",
+  "priority": 2,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba70"
+  },
+  "title": "Factory trim card: jewelry pairing edit",
+  "description": "Assemble buttons, zippers, labels, and hangtags for the jewelry pairing edit production pack.",
+  "priority": 3,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": {
+    "$date": "2026-07-16T08:59:02.659Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba71"
+  },
+  "title": "Grade rules: spa robe assortment",
+  "description": "Update grade rules across the size run and circulate the revised nested set for the spa robe assortment.",
+  "priority": 3,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba72"
+  },
+  "title": "Wash recipe: ski softshell set",
+  "description": "Lock laundry recipe, hand-feel target, and whisker map with the wash partner for the ski softshell set.",
+  "priority": 0,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba73"
+  },
+  "title": "Embroidery placement: evening shirting",
+  "description": "Approve stitch files and placement boards before the atelier begins the evening shirting.",
+  "priority": 1,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba74"
+  },
+  "title": "Book overtime for accessories hardware kit",
+  "description": "Confirm weekend hours and headcount needed to finish hand-finished work on the accessories hardware kit.",
+  "priority": 1,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": {
+    "$date": "2026-07-17T20:51:36.698Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba75"
+  },
+  "title": "Buyer appointment prep: bridal veil sample",
+  "description": "Style the bridal veil sample on forms and print line sheets for specialty retailer walkthroughs.",
+  "priority": 2,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba76"
+  },
+  "title": "Compliance review: leather crossbody",
+  "description": "Check fiber claims, hardware certs, and care copy for regulatory readiness on the leather crossbody.",
+  "priority": 2,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": {
+    "$date": "2026-07-18T03:44:09.002Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba77"
+  },
+  "title": "Proto review notes: wool overcoat",
+  "description": "Consolidate design, tech, and merchandising comments from the first proto of the wool overcoat.",
+  "priority": 2,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba78"
+  },
+  "title": "Lining approval: barrel-leg jean",
+  "description": "Select lining quality, color, and pocketing for construction of the barrel-leg jean.",
+  "priority": 3,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba79"
+  },
+  "title": "Delivery window: embroidery evening sleeve",
+  "description": "Align ex-factory and in-store dates with planning so the embroidery evening sleeve hits the right drop.",
+  "priority": 3,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba7a"
+  },
+  "title": "Styling guide: organic cotton jersey tee",
+  "description": "Map belts, footwear, and jewelry pairings to the organic cotton jersey tee for showroom stylists.",
+  "priority": 0,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": {
+    "$date": "2026-07-18T17:54:52.205Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba7b"
+  },
+  "title": "Tech pack: cashmere blend cardigan",
+  "description": "Finalize graded measurements, construction notes, and trim callouts for the cashmere blend cardigan before sampling.",
+  "priority": 1,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba7c"
+  },
+  "title": "Costing sheet for satin bias camisole",
+  "description": "Build full BOM costing including materials, labor, and hardware so merchandising can set the retail target for the satin bias camisole.",
+  "priority": 1,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba7d"
+  },
+  "title": "Fit session for tailored waistcoat",
+  "description": "Schedule sample fitting with the house model and document revisions for the second proto of the tailored waistcoat.",
+  "priority": 2,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": {
+    "$date": "2026-07-17T08:51:52.282Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba7e"
+  },
+  "title": "Pattern correction: pleated tennis skirt",
+  "description": "Adjust pattern pieces after fit comments; update nested patterns and re-cut the muslin for the pleated tennis skirt.",
+  "priority": 2,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba7f"
+  },
+  "title": "Colorway approval: rib knit dress",
+  "description": "Review strike-offs and mark approved colorways for bulk on the rib knit dress.",
+  "priority": 2,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59791958e9c95a599b1963"
+  },
+  "completedAt": {
+    "$date": "2026-07-17T12:50:40.401Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba80"
+  },
+  "title": "Source mills for nylon parachute pant",
+  "description": "Shortlist suppliers that can meet quality, MOQ, and lead-time needs for the nylon parachute pant.",
+  "priority": 3,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a59cb0a0dd19e4e0edb3120"
+  },
+  "completedAt": {
+    "$date": "2026-07-18T20:33:48.922Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba81"
+  },
+  "title": "QC checklist for cotton poplin shirt",
+  "description": "Define stitch quality, measurement tolerance, and pressing standards for the cotton poplin shirt PP sample review.",
+  "priority": 3,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba82"
+  },
+  "title": "Approve artwork for double-faced wool coat",
+  "description": "Review placements and send signed-off files to the atelier for the double-faced wool coat.",
+  "priority": 0,
+  "status": "backlog",
+  "phaseId": null,
+  "assigneeId": null,
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba83"
+  },
+  "title": "Update line sheet: crystal-embellished heel",
+  "description": "Refresh SKUs, wholesale prices, and delivery windows for the crystal-embellished heel ahead of market appointments.",
+  "priority": 1,
+  "status": "todo",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5a4ad1955af4b61b0b1ee6"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba84"
+  },
+  "title": "Sample room brief: canvas weekender",
+  "description": "Issue cutting tickets, trim kits, and due dates so the sample room can start the canvas weekender.",
+  "priority": 1,
+  "status": "inProgress",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c52ff6a634d73214eea46"
+  },
+  "completedAt": null
+},
+{
+  "_id": {
+    "$oid": "6a5c537ec0efcf7d7b78ba85"
+  },
+  "title": "Vendor follow-up: silk foulard set",
+  "description": "Confirm revised ship dates and assess impact on sample room deadlines for the silk foulard set.",
+  "priority": 2,
+  "status": "completed",
+  "phaseId": {
+    "$oid": "6a5979dffb041ce3c00d7299"
+  },
+  "assigneeId": {
+    "$oid": "6a5c532e6a634d73214eea47"
+  },
+  "completedAt": {
+    "$date": "2026-07-17T05:37:56.567Z"
+  }
+}]
