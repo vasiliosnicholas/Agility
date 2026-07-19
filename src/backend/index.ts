@@ -10,6 +10,7 @@ import AuthRouter from "./routes/Auth.ts";
 import UsersRouter from "./routes/Users.ts";
 import KanbanRouter from "./routes/Kanban.ts";
 import PhasesRouter from "./routes/Phases.ts";
+import DevelopersRouter from "./routes/Developers.ts";
 import { AccountTypes } from "../shared/models/Users.ts";
 
 const HOST = process.env.HOST || "localhost";
@@ -53,6 +54,7 @@ app.use("/api/auth", AuthRouter);
 app.use("/api/users", UsersRouter);
 app.use("/api/kanban", KanbanRouter);
 app.use("/api/phases", PhasesRouter);
+app.use("/api/developers", DevelopersRouter);
 
 const serveSinglePage: RequestHandler = (req, res) =>
   res.sendFile(path.resolve("./frontend/dist", "index.html"));
@@ -90,7 +92,7 @@ serveSinglePageAppPages(AUTH_GUARDED_ROUTES, [AuthenticationGuard]);
 /**
  * Serve Manager pages IFF User is Manager
  */
-const MANAGER_PAGES = ["/manager", "/phases"];
+const MANAGER_PAGES = ["/team", "/phases"];
 serveSinglePageAppPages(
   MANAGER_PAGES,
   AccountTypeGuardFactoryFunction(AccountTypes.Manager)

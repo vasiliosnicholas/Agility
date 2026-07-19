@@ -38,9 +38,14 @@ const devMetaData: Record<keyof UserMetaData, 1> = {
  * Gets alls developers' metadata in the Users collection
  * @returns An array with all users
  */
-export async function getDevelopersMetadata() {
+export async function getDevelopersMetadata(
+  manager: Manager | undefined = undefined
+) {
   return await (
-    await getUsersHelper({ accountType: AccountTypes.Developer, manager: null })
+    await getUsersHelper({
+      accountType: AccountTypes.Developer,
+      manager: manager ? manager._id : null,
+    })
   )
     .project<UserMetaData>(devMetaData)
     .toArray();

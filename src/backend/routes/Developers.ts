@@ -20,9 +20,12 @@ DevelopersRouter.use(...AccountTypeGuardFactoryFunction(AccountTypes.Manager));
 /**
  * Route for getting developers metadata
  */
-DevelopersRouter.get("/developers", async (req, res) => {
+DevelopersRouter.get("/", async (req, res) => {
   try {
-    const developers = await getDevelopersMetadata();
+    if (!req.user) throw new Error("Could not get user details");
+    const developers = req.query.assigned
+      ? await getDevelopersMetadata(req.user as Manager)
+      : await getDevelopersMetadata();
     res.status(201).json(developers);
   } catch (error) {
     res.status(500).json({ error: (error as Error).message });
@@ -32,7 +35,7 @@ DevelopersRouter.get("/developers", async (req, res) => {
 /**
  * Set a developer's manager
  */
-DevelopersRouter.put("/developer/:id", async (req, res) => {
+DevelopersRouter.put("/:id", async (req, res) => {
   try {
     if (!req.user) {
       throw new Error("Error user must be authenticated for this route");
@@ -53,7 +56,7 @@ DevelopersRouter.put("/developer/:id", async (req, res) => {
 /**
  * Set a manager's developers
  */
-DevelopersRouter.put("/developers/", async (req, res) => {
+DevelopersRouter.put("/", async (req, res) => {
   try {
     if (!req.user) {
       throw new Error("Error user must be authenticated for this route");
@@ -68,3 +71,5 @@ DevelopersRouter.put("/developers/", async (req, res) => {
     res.status(500).json({ message: (error as Error).message });
   }
 });
+
+export default DevelopersRouter;
