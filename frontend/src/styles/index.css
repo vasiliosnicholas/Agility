@@ -35,6 +35,10 @@
   --item-shadow: 0px 2px 4px rgba(111, 111, 111, 0.15);
 }
 
+.item-shadow {
+  box-shadow: var(--item-shadow);
+}
+
 .type-hero {
   font-size: var(--type-hero-size);
   font-weight: 700;
@@ -201,6 +205,7 @@
 .navbar-links .nav-link.active {
   color: var(--burnup-stroke);
   background-color: rgb(90 143 148 / 0.12);
+  text-shadow: rgba(44, 44, 44, 0.55) 0px 0px 1px;
 }
 
 .navbar-user {

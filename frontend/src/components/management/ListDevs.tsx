@@ -63,10 +63,9 @@ const ListDevs = ({
                     variant=""
                     size="sm"
                     as="a"
-                    className="text-white"
+                    className="text-white fw-bold"
                     href={`mailto:${user.email}`}
                   >
-                    {" "}
                     Email
                   </Button>
                 </Badge>
@@ -74,7 +73,7 @@ const ListDevs = ({
                   <Button
                     variant=""
                     size="sm"
-                    className="text-white"
+                    className="text-white fw-bold"
                     onClick={
                       action(user) as React.MouseEventHandler<HTMLElement>
                     }
