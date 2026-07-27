@@ -106,17 +106,17 @@ export default function ManageDevs() {
       <div className="kanban-page">
         <main className="kanban-page-content management-page">
           <header className="management-page-header">
-            <h1 className="type-hero">
-              {manager ? `${manager.name }'s Team` : <Placeholder as="h1" animation="wave"> <Placeholder xs={5} className="rounded-2"/> </Placeholder>}
-            </h1>
+            
+              {manager ? <h1 className="type-hero">{`${manager.name }'s Team`}</h1> : <Placeholder as="h1" animation="wave"> <Placeholder xs={5} className="rounded-2"/> </Placeholder>}
+
             <h2 className="type-body text-muted">
-              Add and remove from your team. Contact developers via email.
+              Add and remove developers from your team. <br/> Contact developers via email.
             </h2>
           </header>
 
           <Container fluid className="mt-4">
             <Row>
-              <Col className="kanban-modal">
+              <Col className="mb-4">
                 <ListDevs
                   title="Developers assigned to your team"
                   developers={assignedDevs}
@@ -125,7 +125,7 @@ export default function ManageDevs() {
                   bg="danger"
                 />
               </Col>
-              <Col className="kanban-modal">
+              <Col className="mb-4">
                 <ListDevs
                   title="Unassigned developers"
                   developers={unassignedDevs}
