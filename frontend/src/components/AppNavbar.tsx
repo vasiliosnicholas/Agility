@@ -2,6 +2,7 @@ import { Badge, Container, Nav, Navbar, Spinner } from "react-bootstrap";
 import { Link, NavLink } from "react-router";
 import { AccountTypes, type User } from "@shared/models/Users.ts";
 import ProfileDropdown from "./profile/ProfileComponent";
+import Avatar from "./profile/Avatar";
 
 interface AppNavbarProps {
   user: Pick<User, "name" | "accountType">;
@@ -61,9 +62,7 @@ export default function AppNavbar({ user }: AppNavbarProps) {
         <Nav className="navbar-user" aria-label="Current user">
           <ProfileDropdown
             profileComponent={
-              <span className="navbar-avatar">
-                {user.name ? user.name.charAt(0).toUpperCase() : <Spinner animation="border" />}
-              </span>
+              <Avatar userFullName={user.name}/>
             }
           ></ProfileDropdown>
 
