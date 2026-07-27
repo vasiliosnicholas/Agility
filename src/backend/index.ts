@@ -33,8 +33,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("./frontend/dist"));
 
-console.log(process.env.NODE_ENV == "production");
-
 // Session configuration
 app.use(
   session({
