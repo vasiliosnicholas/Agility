@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Placeholder } from "react-bootstrap";
 import AppNavbar from "../components/AppNavbar";
 import type { User } from "@shared/models/Users";
 
@@ -103,37 +103,41 @@ export default function ManageDevs() {
       <AppNavbar
         user={manager ? manager : { name: "", accountType: "" }}
       ></AppNavbar>
-      <h1 className="my-5 py-3 text-center">
-        {" "}
-        {`${manager ? manager.name : "Loading"}'s Team`}
-      </h1>
+      <div className="kanban-page">
+        <main className="kanban-page-content management-page">
+          <header className="management-page-header">
+            <h1 className="type-hero">
+              {manager ? `${manager.name }'s Team` : <Placeholder as="h1" animation="wave"> <Placeholder xs={5} className="rounded-2"/> </Placeholder>}
+            </h1>
+            <h2 className="type-body text-muted">
+              Add and remove from your team. Contact developers via email.
+            </h2>
+          </header>
 
-      <Container fluid>
-        <Row>
-          <Col className="kanban-modal">
-            <h2 className="text-center modal-title my-5">
-              Developers assigned to your team
-            </h2>
-            <ListDevs
-              developers={assignedDevs}
-              action={handleUnassignment}
-              actionName="Unassign"
-              bg="danger"
-            />
-          </Col>
-          <Col className="kanban-modal">
-            <h2 className="text-center modal-title my-5">
-              Unassigned developers
-            </h2>
-            <ListDevs
-              developers={unassignedDevs}
-              action={handleAssignment}
-              actionName="Assign"
-              bg="primary"
-            />
-          </Col>
-        </Row>
-      </Container>
+          <Container fluid className="mt-4">
+            <Row>
+              <Col className="kanban-modal">
+                <ListDevs
+                  title="Developers assigned to your team"
+                  developers={assignedDevs}
+                  action={handleUnassignment}
+                  actionName="Unassign"
+                  bg="danger"
+                />
+              </Col>
+              <Col className="kanban-modal">
+                <ListDevs
+                  title="Unassigned developers"
+                  developers={unassignedDevs}
+                  action={handleAssignment}
+                  actionName="Assign"
+                  bg="primary"
+                />
+              </Col>
+            </Row>
+          </Container>
+        </main>
+      </div>
     </>
   );
 }

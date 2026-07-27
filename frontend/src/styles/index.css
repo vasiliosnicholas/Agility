@@ -32,6 +32,7 @@
   --type-date-size: 0.8rem;
   --type-meta-size: 0.75rem;
   --type-caption-size: 0.7rem;
+  --item-shadow: 0px 2px 4px rgba(111, 111, 111, 0.15);
 }
 
 .type-hero {
@@ -289,6 +290,7 @@
   background-color: #fff;
   border: 1px solid rgba(44, 44, 44, 0.12);
   border-radius: 0.85rem;
+  box-shadow: var(--item-shadow);
 }
 
 .status-stats {
@@ -464,6 +466,7 @@
   background-color: var(--bs-secondary-bg);
   border: var(--bs-border-width) solid var(--bs-border-color);
   border-radius: var(--bs-border-radius-lg);
+  box-shadow: var(--item-shadow);
 }
 
 .kanban-list-backlog {
@@ -839,6 +842,7 @@
   gap: 1rem;
   padding: 1rem;
   border-bottom: var(--bs-border-width) solid var(--bs-border-color);
+  box-shadow: var(--item-shadow);
 }
 
 .management-list-item:last-child {

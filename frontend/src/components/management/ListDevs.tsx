@@ -1,7 +1,9 @@
-import { Button, ListGroup, Badge, type BadgeProps } from "react-bootstrap";
+import { Button, ListGroup, Badge, type BadgeProps, Placeholder } from "react-bootstrap";
 import type { User } from "@shared/models/Users.ts";
+import Avatar from "../profile/Avatar";
 
 interface ListDevsPropTypes {
+  title: string;
   developers: User[] | undefined;
   action: (developer: User) => () => void;
   actionName: string;
@@ -9,45 +11,69 @@ interface ListDevsPropTypes {
 }
 
 const ListDevs = ({
+  title,
   developers,
   action,
   actionName,
   bg = undefined,
 }: ListDevsPropTypes) => {
   return (
-    <ListGroup as="ol" numbered>
-      {developers ? (
-        developers.map((user, index) => (
-          <ListGroup.Item
-            key={index}
-            as="li"
-            className="d-flex justify-content-between align-items-start mb-2 overflow-auto"
-          >
-            <div className="ms-2 me-auto">
-              <div className="fw-bold">{user.name}</div>
-              <small>{`@${user.username}`}</small>
-            </div>
-            <Badge
-              bg="primary"
-              className="text-decoration-none px-3 mx-1"
-              pill
+    <section className="management-section">
+      <header className="management-section-header">
+        <h3 className="management-section-title">{title}</h3>
+      </header>
+      {developers ? (developers.length > 0 ? (
+        <ListGroup as="ol" numbered className="management-list">
+          {developers.map((user, index) => (
+            <ListGroup.Item
+              key={index}
+              as="li"
+              className="d-flex justify-content-between align-items-start overflow-auto management-list-item"
             >
-              <Button variant="" size="sm" as="a" className="text-white"  href={`mailto:${user.email}`}> Email</Button>
-            </Badge>
-            <Badge bg={bg} className="px-3 mx-1" pill>
-              <Button
-                variant="" size="sm"
-                className="text-white"
-                onClick={action(user) as React.MouseEventHandler<HTMLElement>}
-              >{actionName}</Button>
-              
-            </Badge>
-          </ListGroup.Item>
-        ))
+              <div className="ms-2 me-auto">
+                <span className="fw-bold management-list-title">
+                  <Avatar userFullName={user.name} /> {user.name}
+                </span>
+                <div>
+                  <small className="management-list-meta">{`@${user.username}`}</small>
+                </div>
+              </div>
+              <Badge
+                bg="info"
+                className="text-decoration-none px-2 ms-5 me-1"
+                pill
+              >
+                <Button
+                  variant=""
+                  size="sm"
+                  as="a"
+                  className="text-white"
+                  href={`mailto:${user.email}`}
+                >
+                  {" "}
+                  Email
+                </Button>
+              </Badge>
+              <Badge bg={bg} className="px-2 me-1" pill>
+                <Button
+                  variant=""
+                  size="sm"
+                  className="text-white"
+                  onClick={action(user) as React.MouseEventHandler<HTMLElement>}
+                >
+                  {actionName}
+                </Button>
+              </Badge>
+            </ListGroup.Item>
+          ))}
+        </ListGroup>
       ) : (
-        <p className="text-center mt-3">No developers in this category</p>
-      )}
-    </ListGroup>
+        <p className=" management-list-meta m-2 text-center">
+          No {title.toLowerCase()}
+        </p>
+      )): <Placeholder as="section" animation="wave"> <Placeholder xs={6} className="rounded-2" />
+      <Placeholder className="w-75 rounded-2" /> <Placeholder className="rounded-2" style={{ width: '25%' }} /></Placeholder>}
+    </section>
   );
 };
 
