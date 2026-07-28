@@ -1,8 +1,7 @@
 import {
   Button,
   ListGroup,
-  Badge,
-  type BadgeProps,
+  type ButtonProps,
   Placeholder,
 } from "react-bootstrap";
 import type { User } from "@shared/models/Users.ts";
@@ -13,7 +12,7 @@ interface ListDevsPropTypes {
   developers: User[] | undefined;
   action: (developer: User) => () => void;
   actionName: string;
-  bg?: BadgeProps["bg"];
+  variant?: ButtonProps["variant"];
 }
 
 const ListDevs = ({
@@ -21,7 +20,7 @@ const ListDevs = ({
   developers,
   action,
   actionName,
-  bg = undefined,
+  variant = undefined,
 }: ListDevsPropTypes) => {
   return (
     <section className="management-section">
@@ -54,33 +53,23 @@ const ListDevs = ({
                     <small className="management-list-meta">{`@${user.username}`}</small>
                   </div>
                 </div>
-                <Badge
-                  bg="info"
-                  className="text-decoration-none px-2 ms-5 me-1"
-                  pill
+
+                <Button
+                  variant="info"
+                  as="a"
+                  className="text-white fw-bold text-center px-3 me-1 rounded-5"
+                  href={`mailto:${user.email}`}
                 >
-                  <Button
-                    variant=""
-                    size="sm"
-                    as="a"
-                    className="text-white fw-bold"
-                    href={`mailto:${user.email}`}
-                  >
-                    Email
-                  </Button>
-                </Badge>
-                <Badge bg={bg} className="px-2 me-1" pill>
-                  <Button
-                    variant=""
-                    size="sm"
-                    className="text-white fw-bold"
-                    onClick={
-                      action(user) as React.MouseEventHandler<HTMLElement>
-                    }
-                  >
-                    {actionName}
-                  </Button>
-                </Badge>
+                  Email
+                </Button>
+
+                <Button
+                  variant={variant}
+                  className="text-white fw-bold text-center px-3 me-1 rounded-5"
+                  onClick={action(user) as React.MouseEventHandler<HTMLElement>}
+                >
+                  {actionName}
+                </Button>
               </ListGroup.Item>
             ))}
           </ListGroup>

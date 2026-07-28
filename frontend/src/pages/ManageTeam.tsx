@@ -129,7 +129,7 @@ export default function ManageDevs() {
                   developers={assignedDevs}
                   action={handleUnassignment}
                   actionName="Unassign"
-                  bg="danger"
+                  variant="danger"
                 />
               </Col>
               {/* <Col xs={1} xl={1} xxl={1} className="min-vh-100 m-0 p-0 align-self-center">
@@ -141,7 +141,7 @@ export default function ManageDevs() {
                   developers={unassignedDevs}
                   action={handleAssignment}
                   actionName="Assign"
-                  bg="primary"
+                  variant="primary"
                 />
               </Col>
             </Row>
