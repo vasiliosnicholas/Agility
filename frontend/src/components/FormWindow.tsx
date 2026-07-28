@@ -48,7 +48,7 @@ const FormWindow: FormWindowComponent = ({ Modes, ModalButton = Button, initialF
 
   return (
     <>
-      <ModalButton onClick={openWindow}>
+      <ModalButton onClick={openWindow} aria-label={Modes.map(({ formName }) => formName).join(" ")}>
         {Modes.map(({ formName }) => formName).join(" | ")}
       </ModalButton>
       <Modal

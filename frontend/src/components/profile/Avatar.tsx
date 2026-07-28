@@ -12,7 +12,7 @@ export default function Avatar({
   userFullName: string | null | undefined;
 }) {
   return (
-    <span className="navbar-avatar">
+    <span className="navbar-avatar" aria-hidden={true}>
       {userFullName ? (
         parseInitials(userFullName)
       ) : (

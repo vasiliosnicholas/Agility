@@ -56,7 +56,7 @@ export default function PhaseSection({
                     <li className="management-list-empty">{emptyMessage}</li>
                 ) : (
                     phases.map((phase) => (
-                        <li key={phase.id} className="management-list-item">
+                        <li key={phase.id} className="management-list-item" tabIndex={0}>
                             <div className="management-list-content">
                                 <span className="management-list-title">
                                     {phase.dateRange}

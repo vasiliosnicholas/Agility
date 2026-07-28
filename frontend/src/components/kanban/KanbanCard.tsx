@@ -30,7 +30,7 @@ function Card({
 
     return (
         <div className={`card${isBeingDragged ? " card-rotated" : ""}`}>
-            <div className="card-body">
+            <div className="card-body" tabIndex={0}>
                 <div className="card-header-row">
                     <h5 className="card-title">{title}</h5>
                     {onDelete && (

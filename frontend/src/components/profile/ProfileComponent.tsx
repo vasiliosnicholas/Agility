@@ -35,7 +35,7 @@ export default function ProfileDropdown({
 
   return (
     <>
-      <NavDropdownMenu title={profileComponent} aria-label="Profile Dropdown">
+      <NavDropdownMenu title={<span aria-label="Profile Management Dropdown">{profileComponent} </span>}>
         <NavDropdown.Header>
           {name ? (
             name

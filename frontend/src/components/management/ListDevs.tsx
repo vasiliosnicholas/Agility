@@ -38,17 +38,20 @@ const ListDevs = ({
       </header>
       {developers ? (
         developers.length > 0 ? (
-          <ListGroup as="ol" numbered className="management-list">
+          <ListGroup as="ol" numbered className="management-list overflow-y-auto">
             {developers.map((user, index) => (
               <ListGroup.Item
                 key={index}
+                tabIndex={0}
                 as="li"
-                className={`d-flex justify-content-between align-items-start overflow-auto management-list-item ${index < developers.length - 1 ? "mb-2" : ""}`}
+                className={`d-flex justify-content-between align-items-start management-list-item ${index < developers.length - 1 ? "mb-2" : ""}`}
+                action
               >
                 <div className="ms-2 me-auto">
-                  <span className="fw-bold management-list-title">
+                  
+                  <h4 className="fw-bold management-list-title">
                     <Avatar userFullName={user.name} /> {user.name}
-                  </span>
+                  </h4>
                   <div>
                     <small className="management-list-meta">{`@${user.username}`}</small>
                   </div>
