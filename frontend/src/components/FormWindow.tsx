@@ -6,7 +6,7 @@ import type {
   FormWindowComponent,
 } from "./FormComponents.d.ts";
 
-//TODO: Add Manage Account, Delete Account, and possibly Logout
+
 
 function successfulCallback(route: string | undefined) {
   if (route) window.location.href = route;
@@ -19,13 +19,13 @@ const FormWindow: FormWindowComponent = ({ Modes, ModalButton = Button, initialF
     Modes.map(() => undefined)
   );
   const [currentMode, setCurrentMode] = useState(0);
-  const formId = useRef<string>("");
+  const [formId, setFormId] = useState<string>("");
 
-  const setFormId: formIdSetter = useCallback(
+  const handleSetFormId: formIdSetter = useCallback(
     (newId) => {
-      formId.current = newId;
+      setFormId(newId);
     },
-    [formId]
+    [setFormId]
   );
   
   //current form component to display.
@@ -61,7 +61,7 @@ const FormWindow: FormWindowComponent = ({ Modes, ModalButton = Button, initialF
       >
         <Modal.Header className="justify-content-center modal-header">
           <Modal.Title id="login-or-register-title" className="modal-title">
-            <ButtonGroup aria-label="Login/Register Buttons">
+            <ButtonGroup aria-label="Login/Register Buttons" tabIndex={-1}>
               {Modes.map(({ formName }, index) => (
                 <ToggleButton
                   key={index}
@@ -69,6 +69,7 @@ const FormWindow: FormWindowComponent = ({ Modes, ModalButton = Button, initialF
                   type="radio"
                   value={index}
                   checked={currentMode == index}
+                  onKeyDown={(event) => {if (event.code === "Enter") setCurrentMode(index);}}
                   onChange={(event) =>
                     setCurrentMode(parseInt(event.currentTarget.value))
                   }
@@ -84,13 +85,13 @@ const FormWindow: FormWindowComponent = ({ Modes, ModalButton = Button, initialF
           <CurrentFormComponent
             setSubmitStatus={setSubmitStatus}
             formData={
+              // eslint-disable-next-line react-hooks/refs
               formsData.current[
                 currentMode
-              ] /*FIXME: this works because only want to re-render child. 
-              Figure out how to get rid of this error */
+              ]
             }
             setFormData={setFormData}
-            setFormId={setFormId}
+            setFormId={handleSetFormId}
             successfulCallback={successfulCallback}
           />
         </Modal.Body>
@@ -99,7 +100,7 @@ const FormWindow: FormWindowComponent = ({ Modes, ModalButton = Button, initialF
             Cancel
           </Button>
           <Button
-            form={formId.current}
+            form={formId}
             variant="primary"
             type="submit"
             disabled={!formValid}

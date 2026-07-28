@@ -113,9 +113,10 @@ const UpdateProfile: FormComponent<RegisterFormData> = function ({
           placeholder="name@example.com"
           autoFocus
           isInvalid={!!errors.email}
+          aria-invalid={!!errors.email}
           {...register("email")}
         />
-        <Form.Control.Feedback type="invalid">
+        <Form.Control.Feedback type="invalid" role="alert">
           {errors.email?.message?.toString()}
         </Form.Control.Feedback>
       </FloatingLabel>
@@ -125,9 +126,10 @@ const UpdateProfile: FormComponent<RegisterFormData> = function ({
           type="text"
           placeholder="Enter a username"
           isInvalid={!!errors.username}
+          aria-invalid={!!errors.username}
           {...register("username")}
         />
-        <Form.Control.Feedback type="invalid">
+        <Form.Control.Feedback type="invalid" role="alert">
           {errors.username?.message?.toString()}
         </Form.Control.Feedback>
       </FloatingLabel>
@@ -136,9 +138,10 @@ const UpdateProfile: FormComponent<RegisterFormData> = function ({
           type="text"
           placeholder="Enter your full name"
           isInvalid={!!errors.name}
+          aria-invalid={!!errors.name}
           {...register("name")}
         />
-        <Form.Control.Feedback type="invalid">
+        <Form.Control.Feedback type="invalid" role="alert">
           {errors.name?.message?.toString()}
         </Form.Control.Feedback>
       </FloatingLabel>
@@ -147,9 +150,10 @@ const UpdateProfile: FormComponent<RegisterFormData> = function ({
           type="password"
           placeholder="Enter a password"
           isInvalid={!!errors.password || !!errors.ConfirmPassword}
+          aria-invalid={!!errors.password || !!errors.ConfirmPassword}
           {...register("password")}
         />
-        <Form.Control.Feedback type="invalid">
+        <Form.Control.Feedback type="invalid" role="alert">
           {errors.password?.message?.toString() ||
             errors.confirmPassword?.message?.toString()}
         </Form.Control.Feedback>
@@ -163,9 +167,10 @@ const UpdateProfile: FormComponent<RegisterFormData> = function ({
           type="password"
           placeholder="Re-enter your password"
           isInvalid={!!errors.confirmPassword}
+          aria-invalid={!!errors.confirmPassword}
           {...register("confirmPassword")}
         />
-        <Form.Control.Feedback type="invalid">
+        <Form.Control.Feedback type="invalid" role="alert">
           {errors.confirmPassword?.message?.toString()}
         </Form.Control.Feedback>
       </FloatingLabel>

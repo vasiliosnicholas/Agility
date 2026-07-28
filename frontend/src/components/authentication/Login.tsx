@@ -63,9 +63,11 @@ const Login: FormComponent<LoginFormData> = function ({
           placeholder="Username"
           autoFocus
           isInvalid={!!errors.username}
+          aria-invalid={!!errors.username}
+          aria-describedby="username-alert"
           {...register("username")}
         />
-        <Form.Control.Feedback type="invalid">
+        <Form.Control.Feedback type="invalid" role="alert" id ="username-alert">
           {errors.username?.message?.toString()}
         </Form.Control.Feedback>
       </FloatingLabel>
@@ -74,9 +76,11 @@ const Login: FormComponent<LoginFormData> = function ({
           type="password"
           placeholder="Password"
           isInvalid={!!errors.password}
+          aria-invalid={!!errors.password}
+          aria-describedby="password-alert"
           {...register("password")}
         />
-        <Form.Control.Feedback type="invalid">
+        <Form.Control.Feedback type="invalid" role="alert" id="password-alert">
           {errors.password?.message?.toString()}
         </Form.Control.Feedback>
       </FloatingLabel>
