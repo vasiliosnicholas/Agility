@@ -1,6 +1,5 @@
 import { useCallback, useState, type JSX } from "react";
 import { NavDropdown, Placeholder } from "react-bootstrap";
-import { NavDropdownMenu } from "react-bootstrap-submenu";
 import type { User } from "@shared/models/Users";
 import ManageProfileComponent from "./ManageProfileComponent";
 
@@ -35,7 +34,7 @@ export default function ProfileDropdown({
 
   return (
     <>
-      <NavDropdownMenu title={<span aria-label="Profile Management Dropdown">{profileComponent} </span>}>
+      <NavDropdown title={<span aria-label="Profile Management Dropdown">{profileComponent} </span>}>
         <NavDropdown.Header>
           {name ? (
             name
@@ -51,7 +50,7 @@ export default function ProfileDropdown({
         <NavDropdown.Item as="button" onClick={() => void logout()} disabled={!name}>
           Logout
         </NavDropdown.Item>
-      </NavDropdownMenu>
+      </NavDropdown>
     </>
   );
 }

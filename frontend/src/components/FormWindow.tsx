@@ -12,7 +12,7 @@ function successfulCallback(route: string | undefined) {
   if (route) window.location.href = route;
 }
 
-const FormWindow: FormWindowComponent = ({ Modes, ModalButton = Button, initialFormsData}) => {
+const FormWindow: FormWindowComponent = ({ Modes, ModalButton = Button, initialFormsData, ...props}) => {
   const [formValid, setSubmitStatus] = useState(false);
   const [display, setDisplay] = useState(false);
   const formsData = useRef<Array<FormData> | Array<undefined>>(initialFormsData ? initialFormsData :
@@ -48,7 +48,7 @@ const FormWindow: FormWindowComponent = ({ Modes, ModalButton = Button, initialF
 
   return (
     <>
-      <ModalButton onClick={openWindow} aria-label={Modes.map(({ formName }) => formName).join(" ")}>
+      <ModalButton {...props} onClick={openWindow} aria-label={Modes.map(({ formName }) => formName).join()}>
         {Modes.map(({ formName }) => formName).join(" | ")}
       </ModalButton>
       <Modal
@@ -60,8 +60,8 @@ const FormWindow: FormWindowComponent = ({ Modes, ModalButton = Button, initialF
         className="kanban-modal"
       >
         <Modal.Header className="justify-content-center modal-header">
-          <Modal.Title id="login-or-register-title" className="modal-title">
-            <ButtonGroup aria-label="Login/Register Buttons" tabIndex={-1}>
+          <Modal.Title id="modal-title" className="modal-title">
+            <ButtonGroup  tabIndex={-1}>
               {Modes.map(({ formName }, index) => (
                 <ToggleButton
                   key={index}
@@ -103,6 +103,7 @@ const FormWindow: FormWindowComponent = ({ Modes, ModalButton = Button, initialF
             form={formId}
             variant="primary"
             type="submit"
+            aria-description={`Submit the ${Modes[currentMode].formName} form`}
             disabled={!formValid}
             className="modal-submit"
           >

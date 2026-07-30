@@ -11,7 +11,7 @@ interface ListDevsPropTypes {
   title: string;
   developers: User[] | undefined;
   action: (developer: User) => () => void;
-  actionName: string;
+  actionChildren: React.JSX.Element;
   variant?: ButtonProps["variant"];
 }
 
@@ -19,7 +19,7 @@ const ListDevs = ({
   title,
   developers,
   action,
-  actionName,
+  actionChildren,
   variant = undefined,
 }: ListDevsPropTypes) => {
   return (
@@ -60,7 +60,7 @@ const ListDevs = ({
                 <Button
                   variant="info"
                   as="a"
-                  className="text-white fw-bold text-center px-3 me-1 rounded-5"
+                  className="text-white fw-bold text-center px-3 me-1 rounded-5 py-lg-2"
                   href={`mailto:${user.email}`}
                 >
                   Email
@@ -68,10 +68,10 @@ const ListDevs = ({
 
                 <Button
                   variant={variant}
-                  className="text-white fw-bold text-center px-3 me-1 rounded-5"
+                  className="text-white fw-bold text-center px-3 d-lg-flex flex-lg-row align-items-center me-1 rounded-5 py-sm-0 py-lg-2"
                   onClick={action(user) as React.MouseEventHandler<HTMLElement>}
                 >
-                  {actionName}
+                  {actionChildren}
                 </Button>
               </ListGroup.Item>
             ))}

@@ -2,7 +2,16 @@ import { useState, useCallback, useEffect } from "react";
 import { Container, Row, Col, Placeholder } from "react-bootstrap";
 import AppNavbar from "../components/AppNavbar";
 import type { User } from "@shared/models/Users";
-
+import {
+  CaretLeft,
+  CaretRight,
+  CaretLeftFill,
+  CaretRightFill,
+  CaretUp,
+  CaretDown,
+  CaretDownFill,
+  CaretUpFill,
+} from "react-bootstrap-icons";
 import ListDevs from "../components/management/ListDevs";
 
 const fetchManagerInfo = async () => {
@@ -107,7 +116,10 @@ export default function ManageDevs() {
         <main className="kanban-page-content management-page">
           <header className="management-page-header">
             {manager ? (
-              <h1 className="type-hero">{`${manager.name}'s Team`}</h1>
+              <h1
+                className="type-hero"
+                autoFocus
+              >{`${manager.name}'s Team`}</h1>
             ) : (
               <Placeholder as="h1" animation="wave">
                 {" "}
@@ -121,26 +133,57 @@ export default function ManageDevs() {
             </h2>
           </header>
 
-          <Container fluid className="mt-4">
+          <Container fluid className="mt-4 d-flex flex justify-content-center">
             <Row>
-              <Col className="mb-4">
+              <Col>
                 <ListDevs
                   title="Developers assigned to your team"
                   developers={assignedDevs}
                   action={handleUnassignment}
-                  actionName="Unassign"
+                  actionChildren={
+                    <>
+                      Unassign <CaretRightFill className="d-none d-lg-inline" />
+                      <div className="d-lg-none"><CaretDownFill /></div>
+                    </>
+                  }
                   variant="danger"
                 />
               </Col>
-              {/* <Col xs={1} xl={1} xxl={1} className="min-vh-100 m-0 p-0 align-self-center">
-                <div className="vr min-vh-100 justify-self-center"></div>
-              </Col> */}
-              <Col className="mb-4">
+              <Col
+                xs={1}
+                xl={1}
+                xxl={1}
+                className="d-none d-lg-flex flex-row h-100 m-0 p-0 align-self-start justify-content-center justify-items-center
+              "
+              >
+                <Row className="h-100 p-0 m-0 gx-3">
+                  <Col className="align-content-center p-0 m-0">
+                    <CaretLeft color="grey" />
+                  </Col>
+                  <Col>
+                    <div className="vr h-100 justify-self-center"></div>
+                  </Col>
+                  <Col className="align-content-center p-0">
+                    <CaretRight color="grey"/>
+                  </Col>
+                </Row>
+              </Col>
+
+              <div className="d-lg-none vstack align-items-center justify-items-center">
+                <CaretUp color="grey" />
+                <hr className="w-100 my-2" />
+                <CaretDown color="grey" />
+              </div>
+              <Col >
                 <ListDevs
                   title="Unassigned developers"
                   developers={unassignedDevs}
                   action={handleAssignment}
-                  actionName="Assign"
+                  actionChildren={
+                    <>
+                       <div><CaretUpFill className="d-lg-none"/></div> <CaretLeftFill className="d-none d-lg-inline" /> Assign
+                    </>
+                  }
                   variant="primary"
                 />
               </Col>

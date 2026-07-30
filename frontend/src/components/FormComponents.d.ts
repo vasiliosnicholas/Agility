@@ -2,6 +2,7 @@ import type { FC, JSX } from "react";
 import type { BaseUser, User } from "@shared/models/Users.ts";
 import type { FieldValues } from "react-hook-form";
 import type { FormComponent, FormData } from "./FormComponents";
+import type { ButtonProps } from "react-bootstrap";
 
 export interface FormBaseProps<FormDataType extends FormData> {
   setSubmitStatus: React.Dispatch<React.SetStateAction<boolean>>;
@@ -32,9 +33,9 @@ export interface LoginFormData
 export interface RegisterFormData extends FormData, Partial<BaseUser> {
   confirmPassword?: string;
 }
-type FormWindowComponentProps = {
+interface FormWindowComponentProps extends ButtonProps {
   Modes: FormComponent<FormData>[];
-  ModalButton?: FC;
+  ModalButton?: FC<ButtonProps>;
   initialFormsData?: FormData[] | undefined;
 };
 

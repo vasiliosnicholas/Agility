@@ -12,7 +12,7 @@ export default function AppNavbar({ user }: AppNavbarProps) {
   const isManager = user.accountType === AccountTypes.Manager;
 
   return (
-    <Navbar className="navbar">
+    <Navbar className="navbar" expand="lg" sticky="top">
       <Container fluid className="navbar-container">
         <Navbar.Brand as={Link} to="/kanban" className="navbar-brand">
           <svg className="navbar-logo" viewBox="0 0 18 18">

@@ -1,6 +1,5 @@
-import { useState, useCallback } from "react";
-import { NavDropdown } from "react-bootstrap";
-import { DropdownSubmenu } from "react-bootstrap-submenu";
+import { useState, useCallback, useRef } from "react";
+import { NavDropdown, Accordion } from "react-bootstrap";
 import DeleteProfile from "./DeleteProfile";
 import FormWindow from "../FormWindow";
 import UpdateProfile from "./UpdateProfile";
@@ -34,17 +33,28 @@ export default function ManageProfileComponent() {
 
   handleSetFormData();
 
+  let accordionRef = useRef(null);
+
   return (
     <>
-      <DropdownSubmenu title="Manage profile">
-        <NavDropdown.Header>Manage your profile</NavDropdown.Header>
-        <FormWindow
-          Modes={[UpdateProfile]}
-          ModalButton={NavDropdown.Item}
-          initialFormsData={formData ? [formData] : undefined}
-        ></FormWindow>
-        <DeleteProfile />
-      </DropdownSubmenu>
+      <Accordion flush>
+        <Accordion.Item eventKey="0">
+          <Accordion.Header >Manage profile</Accordion.Header>
+          <Accordion.Body aria-label="Manage Profile">
+            <FormWindow
+              Modes={[UpdateProfile]}
+              ModalButton={NavDropdown.Item}
+              initialFormsData={formData ? [formData] : undefined}
+              tabIndex={0}
+              as="button"
+              autoFocus
+              
+            ></FormWindow>
+
+            <DeleteProfile />
+          </Accordion.Body>
+        </Accordion.Item>
+      </Accordion>
     </>
   );
 }

@@ -18,7 +18,7 @@ export default function DeleteProfile() {
 
   return (
     <>
-      <NavDropdown.Item onClick={showModal}>
+      <NavDropdown.Item as="button" onClick={showModal}>
         Delete Profile
       </NavDropdown.Item>
       <Modal className="kanban-modal" show={show} onHide={closeModal}>
