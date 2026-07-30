@@ -133,8 +133,8 @@ export default function ManageDevs() {
             </h2>
           </header>
 
-          <Container fluid className="mt-4 d-flex flex justify-content-center">
-            <Row>
+          <Container fluid className="mt-4 d-flex flex-row justify-content-center">
+            <Row className="d-flex flex-row w-100">
               <Col>
                 <ListDevs
                   title="Developers assigned to your team"

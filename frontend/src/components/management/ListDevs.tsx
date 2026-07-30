@@ -44,7 +44,7 @@ const ListDevs = ({
                 key={index}
                 tabIndex={0}
                 as="li"
-                className={`d-flex justify-content-between align-items-start management-list-item ${index < developers.length - 1 ? "mb-2" : ""}`}
+                className={` justify-content-between align-items-start management-list-item ${index < developers.length - 1 ? "mb-2" : ""}`}
                 action
               >
                 <div className="ms-2 me-auto">
