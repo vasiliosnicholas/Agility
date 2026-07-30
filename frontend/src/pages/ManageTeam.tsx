@@ -133,7 +133,10 @@ export default function ManageDevs() {
             </h2>
           </header>
 
-          <Container fluid className="mt-4 d-flex flex-row justify-content-center">
+          <Container
+            fluid
+            className="mt-4 d-flex flex-row justify-content-center"
+          >
             <Row className="d-flex flex-row w-100">
               <Col>
                 <ListDevs
@@ -143,7 +146,9 @@ export default function ManageDevs() {
                   actionChildren={
                     <>
                       Unassign <CaretRightFill className="d-none d-lg-inline" />
-                      <div className="d-lg-none"><CaretDownFill /></div>
+                      <div className="d-lg-none">
+                        <CaretDownFill />
+                      </div>
                     </>
                   }
                   variant="danger"
@@ -161,10 +166,10 @@ export default function ManageDevs() {
                     <CaretLeft color="grey" />
                   </Col>
                   <Col>
-                    <div className="vr h-100 justify-self-center"></div>
+                    <div className="vr h-100 justify-self-center "></div>
                   </Col>
-                  <Col className="align-content-center p-0">
-                    <CaretRight color="grey"/>
+                  <Col className="align-content-center p-0 m-0">
+                    <CaretRight color="grey" />
                   </Col>
                 </Row>
               </Col>
@@ -174,14 +179,17 @@ export default function ManageDevs() {
                 <hr className="w-100 my-2" />
                 <CaretDown color="grey" />
               </div>
-              <Col >
+              <Col>
                 <ListDevs
                   title="Unassigned developers"
                   developers={unassignedDevs}
                   action={handleAssignment}
                   actionChildren={
                     <>
-                       <div><CaretUpFill className="d-lg-none"/></div> <CaretLeftFill className="d-none d-lg-inline" /> Assign
+                      <div>
+                        <CaretUpFill className="d-lg-none" />
+                      </div>{" "}
+                      <CaretLeftFill className="d-none d-lg-inline" /> Assign
                     </>
                   }
                   variant="primary"
