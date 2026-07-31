@@ -62,7 +62,6 @@ const Register: FormComponent<RegisterFormData> = function ({
             successfulCallback();
           }
         } else {
-          console.log(response);
           alert("Registration unsuccessful");
         }
       } else {
