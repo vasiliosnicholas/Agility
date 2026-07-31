@@ -54,7 +54,7 @@ const ListDevs = ({
                 key={index}
                 tabIndex={0}
                 as="li"
-                className={`management-list-item d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-stretch p-0  ${actionOrder == "first" ? "ps-0" : "pe-0"} ${index < developers.length - 1 ? "mb-2" : ""}`}
+                className={`management-list-item d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-stretch p-0 parent-with-actions ${actionOrder == "first" ? "ps-0" : "pe-0"} ${index < developers.length - 1 ? "mb-2" : ""}`}
                 action
               >
                 <div className="d-flex flex-row justify-content-between align-items-start w-100 p-2">
@@ -79,7 +79,7 @@ const ListDevs = ({
                     <Button
                       variant="info"
                       as="a"
-                      className="text-white fw-bold text-center px-sm-3 rounded-5 py-lg-2"
+                      className="text-white fw-bold text-center px-sm-3 rounded-5 py-lg-2 hover-actions"
                       aria-label={`email ${user.name}`}
                       href={`mailto:${user.email}`}
                     >
@@ -88,7 +88,7 @@ const ListDevs = ({
                   </OverlayTrigger>
                 </div>
                 <div
-                  className={`d-flex flex-column flex-lg-row order-${actionOrder}`}
+                  className={`hover-actions d-flex flex-column flex-lg-row order-${actionOrder}`}
                 >
                   <OverlayTrigger
                     placement={actionOrder == "first" ? "right": "left"}

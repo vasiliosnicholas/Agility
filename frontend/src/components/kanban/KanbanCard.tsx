@@ -30,13 +30,13 @@ function Card({
 
     return (
         <div className={`card${isBeingDragged ? " card-rotated" : ""}`}>
-            <div className="card-body" tabIndex={0}>
+            <div className="card-body parent-with-actions" tabIndex={0}>
                 <div className="card-header-row">
                     <h5 className="card-title">{title}</h5>
                     {onDelete && (
                         <button
                             type="button"
-                            className="card-delete"
+                            className="card-delete hover-actions"
                             aria-label={`Delete ${title}`}
                             onPointerDown={(event) => event.stopPropagation()}
                             onClick={(event) => {
