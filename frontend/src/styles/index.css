@@ -538,13 +538,22 @@
   margin-bottom: 0;
 }
 
+.hover-actions {
+  visibility: hidden;
+}
+
+.parent-with-actions:hover .hover-actions, .parent-with-actions:focus .hover-actions {
+  visibility: visible;
+}
+
+
 .card-delete {
   flex-shrink: 0;
   padding: 0;
   border: 0;
   color: var(--bs-secondary-color);
   background: transparent;
-  font-size: 1.1rem;
+  font-size: 1.75rem;
   line-height: 1;
   cursor: pointer;
 }
@@ -743,7 +752,7 @@
 }
 
 .drop-guide {
-  height: 5.5rem;
+  height: 10rem;
   margin: 0 0 0.5rem;
   border-radius: var(--bs-border-radius);
   background-color: var(--bs-gray);
