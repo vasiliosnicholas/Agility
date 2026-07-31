@@ -673,6 +673,14 @@
   background-color: var(--modal-accent-fill) + white;
 }
 
+.card-body {
+  background-color: white;
+}
+
+.card-body:hover {
+  filter: brightness(0.95);
+}
+
 .card-description {
   margin-bottom: 0;
   font-size: 0.875rem;
