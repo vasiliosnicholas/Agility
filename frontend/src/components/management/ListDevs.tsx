@@ -71,7 +71,7 @@ const ListDevs = ({
 
                   <OverlayTrigger
                     placement="left"
-                    delay={{ show: 250, hide: 400 }}
+                    delay={{ show: 0, hide: 0 }}
                     overlay={(props) => (
                       <Tooltip {...props}>Email {user.name}</Tooltip>
                     )}
@@ -92,7 +92,7 @@ const ListDevs = ({
                 >
                   <OverlayTrigger
                     placement="auto"
-                    delay={{ show: 250, hide: 400 }}
+                    delay={{ show: 0, hide: 0  }}
                     overlay={(props) => (
                       <Tooltip {...props}>{actionName} {user.name}</Tooltip>
                     )}
