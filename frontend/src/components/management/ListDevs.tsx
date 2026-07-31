@@ -91,7 +91,7 @@ const ListDevs = ({
                   className={`hover-actions d-flex flex-column flex-lg-row order-${actionOrder}`}
                 >
                   <OverlayTrigger
-                    placement={actionOrder == "first" ? "right": "left"}
+                    placement="auto"
                     delay={{ show: 250, hide: 400 }}
                     overlay={(props) => (
                       <Tooltip {...props}>{actionName} {user.name}</Tooltip>
