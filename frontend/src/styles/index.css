@@ -542,7 +542,7 @@
   visibility: hidden;
 }
 
-.parent-with-actions:hover .hover-actions, .parent-with-actions:focus .hover-actions {
+.parent-with-actions:is(:hover, :focus, :focus-within) .hover-actions {
   visibility: visible;
 }
 
