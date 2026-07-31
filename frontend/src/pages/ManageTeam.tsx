@@ -1,5 +1,10 @@
-import { useState, useCallback, useEffect } from "react";
-import { Container, Row, Col, Placeholder } from "react-bootstrap";
+import { useState, useCallback, useEffect, useRef } from "react";
+import {
+  Container,
+  Row,
+  Col,
+  Placeholder,
+} from "react-bootstrap";
 import AppNavbar from "../components/AppNavbar";
 import type { User } from "@shared/models/Users";
 import {
@@ -51,12 +56,14 @@ async function handleConcurrentUpdate(
 type UserTuple = [User[] | undefined, User[] | undefined];
 
 export default function ManageDevs() {
+  const headingRef = useRef<HTMLHeadingElement>(null);
   const [manager, setManager] = useState<User | undefined>();
   const [[assignedDevs, unassignedDevs], setAssignedAndUnassignedDevs] =
     useState<UserTuple>([undefined, undefined]);
   const handleSetManager = useCallback(async () => {
     const user = await fetchManagerInfo();
     setManager(user);
+    headingRef.current?.focus();
   }, [setManager]) as () => void;
 
   const handleSetDevs = useCallback(async () => {
@@ -102,6 +109,7 @@ export default function ManageDevs() {
       }
     };
   }
+  
   useEffect(() => {
     handleSetManager();
     handleSetDevs();
@@ -118,11 +126,10 @@ export default function ManageDevs() {
             {manager ? (
               <h1
                 className="type-hero"
-                autoFocus
+                ref={headingRef}
               >{`${manager.name}'s Team`}</h1>
             ) : (
               <Placeholder as="h1" animation="wave">
-                {" "}
                 <Placeholder xs={5} className="rounded-2" />{" "}
               </Placeholder>
             )}
@@ -143,14 +150,14 @@ export default function ManageDevs() {
                   title="Developers assigned to your team"
                   developers={assignedDevs}
                   action={handleUnassignment}
+                  actionName="Unassign"
                   actionChildren={
-                    <>
-                      Unassign <CaretRightFill className="d-none d-lg-inline" />
-                      <div className="d-lg-none">
-                        <CaretDownFill />
-                      </div>
-                    </>
+                    <div>
+                      <CaretRightFill className="d-none d-lg-inline" />
+                      <CaretDownFill className="d-lg-none" />
+                    </div>
                   }
+                  actionOrientation="last"
                   variant="danger"
                 />
               </Col>
@@ -174,7 +181,7 @@ export default function ManageDevs() {
                 </Row>
               </Col>
 
-              <div className="d-lg-none vstack align-items-center justify-items-center">
+              <div className="d-lg-none vstack align-items-center justify-items-center my-4">
                 <CaretUp color="grey" />
                 <hr className="w-100 my-2" />
                 <CaretDown color="grey" />
@@ -184,14 +191,14 @@ export default function ManageDevs() {
                   title="Unassigned developers"
                   developers={unassignedDevs}
                   action={handleAssignment}
+                  actionName="Assign"
                   actionChildren={
-                    <>
-                      <div>
-                        <CaretUpFill className="d-lg-none" />
-                      </div>{" "}
-                      <CaretLeftFill className="d-none d-lg-inline" /> Assign
-                    </>
+                    <div>
+                      <CaretUpFill className="d-lg-none" />
+                      <CaretLeftFill className="d-none d-lg-inline" />
+                    </div>
                   }
+                  actionOrientation="first"
                   variant="primary"
                 />
               </Col>

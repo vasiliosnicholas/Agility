@@ -3,15 +3,20 @@ import {
   ListGroup,
   type ButtonProps,
   Placeholder,
+  OverlayTrigger,
+  Tooltip,
 } from "react-bootstrap";
 import type { User } from "@shared/models/Users.ts";
 import Avatar from "../profile/Avatar";
+import { EnvelopeFill } from "react-bootstrap-icons";
 
 interface ListDevsPropTypes {
   title: string;
   developers: User[] | undefined;
   action: (developer: User) => () => void;
+  actionName: string;
   actionChildren: React.JSX.Element;
+  actionOrientation: "first" | "last";
   variant?: ButtonProps["variant"];
 }
 
@@ -19,7 +24,9 @@ const ListDevs = ({
   title,
   developers,
   action,
+  actionName,
   actionChildren,
+  actionOrientation: actionOrder,
   variant = undefined,
 }: ListDevsPropTypes) => {
   return (
@@ -38,41 +45,70 @@ const ListDevs = ({
       </header>
       {developers ? (
         developers.length > 0 ? (
-          <ListGroup as="ol" numbered className="management-list overflow-y-auto">
+          <ListGroup
+            as="ol"
+            className="d-flex flex-column management-list overflow-y-auto"
+          >
             {developers.map((user, index) => (
               <ListGroup.Item
                 key={index}
                 tabIndex={0}
                 as="li"
-                className={` justify-content-between align-items-start management-list-item ${index < developers.length - 1 ? "mb-2" : ""}`}
+                className={`management-list-item d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-stretch p-0  ${actionOrder == "first" ? "ps-0" : "pe-0"} ${index < developers.length - 1 ? "mb-2" : ""}`}
                 action
               >
-                <div className="ms-2 me-auto">
-                  
-                  <h4 className="fw-bold management-list-title">
-                    <Avatar userFullName={user.name} /> {user.name}
-                  </h4>
-                  <div>
-                    <small className="management-list-meta">{`@${user.username}`}</small>
+                <div className="d-flex flex-row justify-content-between align-items-start w-100 p-2">
+                  <div
+                    className={`ms-2 me-4 ${actionOrder == "first" ? "ms-lg-0" : ""}`}
+                  >
+                    <h4 className="fw-bold management-list-title">
+                      <Avatar userFullName={user.name} /> {user.name}
+                    </h4>
+                    <div>
+                      <small className="management-list-meta">{`@${user.username}`}</small>
+                    </div>
                   </div>
+
+                  <OverlayTrigger
+                    placement="left"
+                    delay={{ show: 250, hide: 400 }}
+                    overlay={(props) => (
+                      <Tooltip {...props}>Email {user.name}</Tooltip>
+                    )}
+                  >
+                    <Button
+                      variant="info"
+                      as="a"
+                      className="text-white fw-bold text-center px-sm-3 rounded-5 py-lg-2"
+                      aria-label={`email ${user.name}`}
+                      href={`mailto:${user.email}`}
+                    >
+                      <EnvelopeFill />
+                    </Button>
+                  </OverlayTrigger>
                 </div>
-
-                <Button
-                  variant="info"
-                  as="a"
-                  className="text-white fw-bold text-center px-sm-3 me-1 rounded-5 py-lg-2"
-                  href={`mailto:${user.email}`}
+                <div
+                  className={`d-flex flex-column flex-lg-row order-${actionOrder}`}
                 >
-                  Email
-                </Button>
-
-                <Button
-                  variant={variant}
-                  className="text-white fw-bold text-center px-sm-3 d-lg-flex flex-lg-row align-items-center me-1 rounded-5 py-sm-0 py-lg-2"
-                  onClick={action(user) as React.MouseEventHandler<HTMLElement>}
-                >
-                  {actionChildren}
-                </Button>
+                  <OverlayTrigger
+                    placement={actionOrder == "first" ? "right": "left"}
+                    delay={{ show: 250, hide: 400 }}
+                    overlay={(props) => (
+                      <Tooltip {...props}>{actionName} {user.name}</Tooltip>
+                    )}
+                  >
+                    <Button
+                      variant={variant}
+                      className=" text-white fw-bold text-center d-lg-flex flex-lg-row align-items-center rounded-0"
+                      aria-label={`${actionName} ${user.name}`}
+                      onClick={
+                        action(user) as React.MouseEventHandler<HTMLElement>
+                      }
+                    >
+                      {actionChildren}
+                    </Button>
+                  </OverlayTrigger>
+                </div>
               </ListGroup.Item>
             ))}
           </ListGroup>
@@ -83,9 +119,8 @@ const ListDevs = ({
         )
       ) : (
         <Placeholder as="section" animation="wave">
-          {" "}
           <Placeholder xs={6} className="rounded-2" />
-          <Placeholder className="w-75 rounded-2" />{" "}
+          <Placeholder className="w-75 rounded-2" />
           <Placeholder className="rounded-2" style={{ width: "25%" }} />
         </Placeholder>
       )}
