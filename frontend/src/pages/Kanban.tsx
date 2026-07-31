@@ -350,7 +350,7 @@ export default function Kanban() {
 
     return (
         <div className="kanban-page">
-            <AppNavbar user={kanbanData.user} />
+            <AppNavbar user={kanbanData.user} title = "Tasks"/>
             <main className="kanban-page-content">
                 {actionError && (
                     <div

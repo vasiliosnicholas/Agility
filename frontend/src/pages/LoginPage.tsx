@@ -1,4 +1,4 @@
-import type { JSX } from "react";
+import  { type JSX, useEffect } from "react";
 import AuthWindow from "../components/authentication/AuthWindow.tsx";
 import Login from "../components/authentication/Login.tsx";
 import Register from "../components/authentication/Register.tsx";
@@ -17,6 +17,7 @@ export default function LoginPage({
   defaultTitle = "You need an account to access this content",
   children,
 }: LoginPageProps) {
+  useEffect(() => {document.title = `Agility | Login`}, []);
   return (
     <Modal show centered size="lg" className="kanban-modal">
       <Modal.Header className={`${elementAlignment} modal-header`}>

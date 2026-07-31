@@ -16,7 +16,7 @@ const fetchUsername = async () => {
 };
 
 /**
- * Dopdown with profile actions: Manage profile, and logout
+ * Dropdown with profile actions: Manage profile, and logout
  * @returns Dropdown button.
  */
 export default function ProfileDropdown({
@@ -34,7 +34,7 @@ export default function ProfileDropdown({
 
   return (
     <>
-      <NavDropdown title={<span aria-label="Profile Management Dropdown">{profileComponent} </span>}>
+      <NavDropdown title={<span aria-label="Profile Actions Dropdown">{profileComponent} </span>}>
         <NavDropdown.Header>
           {name ? (
             name

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Badge, Container, Nav, Navbar, Spinner } from "react-bootstrap";
 import { Link, NavLink } from "react-router";
 import { AccountTypes, type User } from "@shared/models/Users.ts";
@@ -6,10 +7,13 @@ import Avatar from "./profile/Avatar";
 
 interface AppNavbarProps {
   user: Pick<User, "name" | "accountType">;
+  title: string;
 }
 
-export default function AppNavbar({ user }: AppNavbarProps) {
+export default function AppNavbar({ user, title }: AppNavbarProps) {
   const isManager = user.accountType === AccountTypes.Manager;
+
+  useEffect(() => {document.title = `Agility | ${title}`}, [title]);
 
   return (
     <Navbar className="navbar" expand="lg" sticky="top">

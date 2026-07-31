@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
 
 const elementAlignment = "justify-content-center";
@@ -5,6 +6,7 @@ const elementAlignment = "justify-content-center";
 const textAlignment = "text-center";
 
 export default function Unauthorized() {
+  useEffect(() => {document.title = `Agility | Unauthorized`}, []);
   return (
     <Modal show centered size="lg"  className="kanban-modal">
       <Modal.Header className={elementAlignment}>

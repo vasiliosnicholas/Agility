@@ -119,6 +119,7 @@ export default function ManageDevs() {
     <>
       <AppNavbar
         user={manager ? manager : { name: "", accountType: "" }}
+        title="Manage your Team"
       ></AppNavbar>
       <div className="kanban-page">
         <main className="kanban-page-content management-page">

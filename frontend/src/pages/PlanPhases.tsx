@@ -222,7 +222,7 @@ export default function PlanPhases() {
 
     return (
         <div className="kanban-page">
-            <AppNavbar user={user} />
+            <AppNavbar user={user} title="Phases"/>
             <main className="kanban-page-content management-page">
                 <header className="management-page-header">
                     <h1 className="type-hero">Plan Phases</h1>
