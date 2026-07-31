@@ -8,8 +8,6 @@ import {
 import AppNavbar from "../components/AppNavbar";
 import type { User } from "@shared/models/Users";
 import {
-  CaretLeft,
-  CaretRight,
   CaretLeftFill,
   CaretRightFill,
   CaretUp,
@@ -18,6 +16,7 @@ import {
   CaretUpFill,
 } from "react-bootstrap-icons";
 import ListDevs from "../components/management/ListDevs";
+import VerticalMotionIndicator from "../components/VerticalMotionIndicator";
 
 const fetchManagerInfo = async () => {
   const response = await fetch("/api/auth/user");
@@ -131,7 +130,7 @@ export default function ManageDevs() {
               >{`${manager.name}'s Team`}</h1>
             ) : (
               <Placeholder as="h1" animation="wave">
-                <Placeholder xs={5} className="rounded-2" />{" "}
+                <Placeholder xs={5} className="rounded-2" />
               </Placeholder>
             )}
 
@@ -162,25 +161,7 @@ export default function ManageDevs() {
                   variant="danger"
                 />
               </Col>
-              <Col
-                xs={1}
-                xl={1}
-                xxl={1}
-                className="d-none d-lg-flex flex-row h-100 m-0 p-0 align-self-start justify-content-center justify-items-center
-              "
-              >
-                <Row className="h-100 p-0 m-0 gx-3">
-                  <Col className="align-content-center p-0 m-0">
-                    <CaretLeft color="grey" />
-                  </Col>
-                  <Col>
-                    <div className="vr h-100 justify-self-center "></div>
-                  </Col>
-                  <Col className="align-content-center p-0 m-0">
-                    <CaretRight color="grey" />
-                  </Col>
-                </Row>
-              </Col>
+              <VerticalMotionIndicator/>
 
               <div className="d-lg-none vstack align-items-center justify-items-center my-4">
                 <CaretUp color="grey" />
