@@ -59,7 +59,7 @@ const ListDevs = ({
               >
                 <div className="d-flex flex-row justify-content-between align-items-start w-100 p-2">
                   <div
-                    className={`ms-2 me-4 ${actionOrder == "first" ? "ms-lg-0" : ""}`}
+                    className={`ms-2 me-4`}
                   >
                     <h4 className="fw-bold management-list-title">
                       <Avatar userFullName={user.name} /> {user.name}
@@ -88,7 +88,7 @@ const ListDevs = ({
                   </OverlayTrigger>
                 </div>
                 <div
-                  className={`hover-actions d-flex flex-column flex-lg-row order-${actionOrder}`}
+                  className={`hover-actions flex-column flex-lg-row order-${actionOrder}`}
                 >
                   <OverlayTrigger
                     placement="auto"

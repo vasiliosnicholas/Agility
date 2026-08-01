@@ -539,11 +539,11 @@
 }
 
 .hover-actions {
-  visibility: hidden;
+  display: none;
 }
 
 .parent-with-actions:is(:hover, :focus, :focus-within) .hover-actions {
-  visibility: visible;
+  display: flex;
 }
 
 
