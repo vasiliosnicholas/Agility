@@ -29,8 +29,8 @@ function Card({
   assigneeName,
   isBeingDragged = false,
   onDelete,
-  onMoveLeft = () => {return}, //TODO: Remove this default value
-  onMoveRight = () => {return}, //TODO: Remove this default value
+  onMoveLeft,
+  onMoveRight,
 }: CardProps) {
   const priorityBadge = PRIORITY_BADGES[priority];
 
@@ -38,99 +38,98 @@ function Card({
     <div className={`card${isBeingDragged ? " card-rotated" : ""}`}>
       <div className="card-body parent-with-actions" tabIndex={0}>
         {onMoveLeft && (
-            <OverlayTrigger
-              placement="auto"
-              delay={{ show: 0, hide: 0 }}
-              overlay={(props) => (
-                <Tooltip {...props}>Move to left column</Tooltip>
-              )}
-            >
-              <Button
-                type="button"
-                className="hover-actions p-0 pe-1 m-0 align-items-center"
-                variant="light"
-                aria-label={`Move to left column`}
-                onPointerDown={(event) => event.stopPropagation()}
-                onClick={(event) => {
-                  event.stopPropagation();
-                  onMoveLeft();
-                }}
-              >
-                <CaretLeftFill color="grey"/>
-              </Button>
-            </OverlayTrigger>
-          )}
-        <div >
-        <div className="card-header-row">
-          <h5 className="card-title">{title}</h5>
-          {onDelete && (
-            <OverlayTrigger
-              placement="left"
-              delay={{ show: 0, hide: 0 }}
-              overlay={(props) => (
-                <Tooltip {...props}>Delete this ticket</Tooltip>
-              )}
-            >
-              <button
-                type="button"
-                className="card-delete hover-actions"
-                aria-label={`Delete ${title}`}
-                onPointerDown={(event) => event.stopPropagation()}
-                onClick={(event) => {
-                  event.stopPropagation();
-                  onDelete();
-                }}
-              >
-                ×
-              </button>
-            </OverlayTrigger>
-          )}
-        </div>
-        {description && <p className="card-description">{description}</p>}
-        {(priorityBadge || assigneeName) && (
-          <div className="card-badges">
-            {priorityBadge && (
-              <Badge
-                pill
-                bg="light"
-                className={`priority-badge ${priorityBadge.className}`}
-              >
-                {priorityBadge.label}
-              </Badge>
+          <OverlayTrigger
+            placement="auto"
+            delay={{ show: 0, hide: 0 }}
+            overlay={(props) => (
+              <Tooltip {...props}>Move to left column</Tooltip>
             )}
-            {assigneeName && (
-              <Badge pill bg="light" className="assignee-badge">
-                Assigned to: {assigneeName}
-              </Badge>
+          >
+            <Button
+              type="button"
+              className="hover-actions p-0 pe-1 m-0 align-items-center"
+              variant="light"
+              aria-label={`Move to left column`}
+              onPointerDown={(event) => event.stopPropagation()}
+              onClick={(event) => {
+                event.stopPropagation();
+                onMoveLeft();
+              }}
+            >
+              <CaretLeftFill color="grey" />
+            </Button>
+          </OverlayTrigger>
+        )}
+        <div>
+          <div className="card-header-row">
+            <h5 className="card-title">{title}</h5>
+            {onDelete && (
+              <OverlayTrigger
+                placement="left"
+                delay={{ show: 0, hide: 0 }}
+                overlay={(props) => (
+                  <Tooltip {...props}>Delete this ticket</Tooltip>
+                )}
+              >
+                <button
+                  type="button"
+                  className="card-delete hover-actions"
+                  aria-label={`Delete ${title}`}
+                  onPointerDown={(event) => event.stopPropagation()}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    onDelete();
+                  }}
+                >
+                  ×
+                </button>
+              </OverlayTrigger>
             )}
           </div>
-        )}
+          {description && <p className="card-description">{description}</p>}
+          {(priorityBadge || assigneeName) && (
+            <div className="card-badges">
+              {priorityBadge && (
+                <Badge
+                  pill
+                  bg="light"
+                  className={`priority-badge ${priorityBadge.className}`}
+                >
+                  {priorityBadge.label}
+                </Badge>
+              )}
+              {assigneeName && (
+                <Badge pill bg="light" className="assignee-badge">
+                  Assigned to: {assigneeName}
+                </Badge>
+              )}
+            </div>
+          )}
         </div>
         {onMoveRight && (
-            <OverlayTrigger
-              placement="auto"
-              delay={{ show: 0, hide: 0 }}
-              overlay={(props) => (
-                <Tooltip {...props}>Move to right column</Tooltip>
-              )}
+          <OverlayTrigger
+            placement="auto"
+            delay={{ show: 0, hide: 0 }}
+            overlay={(props) => (
+              <Tooltip {...props}>Move to right column</Tooltip>
+            )}
+          >
+            <Button
+              type="button"
+              className="hover-actions p-0 ps-1 m-0 align-items-center"
+              variant="light"
+              aria-label={`Move to right column`}
+              onPointerDown={(event) => event.stopPropagation()}
+              onClick={(event) => {
+                event.stopPropagation();
+                onMoveRight();
+              }}
             >
-              <Button
-                type="button"
-                className="hover-actions p-0 ps-1 m-0 align-items-center"
-                variant="light"
-                aria-label={`Move to right column`}
-                onPointerDown={(event) => event.stopPropagation()}
-                onClick={(event) => {
-                  event.stopPropagation();
-                  onMoveRight();
-                }}
-              >
-                <CaretRightFill color="grey"/>
-              </Button>
-            </OverlayTrigger>
-          )}
+              <CaretRightFill color="grey" />
+            </Button>
+          </OverlayTrigger>
+        )}
       </div>
-      
     </div>
   );
 }
