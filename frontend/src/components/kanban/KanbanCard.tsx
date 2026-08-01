@@ -36,7 +36,7 @@ function Card({
 
   return (
     <div className={`card${isBeingDragged ? " card-rotated" : ""}`}>
-      <div className="card-body parent-with-actions" tabIndex={0}>
+      <div className="card-body parent-with-actions justify-content-between" tabIndex={0}>
         {onMoveLeft && (
           <OverlayTrigger
             placement="auto"
