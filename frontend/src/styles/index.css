@@ -546,7 +546,6 @@
   display: flex;
 }
 
-
 .card-delete {
   flex-shrink: 0;
   padding: 0;
@@ -684,6 +683,7 @@
 
 .card-body {
   background-color: white;
+  border-radius: 2rem;
 }
 
 .card-body:hover {
