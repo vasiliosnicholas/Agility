@@ -684,6 +684,8 @@
 .card-body {
   background-color: white;
   border-radius: 2rem;
+  display: flex;
+  flex-direction: row;
 }
 
 .card-body:hover {

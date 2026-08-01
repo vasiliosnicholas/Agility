@@ -1,6 +1,7 @@
 import Badge from "react-bootstrap/Badge";
 import type { TicketPriority } from "@shared/models/Tickets.ts";
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { CaretLeftFill, CaretRightFill } from "react-bootstrap-icons";
 
 interface CardProps {
   title: string;
@@ -9,6 +10,8 @@ interface CardProps {
   assigneeName?: string;
   isBeingDragged?: boolean;
   onDelete?: () => void;
+  onMoveLeft?: () => void;
+  onMoveRight?: () => void;
 }
 
 const PRIORITY_BADGES: Partial<
@@ -26,12 +29,38 @@ function Card({
   assigneeName,
   isBeingDragged = false,
   onDelete,
+  onMoveLeft = () => {return}, //TODO: Remove this default value
+  onMoveRight = () => {return}, //TODO: Remove this default value
 }: CardProps) {
   const priorityBadge = PRIORITY_BADGES[priority];
 
   return (
     <div className={`card${isBeingDragged ? " card-rotated" : ""}`}>
       <div className="card-body parent-with-actions" tabIndex={0}>
+        {onMoveLeft && (
+            <OverlayTrigger
+              placement="auto"
+              delay={{ show: 0, hide: 0 }}
+              overlay={(props) => (
+                <Tooltip {...props}>Move to left column</Tooltip>
+              )}
+            >
+              <Button
+                type="button"
+                className="hover-actions p-0 pe-1 m-0 align-items-center"
+                variant="light"
+                aria-label={`Move to left column`}
+                onPointerDown={(event) => event.stopPropagation()}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onMoveLeft();
+                }}
+              >
+                <CaretLeftFill color="grey"/>
+              </Button>
+            </OverlayTrigger>
+          )}
+        <div >
         <div className="card-header-row">
           <h5 className="card-title">{title}</h5>
           {onDelete && (
@@ -76,7 +105,32 @@ function Card({
             )}
           </div>
         )}
+        </div>
+        {onMoveRight && (
+            <OverlayTrigger
+              placement="auto"
+              delay={{ show: 0, hide: 0 }}
+              overlay={(props) => (
+                <Tooltip {...props}>Move to right column</Tooltip>
+              )}
+            >
+              <Button
+                type="button"
+                className="hover-actions p-0 ps-1 m-0 align-items-center"
+                variant="light"
+                aria-label={`Move to right column`}
+                onPointerDown={(event) => event.stopPropagation()}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onMoveRight();
+                }}
+              >
+                <CaretRightFill color="grey"/>
+              </Button>
+            </OverlayTrigger>
+          )}
       </div>
+      
     </div>
   );
 }
