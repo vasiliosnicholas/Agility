@@ -12,6 +12,8 @@ interface CardProps {
   onDelete?: () => void;
   onMoveLeft?: () => void;
   onMoveRight?: () => void;
+  leftColName?: string;
+  rightColName?: string;
 }
 
 const PRIORITY_BADGES: Partial<
@@ -31,25 +33,30 @@ function Card({
   onDelete,
   onMoveLeft,
   onMoveRight,
+  leftColName,
+  rightColName
 }: CardProps) {
   const priorityBadge = PRIORITY_BADGES[priority];
 
   return (
     <div className={`card${isBeingDragged ? " card-rotated" : ""}`}>
-      <div className="card-body parent-with-actions justify-content-between" tabIndex={0}>
+      <div
+        className="card-body rounded-2 parent-with-actions justify-content-between"
+        tabIndex={0}
+      >
         {onMoveLeft && (
           <OverlayTrigger
-            placement="auto"
+            placement="right"
             delay={{ show: 0, hide: 0 }}
             overlay={(props) => (
-              <Tooltip {...props}>Move to left column</Tooltip>
+              <Tooltip {...props}>Move to {leftColName || "left column"}</Tooltip>
             )}
           >
             <Button
               type="button"
               className="hover-actions p-0 pe-1 m-0 align-items-center"
-              variant="light"
-              aria-label={`Move to left column`}
+              variant="outline-light"
+              aria-label={`Move to ${leftColName || "left column"}`}
               onPointerDown={(event) => event.stopPropagation()}
               onClick={(event) => {
                 event.stopPropagation();
@@ -63,28 +70,6 @@ function Card({
         <div>
           <div className="card-header-row">
             <h5 className="card-title">{title}</h5>
-            {onDelete && (
-              <OverlayTrigger
-                placement="left"
-                delay={{ show: 0, hide: 0 }}
-                overlay={(props) => (
-                  <Tooltip {...props}>Delete this ticket</Tooltip>
-                )}
-              >
-                <button
-                  type="button"
-                  className="card-delete hover-actions"
-                  aria-label={`Delete ${title}`}
-                  onPointerDown={(event) => event.stopPropagation()}
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    onDelete();
-                  }}
-                >
-                  ×
-                </button>
-              </OverlayTrigger>
-            )}
           </div>
           {description && <p className="card-description">{description}</p>}
           {(priorityBadge || assigneeName) && (
@@ -106,29 +91,53 @@ function Card({
             </div>
           )}
         </div>
-        {onMoveRight && (
-          <OverlayTrigger
-            placement="auto"
-            delay={{ show: 0, hide: 0 }}
-            overlay={(props) => (
-              <Tooltip {...props}>Move to right column</Tooltip>
-            )}
-          >
-            <Button
-              type="button"
-              className="hover-actions p-0 ps-1 m-0 align-items-center"
-              variant="light"
-              aria-label={`Move to right column`}
-              onPointerDown={(event) => event.stopPropagation()}
-              onClick={(event) => {
-                event.stopPropagation();
-                onMoveRight();
-              }}
+        <div className="d-flex flex-column align-content-start">
+          {onDelete && (
+            <OverlayTrigger
+              placement="left"
+              delay={{ show: 0, hide: 0 }}
+              overlay={(props) => (
+                <Tooltip {...props}>Delete this ticket</Tooltip>
+              )}
             >
-              <CaretRightFill color="grey" />
-            </Button>
-          </OverlayTrigger>
-        )}
+              <button
+                type="button"
+                className="card-delete hover-actions position-absolute ps-1"
+                aria-label={`Delete ${title}`}
+                onPointerDown={(event) => event.stopPropagation()}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onDelete();
+                }}
+              >
+                ×
+              </button>
+            </OverlayTrigger>
+          )}
+          {onMoveRight && (
+            <OverlayTrigger
+              placement="left"
+              delay={{ show: 0, hide: 0 }}
+              overlay={(props) => (
+                <Tooltip {...props}>Move to {rightColName || "right column"}</Tooltip>
+              )}
+            >
+              <Button
+                type="button"
+                className="hover-actions p-0 ps-1 m-0 align-items-center h-100"
+                variant="outline-light"
+                aria-label={`Move to ${rightColName || "right column"}`}
+                onPointerDown={(event) => event.stopPropagation()}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onMoveRight();
+                }}
+              >
+                <CaretRightFill color="grey" />
+              </Button>
+            </OverlayTrigger>
+          )}
+        </div>
       </div>
     </div>
   );

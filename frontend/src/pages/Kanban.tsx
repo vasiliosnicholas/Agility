@@ -392,6 +392,24 @@ export default function Kanban() {
                       name={list.name}
                       count={list.cards.length}
                       className={list.className}
+                      NewTicketButton={((list.id === TicketStatuses.Todo && kanbanData.phase) ||
+                        list.id === TicketStatuses.Backlog) ? (
+                        <Button
+                          type="button"
+                          variant="light"
+                          className="new-ticket-button"
+                          aria-label={`Create a new ticket in ${list.name}`}
+                          onClick={() =>
+                            openNewTicketModal(
+                              list.id === TicketStatuses.Backlog
+                                ? TicketStatuses.Backlog
+                                : TicketStatuses.Todo
+                            )
+                          }
+                        >
+                          <span aria-hidden="true">+</span> New Ticket
+                        </Button>
+                      ) : undefined}
                     >
                       {list.cards.map((card, cardPos) => (
                         <Drag.DropZone
@@ -452,6 +470,9 @@ export default function Kanban() {
                                       })
                                   : undefined
                               }
+                              leftColName={ listPos > 0
+                                  ? columns[listPos - 1].name : undefined}
+                                rightColName={listPos < columns.length - 1 ? columns[listPos + 1].name : undefined}
                             />
                           </Drag.DragItem>
                         </Drag.DropZone>
@@ -467,24 +488,6 @@ export default function Kanban() {
                           className="drop-guide"
                         />
                       </Drag.DropZone>
-                      {((list.id === TicketStatuses.Todo && kanbanData.phase) ||
-                        list.id === TicketStatuses.Backlog) && (
-                        <Button
-                          type="button"
-                          variant="light"
-                          className="new-ticket-button"
-                          aria-label={`Create a new ticket in ${list.name}`}
-                          onClick={() =>
-                            openNewTicketModal(
-                              list.id === TicketStatuses.Backlog
-                                ? TicketStatuses.Backlog
-                                : TicketStatuses.Todo
-                            )
-                          }
-                        >
-                          <span aria-hidden="true">+</span> New Ticket
-                        </Button>
-                      )}
                     </KanbanList>
                     <Drag.DropZone
                       dropId={`${listPos}-${list.cards.length}`}
