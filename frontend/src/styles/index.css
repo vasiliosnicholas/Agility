@@ -476,6 +476,10 @@
 }
 
 .kanban-list-container {
+  overflow-y: hidden;
+}
+
+.kanban-list-container:is(:hover, :focus, :focus-within) {
   overflow-y: auto;
 }
 
