@@ -443,7 +443,8 @@
 
 .kanban-container {
   display: grid;
-  grid-template-columns: repeat(3, 19rem);
+  grid-template-columns: repeat(3, minmax(14rem, 27rem));
+  justify-self: center;
   align-items: flex-start;
   gap: 1rem;
   padding: 1rem 0 2rem;
@@ -453,7 +454,7 @@
 }
 
 .kanban-container-manager {
-  grid-template-columns: repeat(4, 18rem);
+  grid-template-columns: repeat(4, minmax(14rem, 20rem));
 }
 
 .kanban-column {
