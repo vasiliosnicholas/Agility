@@ -443,23 +443,25 @@
 
 .kanban-container {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(14rem, 27rem));
+  justify-self: center;
   align-items: flex-start;
   gap: 1rem;
   padding: 1rem 0 2rem;
-  min-height: 50vh;
+  min-height: 100vh;
   background-color: transparent;
+  overflow: auto;
 }
 
 .kanban-container-manager {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(14rem, 20rem));
 }
 
 .kanban-column {
   display: flex;
   flex-direction: column;
   width: auto;
-  min-width: 0;
+  min-width: fit-content;
 }
 
 .kanban-list {
@@ -467,11 +469,19 @@
   flex-direction: column;
   width: 100%;
   padding: 0.75rem;
-  min-height: 8rem;
+  max-height: 100vh;
   background-color: var(--bs-secondary-bg);
   border: var(--bs-border-width) solid var(--bs-border-color);
   border-radius: var(--bs-border-radius-lg);
   box-shadow: var(--item-shadow);
+}
+
+.kanban-list-container {
+  overflow-y: hidden;
+}
+
+.kanban-list-container:is(:hover, :focus, :focus-within) {
+  overflow-y: auto;
 }
 
 .kanban-list-backlog {
@@ -542,10 +552,13 @@
   display: none;
 }
 
+.parent-with-actions:is(:hover, :focus, :focus-within) {
+  padding: 0 rem;
+}
+
 .parent-with-actions:is(:hover, :focus, :focus-within) .hover-actions {
   display: flex;
 }
-
 
 .card-delete {
   flex-shrink: 0;
@@ -684,10 +697,16 @@
 
 .card-body {
   background-color: white;
+  display: flex;
+  flex-direction: row;
+  min-width: -webkit-fill-available;
+  min-width: 10rem;
 }
 
-.card-body:hover {
+.card-body:is(:hover, :focus, :focus-within) {
   filter: brightness(0.95);
+  padding-left: 2%;
+  padding-right: 2%;
 }
 
 .card-description {
