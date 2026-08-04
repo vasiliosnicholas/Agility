@@ -18,7 +18,7 @@ export default function AppNavbar({ user, title }: AppNavbarProps) {
   return (
     <Navbar className="navbar" expand="lg" sticky="top">
       <Container fluid className="navbar-container">
-        <Navbar.Brand as={Link} to="/kanban" className="navbar-brand">
+        <Navbar.Brand as={Link} to="/kanban" onClick={() => window.location.href="/kanban"} className="navbar-brand">
           <svg className="navbar-logo" viewBox="0 0 18 18">
             <rect
               className="fill-todo"
@@ -48,15 +48,15 @@ export default function AppNavbar({ user, title }: AppNavbarProps) {
           <span>Agility</span>
         </Navbar.Brand>
         <Nav className="navbar-links me-auto">
-          <Nav.Link as={NavLink} to="/kanban">
+          <Nav.Link as={NavLink} to="/kanban" onClick={() => window.location.href="/kanban"}>
             Tasks
           </Nav.Link>
           {isManager && (
             <>
-              <Nav.Link as={NavLink} to="/phases">
+              <Nav.Link as={NavLink} to="/phases" onClick={() => window.location.href="/phases"}>
                 Plan Phases
               </Nav.Link>
-              <Nav.Link as={NavLink} to="/team">
+              <Nav.Link as={NavLink} to="/team" onClick={() => window.location.href="/team"}>
                 Manage Team
               </Nav.Link>
             </>
