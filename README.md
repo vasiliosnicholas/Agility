@@ -1,4 +1,4 @@
-# Agility
+# <img src="./frontend/public/favicon.svg" alt="Agility logo" height="50" width="50"/> Agility
 
 **Agility** is a full-stack application that implements an agile framework for managing projects in an easy-to-use interface. Agility’s goal is to simplify the process of assigning, coordinating, and managing tasks across a project team, thereby reducing overhead for managers and project leaders. Its simplified, non-esoteric workflow helps newcomers to agile management benefit from a structured approach to product development without the complexity of traditional project-management tools. Agility was built with TypeScript, React, Vite, Node.js, Express, Bootstrap 5 / React-Bootstrap, Passport, and MongoDB.
 
