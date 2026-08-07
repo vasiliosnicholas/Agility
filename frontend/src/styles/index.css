@@ -708,6 +708,9 @@
   padding-left: 2%;
   padding-right: 2%;
 }
+.card-body:hover {
+  cursor: move;
+} 
 
 .card-description {
   margin-bottom: 0;
