@@ -178,15 +178,23 @@
   height: 1.125rem;
 }
 
-.navbar-logo .fill-todo {
+.agility-logo-splash {
+  justify-self: center;
+  align-self: center;
+  width: 100vw;
+  height: 100vh;
+  filter: blur(10px);
+}
+
+svg .fill-todo {
   fill: var(--status-todo-fill);
 }
 
-.navbar-logo .fill-progress {
+svg .fill-progress {
   fill: var(--status-progress-fill);
 }
 
-.navbar-logo .fill-completed {
+svg .fill-completed {
   fill: var(--status-completed-fill);
 }
 
