@@ -60,7 +60,7 @@ export const AccountTypeGuardFactoryFunction: (
 };
 
 /**
- * Middleware that takes a post request and hashes user password.
+ * Middleware that hashes user password.
  * @param req a Request instance
  * @param res a Response instance.
  * @param next Express NextFunction
