@@ -1,10 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Placeholder,
-} from "react-bootstrap";
+import { Container, Row, Col, Placeholder } from "react-bootstrap";
 import AppNavbar from "../components/AppNavbar";
 import type { User } from "@shared/models/Users";
 import {
@@ -108,7 +103,7 @@ export default function ManageDevs() {
       }
     };
   }
-  
+
   useEffect(() => {
     handleSetManager();
     handleSetDevs();
@@ -143,6 +138,8 @@ export default function ManageDevs() {
           <Container
             fluid
             className="mt-4 d-flex flex-row justify-content-center"
+            role="table"
+            aria-description="Press Enter to navigate through rows. Press Escape to navigate through columns"
           >
             <Row className="d-flex flex-row w-100">
               <Col>
@@ -161,7 +158,7 @@ export default function ManageDevs() {
                   variant="danger"
                 />
               </Col>
-              <VerticalMotionIndicator/>
+              <VerticalMotionIndicator />
 
               <div className="d-lg-none vstack align-items-center justify-items-center my-4">
                 <CaretUp color="grey" />

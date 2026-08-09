@@ -9,6 +9,7 @@ import {
 import type { User } from "@shared/models/Users.ts";
 import Avatar from "../profile/Avatar";
 import { EnvelopeFill } from "react-bootstrap-icons";
+import { useRef, useState } from "react";
 
 interface ListDevsPropTypes {
   title: string;
@@ -29,9 +30,38 @@ const ListDevs = ({
   actionOrientation: actionOrder,
   variant = undefined,
 }: ListDevsPropTypes) => {
+  const [controlCol, setControlCol] = useState(true);
+  const colRef = useRef<HTMLElement | null>(null);
+  const firstRowRef = useRef<HTMLLIElement>(null);
   return (
-    <section className="management-section">
-      <header className="management-section-header justify-content-start">
+    <section
+      className="management-section"
+      ref={colRef}
+      tabIndex={controlCol ? 0 : -1}
+      onBlur={(event) => {
+        if (!event.currentTarget?.contains(event.relatedTarget))
+          setControlCol(true);
+      }}
+      onKeyDownCapture={(event) => {
+        switch (event.key) {
+          case "Enter":
+            if (controlCol) {
+              setControlCol(false);
+              firstRowRef.current?.focus();
+            }
+            break;
+          case "Escape":
+            setControlCol(true);
+            colRef.current?.focus();
+            break;
+        }
+      }}
+      role="rowgroup"
+    >
+      <header
+        className="management-section-header justify-content-start"
+        role="columnheader"
+      >
         <h3 className="management-section-title">{title}</h3>
         <span className="management-section-count">
           {developers ? (
@@ -52,15 +82,15 @@ const ListDevs = ({
             {developers.map((user, index) => (
               <ListGroup.Item
                 key={index}
-                tabIndex={0}
+                ref={index === 0 ? firstRowRef : undefined}
+                tabIndex={controlCol ? -1 : 0}
+                role="row"
                 as="li"
                 className={`management-list-item d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-stretch p-0 parent-with-actions ${actionOrder == "first" ? "ps-0" : "pe-0"} ${index < developers.length - 1 ? "mb-2" : ""}`}
                 action
               >
                 <div className="d-flex flex-row justify-content-between align-items-start w-100 p-2">
-                  <div
-                    className={`ms-2 me-4`}
-                  >
+                  <div className={`ms-2 me-4`}>
                     <h4 className="fw-bold management-list-title">
                       <Avatar userFullName={user.name} /> {user.name}
                     </h4>
@@ -92,9 +122,11 @@ const ListDevs = ({
                 >
                   <OverlayTrigger
                     placement="auto"
-                    delay={{ show: 0, hide: 0  }}
+                    delay={{ show: 0, hide: 0 }}
                     overlay={(props) => (
-                      <Tooltip {...props}>{actionName} {user.name}</Tooltip>
+                      <Tooltip {...props}>
+                        {actionName} {user.name}
+                      </Tooltip>
                     )}
                   >
                     <Button
