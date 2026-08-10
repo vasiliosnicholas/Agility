@@ -30,13 +30,13 @@ interface ColumnProps<ColElement extends HTMLElement>
 export type ColElementRefObject<ColElement extends HTMLElement> =
   React.RefObject<ColElement | null> | undefined;
 
-export interface SetColumnRef<ColElement extends HTMLElement> {
+interface ColumnRefSetter<ColElement extends HTMLElement> {
   setColumnRef?: (colRef: ColElementRefObject<ColElement>) => void;
 }
 
 export interface AdjacentColumnRefObjectProps<
   ColElement extends HTMLElement,
-> extends SetColumnRef<ColElement> {
+> extends ColumnRefSetter<ColElement> {
   leftColumnRef?: ColElementRefObject<ColElement>;
   rightColumnRef?: ColElementRefObject<ColElement>;
 }
