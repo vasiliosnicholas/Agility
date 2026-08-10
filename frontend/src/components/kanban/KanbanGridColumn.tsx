@@ -41,11 +41,12 @@ export default function KanbanGridColumn({
   leftColumnRef,
   rightColumnRef,
   setColumnRef,
+  columnIndex,
 }: KanbanGridColumnProps) {
   const [handleRow, colProps] = useGridKeyboardControls<
     HTMLDivElement,
     HTMLDivElement
-  >({ leftColumnRef, rightColumnRef, setColumnRef });
+  >({ leftColumnRef, rightColumnRef, setColumnRef, columnIndex });
   return (
     <div key={list.id} className="kanban-column" {...colProps}>
       <KanbanList

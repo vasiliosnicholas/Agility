@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import type { KanbanData } from "@shared/models/Kanban.ts";
 import {
   TicketStatuses,
@@ -15,7 +15,7 @@ import PhaseTimeline from "../components/kanban/PhaseTimeline.tsx";
 import AppNavbar from "../components/AppNavbar.tsx";
 import NewTicketModal from "../components/kanban/NewTicketModal.tsx";
 import KanbanGridColumn from "../components/kanban/KanbanGridColumn.tsx";
-import type { ColElementRefObject } from "../hooks/useGridKeyboardControls.ts";
+import type { ColElementRefObject, SetColumnRef } from "../hooks/useGridKeyboardControls.ts";
 
 export interface KanbanColumn {
   id: TicketStatus;
@@ -81,10 +81,14 @@ export default function Kanban() {
     React.useState<TicketCreationStatus>(TicketStatuses.Todo);
   const [showNewTicketModal, setShowNewTicketModal] = React.useState(false);
   const isUpdatingTicket = React.useRef(false);
-  const [columnRefs, setColumnRefs] = useState<
+  const [columnRefs, setColumnRefs] = React.useState<
     (ColElementRefObject<HTMLDivElement> | undefined)[]
   >(new Array(columns.length)); //FIXME: Make this state pattern deeply reactive.
-
+  const setColumnRef:SetColumnRef<HTMLDivElement> = React.useCallback((colRef, index) => {
+                      const newColumnRefs = [...columnRefs];
+                      newColumnRefs[index] = colRef;
+                      setColumnRefs(newColumnRefs);
+                    }, [setColumnRefs, columnRefs] );
   const loadKanban = React.useCallback(async (signal?: AbortSignal) => {
     try {
       const response = await fetch("/api/kanban", { signal });
@@ -402,10 +406,7 @@ export default function Kanban() {
                     columns={columns}
                     handleDeleteTicket={handleDeleteTicket}
                     handleDrop={handleDrop}
-                    setColumnRef={(colRef) => {
-                      columnRefs[listPos] = colRef;
-                      setColumnRefs(Array.from(columnRefs));
-                    }}
+                    setColumnRef={setColumnRef}
                     leftColumnRef={
                       listPos > 0 ? columnRefs[listPos - 1] : undefined
                     }
@@ -414,6 +415,7 @@ export default function Kanban() {
                         ? columnRefs[listPos + 1]
                         : undefined
                     }
+                    columnIndex={listPos}
                   />
                 ))}
               </div>

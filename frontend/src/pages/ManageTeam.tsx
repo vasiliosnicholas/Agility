@@ -160,8 +160,9 @@ export default function ManageDevs() {
                   }
                   actionOrientation="last"
                   variant="danger"
-                  setColumnRef={(colRef) => setLeftColumnRef(colRef)}
+                  setColumnRef={(colRef, index) => setLeftColumnRef(colRef)}
                   rightColumnRef={rightColumnRef}
+                  columnIndex={0}
                 />
               </Col>
               <VerticalMotionIndicator />
@@ -185,8 +186,9 @@ export default function ManageDevs() {
                   }
                   actionOrientation="first"
                   variant="primary"
-                  setColumnRef={(colRef) => setRightColumnRef(colRef)}
+                  setColumnRef={(colRef, index) => setRightColumnRef(colRef)}
                   leftColumnRef={leftColumnRef}
+                  columnIndex={1}
                 />
               </Col>
             </Row>

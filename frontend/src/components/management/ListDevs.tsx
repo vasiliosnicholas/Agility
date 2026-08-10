@@ -35,11 +35,12 @@ const ListDevs = ({
   leftColumnRef,
   rightColumnRef,
   setColumnRef,
+  columnIndex,
 }: ListDevsPropTypes) => {
   const [handleRow, colProps] = useGridKeyboardControls<
     HTMLLIElement,
     HTMLElement
-  >({ leftColumnRef, rightColumnRef, setColumnRef });
+  >({ leftColumnRef, rightColumnRef, setColumnRef, columnIndex });
 
   return (
     <section className="management-section" {...colProps}>
