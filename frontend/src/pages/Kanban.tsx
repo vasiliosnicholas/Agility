@@ -16,6 +16,7 @@ import AppNavbar from "../components/AppNavbar.tsx";
 import NewTicketModal from "../components/kanban/NewTicketModal.tsx";
 import KanbanGridColumn from "../components/kanban/KanbanGridColumn.tsx";
 import type { ColElementRefObject } from "../hooks/useGridKeyboardControls.ts";
+import {useImmer} from "use-immer";
 
 export interface KanbanColumn {
   id: TicketStatus;
@@ -81,9 +82,9 @@ export default function Kanban() {
     React.useState<TicketCreationStatus>(TicketStatuses.Todo);
   const [showNewTicketModal, setShowNewTicketModal] = React.useState(false);
   const isUpdatingTicket = React.useRef(false);
-  const [columnRefs, setColumnRefs] = useState<
+  const [columnRefs, updateColumnRefs] = useImmer<
     (ColElementRefObject<HTMLDivElement> | undefined)[]
-  >(new Array(columns.length)); //FIXME: Make this state pattern deeply reactive.
+  >(new Array(columns.length));
 
   const loadKanban = React.useCallback(async (signal?: AbortSignal) => {
     try {
@@ -403,8 +404,9 @@ export default function Kanban() {
                     handleDeleteTicket={handleDeleteTicket}
                     handleDrop={handleDrop}
                     setColumnRef={(colRef) => {
-                      columnRefs[listPos] = colRef;
-                      setColumnRefs(Array.from(columnRefs));
+                      updateColumnRefs((draftColumnRefs) => {
+                        // @ts-expect-error: Immer draft typing mismatch with React.RefObject
+                        draftColumnRefs[listPos] = colRef});
                     }}
                     leftColumnRef={
                       listPos > 0 ? columnRefs[listPos - 1] : undefined
