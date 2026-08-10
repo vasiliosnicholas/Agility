@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect, useRef, type Ref } from "react";
 import { Container, Row, Col, Placeholder } from "react-bootstrap";
 import AppNavbar from "../components/AppNavbar";
 import type { User } from "@shared/models/Users";
@@ -59,6 +59,9 @@ export default function ManageDevs() {
     setManager(user);
     headingRef.current?.focus();
   }, [setManager]) as () => void;
+
+  const [leftColumnRef, setLeftColumnRef] = useState<Ref<HTMLElement>>();
+  const [rightColumnRef, setRightColumnRef] = useState<Ref<HTMLElement>>();
 
   const handleSetDevs = useCallback(async () => {
     const devs = await Promise.all([
@@ -156,6 +159,8 @@ export default function ManageDevs() {
                   }
                   actionOrientation="last"
                   variant="danger"
+                  setColumnRef={(colRef) => setLeftColumnRef(colRef)}
+                  rightColumnRef={rightColumnRef}
                 />
               </Col>
               <VerticalMotionIndicator />
@@ -179,6 +184,8 @@ export default function ManageDevs() {
                   }
                   actionOrientation="first"
                   variant="primary"
+                  setColumnRef={(colRef) => setRightColumnRef(colRef)}
+                  leftColumnRef={leftColumnRef}
                 />
               </Col>
             </Row>

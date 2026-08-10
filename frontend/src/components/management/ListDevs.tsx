@@ -9,9 +9,13 @@ import {
 import { EnvelopeFill } from "react-bootstrap-icons";
 import type { User } from "@shared/models/Users.ts";
 import Avatar from "../profile/Avatar";
-import useGridKeyboardControls, { type AdjacentColumnRefsProps } from "../../hooks/useGridKeyboardControls";
+import useGridKeyboardControls, {
+  type AdjacentColumnRefsProps,
+  type SetColumnRef,
+} from "../../hooks/useGridKeyboardControls";
 
-interface ListDevsPropTypes extends AdjacentColumnRefsProps<HTMLElement> {
+interface ListDevsPropTypes
+  extends AdjacentColumnRefsProps<HTMLElement>, SetColumnRef<HTMLElement> {
   title: string;
   developers: User[] | undefined;
   action: (developer: User) => () => void;
@@ -29,13 +33,18 @@ const ListDevs = ({
   actionChildren,
   actionOrientation: actionOrder,
   variant = undefined,
+  leftColumnRef,
+  rightColumnRef,
+  setColumnRef,
 }: ListDevsPropTypes) => {
-  const [handleRow, colProps] = useGridKeyboardControls<HTMLLIElement, HTMLElement>();
+  const [handleRow, colProps] = useGridKeyboardControls<
+    HTMLLIElement,
+    HTMLElement
+  >({ leftColumnRef, rightColumnRef });
+  if(setColumnRef)
+    setColumnRef(colProps.ref)
   return (
-    <section
-      className="management-section"
-     {...colProps}
-    >
+    <section className="management-section" {...colProps}>
       <header
         className="management-section-header justify-content-start"
         role="columnheader"
