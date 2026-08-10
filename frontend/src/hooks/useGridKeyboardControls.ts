@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface RowProps<RowElement extends HTMLElement>
   extends
@@ -30,13 +30,15 @@ interface ColumnProps<ColElement extends HTMLElement>
 export type ColElementRefObject<ColElement extends HTMLElement> =
   React.RefObject<ColElement | null> | undefined;
 
-export interface AdjacentColumnRefObjectProps<ColElement extends HTMLElement> {
-  leftColumnRef?: ColElementRefObject<ColElement>;
-  rightColumnRef?: ColElementRefObject<ColElement>;
-}
-
 export interface SetColumnRef<ColElement extends HTMLElement> {
   setColumnRef?: (colRef: ColElementRefObject<ColElement>) => void;
+}
+
+export interface AdjacentColumnRefObjectProps<
+  ColElement extends HTMLElement,
+> extends SetColumnRef<ColElement> {
+  leftColumnRef?: ColElementRefObject<ColElement>;
+  rightColumnRef?: ColElementRefObject<ColElement>;
 }
 
 // Source - https://stackoverflow.com/a/69413070
@@ -57,12 +59,19 @@ export default function useGridKeyboardControls<
 >({
   leftColumnRef = undefined,
   rightColumnRef = undefined,
+  setColumnRef = undefined,
 }: AdjacentColumnRefObjectProps<ColElement> = {}): [
   RowHandler<RowElement, number>,
   ColumnProps<ColElement>,
 ] {
   const [controlCol, setControlCol] = useState(true);
   const colRef = useRef<ColElement>(null);
+
+  useEffect(() => {
+    if (setColumnRef && colRef) {
+      setColumnRef(colRef);
+    }
+  }, [colRef, setColumnRef]);
 
   const rowRefs = useRef<(RowElement | null)[]>([]);
 

@@ -9,15 +9,11 @@ import {
   type UpdateTicketStatusRequest,
 } from "@shared/models/Tickets.ts";
 import { AccountTypes } from "@shared/models/Users.ts";
-import KanbanList from "../components/kanban/KanbanList";
 import Drag from "../components/kanban/Drag";
 import type { DropPayload } from "../components/kanban/dragTypes";
-import KanbanCard from "../components/kanban/KanbanCard.tsx";
 import PhaseTimeline from "../components/kanban/PhaseTimeline.tsx";
 import AppNavbar from "../components/AppNavbar.tsx";
 import NewTicketModal from "../components/kanban/NewTicketModal.tsx";
-import Button from "react-bootstrap/Button";
-import useGridKeyboardControls from "../hooks/useGridKeyboardControls.ts";
 import KanbanGridColumn from "../components/kanban/KanbanGridColumn.tsx";
 
 export interface KanbanColumn {
@@ -390,6 +386,7 @@ export default function Kanban() {
               >
                 {columns.map((list, listPos) => (
                   <KanbanGridColumn
+                    key={listPos}
                     assigneeNames={assigneeNames}
                     list={list}
                     listPos={listPos}

@@ -11,12 +11,10 @@ import type { User } from "@shared/models/Users.ts";
 import Avatar from "../profile/Avatar";
 import useGridKeyboardControls, {
   type AdjacentColumnRefObjectProps,
-  type ColElementRefObject,
-  type SetColumnRef,
 } from "../../hooks/useGridKeyboardControls";
 
 interface ListDevsPropTypes
-  extends AdjacentColumnRefObjectProps<HTMLElement>, SetColumnRef<HTMLElement> {
+  extends AdjacentColumnRefObjectProps<HTMLElement>{
   title: string;
   developers: User[] | undefined;
   action: (developer: User) => () => void;
@@ -41,8 +39,8 @@ const ListDevs = ({
   const [handleRow, colProps] = useGridKeyboardControls<
     HTMLLIElement,
     HTMLElement
-  >({ leftColumnRef, rightColumnRef });
-  if (setColumnRef) setColumnRef(colProps.ref as ColElementRefObject<HTMLElement>);
+  >({ leftColumnRef, rightColumnRef, setColumnRef });
+
   return (
     <section className="management-section" {...colProps}>
       <header

@@ -1,15 +1,21 @@
 import { Button } from "react-bootstrap";
 import type { KanbanData } from "@shared/models/Kanban.ts";
-import { TicketStatuses, type TicketCreationStatus } from "@shared/models/Tickets";
+import {
+  TicketStatuses,
+  type TicketCreationStatus,
+} from "@shared/models/Tickets";
 import { AccountTypes } from "@shared/models/Users";
 import Drag from "./Drag";
 import KanbanCard from "./KanbanCard";
 import type { KanbanColumn } from "../../pages/Kanban";
 import type { DragRenderProps, DropPayload } from "./dragTypes";
 import KanbanList from "./KanbanList";
-import useGridKeyboardControls from "../../hooks/useGridKeyboardControls";
+import useGridKeyboardControls, { type AdjacentColumnRefObjectProps } from "../../hooks/useGridKeyboardControls";
 
-interface KanbanGridColumnProps extends DragRenderProps {
+interface KanbanGridColumnProps
+  extends
+    DragRenderProps,
+    AdjacentColumnRefObjectProps<HTMLDivElement>{
   assigneeNames: Map<string, string>;
   columns: KanbanColumn[];
   list: KanbanColumn;
@@ -17,7 +23,7 @@ interface KanbanGridColumnProps extends DragRenderProps {
   kanbanData: KanbanData;
   openNewTicketModal: (status: TicketCreationStatus) => void;
   handleDeleteTicket: (ticketId: string) => Promise<void>;
-  handleDrop: ({ dragItem, dragType, drop }: DropPayload) => Promise<void>
+  handleDrop: ({ dragItem, dragType, drop }: DropPayload) => Promise<void>;
 }
 
 export default function KanbanGridColumn({
@@ -31,12 +37,15 @@ export default function KanbanGridColumn({
   kanbanData,
   openNewTicketModal,
   handleDeleteTicket,
-  handleDrop
+  handleDrop,
+  leftColumnRef,
+  rightColumnRef,
+  setColumnRef,
 }: KanbanGridColumnProps) {
-    const [handleRow, colProps] = useGridKeyboardControls<
+  const [handleRow, colProps] = useGridKeyboardControls<
     HTMLDivElement,
     HTMLDivElement
-  >();
+  >({ leftColumnRef, rightColumnRef, setColumnRef });
   return (
     <div key={list.id} className="kanban-column" {...colProps}>
       <KanbanList
