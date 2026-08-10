@@ -27,16 +27,16 @@ interface ColumnProps<ColElement extends HTMLElement>
   role: "rowgroup";
 }
 
-type ColElementRef<ColElement extends HTMLElement> = React.RefObject<ColElement | null> | undefined;
+type ColElementRef<ColElement extends HTMLElement> =
+  React.Ref<ColElement | null> | undefined;
 
 export interface AdjacentColumnRefsProps<ColElement extends HTMLElement> {
   leftColumnRef?: ColElementRef<ColElement>;
   rightColumnRef?: ColElementRef<ColElement>;
 }
 
-export interface SetAdjacentColumnRefsProps<ColElement extends HTMLElement> {
-  setLeftColumnRef?: (leftColRef: ColElementRef<ColElement>) => void;
-  setRightColumnRef?: (rightColRef: ColElementRef<ColElement>) => void;
+export interface SetColumnRef<ColElement extends HTMLElement> {
+  setColumnRef?: (colRef: ColElementRef<ColElement>) => void;
 }
 
 // Source - https://stackoverflow.com/a/69413070
