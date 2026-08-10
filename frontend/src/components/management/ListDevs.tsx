@@ -10,9 +10,9 @@ import {
 import { EnvelopeFill } from "react-bootstrap-icons";
 import type { User } from "@shared/models/Users.ts";
 import Avatar from "../profile/Avatar";
-import useGridKeyboardControls from "../../hooks/useGridKeyboardControls";
+import useGridKeyboardControls, { type AdjacentColumnRefsProps } from "../../hooks/useGridKeyboardControls";
 
-interface ListDevsPropTypes {
+interface ListDevsPropTypes extends AdjacentColumnRefsProps<HTMLElement> {
   title: string;
   developers: User[] | undefined;
   action: (developer: User) => () => void;
