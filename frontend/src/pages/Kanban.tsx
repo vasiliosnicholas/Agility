@@ -17,8 +17,10 @@ import PhaseTimeline from "../components/kanban/PhaseTimeline.tsx";
 import AppNavbar from "../components/AppNavbar.tsx";
 import NewTicketModal from "../components/kanban/NewTicketModal.tsx";
 import Button from "react-bootstrap/Button";
+import useGridKeyboardControls from "../hooks/useGridKeyboardControls.ts";
+import KanbanGridColumn from "../components/kanban/KanbanGridColumn.tsx";
 
-interface KanbanColumn {
+export interface KanbanColumn {
   id: TicketStatus;
   name: string;
   className: string;
@@ -387,115 +389,19 @@ export default function Kanban() {
                 }`}
               >
                 {columns.map((list, listPos) => (
-                  <div key={list.id} className="kanban-column">
-                    <KanbanList
-                      name={list.name}
-                      count={list.cards.length}
-                      className={list.className}
-                      NewTicketButton={((list.id === TicketStatuses.Todo && kanbanData.phase) ||
-                        list.id === TicketStatuses.Backlog) ? (
-                        <Button
-                          type="button"
-                          variant="light"
-                          className="new-ticket-button"
-                          aria-label={`Create a new ticket in ${list.name}`}
-                          onClick={() =>
-                            openNewTicketModal(
-                              list.id === TicketStatuses.Backlog
-                                ? TicketStatuses.Backlog
-                                : TicketStatuses.Todo
-                            )
-                          }
-                        >
-                          <span aria-hidden="true">+</span> New Ticket
-                        </Button>
-                      ) : undefined}
-                    >
-                      {list.cards.map((card, cardPos) => (
-                        <Drag.DropZone
-                          key={card._id}
-                          dropId={`${listPos}-${cardPos}`}
-                          dropType="card"
-                          remember={true}
-                        >
-                          <Drag.DropGuide
-                            dropId={`${listPos}-${cardPos}`}
-                            className="drop-guide"
-                          />
-                          <Drag.DragItem
-                            dragId={card._id}
-                            dragType="card"
-                            className={`cursor-pointer ${
-                              activeItem === card._id &&
-                              activeType === "card" &&
-                              isDragging
-                                ? "d-none"
-                                : "translate-x-0"
-                            }`}
-                          >
-                            <KanbanCard
-                              title={card.title}
-                              description={card.description}
-                              priority={card.priority}
-                              assigneeName={
-                                card.assigneeId
-                                  ? assigneeNames.get(card.assigneeId)
-                                  : undefined
-                              }
-                              isBeingDragged={
-                                activeItem === card._id && activeType === "card"
-                              }
-                              onDelete={
-                                kanbanData.user.accountType ===
-                                AccountTypes.Manager
-                                  ? () => void handleDeleteTicket(card._id)
-                                  : undefined
-                              }
-                              onMoveLeft={
-                                listPos > 0
-                                  ? () =>
-                                      void handleDrop({
-                                        dragItem: card._id,
-                                        dragType: "card",
-                                        drop: `${listPos - 1}-${cardPos}`,
-                                      })
-                                  : undefined
-                              }
-                              onMoveRight={
-                                listPos < columns.length - 1
-                                  ? () =>  void handleDrop({
-                                        dragItem: card._id,
-                                        dragType: "card",
-                                        drop: `${listPos + 1}-${cardPos}`,
-                                      })
-                                  : undefined
-                              }
-                              leftColName={ listPos > 0
-                                  ? columns[listPos - 1].name : undefined}
-                                rightColName={listPos < columns.length - 1 ? columns[listPos + 1].name : undefined}
-                            />
-                          </Drag.DragItem>
-                        </Drag.DropZone>
-                      ))}
-                      <Drag.DropZone
-                        dropId={`${listPos}-${list.cards.length}`}
-                        dropType="card"
-                        remember={true}
-                        className="kanban-list-end-zone"
-                      >
-                        <Drag.DropGuide
-                          dropId={`${listPos}-${list.cards.length}`}
-                          className="drop-guide"
-                        />
-                      </Drag.DropZone>
-                    </KanbanList>
-                    <Drag.DropZone
-                      dropId={`${listPos}-${list.cards.length}`}
-                      className="flex-grow-1"
-                      dropType="card"
-                      remember={true}
-                    />
-                  </div>
+                  <KanbanGridColumn
+                    assigneeNames={assigneeNames}
+                    list={list}
+                    listPos={listPos}
+                    kanbanData={kanbanData}
+                    openNewTicketModal={openNewTicketModal}
+                    activeItem={activeItem}
+                    activeType={activeType}
+                    isDragging={isDragging}
+                    columns={columns}
+                    handleDeleteTicket={handleDeleteTicket}
+                    handleDrop={handleDrop}
+                  />
                 ))}
               </div>
             )}

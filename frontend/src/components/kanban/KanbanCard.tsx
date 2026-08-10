@@ -3,7 +3,7 @@ import type { TicketPriority } from "@shared/models/Tickets.ts";
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { CaretLeftFill, CaretRightFill } from "react-bootstrap-icons";
 
-interface CardProps {
+interface CardProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   title: string;
   description?: string;
   priority: TicketPriority;
@@ -34,7 +34,8 @@ function Card({
   onMoveLeft,
   onMoveRight,
   leftColName,
-  rightColName
+  rightColName,
+  ...props
 }: CardProps) {
   const priorityBadge = PRIORITY_BADGES[priority];
 
@@ -43,6 +44,7 @@ function Card({
       <div
         className="card-body rounded-2 parent-with-actions justify-content-between"
         tabIndex={0}
+        {...props}
       >
         {onMoveLeft && (
           <OverlayTrigger
