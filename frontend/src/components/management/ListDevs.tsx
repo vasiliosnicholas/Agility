@@ -1,3 +1,4 @@
+import { useRef, useState } from "react";
 import {
   Button,
   ListGroup,
@@ -6,10 +7,10 @@ import {
   OverlayTrigger,
   Tooltip,
 } from "react-bootstrap";
+import { EnvelopeFill } from "react-bootstrap-icons";
 import type { User } from "@shared/models/Users.ts";
 import Avatar from "../profile/Avatar";
-import { EnvelopeFill } from "react-bootstrap-icons";
-import { useRef, useState } from "react";
+import useGridKeyboardControls from "../../hooks/useGridKeyboardControls";
 
 interface ListDevsPropTypes {
   title: string;
@@ -30,33 +31,11 @@ const ListDevs = ({
   actionOrientation: actionOrder,
   variant = undefined,
 }: ListDevsPropTypes) => {
-  const [controlCol, setControlCol] = useState(true);
-  const colRef = useRef<HTMLElement | null>(null);
-  const firstRowRef = useRef<HTMLLIElement>(null);
+  const [handleRow, colProps] = useGridKeyboardControls<HTMLLIElement, HTMLElement>();
   return (
     <section
       className="management-section"
-      ref={colRef}
-      tabIndex={controlCol ? 0 : -1}
-      onBlur={(event) => {
-        if (!event.currentTarget?.contains(event.relatedTarget))
-          setControlCol(true);
-      }}
-      onKeyDownCapture={(event) => {
-        switch (event.key) {
-          case "Enter":
-            if (controlCol) {
-              setControlCol(false);
-              firstRowRef.current?.focus();
-            }
-            break;
-          case "Escape":
-            setControlCol(true);
-            colRef.current?.focus();
-            break;
-        }
-      }}
-      role="rowgroup"
+     {...colProps}
     >
       <header
         className="management-section-header justify-content-start"
@@ -82,12 +61,10 @@ const ListDevs = ({
             {developers.map((user, index) => (
               <ListGroup.Item
                 key={index}
-                ref={index === 0 ? firstRowRef : undefined}
-                tabIndex={controlCol ? -1 : 0}
-                role="row"
                 as="li"
                 className={`management-list-item d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-stretch p-0 parent-with-actions ${actionOrder == "first" ? "ps-0" : "pe-0"} ${index < developers.length - 1 ? "mb-2" : ""}`}
                 action
+                {...handleRow(index)}
               >
                 <div className="d-flex flex-row justify-content-between align-items-start w-100 p-2">
                   <div className={`ms-2 me-4`}>
