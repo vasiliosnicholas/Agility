@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef, type Ref } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { Container, Row, Col, Placeholder } from "react-bootstrap";
 import AppNavbar from "../components/AppNavbar";
 import type { User } from "@shared/models/Users";
@@ -12,6 +12,7 @@ import {
 } from "react-bootstrap-icons";
 import ListDevs from "../components/management/ListDevs";
 import VerticalMotionIndicator from "../components/VerticalMotionIndicator";
+import type { ColElementRefObject } from "../hooks/useGridKeyboardControls";
 
 const fetchManagerInfo = async () => {
   const response = await fetch("/api/auth/user");
@@ -60,8 +61,8 @@ export default function ManageDevs() {
     headingRef.current?.focus();
   }, [setManager]) as () => void;
 
-  const [leftColumnRef, setLeftColumnRef] = useState<Ref<HTMLElement>>();
-  const [rightColumnRef, setRightColumnRef] = useState<Ref<HTMLElement>>();
+  const [leftColumnRef, setLeftColumnRef] = useState<ColElementRefObject<HTMLElement>>();
+  const [rightColumnRef, setRightColumnRef] = useState<ColElementRefObject<HTMLElement>>();
 
   const handleSetDevs = useCallback(async () => {
     const devs = await Promise.all([

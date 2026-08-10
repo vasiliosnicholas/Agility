@@ -27,16 +27,16 @@ interface ColumnProps<ColElement extends HTMLElement>
   role: "rowgroup";
 }
 
-type ColElementRef<ColElement extends HTMLElement> =
-  React.Ref<ColElement | null> | undefined;
+export type ColElementRefObject<ColElement extends HTMLElement> =
+  React.RefObject<ColElement | null> | undefined;
 
-export interface AdjacentColumnRefsProps<ColElement extends HTMLElement> {
-  leftColumnRef?: ColElementRef<ColElement>;
-  rightColumnRef?: ColElementRef<ColElement>;
+export interface AdjacentColumnRefObjectProps<ColElement extends HTMLElement> {
+  leftColumnRef?: ColElementRefObject<ColElement>;
+  rightColumnRef?: ColElementRefObject<ColElement>;
 }
 
 export interface SetColumnRef<ColElement extends HTMLElement> {
-  setColumnRef?: (colRef: ColElementRef<ColElement>) => void;
+  setColumnRef?: (colRef: ColElementRefObject<ColElement>) => void;
 }
 
 // Source - https://stackoverflow.com/a/69413070
@@ -57,7 +57,7 @@ export default function useGridKeyboardControls<
 >({
   leftColumnRef = undefined,
   rightColumnRef = undefined,
-}: AdjacentColumnRefsProps<ColElement> = {}): [
+}: AdjacentColumnRefObjectProps<ColElement> = {}): [
   RowHandler<RowElement, number>,
   ColumnProps<ColElement>,
 ] {

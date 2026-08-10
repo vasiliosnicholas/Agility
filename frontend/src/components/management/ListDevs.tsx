@@ -10,12 +10,13 @@ import { EnvelopeFill } from "react-bootstrap-icons";
 import type { User } from "@shared/models/Users.ts";
 import Avatar from "../profile/Avatar";
 import useGridKeyboardControls, {
-  type AdjacentColumnRefsProps,
+  type AdjacentColumnRefObjectProps,
+  type ColElementRefObject,
   type SetColumnRef,
 } from "../../hooks/useGridKeyboardControls";
 
 interface ListDevsPropTypes
-  extends AdjacentColumnRefsProps<HTMLElement>, SetColumnRef<HTMLElement> {
+  extends AdjacentColumnRefObjectProps<HTMLElement>, SetColumnRef<HTMLElement> {
   title: string;
   developers: User[] | undefined;
   action: (developer: User) => () => void;
@@ -41,8 +42,7 @@ const ListDevs = ({
     HTMLLIElement,
     HTMLElement
   >({ leftColumnRef, rightColumnRef });
-  if(setColumnRef)
-    setColumnRef(colProps.ref)
+  if (setColumnRef) setColumnRef(colProps.ref as ColElementRefObject<HTMLElement>);
   return (
     <section className="management-section" {...colProps}>
       <header
