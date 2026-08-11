@@ -9,7 +9,7 @@ interface RowProps<RowElement extends HTMLElement>
     Required<
       Pick<
         React.DetailedHTMLProps<React.HTMLAttributes<RowElement>, RowElement>,
-        "tabIndex" | "role" | "onKeyDown"
+        "tabIndex" | "role" | "onKeyDown" | "onKeyUp"
       >
     > {
   role: "row";
@@ -17,7 +17,7 @@ interface RowProps<RowElement extends HTMLElement>
 
 interface ColumnProps<ColElement extends HTMLElement>
   extends
-    Omit<RowProps<ColElement>, "role" | "onKeyDown">,
+    Omit<RowProps<ColElement>, "role" | "onKeyDown" | "onKeyUp">,
     Required<
       Pick<
         React.DetailedHTMLProps<React.HTMLAttributes<ColElement>, ColElement>,
@@ -98,6 +98,13 @@ export default function useGridKeyboardControls<
           case "ArrowDown":
             if (rowIndex < rowRefs.current.length - 1)
               rowRefs.current[rowIndex + 1]?.focus();
+            break;
+        }
+      },
+      onKeyUp: ({key}) => {
+        switch (key) {
+          case "Enter":
+            rowRefs?.current[rowIndex]?.focus();
             break;
         }
       },
