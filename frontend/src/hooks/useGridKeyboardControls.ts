@@ -101,7 +101,7 @@ export default function useGridKeyboardControls<
             break;
         }
       },
-      onKeyUp: ({key}) => {
+      onKeyUp: ({ key }) => {
         switch (key) {
           case "Enter":
             rowRefs?.current[rowIndex]?.focus();
@@ -136,7 +136,7 @@ export default function useGridKeyboardControls<
           case "ArrowUp":
             event.preventDefault();
             setControlCol(false);
-            rowRefs.current[0]?.focus();
+            rowRefs.current[rowRefs.current.length - 1]?.focus();
             break;
           case "ArrowDown":
             event.preventDefault();
