@@ -54,13 +54,13 @@ const FormWindow: FormWindowComponent = ({ Modes, ModalButton = Button, initialF
       <Modal
         show={display}
         size="lg"
-        aria-labelledby="login-or-register-title"
+        aria-labelledby="form-window-title"
         onHide={closeWindow}
         centered
         className="kanban-modal"
       >
         <Modal.Header className="justify-content-center modal-header">
-          <Modal.Title id="modal-title" className="modal-title">
+          <Modal.Title id="form-window-title" className="modal-title">
             <ButtonGroup  tabIndex={-1}>
               {Modes.map(({ formName }, index) => (
                 <ToggleButton

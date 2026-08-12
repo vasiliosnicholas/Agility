@@ -176,6 +176,7 @@ export default function PhaseTimeline({
                             key={item.key}
                             now={total === 0 ? 0 : (item.count / total) * 100}
                             style={{ backgroundColor: item.barFill }}
+                            aria-label={`${item.label}: ${item.count} of ${total} tickets`}
                         />
                     ))}
                 </ProgressBar>

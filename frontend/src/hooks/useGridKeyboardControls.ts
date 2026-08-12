@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 
+type GridColumnRole = "rowgroup" | "group";
+type GridRowRole = "row" | "group";
+
 interface RowProps<RowElement extends HTMLElement>
   extends
     Pick<
@@ -12,7 +15,7 @@ interface RowProps<RowElement extends HTMLElement>
         "tabIndex" | "role" | "onKeyDown" | "onKeyUp"
       >
     > {
-  role: "row";
+  role: GridRowRole;
 }
 
 interface ColumnProps<ColElement extends HTMLElement>
@@ -24,7 +27,7 @@ interface ColumnProps<ColElement extends HTMLElement>
         "onBlur" | "onKeyDownCapture"
       >
     > {
-  role: "rowgroup";
+  role: GridColumnRole;
 }
 
 export type ColElementRefObject<ColElement extends HTMLElement> =
@@ -39,6 +42,8 @@ export interface AdjacentColumnRefObjectProps<
 > extends ColumnRefSetter<ColElement> {
   leftColumnRef?: ColElementRefObject<ColElement>;
   rightColumnRef?: ColElementRefObject<ColElement>;
+  columnRole?: GridColumnRole;
+  rowRole?: GridRowRole;
 }
 
 // Source - https://stackoverflow.com/a/69413070
@@ -60,6 +65,8 @@ export default function useGridKeyboardControls<
   leftColumnRef = undefined,
   rightColumnRef = undefined,
   setColumnRef = undefined,
+  columnRole = "group",
+  rowRole = "group",
 }: AdjacentColumnRefObjectProps<ColElement> = {}): [
   RowHandler<RowElement, number>,
   ColumnProps<ColElement>,
@@ -88,7 +95,7 @@ export default function useGridKeyboardControls<
           : rowRefs.current.push(element)) as (
         element: RowElement | null
       ) => void,
-      role: "row",
+      role: rowRole,
       tabIndex: controlCol ? -1 : 0,
       onKeyDown: ({ key }) => {
         switch (key) {
@@ -115,7 +122,7 @@ export default function useGridKeyboardControls<
     useHandleRow,
     {
       ref: colRef,
-      role: "rowgroup",
+      role: columnRole,
       tabIndex: controlCol ? 0 : -1,
       onBlur: (event) => {
         if (!event.currentTarget?.contains(event.relatedTarget))

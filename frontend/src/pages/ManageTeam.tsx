@@ -142,8 +142,7 @@ export default function ManageDevs() {
           <Container
             fluid
             className="mt-4 d-flex flex-row justify-content-center"
-            role="table"
-            aria-description="Press Enter to navigate through rows. Press Escape to navigate through columns"
+            aria-label="Developer assignment lists. Press Enter to navigate through developers. Press Escape to move between lists."
           >
             <Row className="d-flex flex-row w-100">
               <Col>

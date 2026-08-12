@@ -37,20 +37,33 @@ const ListDevs = ({
   setColumnRef,
 }: ListDevsPropTypes) => {
   const [handleRow, colProps] = useGridKeyboardControls<
-    HTMLLIElement,
+    HTMLDivElement,
     HTMLElement
-  >({ leftColumnRef, rightColumnRef, setColumnRef });
+  >({
+    leftColumnRef,
+    rightColumnRef,
+    setColumnRef,
+  });
+  const titleId = `list-devs-${title.replace(/\s+/g, "-").toLowerCase()}-title`;
+  const countId = `list-devs-${title.replace(/\s+/g, "-").toLowerCase()}-count`;
+  const countLabel = developers
+    ? `${developers.length} developer${developers.length !== 1 ? "s" : ""}`
+    : undefined;
 
   return (
-    <section className="management-section" {...colProps}>
-      <header
-        className="management-section-header justify-content-start"
-        role="columnheader"
-      >
-        <h3 className="management-section-title">{title}</h3>
-        <span className="management-section-count">
+    <section
+      className="management-section"
+      {...colProps}
+      aria-labelledby={titleId}
+      aria-describedby={countLabel ? countId : undefined}
+    >
+      <header className="management-section-header justify-content-start">
+        <h3 id={titleId} className="management-section-title">
+          {title}
+        </h3>
+        <span id={countId} className="management-section-count">
           {developers ? (
-            `${developers.length} developer${developers.length != 1 ? "s" : ""}`
+            countLabel
           ) : (
             <Placeholder as="span" animation="wave">
               <Placeholder xs={12} className="rounded-2"></Placeholder>
@@ -60,14 +73,11 @@ const ListDevs = ({
       </header>
       {developers ? (
         developers.length > 0 ? (
-          <ListGroup
-            as="ol"
-            className="d-flex flex-column management-list overflow-y-auto"
-          >
+          <ListGroup className="d-flex flex-column management-list overflow-y-auto">
             {developers.map((user, index) => (
               <ListGroup.Item
                 key={index}
-                as="li"
+                as="div"
                 className={`management-list-item d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-stretch p-0 parent-with-actions ${actionOrder == "first" ? "ps-0" : "pe-0"} ${index < developers.length - 1 ? "mb-2" : ""}`}
                 action
                 {...handleRow(index)}

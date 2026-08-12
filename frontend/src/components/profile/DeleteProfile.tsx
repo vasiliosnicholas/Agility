@@ -21,8 +21,18 @@ export default function DeleteProfile() {
       <NavDropdown.Item as="button" onClick={showModal}>
         Delete Profile
       </NavDropdown.Item>
-      <Modal className="kanban-modal" show={show} onHide={closeModal}>
-        <Modal.Header>Confirm Account Deletion</Modal.Header>
+      <Modal
+        className="kanban-modal"
+        show={show}
+        onHide={closeModal}
+        aria-labelledby="delete-profile-title"
+        centered
+      >
+        <Modal.Header>
+          <Modal.Title id="delete-profile-title">
+            Confirm Account Deletion
+          </Modal.Title>
+        </Modal.Header>
         <Modal.Body className="text-center">
           Are you sure you want to delete your account?
         </Modal.Body>

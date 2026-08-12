@@ -45,12 +45,26 @@ export default function KanbanGridColumn({
   const [handleRow, colProps] = useGridKeyboardControls<
     HTMLDivElement,
     HTMLDivElement
-  >({ leftColumnRef, rightColumnRef, setColumnRef });
+  >({
+    leftColumnRef,
+    rightColumnRef,
+    setColumnRef,
+  });
+  const titleId = `kanban-column-${list.id}-title`;
+  const countId = `kanban-column-${list.id}-count`;
   return (
-    <div key={list.id} className="kanban-column" {...colProps}>
+    <div
+      key={list.id}
+      className="kanban-column"
+      {...colProps}
+      aria-labelledby={titleId}
+      aria-describedby={countId}
+    >
       <KanbanList
         name={list.name}
         count={list.cards.length}
+        titleId={titleId}
+        countId={countId}
         className={list.className}
         NewTicketButton={
           (list.id === TicketStatuses.Todo && kanbanData.phase) ||
