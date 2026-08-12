@@ -23,13 +23,23 @@ export default function LoginPage({
   }, []);
   return (
     <div className="kanban-page">
-      <Modal show centered size="lg" className="kanban-modal">
+      <Modal
+        show
+        centered
+        size="lg"
+        className="kanban-modal"
+        aria-labelledby="login-page-title"
+      >
         <Modal.Header className={`${elementAlignment} modal-header`}>
-          <h1 className={`${textAlignment} modal-title`}>
+          <Modal.Title
+            id="login-page-title"
+            as="h1"
+            className={`${textAlignment} modal-title`}
+          >
             {`${
               window.location.hash ? "You have been signed out" : defaultTitle
             }`}
-          </h1>
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body className={`${elementAlignment} modal-body`}>
           {children ? (

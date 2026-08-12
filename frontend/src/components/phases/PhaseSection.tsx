@@ -42,7 +42,6 @@ export default function PhaseSection({
                 {onAddPhase && (
                     <Button
                         type="button"
-                        variant="light"
                         size="sm"
                         className="management-add-button"
                         onClick={onAddPhase}
@@ -79,7 +78,6 @@ export default function PhaseSection({
                                 {onManageTickets && (
                                     <Button
                                         type="button"
-                                        variant="light"
                                         size="sm"
                                         className="management-add-button"
                                         onClick={() =>
@@ -92,7 +90,6 @@ export default function PhaseSection({
                                 {onDeletePhase && (
                                     <Button
                                         type="button"
-                                        variant="light"
                                         size="sm"
                                         className="management-delete-button"
                                         aria-label={`Delete phase ${phase.dateRange}`}

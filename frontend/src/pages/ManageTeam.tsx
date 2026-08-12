@@ -158,7 +158,7 @@ export default function ManageDevs() {
                     </div>
                   }
                   actionOrientation="last"
-                  variant="danger"
+                  actionButtonClass="btn-action-destructive"
                   setColumnRef={(colRef) => setLeftColumnRef(colRef)}
                   rightColumnRef={rightColumnRef}
                 />
@@ -183,7 +183,7 @@ export default function ManageDevs() {
                     </div>
                   }
                   actionOrientation="first"
-                  variant="primary"
+                  actionButtonClass="btn-action-approve"
                   setColumnRef={(colRef) => setRightColumnRef(colRef)}
                   leftColumnRef={leftColumnRef}
                 />

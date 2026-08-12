@@ -73,7 +73,7 @@ const FormWindow: FormWindowComponent = ({ Modes, ModalButton = Button, initialF
                   onChange={(event) =>
                     setCurrentMode(parseInt(event.currentTarget.value))
                   }
-                  className="modal-submit"
+                  className="modal-mode-toggle"
                 >
                   {formName}
                 </ToggleButton>
@@ -96,16 +96,15 @@ const FormWindow: FormWindowComponent = ({ Modes, ModalButton = Button, initialF
           />
         </Modal.Body>
         <Modal.Footer className="justify-content-between">
-          <Button onClick={closeWindow} variant="danger" className="modal-cancel">
+          <Button onClick={closeWindow} className="btn-action-cancel modal-cancel">
             Cancel
           </Button>
           <Button
             form={formId}
-            variant="primary"
             type="submit"
             aria-description={`Submit the ${Modes[currentMode].formName} form`}
             disabled={!formValid}
-            className="modal-submit"
+            className="btn-action-approve modal-submit"
           >
             {Modes[currentMode].formName}
           </Button>

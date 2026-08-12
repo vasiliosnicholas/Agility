@@ -362,7 +362,7 @@ export default function Kanban() {
             <span>{actionError}</span>
             <button
               type="button"
-              className="btn btn-sm btn-outline-dark flex-shrink-0"
+              className="btn btn-sm btn-action-neutral flex-shrink-0"
               onClick={() => void loadKanban()}
             >
               Refresh board

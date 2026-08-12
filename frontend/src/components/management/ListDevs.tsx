@@ -1,7 +1,6 @@
 import {
   Button,
   ListGroup,
-  type ButtonProps,
   Placeholder,
   OverlayTrigger,
   Tooltip,
@@ -21,7 +20,7 @@ interface ListDevsPropTypes
   actionName: string;
   actionChildren: React.JSX.Element;
   actionOrientation: "first" | "last";
-  variant?: ButtonProps["variant"];
+  actionButtonClass: string;
 }
 
 const ListDevs = ({
@@ -31,7 +30,7 @@ const ListDevs = ({
   actionName,
   actionChildren,
   actionOrientation: actionOrder,
-  variant = undefined,
+  actionButtonClass,
   leftColumnRef,
   rightColumnRef,
   setColumnRef,
@@ -100,9 +99,8 @@ const ListDevs = ({
                     )}
                   >
                     <Button
-                      variant="info"
                       as="a"
-                      className="text-white fw-bold text-center px-sm-3 rounded-5 py-lg-2 hover-actions"
+                      className="btn-action-info fw-bold text-center px-sm-3 rounded-5 py-lg-2 hover-actions"
                       aria-label={`email ${user.name}`}
                       href={`mailto:${user.email}`}
                     >
@@ -123,8 +121,7 @@ const ListDevs = ({
                     )}
                   >
                     <Button
-                      variant={variant}
-                      className=" text-white fw-bold text-center d-lg-flex flex-lg-row align-items-center rounded-0"
+                      className={`${actionButtonClass} fw-bold text-center d-lg-flex flex-lg-row align-items-center rounded-0`}
                       aria-label={`${actionName} ${user.name}`}
                       onClick={
                         action(user) as React.MouseEventHandler<HTMLElement>

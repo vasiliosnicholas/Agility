@@ -39,15 +39,13 @@ export default function DeleteProfile() {
         <Modal.Footer className="justify-content-between">
           <Button
             onClick={closeModal}
-            variant="danger"
-            className="modal-cancel"
+            className="btn-action-cancel modal-cancel"
           >
             Cancel
           </Button>
           <Button
-            variant="primary"
-            type="submit"
-            className="modal-submit"
+            type="button"
+            className="btn-action-destructive"
             onClick={() => void handleDelete()}
           >
             Delete

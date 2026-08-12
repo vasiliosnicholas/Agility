@@ -71,7 +71,6 @@ export default function KanbanGridColumn({
           list.id === TicketStatuses.Backlog ? (
             <Button
               type="button"
-              variant="light"
               className="new-ticket-button"
               aria-label={`Create a new ticket in ${list.name}`}
               onClick={() =>

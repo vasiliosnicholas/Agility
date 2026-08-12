@@ -206,7 +206,6 @@ export default function ManagePhaseTicketsModal({
                                             </div>
                                             <Button
                                                 type="button"
-                                                variant="light"
                                                 size="sm"
                                                 className="management-delete-button"
                                                 disabled={busy}
@@ -288,8 +287,7 @@ export default function ManagePhaseTicketsModal({
                                     </Form.Group>
                                     <Button
                                         type="submit"
-                                        variant="light"
-                                        className="modal-submit"
+                                        className="btn-action-approve modal-submit"
                                         disabled={
                                             busy ||
                                             !selectedTicketId ||
@@ -317,8 +315,7 @@ export default function ManagePhaseTicketsModal({
             <Modal.Footer>
                 <Button
                     type="button"
-                    variant="light"
-                    className="modal-cancel"
+                    className="btn-action-cancel modal-cancel"
                     onClick={closeModal}
                     disabled={busy}
                 >
