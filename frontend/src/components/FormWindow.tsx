@@ -73,7 +73,7 @@ const FormWindow: FormWindowComponent = ({ Modes, ModalButton = Button, initialF
                   onChange={(event) =>
                     setCurrentMode(parseInt(event.currentTarget.value))
                   }
-                  className="modal-mode-toggle"
+                  className={`modal-mode-toggle ${currentMode == index ? "selected" : ""}`}
                 >
                   {formName}
                 </ToggleButton>
