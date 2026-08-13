@@ -31,11 +31,23 @@ export default function ManageProfileComponent() {
     setFormData(formData);
   }, [setFormData]) as () => void;
 
+  const [activeKey, setActiveKey] = useState<string | null | undefined>(
+    undefined
+  );
+
   handleSetFormData();
 
   return (
     <>
-      <Accordion flush>
+      <Accordion
+        flush
+        activeKey={activeKey}
+        onClick={() => setActiveKey(activeKey ? null : "0")}
+        onBlur={(event) => {
+          if (!event.currentTarget.contains(event.relatedTarget))
+            setActiveKey(null);
+        }}
+      >
         <Accordion.Item eventKey="0">
           <Accordion.Header>Manage profile</Accordion.Header>
           <Accordion.Body aria-label="Manage Profile">
@@ -46,8 +58,7 @@ export default function ManageProfileComponent() {
               tabIndex={0}
               as="button"
               autoFocus
-            ></FormWindow>
-
+            />
             <DeleteProfile />
           </Accordion.Body>
         </Accordion.Item>
