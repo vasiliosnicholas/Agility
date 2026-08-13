@@ -13,6 +13,8 @@ function successfulCallback(route: string | undefined) {
 }
 
 const FormWindow: FormWindowComponent = ({ Modes, ModalButton = Button, initialFormsData, ...props}) => {
+  if (Modes.length === 0)
+    throw new RangeError("Modes cannot be an empty array!");
   const [formValid, setSubmitStatus] = useState(false);
   const [display, setDisplay] = useState(false);
   const formsData = useRef<Array<FormData> | Array<undefined>>(initialFormsData ? initialFormsData :
@@ -61,7 +63,7 @@ const FormWindow: FormWindowComponent = ({ Modes, ModalButton = Button, initialF
       >
         <Modal.Header className="justify-content-center modal-header">
           <Modal.Title id="form-window-title" className="modal-title">
-            <ButtonGroup  tabIndex={-1}>
+            {Modes.length > 1 ? <ButtonGroup  tabIndex={-1}>
               {Modes.map(({ formName }, index) => (
                 <ToggleButton
                   key={index}
@@ -78,7 +80,7 @@ const FormWindow: FormWindowComponent = ({ Modes, ModalButton = Button, initialF
                   {formName}
                 </ToggleButton>
               ))}
-            </ButtonGroup>
+            </ButtonGroup> : Modes[0].formName}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
