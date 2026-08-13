@@ -928,6 +928,10 @@ svg .fill-completed {
   background-color: var(--action-cancel-hover-fill);
 }
 
+.modal-mode-toggle.selected {
+  cursor: initial;
+}
+
 .btn-check:checked + .modal-mode-toggle {
   border-color: rgba(from var(--modal-accent-text) r g b / 0.3);
   color: var(--modal-accent-text);
