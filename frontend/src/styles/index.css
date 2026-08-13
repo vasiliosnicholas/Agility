@@ -913,6 +913,18 @@ svg .fill-completed {
   opacity: 0.65;
 }
 
+:disabled,
+.disabled,
+[disabled] {
+  cursor: not-allowed;
+}
+
+.btn.disabled,
+.btn:disabled {
+  pointer-events: auto;
+  cursor: not-allowed;
+}
+
 .modal-mode-toggle {
   border: var(--bs-border-width) solid var(--action-cancel-border);
   border-radius: var(--bs-border-radius);
