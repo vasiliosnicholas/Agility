@@ -3,15 +3,17 @@ import { useEffect, useRef, useState } from "react";
 type GridColumnRole = "rowgroup" | "group";
 type GridRowRole = "row" | "group";
 
+type DetailedHTMLProps<T> = React.DetailedHTMLProps<React.HTMLAttributes<T>, T>;
+
 interface RowProps<RowElement extends HTMLElement>
   extends
     Pick<
-      React.DetailedHTMLProps<React.HTMLAttributes<RowElement>, RowElement>,
+     DetailedHTMLProps<RowElement>,
       "ref"
     >,
     Required<
       Pick<
-        React.DetailedHTMLProps<React.HTMLAttributes<RowElement>, RowElement>,
+        DetailedHTMLProps<RowElement>,
         "tabIndex" | "role" | "onKeyDown" | "onKeyUp"
       >
     > {
@@ -20,11 +22,12 @@ interface RowProps<RowElement extends HTMLElement>
 
 interface ColumnProps<ColElement extends HTMLElement>
   extends
-    Omit<RowProps<ColElement>, "role" | "onKeyDown" | "onKeyUp">,
+   Pick<DetailedHTMLProps<ColElement>,
+        "ref">,
     Required<
       Pick<
-        React.DetailedHTMLProps<React.HTMLAttributes<ColElement>, ColElement>,
-        "onBlur" | "onKeyDownCapture"
+        DetailedHTMLProps<ColElement>,
+         "tabIndex" | "onBlur" | "onKeyDownCapture"
       >
     > {
   role: GridColumnRole;
