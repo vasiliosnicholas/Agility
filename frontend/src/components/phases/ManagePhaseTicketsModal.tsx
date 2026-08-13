@@ -178,7 +178,7 @@ export default function ManagePhaseTicketsModal({
                 ) : (
                     <div className="manage-tickets">
                         <section className="manage-tickets-section">
-                            <h3 className="manage-tickets-heading">
+                            <h3 className="manage-tickets-heading type-section">
                                 On this phase
                             </h3>
                             {phaseTickets.length === 0 ? (
@@ -224,7 +224,7 @@ export default function ManagePhaseTicketsModal({
                         </section>
 
                         <section className="manage-tickets-section">
-                            <h3 className="manage-tickets-heading">
+                            <h3 className="manage-tickets-heading type-section">
                                 Add from backlog
                             </h3>
                             {backlogTickets.length === 0 ? (
@@ -302,7 +302,7 @@ export default function ManagePhaseTicketsModal({
 
                         {error && (
                             <p
-                                className="text-danger small mt-3 mb-0"
+                                className="text-danger type-meta mt-3 mb-0"
                                 role="alert"
                                 aria-live="polite"
                             >

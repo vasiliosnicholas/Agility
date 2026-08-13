@@ -65,13 +65,37 @@
   --bs-info: var(--action-info-fill);
   --bs-secondary-color: var(--ink-muted);
 
-  --type-hero-size: clamp(1.75rem, 2.5vw, 2.25rem);
+  --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-label: var(--font-body);
+
+  --type-label-size: 0.702rem;
+  --type-caption-size: 0.79rem;
+  --type-meta-size: 0.79rem;
+  --type-date-size: 0.889rem;
+  --type-supporting-size: 0.889rem;
   --type-body-size: 1rem;
-  --type-stat-size: 1.0625rem;
-  --type-date-size: 0.8rem;
-  --type-meta-size: 0.75rem;
-  --type-caption-size: 0.7rem;
+  --type-subtitle-size: 0.889rem;
+  --type-stat-size: 1.125rem;
+  --type-title-size: 1.266rem;
+  --type-hero-size: clamp(1.802rem, 2.5vw, 2.027rem);
+
+  --type-weight-regular: 400;
+  --type-weight-medium: 500;
+  --type-weight-semibold: 600;
+  --type-weight-bold: 700;
+
+  --type-leading-tight: 1.15;
+  --type-leading-snug: 1.2;
+  --type-leading-normal: 1.3;
+  --type-leading-body: 1.4;
+
   --item-shadow: 0px 2px 4px rgba(111, 111, 111, 0.15);
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: var(--type-weight-regular);
 }
 
 .item-shadow {
@@ -79,46 +103,91 @@
 }
 
 .type-hero {
+  font-family: var(--font-display);
   font-size: var(--type-hero-size);
-  font-weight: 700;
-  line-height: 1.15;
+  font-weight: var(--type-weight-bold);
+  line-height: var(--type-leading-tight);
+}
+
+.type-title {
+  font-family: var(--font-display);
+  font-size: var(--type-title-size);
+  font-weight: var(--type-weight-semibold);
+  line-height: var(--type-leading-normal);
+}
+
+.type-subtitle {
+  font-family: var(--font-body);
+  font-size: var(--type-subtitle-size);
+  font-weight: var(--type-weight-semibold);
+  line-height: var(--type-leading-normal);
 }
 
 .type-body {
+  font-family: var(--font-body);
   font-size: var(--type-body-size);
-  font-weight: 400;
-  line-height: 1.4;
+  font-weight: var(--type-weight-regular);
+  line-height: var(--type-leading-body);
+}
+
+.type-supporting {
+  font-family: var(--font-body);
+  font-size: var(--type-supporting-size);
+  font-weight: var(--type-weight-regular);
+  line-height: var(--type-leading-body);
 }
 
 .type-stat {
+  font-family: var(--font-body);
   font-size: var(--type-stat-size);
-  font-weight: 700;
-  line-height: 1.3;
+  font-weight: var(--type-weight-bold);
+  line-height: var(--type-leading-normal);
   font-variant-numeric: tabular-nums;
 }
 
 .type-stat-label {
+  font-family: var(--font-body);
   font-size: var(--type-stat-size);
-  font-weight: 400;
-  line-height: 1.3;
+  font-weight: var(--type-weight-regular);
+  line-height: var(--type-leading-normal);
 }
 
 .type-date {
+  font-family: var(--font-body);
   font-size: var(--type-date-size);
-  font-weight: 400;
-  line-height: 1.2;
+  font-weight: var(--type-weight-regular);
+  line-height: var(--type-leading-snug);
 }
 
 .type-meta {
+  font-family: var(--font-label);
   font-size: var(--type-meta-size);
-  font-weight: 400;
-  line-height: 1.2;
+  font-weight: var(--type-weight-regular);
+  line-height: var(--type-leading-snug);
 }
 
 .type-caption {
+  font-family: var(--font-label);
   font-size: var(--type-caption-size);
-  font-weight: 400;
-  line-height: 1.2;
+  font-weight: var(--type-weight-regular);
+  line-height: var(--type-leading-snug);
+}
+
+.type-label {
+  font-family: var(--font-label);
+  font-size: var(--type-label-size);
+  font-weight: var(--type-weight-bold);
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.type-section {
+  font-family: var(--font-label);
+  font-size: var(--type-meta-size);
+  font-weight: var(--type-weight-semibold);
+  line-height: var(--type-leading-snug);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .text-ink {
@@ -190,7 +259,7 @@
 .btn-action-neutral {
   border: var(--bs-border-width) solid transparent;
   border-radius: var(--bs-border-radius);
-  font-weight: 600;
+  font-weight: var(--type-weight-semibold);
 }
 
 .btn-action-approve {
@@ -301,9 +370,11 @@
   gap: 0.65rem;
   margin-right: 2rem;
   color: var(--ink);
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: var(--type-title-size);
+  font-weight: var(--type-weight-bold);
   letter-spacing: -0.025em;
+  line-height: var(--type-leading-tight);
 }
 
 .navbar-logo {
@@ -339,8 +410,9 @@ svg .fill-completed {
   padding: 0.45rem 0.75rem;
   border-radius: 0.5rem;
   color: var(--ink-muted);
-  font-size: 0.925rem;
-  font-weight: 500;
+  font-size: var(--type-subtitle-size);
+  font-weight: var(--type-weight-medium);
+  line-height: var(--type-leading-normal);
 }
 
 .navbar-links .nav-link.active {
@@ -353,8 +425,8 @@ svg .fill-completed {
   align-items: center;
   gap: 0.55rem;
   color: var(--ink-muted);
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: var(--type-subtitle-size);
+  font-weight: var(--type-weight-medium);
 }
 
 .navbar-user-menu .dropdown-toggle {
@@ -386,8 +458,8 @@ svg .fill-completed {
   border-radius: 50%;
   color: var(--action-approve-fill);
   background-color: var(--accent-surface);
-  font-size: 0.8rem;
-  font-weight: 700;
+  font-size: var(--type-date-size);
+  font-weight: var(--type-weight-bold);
 }
 
 .navbar-role {
@@ -396,10 +468,7 @@ svg .fill-completed {
   border: 1px solid rgba(from var(--status-todo-text) r g b / 0.2);
   color: var(--status-todo-text);
   background-color: rgba(from var(--status-todo-fill) r g b / 0.55);
-  font-size: 0.675rem;
-  font-weight: 700;
   letter-spacing: 0.06em;
-  line-height: 1;
 }
 
 .kanban-page-content {
@@ -545,7 +614,7 @@ svg .fill-completed {
   fill: var(--ink-muted);
   font-family: inherit;
   font-size: var(--type-date-size);
-  font-weight: 400;
+  font-weight: var(--type-weight-regular);
 }
 
 .burnup-today {
@@ -653,16 +722,16 @@ svg .fill-completed {
 
 .kanban-list-header-title {
   margin: 0;
-  font-size: 0.95rem;
-  font-weight: 600;
-  line-height: 1.3;
+  font-size: var(--type-subtitle-size);
+  font-weight: var(--type-weight-semibold);
+  line-height: var(--type-leading-normal);
   color: var(--bs-body-color);
 }
 
 .kanban-list-header-subtitle {
   margin: 0;
-  font-size: 0.8rem;
-  font-weight: 400;
+  font-size: var(--type-date-size);
+  font-weight: var(--type-weight-regular);
   line-height: 1.6;
   color: var(--bs-secondary-color);
 }
@@ -729,7 +798,7 @@ svg .fill-completed {
   color: var(--action-neutral-text);
   background-color: var(--action-neutral-fill);
   box-shadow: var(--bs-box-shadow-sm);
-  font-weight: 500;
+  font-weight: var(--type-weight-medium);
 }
 
 .new-ticket-button:hover,
@@ -765,9 +834,10 @@ svg .fill-completed {
 
 .kanban-modal .modal-title {
   color: var(--bs-body-color);
-  font-size: 1.05rem;
-  font-weight: 600;
-  line-height: 1.3;
+  font-family: var(--font-display);
+  font-size: var(--type-title-size);
+  font-weight: var(--type-weight-semibold);
+  line-height: var(--type-leading-normal);
 }
 
 .kanban-modal .modal-body {
@@ -805,7 +875,7 @@ svg .fill-completed {
 .modal-submit {
   border: var(--bs-border-width) solid transparent;
   border-radius: var(--bs-border-radius);
-  font-weight: 600;
+  font-weight: var(--type-weight-semibold);
 }
 
 .modal-cancel {
@@ -848,7 +918,7 @@ svg .fill-completed {
   border-radius: var(--bs-border-radius);
   color: var(--action-cancel-text);
   background-color: var(--action-cancel-fill);
-  font-weight: 600;
+  font-weight: var(--type-weight-semibold);
 }
 
 .modal-mode-toggle:hover,
@@ -891,7 +961,9 @@ svg .fill-completed {
 
 .card-description {
   margin-bottom: 0;
-  font-size: 0.875rem;
+  font-size: var(--type-supporting-size);
+  font-weight: var(--type-weight-regular);
+  line-height: var(--type-leading-body);
   color: var(--bs-secondary-color);
 }
 
@@ -910,10 +982,20 @@ svg .fill-completed {
 .priority-badge {
   margin-top: 0.65rem;
   padding: 0.35rem 0.55rem;
-  font-size: 0.675rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+}
+
+.priority-badge,
+.assignee-badge,
+.navbar-role,
+.management-status-badge {
+  font-family: var(--font-label);
+  font-size: var(--type-label-size);
+  font-weight: var(--type-weight-bold);
   line-height: 1;
+}
+
+.priority-badge {
+  letter-spacing: 0.02em;
 }
 
 .assignee-badge {
@@ -921,8 +1003,6 @@ svg .fill-completed {
   border: 1px solid rgba(from var(--status-backlog-text) r g b / 0.28);
   color: var(--status-backlog-text);
   background-color: var(--status-backlog-fill) !important;
-  font-size: 0.675rem;
-  font-weight: 700;
   line-height: 1.2;
   white-space: normal;
   text-align: left;
@@ -1014,15 +1094,18 @@ svg .fill-completed {
 .management-section-title {
   margin: 0;
   color: var(--bs-secondary-color);
+  font-family: var(--font-label);
   font-size: var(--type-meta-size);
-  font-weight: 600;
+  font-weight: var(--type-weight-semibold);
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  line-height: var(--type-leading-snug);
 }
 
 .management-section-count {
   color: var(--bs-secondary-color);
   font-size: var(--type-meta-size);
+  font-weight: var(--type-weight-regular);
 }
 
 .management-add-button {
@@ -1031,7 +1114,7 @@ svg .fill-completed {
   color: var(--action-neutral-text);
   background-color: var(--action-neutral-fill);
   font-size: var(--type-meta-size);
-  font-weight: 600;
+  font-weight: var(--type-weight-semibold);
 }
 
 .management-delete-button {
@@ -1040,7 +1123,7 @@ svg .fill-completed {
   color: var(--action-destructive-text);
   background-color: var(--action-destructive-fill);
   font-size: var(--type-meta-size);
-  font-weight: 600;
+  font-weight: var(--type-weight-semibold);
 }
 
 .management-add-button:hover,
@@ -1094,13 +1177,14 @@ svg .fill-completed {
 .management-list-title {
   color: var(--bs-body-color);
   font-size: var(--type-body-size);
-  font-weight: 600;
+  font-weight: var(--type-weight-semibold);
 }
 
 .management-list-meta,
 .management-list-empty {
   color: var(--bs-secondary-color);
   font-size: var(--type-meta-size);
+  font-weight: var(--type-weight-regular);
 }
 
 .management-list-empty {
@@ -1113,10 +1197,7 @@ svg .fill-completed {
   border: 1px solid rgba(from var(--status-completed-text) r g b / 0.28);
   color: var(--status-completed-text);
   background-color: var(--status-completed-fill) !important;
-  font-size: 0.675rem;
-  font-weight: 700;
   letter-spacing: 0.06em;
-  line-height: 1;
   text-transform: uppercase;
 }
 
@@ -1129,7 +1210,7 @@ svg .fill-completed {
   margin: 0 0 0.65rem;
   color: var(--bs-secondary-color);
   font-size: var(--type-meta-size);
-  font-weight: 600;
+  font-weight: var(--type-weight-semibold);
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
@@ -1173,10 +1254,11 @@ svg .fill-completed {
 
 .manage-tickets-item-title {
   font-size: var(--type-body-size);
-  font-weight: 600;
+  font-weight: var(--type-weight-semibold);
 }
 
 .manage-tickets-item-meta {
   color: var(--bs-secondary-color);
   font-size: var(--type-meta-size);
 }
+

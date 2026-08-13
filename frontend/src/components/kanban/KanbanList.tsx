@@ -31,10 +31,10 @@ function KanbanList({
   return (
     <div className={`kanban-list ${className}`} {...props}>
       <div className="kanban-list-header">
-        <h2 id={titleId} className="kanban-list-header-title">
+        <h2 id={titleId} className="kanban-list-header-title type-subtitle">
           {name}
         </h2>
-        <span id={countId} className="kanban-list-header-subtitle">
+        <span id={countId} className="kanban-list-header-subtitle type-date">
           {countLabel}
         </span>
       </div>

@@ -57,7 +57,7 @@ const ListDevs = ({
       aria-describedby={countLabel ? countId : undefined}
     >
       <header className="management-section-header justify-content-start">
-        <h3 id={titleId} className="management-section-title">
+        <h3 id={titleId} className="management-section-title type-section">
           {title}
         </h3>
         <span id={countId} className="management-section-count">
@@ -83,11 +83,11 @@ const ListDevs = ({
               >
                 <div className="d-flex flex-row justify-content-between align-items-start w-100 p-2">
                   <div className={`ms-2 me-4`}>
-                    <h4 className="fw-bold management-list-title">
+                    <h4 className="management-list-title">
                       <Avatar userFullName={user.name} /> {user.name}
                     </h4>
                     <div>
-                      <small className="management-list-meta">{`@${user.username}`}</small>
+                      <span className="management-list-meta type-meta">{`@${user.username}`}</span>
                     </div>
                   </div>
 
@@ -100,7 +100,7 @@ const ListDevs = ({
                   >
                     <Button
                       as="a"
-                      className="btn-action-info fw-bold text-center px-sm-3 rounded-5 py-lg-2 hover-actions"
+                      className="btn-action-info text-center px-sm-3 rounded-5 py-lg-2 hover-actions"
                       aria-label={`email ${user.name}`}
                       href={`mailto:${user.email}`}
                     >
@@ -121,7 +121,7 @@ const ListDevs = ({
                     )}
                   >
                     <Button
-                      className={`${actionButtonClass} fw-bold text-center d-lg-flex flex-lg-row align-items-center rounded-0`}
+                      className={`${actionButtonClass} text-center d-lg-flex flex-lg-row align-items-center rounded-0`}
                       aria-label={`${actionName} ${user.name}`}
                       onClick={
                         action(user) as React.MouseEventHandler<HTMLElement>

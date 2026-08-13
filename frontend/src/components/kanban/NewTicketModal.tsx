@@ -211,7 +211,7 @@ export default function NewTicketModal({
 
                     {submitError && (
                         <p
-                            className="text-danger small mt-3 mb-0"
+                            className="text-danger type-meta mt-3 mb-0"
                             role="alert"
                             aria-live="polite"
                         >

@@ -31,7 +31,7 @@ export default function PhaseSection({
         <section className="management-section" aria-labelledby={id}>
             <header className="management-section-header">
                 <div className="management-section-heading">
-                    <h2 id={id} className="management-section-title">
+                    <h2 id={id} className="management-section-title type-section">
                         {title}
                     </h2>
                     <span className="management-section-count">

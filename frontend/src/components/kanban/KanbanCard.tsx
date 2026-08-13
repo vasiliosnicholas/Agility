@@ -71,7 +71,7 @@ function Card({
         )}
         <div>
           <div className="card-header-row">
-            <h3 className="card-title">{title}</h3>
+            <h3 className="card-title type-subtitle">{title}</h3>
           </div>
           {description && <p className="card-description">{description}</p>}
           {(priorityBadge || assigneeName) && (

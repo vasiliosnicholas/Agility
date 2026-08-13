@@ -293,7 +293,7 @@ export default function PhaseTimeline({
                                         y2="12"
                                     />
                                     <text
-                                        className="burnup-date"
+                                        className="burnup-date type-date"
                                         x={x}
                                         y="29"
                                         textAnchor="middle"
