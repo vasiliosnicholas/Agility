@@ -14,7 +14,7 @@ interface RowProps<RowElement extends HTMLElement>
     Required<
       Pick<
         DetailedHTMLProps<RowElement>,
-        "tabIndex" | "role" | "onKeyDown" | "onKeyUp"
+        "tabIndex" | "role" | "onKeyDown" | "onClick" | "onBlur"
       >
     > {
   role: GridRowRole;
@@ -88,9 +88,6 @@ export default function useGridKeyboardControls<
   const useHandleRow: RowHandler<RowElement, number> = (rowIndex) => {
     if (rowIndex < 0 || !Number.isInteger(rowIndex))
       throw new RangeError("rowIndex must be a non-negative integer");
-    // if (rowIndex > rowRefs.current.length) {
-    //   throw new RangeError(`rowIndex of ${rowIndex} must be < ${rowRefs.current.length}`)
-    // }
     return {
       ref: ((element) =>
         rowIndex < rowRefs.current.length
@@ -111,13 +108,12 @@ export default function useGridKeyboardControls<
             break;
         }
       },
-      onKeyUp: ({ key }) => {
-        switch (key) {
-          case "Enter":
-            rowRefs?.current[rowIndex]?.focus();
-            break;
-        }
+      onClick: () => {
+        rowRefs?.current[rowIndex]?.focus();
       },
+      onBlur: () => {
+        rowRefs?.current[rowIndex]?.blur();
+      }
     };
   };
 
