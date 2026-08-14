@@ -61,8 +61,10 @@ export default function ManageDevs() {
     headingRef.current?.focus();
   }, [setManager]) as () => void;
 
-  const [leftColumnRef, setLeftColumnRef] = useState<ColElementRefObject<HTMLElement>>();
-  const [rightColumnRef, setRightColumnRef] = useState<ColElementRefObject<HTMLElement>>();
+  const [leftColumnRef, setLeftColumnRef] =
+    useState<ColElementRefObject<HTMLElement>>();
+  const [rightColumnRef, setRightColumnRef] =
+    useState<ColElementRefObject<HTMLElement>>();
 
   const handleSetDevs = useCallback(async () => {
     const devs = await Promise.all([
@@ -86,6 +88,7 @@ export default function ManageDevs() {
         setAssignedAndUnassignedDevs([newAssignedDevs, newUnAssignedDevs]);
       } else {
         alert(`Error assigning ${developer.username}`);
+        window.location.reload();
       }
     };
   }
@@ -104,6 +107,7 @@ export default function ManageDevs() {
         setAssignedAndUnassignedDevs([newAssignedDevs, newUnAssignedDevs]);
       } else {
         alert(`Error unassigning ${developer.username}`);
+        window.location.reload();
       }
     };
   }
