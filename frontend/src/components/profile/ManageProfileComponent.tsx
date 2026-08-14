@@ -67,8 +67,8 @@ export default function ManageProfileComponent() {
       >
         <Accordion.Item
           eventKey="0"
-          onClick={() => {
-            if (activeKey) firstItem.current?.focus();
+          onClick={(event) => {
+            if (activeKey && event.relatedTarget) firstItem.current?.focus();
             else firstItem.current?.blur();
           }}
         >
