@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { Modal, Button, ToggleButton, ButtonGroup } from "react-bootstrap";
 import type {
   FormData,
@@ -23,6 +23,8 @@ const FormWindow: FormWindowComponent = ({
   const formsData = useRef<Array<FormData> | Array<undefined>>(
     initialFormsData ? initialFormsData : Forms.map(() => undefined)
   );
+
+  useEffect(() => {if (initialFormsData) formsData.current = initialFormsData}, [initialFormsData]);
   const [currentForm, setCurrentForm] = useState(0);
   const [formId, setFormId] = useState<string>("");
 
