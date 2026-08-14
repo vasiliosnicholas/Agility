@@ -20,7 +20,6 @@ export default function AssignTicket({
         value={value}
         {...props}
       >
-        <option value={undefined}>Unassigned</option>
         {teamMembers.map((member) =>
           member._id ? (
             <option key={member._id} value={member._id}>

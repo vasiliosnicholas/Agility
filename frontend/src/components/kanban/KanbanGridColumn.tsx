@@ -186,7 +186,7 @@ export default function KanbanGridColumn({
                     void handleDrop({
                       dragItem: card._id,
                       dragType: "card",
-                      drop: `${1}-${cardPos}`,
+                      drop: `${request.assigneeId ? 1 : 0}-${cardPos}`,
                     });
                   return response.ok;
                 }: undefined}

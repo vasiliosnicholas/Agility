@@ -61,12 +61,14 @@ function Card({
 
   const handleChange = useCallback(
     async (event) => {
-      if (handleAssign && event.target.value) {
+      const value = event.target.value;
+      if (handleAssign && value) {
         const assigneeUpdated = await handleAssign({
           ticketId: cardId,
-          assigneeId: event.target.value,
+          assigneeId: value,
         });
-        if (assigneeUpdated) setSelectedAssigneeId(event.target.value);
+        
+        if (assigneeUpdated) setSelectedAssigneeId(value);
         else alert("Error updating ticket assignee");
       }
     },
