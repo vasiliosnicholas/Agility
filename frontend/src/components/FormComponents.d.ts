@@ -1,5 +1,5 @@
 import type { FC, JSX } from "react";
-import type { BaseUser, User } from "@shared/models/Users.ts";
+import type { BaseUser, User, UserPrototype } from "@shared/models/Users.ts";
 import type { FieldValues } from "react-hook-form";
 import type { FormComponent, FormData } from "./FormComponents";
 import type { ButtonProps } from "react-bootstrap";
@@ -30,9 +30,16 @@ export type FormData = FieldValues;
 
 export interface LoginFormData
   extends FormData, Partial<Pick<User, "username" | "password">> {}
+
 export interface RegisterFormData extends FormData, Partial<BaseUser> {
   confirmPassword?: string;
 }
+
+export interface UpdateFormData extends Partial<UserPrototype> {
+  newPassword?: string;
+  confirmNewPassword?: string;
+}
+
 interface FormWindowComponentProps
   extends
     ButtonProps,

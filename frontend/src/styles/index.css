@@ -387,7 +387,6 @@ body {
   align-self: center;
   width: 100vw;
   height: 100vh;
-  filter: blur(10px);
 }
 
 svg .fill-todo {
@@ -842,6 +841,11 @@ svg .fill-completed {
 
 .kanban-modal .modal-body {
   padding: 1.25rem;
+}
+
+.modal {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .modal-form .form-control,

@@ -6,7 +6,7 @@ import { getUserById, getUserByUserName } from "../database/UserOperations.ts";
 /**
  * Instance of router that requires authentication on all routes for getting user data
  */
-export const UsersRouter = Router({ mergeParams: true }); //TODO: see if mergeParams is even needed
+export const UsersRouter = Router({ mergeParams: true });
 
 //add authentication guard to all routes.
 UsersRouter.use(AuthenticationGuard);
