@@ -54,11 +54,11 @@ export default function LoginPage({
 
         <Modal.Footer className={`${elementAlignment} modal-footer`}>
           <AuthWindow
-            Modes={window.location.hash ? [Login] : [Login, Register]}
+            Forms={window.location.hash ? [Login] : [Login, Register]}
           ></AuthWindow>
         </Modal.Footer>
       </Modal>
-      <AgilityLogo className="agility-logo-splash"/>
+      <AgilityLogo className="agility-logo-splash" />
     </div>
   );
 }
