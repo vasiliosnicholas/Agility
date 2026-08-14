@@ -40,6 +40,16 @@ const Register: FormComponent<RegisterFormData> = function ({
 }) {
   const formId = useId();
   setFormId(formId);
+  //ini
+  if(!formData) {
+    formData = {
+      accountType: "Select Account Type",
+      email: undefined,
+      name: undefined,
+      password: undefined,
+      confirmPassword: undefined
+    };
+  }
   const { register, handleSubmit, errors } = useReactFormHook<RegisterFormData>(
     {
       setSubmitStatus,
@@ -87,7 +97,7 @@ const Register: FormComponent<RegisterFormData> = function ({
       >
         <Form.Select
           aria-label="Select Account Type"
-          defaultValue={undefined}
+          defaultValue="Select Account Type"
           isInvalid={!!errors.accountType}
           aria-invalid={!!errors.accountType}
           autoFocus
