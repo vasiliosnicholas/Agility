@@ -1,19 +1,32 @@
 import Badge from "react-bootstrap/Badge";
-import type { TicketPriority } from "@shared/models/Tickets.ts";
-import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import type {
+  AssignPhaseTicketRequest,
+  TicketPriority,
+} from "@shared/models/Tickets.ts";
+import { Button, Form, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { CaretLeftFill, CaretRightFill } from "react-bootstrap-icons";
+import type { UserMetaData } from "@shared/models/Users";
+import AssignTicket from "./AssignTicket";
+import { useCallback, useState } from "react";
 
-interface CardProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+interface CardProps extends React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+> {
   title: string;
   description?: string;
   priority: TicketPriority;
   assigneeName?: string;
+  assigneeId?: string | null;
+  cardId: string;
+  handleAssign?: (request: AssignPhaseTicketRequest) => Promise<boolean>;
   isBeingDragged?: boolean;
   onDelete?: () => void;
   onMoveLeft?: () => void;
   onMoveRight?: () => void;
   leftColName?: string;
   rightColName?: string;
+  teamMembers?: UserMetaData[];
 }
 
 const PRIORITY_BADGES: Partial<
@@ -29,15 +42,36 @@ function Card({
   description,
   priority,
   assigneeName,
+  assigneeId,
+  handleAssign,
+  cardId,
   isBeingDragged = false,
   onDelete,
   onMoveLeft,
   onMoveRight,
   leftColName,
   rightColName,
+  teamMembers,
   ...props
 }: CardProps) {
   const priorityBadge = PRIORITY_BADGES[priority];
+  const [selectedAssigneeId, setSelectedAssigneeId] = useState<
+    UserMetaData["_id"] | null
+  >(assigneeId);
+
+  const handleChange = useCallback(
+    async (event) => {
+      if (handleAssign && event.target.value) {
+        const assigneeUpdated = await handleAssign({
+          ticketId: cardId,
+          assigneeId: event.target.value,
+        });
+        if (assigneeUpdated) setSelectedAssigneeId(event.target.value);
+        else alert("Error updating ticket assignee");
+      }
+    },
+    [cardId, handleAssign]
+  ) as React.ChangeEventHandler<HTMLSelectElement, HTMLSelectElement>;
 
   return (
     <div className={`card${isBeingDragged ? " card-rotated" : ""}`}>
@@ -51,7 +85,9 @@ function Card({
             placement="right"
             delay={{ show: 0, hide: 0 }}
             overlay={(props) => (
-              <Tooltip {...props}>Move to {leftColName || "left column"}</Tooltip>
+              <Tooltip {...props}>
+                Move to {leftColName || "left column"}
+              </Tooltip>
             )}
           >
             <Button
@@ -85,11 +121,39 @@ function Card({
                   {priorityBadge.label}
                 </Badge>
               )}
-              {assigneeName && (
-                <Badge pill bg="light" className="assignee-badge">
-                  Assigned to: {assigneeName}
-                </Badge>
-              )}
+              {assigneeName &&
+                (teamMembers ? (
+                  <OverlayTrigger
+                    placement="top"
+                    delay={{ show: 0, hide: 0 }}
+                    overlay={(props) => (
+                      <Tooltip {...props}>
+                       {assigneeName ? `Reassign ticket from ${assigneeName}` : "Assign ticket to a user"}
+                      </Tooltip>
+                    )}
+                  >
+                    <Form
+                      id="assign-ticket"
+                      noValidate
+                      className="modal-form w-100 "
+                      onPointerDown={(event) => event.stopPropagation()}
+                      onClick={(event) => event.stopPropagation()}
+                    >
+                      <AssignTicket
+                        label="Ticket Assignee"
+                        teamMembers={teamMembers}
+                        value={selectedAssigneeId || undefined}
+                        onChange={handleChange}
+                        className="rounded-4 assignee-badge"
+                        size="sm"
+                      />
+                    </Form>
+                  </OverlayTrigger>
+                ) : (
+                  <Badge pill bg="light" className="assignee-badge">
+                    Assigned to: {assigneeName}
+                  </Badge>
+                ))}
             </div>
           )}
         </div>
@@ -121,7 +185,9 @@ function Card({
               placement="left"
               delay={{ show: 0, hide: 0 }}
               overlay={(props) => (
-                <Tooltip {...props}>Move to {rightColName || "right column"}</Tooltip>
+                <Tooltip {...props}>
+                  Move to {rightColName || "right column"}
+                </Tooltip>
               )}
             >
               <Button

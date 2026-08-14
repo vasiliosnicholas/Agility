@@ -2,20 +2,26 @@ import { Button } from "react-bootstrap";
 import type { KanbanData } from "@shared/models/Kanban.ts";
 import {
   TicketStatuses,
+  type AssignPhaseTicketRequest,
   type TicketCreationStatus,
 } from "@shared/models/Tickets";
-import { AccountTypes } from "@shared/models/Users";
+import {
+  AccountTypes,
+  type User,
+  type UserMetaData,
+} from "@shared/models/Users";
 import Drag from "./Drag";
 import KanbanCard from "./KanbanCard";
 import type { KanbanColumn } from "../../pages/Kanban";
 import type { DragRenderProps, DropPayload } from "./dragTypes";
 import KanbanList from "./KanbanList";
-import useGridKeyboardControls, { type AdjacentColumnRefObjectProps } from "../../hooks/useGridKeyboardControls";
+import useGridKeyboardControls, {
+  type AdjacentColumnRefObjectProps,
+} from "../../hooks/useGridKeyboardControls";
+import { useCallback, useEffect, useState } from "react";
 
 interface KanbanGridColumnProps
-  extends
-    DragRenderProps,
-    AdjacentColumnRefObjectProps<HTMLDivElement>{
+  extends DragRenderProps, AdjacentColumnRefObjectProps<HTMLDivElement> {
   assigneeNames: Map<string, string>;
   columns: KanbanColumn[];
   list: KanbanColumn;
@@ -52,6 +58,19 @@ export default function KanbanGridColumn({
   });
   const titleId = `kanban-column-${list.id}-title`;
   const countId = `kanban-column-${list.id}-count`;
+  const [teamMembers, setTeamMembers] = useState<UserMetaData[]>();
+  const handleSetTeamMembers = useCallback(async () => {
+    if (kanbanData.user.accountType === AccountTypes.Manager) {
+      const response = await fetch("/api/developers?assigned=true");
+      const fetchedTeamMembers = response.ok
+        ? ((await response.json()) as User[])
+        : [];
+      setTeamMembers([kanbanData.user, ...fetchedTeamMembers]);
+    }
+  }, [setTeamMembers, kanbanData.user]);
+
+  useEffect(() => void handleSetTeamMembers(), [handleSetTeamMembers]);
+
   return (
     <div
       key={list.id}
@@ -110,11 +129,13 @@ export default function KanbanGridColumn({
                 title={card.title}
                 description={card.description}
                 priority={card.priority}
+                cardId={card._id}
                 assigneeName={
                   card.assigneeId
                     ? assigneeNames.get(card.assigneeId)
                     : undefined
                 }
+                assigneeId={card.assigneeId}
                 isBeingDragged={
                   activeItem === card._id && activeType === "card"
                 }
@@ -151,6 +172,24 @@ export default function KanbanGridColumn({
                     ? columns[listPos + 1].name
                     : undefined
                 }
+                teamMembers={list.name !== "Completed" ? teamMembers : undefined}
+                handleAssign={list.name !== "Completed" ? async (request: AssignPhaseTicketRequest) => {
+                  const response = await fetch(
+                    `/api/kanban/ticket/${request.ticketId}`,
+                    {
+                      method: "PATCH",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify(request),
+                    }
+                  );
+                  if (response.ok)
+                    void handleDrop({
+                      dragItem: card._id,
+                      dragType: "card",
+                      drop: `${1}-${cardPos}`,
+                    });
+                  return response.ok;
+                }: undefined}
                 {...handleRow(cardPos)}
               />
             </Drag.DragItem>

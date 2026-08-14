@@ -17,14 +17,18 @@ import {
   deleteTicket,
   getTicketsForManager,
   getTicketsForPhaseAndAssignee,
+  updateTicketAssignee,
   updateTicketStatusForAssignee,
   updateTicketStatusForManager,
 } from "../database/TicketOperations.ts";
 import { getUsersMetadataByIds } from "../database/UserOperations.ts";
 import { getManagerTeamIds } from "../managerTeam.ts";
-import { AuthenticationGuard } from "../middleware/AuthenticationMiddleware.ts";
+import {
+  AccountTypeGuardFactoryFunction,
+  AuthenticationGuard,
+} from "../middleware/AuthenticationMiddleware.ts";
 
-const KanbanRouter = Router();
+const KanbanRouter = Router({ mergeParams: true });
 const TICKET_STATUSES = Object.values(TicketStatuses);
 
 function isTicketStatus(value: unknown): value is TicketStatus {
@@ -171,21 +175,21 @@ KanbanRouter.patch("/tickets/:ticketId", async (req, res) => {
 
     const updatedTicket = isManager
       ? await updateTicketStatusForManager(
-        ticketId,
-        phase._id,
-        getManagerTeamIds(
+          ticketId,
+          phase._id,
+          getManagerTeamIds(
+            req.user._id,
+            "developers" in req.user ? req.user.developers : []
+          ),
           req.user._id,
-          "developers" in req.user ? req.user.developers : []
-        ),
-        req.user._id,
-        status
-      )
+          status
+        )
       : await updateTicketStatusForAssignee(
-        ticketId,
-        phase._id,
-        req.user._id,
-        status
-      );
+          ticketId,
+          phase._id,
+          req.user._id,
+          status
+        );
     if (updatedTicket) {
       res.json(updatedTicket);
       return;
@@ -229,6 +233,49 @@ KanbanRouter.delete("/tickets/:ticketId", async (req, res) => {
   } catch (error) {
     console.error("Error deleting Kanban ticket", error);
     res.status(500).json({ message: "Could not delete ticket" });
+  }
+});
+
+KanbanRouter.use(...AccountTypeGuardFactoryFunction(AccountTypes.Manager));
+KanbanRouter.patch("/ticket/:ticketId", async (req, res) => {
+  try {
+    if (!req.user?._id) {
+      res.status(401).json({ message: "Authenticated user not found" });
+      return;
+    }
+
+    const { ticketId, assigneeId } = req.body as {
+      ticketId: string;
+      assigneeId: string | undefined | null;
+    };
+
+    const phase = await getActivePhase();
+    if (!phase) {
+      res.status(409).json({ message: "There is no active phase" });
+      return;
+    }
+
+    const isManager = req.user.accountType === AccountTypes.Manager;
+    if (!isManager) {
+      res.status(403).json({ message: "Only managers can reassign tickets" });
+      return;
+    }
+
+    const updatedTicket = await updateTicketAssignee(ticketId, assigneeId);
+    if (updatedTicket) {
+      res.status(201).json(updatedTicket);
+      return;
+    }
+    console.log(updatedTicket);
+
+    const response: UpdateTicketErrorResponse = {
+      message:
+        "This ticket could not be updated. Refresh the board before continuing.",
+    };
+    res.status(409).json(response);
+  } catch (error) {
+    console.error("Error updating Kanban ticket", error);
+    res.status(500).json({ message: "Could not update ticket" });
   }
 });
 

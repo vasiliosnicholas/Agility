@@ -6,7 +6,6 @@ import type {
 import type { UserMetaData } from "@shared/models/Users.ts";
 import { useCallback, useEffect, useState } from "react";
 import { Button, FloatingLabel, Form, Modal } from "react-bootstrap";
-import { Ticket } from "react-bootstrap-icons";
 import AssignTicket from "../kanban/AssignTicket";
 
 interface ManagePhaseTicketsModalProps {

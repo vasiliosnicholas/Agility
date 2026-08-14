@@ -319,3 +319,27 @@ export async function deleteTicket(ticketId: string): Promise<boolean> {
 
   return result.deletedCount === 1;
 }
+
+export async function updateTicketAssignee(
+  ticketId: string,
+  assigneeId: string | undefined | null
+) {
+  const updatedTicket = await (
+    await getTicketsCollection()
+  ).findOneAndUpdate(
+    {
+      _id: new ObjectId(ticketId),
+      status: { $ne: TicketStatuses.Completed },
+    },
+    {
+      $set: {
+        status: TicketStatuses.Todo, //Updating ticket status automatically sends it to Todo category.
+        assigneeId: assigneeId ? new ObjectId(assigneeId) : null,
+        completedAt: null,
+      },
+    },
+    { returnDocument: "after" }
+  );
+
+  return updatedTicket ? convertToTicket(updatedTicket) : null;
+}
