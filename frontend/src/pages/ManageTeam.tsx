@@ -1,9 +1,18 @@
-import { useState, useCallback, useEffect } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { useState, useCallback, useEffect, useRef } from "react";
+import { Container, Row, Col, Placeholder } from "react-bootstrap";
 import AppNavbar from "../components/AppNavbar";
 import type { User } from "@shared/models/Users";
-
+import {
+  CaretLeftFill,
+  CaretRightFill,
+  CaretUp,
+  CaretDown,
+  CaretDownFill,
+  CaretUpFill,
+} from "react-bootstrap-icons";
 import ListDevs from "../components/management/ListDevs";
+import VerticalMotionIndicator from "../components/VerticalMotionIndicator";
+import type { ColElementRefObject } from "../hooks/useGridKeyboardControls";
 
 const fetchManagerInfo = async () => {
   const response = await fetch("/api/auth/user");
@@ -42,13 +51,18 @@ async function handleConcurrentUpdate(
 type UserTuple = [User[] | undefined, User[] | undefined];
 
 export default function ManageDevs() {
+  const headingRef = useRef<HTMLHeadingElement>(null);
   const [manager, setManager] = useState<User | undefined>();
   const [[assignedDevs, unassignedDevs], setAssignedAndUnassignedDevs] =
     useState<UserTuple>([undefined, undefined]);
   const handleSetManager = useCallback(async () => {
     const user = await fetchManagerInfo();
     setManager(user);
+    headingRef.current?.focus();
   }, [setManager]) as () => void;
+
+  const [leftColumnRef, setLeftColumnRef] = useState<ColElementRefObject<HTMLElement>>();
+  const [rightColumnRef, setRightColumnRef] = useState<ColElementRefObject<HTMLElement>>();
 
   const handleSetDevs = useCallback(async () => {
     const devs = await Promise.all([
@@ -93,6 +107,7 @@ export default function ManageDevs() {
       }
     };
   }
+
   useEffect(() => {
     handleSetManager();
     handleSetDevs();
@@ -102,38 +117,81 @@ export default function ManageDevs() {
     <>
       <AppNavbar
         user={manager ? manager : { name: "", accountType: "" }}
+        title="Manage your Team"
       ></AppNavbar>
-      <h1 className="my-5 py-3 text-center">
-        {" "}
-        {`${manager ? manager.name : "Loading"}'s Team`}
-      </h1>
+      <div className="kanban-page">
+        <main className="kanban-page-content management-page">
+          <header className="management-page-header">
+            {manager ? (
+              <h1
+                className="type-hero"
+                ref={headingRef}
+              >{`${manager.name}'s Team`}</h1>
+            ) : (
+              <Placeholder as="h1" animation="wave">
+                <Placeholder xs={5} className="rounded-2" />
+              </Placeholder>
+            )}
 
-      <Container fluid>
-        <Row>
-          <Col className="kanban-modal">
-            <h2 className="text-center modal-title my-5">
-              Developers assigned to your team
+            <h2 className="type-body text-muted">
+              Add and remove developers from your team. <br /> Contact
+              developers via email.
             </h2>
-            <ListDevs
-              developers={assignedDevs}
-              action={handleUnassignment}
-              actionName="Unassign"
-              bg="danger"
-            />
-          </Col>
-          <Col className="kanban-modal">
-            <h2 className="text-center modal-title my-5">
-              Unassigned developers
-            </h2>
-            <ListDevs
-              developers={unassignedDevs}
-              action={handleAssignment}
-              actionName="Assign"
-              bg="primary"
-            />
-          </Col>
-        </Row>
-      </Container>
+          </header>
+
+          <Container
+            fluid
+            className="mt-4 d-flex flex-row justify-content-center"
+            aria-label="Developer assignment lists. Press Enter to navigate through developers. Press Escape to move between lists."
+          >
+            <Row className="d-flex flex-row w-100">
+              <Col>
+                <ListDevs
+                  title="Developers assigned to your team"
+                  developers={assignedDevs}
+                  action={handleUnassignment}
+                  actionName="Unassign"
+                  actionChildren={
+                    <div>
+                      <CaretRightFill className="d-none d-lg-inline" />
+                      <CaretDownFill className="d-lg-none" />
+                    </div>
+                  }
+                  actionOrientation="last"
+                  actionButtonClass="btn-action-destructive"
+                  setColumnRef={(colRef) => setLeftColumnRef(colRef)}
+                  rightColumnRef={rightColumnRef}
+                />
+              </Col>
+              <VerticalMotionIndicator />
+
+              <div className="d-lg-none vstack align-items-center justify-items-center my-4">
+                <CaretUp color="grey" />
+                <hr className="w-100 my-2" />
+                <CaretDown color="grey" />
+              </div>
+              <Col>
+                <ListDevs
+                  title="Unassigned developers"
+                  developers={unassignedDevs}
+                  action={handleAssignment}
+                  actionName="Assign"
+                  actionChildren={
+                    <div>
+                      <CaretUpFill className="d-lg-none" />
+                      <CaretLeftFill className="d-none d-lg-inline" />
+                    </div>
+                  }
+                  actionOrientation="first"
+                  actionButtonClass="btn-action-approve"
+                  setColumnRef={(colRef) => setRightColumnRef(colRef)}
+                  leftColumnRef={leftColumnRef}
+                />
+              </Col>
+            </Row>
+          </Container>
+        </main>
+      </div>
     </>
   );
 }

@@ -1,6 +1,5 @@
 import { useCallback, useState, type JSX } from "react";
-import { NavDropdown } from "react-bootstrap";
-import { NavDropdownMenu } from "react-bootstrap-submenu";
+import { NavDropdown, Placeholder } from "react-bootstrap";
 import type { User } from "@shared/models/Users";
 import ManageProfileComponent from "./ManageProfileComponent";
 
@@ -9,7 +8,7 @@ const logout = async () => {
   if (reponse.ok) window.location.href = "/login#logout";
 };
 
-const defaultName = "Error: Couldn't load profile";
+const defaultName = "";
 
 const fetchUsername = async () => {
   const response = await fetch("/api/auth/user");
@@ -17,7 +16,7 @@ const fetchUsername = async () => {
 };
 
 /**
- * Dopdown with profile actions: Manage profile, and logout
+ * Dropdown with profile actions: Manage profile, and logout
  * @returns Dropdown button.
  */
 export default function ProfileDropdown({
@@ -35,15 +34,23 @@ export default function ProfileDropdown({
 
   return (
     <>
-      <NavDropdownMenu title={profileComponent}>
-        <NavDropdown.Header>{name}</NavDropdown.Header>
+      <NavDropdown title={<span aria-label="Profile Actions Dropdown">{profileComponent} </span>}>
+        <NavDropdown.Header>
+          {name ? (
+            name
+          ) : (
+            <Placeholder as="span" animation="wave">
+              <Placeholder xs={12} className="rounded-2"></Placeholder>
+            </Placeholder>
+          )}
+        </NavDropdown.Header>
 
         <ManageProfileComponent />
 
-        <NavDropdown.Item as="button" onClick={() => void logout()}>
+        <NavDropdown.Item as="button" onClick={() => void logout()} disabled={!name}>
           Logout
         </NavDropdown.Item>
-      </NavDropdownMenu>
+      </NavDropdown>
     </>
   );
 }

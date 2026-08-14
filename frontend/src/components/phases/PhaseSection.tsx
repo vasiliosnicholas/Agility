@@ -31,7 +31,7 @@ export default function PhaseSection({
         <section className="management-section" aria-labelledby={id}>
             <header className="management-section-header">
                 <div className="management-section-heading">
-                    <h2 id={id} className="management-section-title">
+                    <h2 id={id} className="management-section-title type-section">
                         {title}
                     </h2>
                     <span className="management-section-count">
@@ -42,7 +42,6 @@ export default function PhaseSection({
                 {onAddPhase && (
                     <Button
                         type="button"
-                        variant="light"
                         size="sm"
                         className="management-add-button"
                         onClick={onAddPhase}
@@ -56,7 +55,7 @@ export default function PhaseSection({
                     <li className="management-list-empty">{emptyMessage}</li>
                 ) : (
                     phases.map((phase) => (
-                        <li key={phase.id} className="management-list-item">
+                        <li key={phase.id} className="management-list-item" tabIndex={0}>
                             <div className="management-list-content">
                                 <span className="management-list-title">
                                     {phase.dateRange}
@@ -79,7 +78,6 @@ export default function PhaseSection({
                                 {onManageTickets && (
                                     <Button
                                         type="button"
-                                        variant="light"
                                         size="sm"
                                         className="management-add-button"
                                         onClick={() =>
@@ -92,7 +90,6 @@ export default function PhaseSection({
                                 {onDeletePhase && (
                                     <Button
                                         type="button"
-                                        variant="light"
                                         size="sm"
                                         className="management-delete-button"
                                         aria-label={`Delete phase ${phase.dateRange}`}

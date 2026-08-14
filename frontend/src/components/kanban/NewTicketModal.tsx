@@ -211,7 +211,7 @@ export default function NewTicketModal({
 
                     {submitError && (
                         <p
-                            className="text-danger small mt-3 mb-0"
+                            className="text-danger type-meta mt-3 mb-0"
                             role="alert"
                             aria-live="polite"
                         >
@@ -223,8 +223,7 @@ export default function NewTicketModal({
             <Modal.Footer>
                 <Button
                     type="button"
-                    variant="light"
-                    className="modal-cancel"
+                    className="btn-action-cancel modal-cancel"
                     onClick={closeModal}
                     disabled={isSubmitting}
                 >
@@ -233,8 +232,7 @@ export default function NewTicketModal({
                 <Button
                     type="submit"
                     form={formId}
-                    variant="light"
-                    className="modal-submit"
+                    className="btn-action-approve modal-submit"
                     disabled={isSubmitting}
                 >
                     {isSubmitting ? "Creating…" : "Create Ticket"}

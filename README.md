@@ -26,8 +26,8 @@ For our live demo, the database hosts sample project phases and tickets with moc
 
 ## Authors
 
-* Aryan Yadav: Kanban / tasks full-stack.
-* Vasilios Nicholas: Authentication, phases, and team management full-stack.
+* Aryan Yadav: Kanban/tasks and phases full-stack.
+* Vasilios Nicholas: Authentication and team management full-stack.
 
 ## Project Objective
 

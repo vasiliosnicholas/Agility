@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { Modal, Button, ToggleButton, ButtonGroup } from "react-bootstrap";
 import type {
   FormData,
@@ -6,37 +6,44 @@ import type {
   FormWindowComponent,
 } from "./FormComponents.d.ts";
 
-//TODO: Add Manage Account, Delete Account, and possibly Logout
-
 function successfulCallback(route: string | undefined) {
   if (route) window.location.href = route;
 }
 
-const FormWindow: FormWindowComponent = ({ Modes, ModalButton = Button, initialFormsData}) => {
+const FormWindow: FormWindowComponent = ({
+  Forms,
+  ModalButton = Button,
+  initialFormsData,
+  ...props
+}) => {
+  if (Forms.length === 0)
+    throw new RangeError("Modes cannot be an empty array!");
   const [formValid, setSubmitStatus] = useState(false);
   const [display, setDisplay] = useState(false);
-  const formsData = useRef<Array<FormData> | Array<undefined>>(initialFormsData ? initialFormsData :
-    Modes.map(() => undefined)
+  const formsData = useRef<Array<FormData> | Array<undefined>>(
+    initialFormsData ? initialFormsData : Forms.map(() => undefined)
   );
-  const [currentMode, setCurrentMode] = useState(0);
-  const formId = useRef<string>("");
 
-  const setFormId: formIdSetter = useCallback(
+  useEffect(() => {if (initialFormsData) formsData.current = initialFormsData}, [initialFormsData]);
+  const [currentForm, setCurrentForm] = useState(0);
+  const [formId, setFormId] = useState<string>("");
+
+  const handleSetFormId: formIdSetter = useCallback(
     (newId) => {
-      formId.current = newId;
+      setFormId(newId);
     },
-    [formId]
+    [setFormId]
   );
-  
+
   //current form component to display.
-  const CurrentFormComponent = Modes[currentMode];
+  const CurrentFormComponent = Forms[currentForm];
 
   //prevent redefinitions of setFormData using memomization
   const setFormData = useCallback(
     (formData: FormData) => {
-      formsData.current[currentMode] = formData;
+      formsData.current[currentForm] = formData;
     },
-    [formsData, currentMode]
+    [formsData, currentForm]
   );
 
   const openWindow = useCallback(() => {
@@ -48,64 +55,76 @@ const FormWindow: FormWindowComponent = ({ Modes, ModalButton = Button, initialF
 
   return (
     <>
-      <ModalButton onClick={openWindow}>
-        {Modes.map(({ formName }) => formName).join(" | ")}
+      <ModalButton
+        {...props}
+        onClick={openWindow}
+        aria-label={Forms.map(({ formName }) => formName).join()}
+      >
+        {Forms.map(({ formName }) => formName).join(" | ")}
       </ModalButton>
       <Modal
         show={display}
         size="lg"
-        aria-labelledby="login-or-register-title"
+        aria-labelledby="form-window-title"
         onHide={closeWindow}
         centered
         className="kanban-modal"
       >
         <Modal.Header className="justify-content-center modal-header">
-          <Modal.Title id="login-or-register-title" className="modal-title">
-            <ButtonGroup aria-label="Login/Register Buttons">
-              {Modes.map(({ formName }, index) => (
-                <ToggleButton
-                  key={index}
-                  id={`radio-btn-${formName}`}
-                  type="radio"
-                  value={index}
-                  checked={currentMode == index}
-                  onChange={(event) =>
-                    setCurrentMode(parseInt(event.currentTarget.value))
-                  }
-                  className="modal-submit"
-                >
-                  {formName}
-                </ToggleButton>
-              ))}
-            </ButtonGroup>
+          <Modal.Title id="form-window-title" className="modal-title">
+            {Forms.length > 1 ? (
+              <ButtonGroup tabIndex={-1}>
+                {Forms.map(({ formName }, index) => (
+                  <ToggleButton
+                    key={index}
+                    id={`radio-btn-${formName}`}
+                    type="radio"
+                    value={index}
+                    checked={currentForm == index}
+                    onKeyDown={(event) => {
+                      if (event.code === "Enter") setCurrentForm(index);
+                    }}
+                    onChange={(event) =>
+                      setCurrentForm(parseInt(event.currentTarget.value))
+                    }
+                    className={`modal-mode-toggle ${currentForm == index ? "selected" : ""}`}
+                  >
+                    {formName}
+                  </ToggleButton>
+                ))}
+              </ButtonGroup>
+            ) : (
+              Forms[0].formName
+            )}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <CurrentFormComponent
             setSubmitStatus={setSubmitStatus}
             formData={
-              formsData.current[
-                currentMode
-              ] /*FIXME: this works because only want to re-render child. 
-              Figure out how to get rid of this error */
+              // eslint-disable-next-line react-hooks/refs
+              formsData.current[currentForm]
             }
             setFormData={setFormData}
-            setFormId={setFormId}
+            setFormId={handleSetFormId}
             successfulCallback={successfulCallback}
           />
         </Modal.Body>
         <Modal.Footer className="justify-content-between">
-          <Button onClick={closeWindow} variant="danger" className="modal-cancel">
+          <Button
+            onClick={closeWindow}
+            className="btn-action-cancel modal-cancel"
+          >
             Cancel
           </Button>
           <Button
-            form={formId.current}
-            variant="primary"
+            form={formId}
             type="submit"
+            aria-description={`Submit the ${Forms[currentForm].formName} form`}
             disabled={!formValid}
-            className="modal-submit"
+            className="btn-action-approve modal-submit"
           >
-            {Modes[currentMode].formName}
+            {Forms[currentForm].formName}
           </Button>
         </Modal.Footer>
       </Modal>

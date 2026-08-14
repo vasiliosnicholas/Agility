@@ -1,57 +1,38 @@
+import { useEffect } from "react";
 import { Badge, Container, Nav, Navbar, Spinner } from "react-bootstrap";
 import { Link, NavLink } from "react-router";
 import { AccountTypes, type User } from "@shared/models/Users.ts";
 import ProfileDropdown from "./profile/ProfileComponent";
+import Avatar from "./profile/Avatar";
+import AgilityLogo from "./AgilityLogo";
 
 interface AppNavbarProps {
   user: Pick<User, "name" | "accountType">;
+  title: string;
 }
 
-export default function AppNavbar({ user }: AppNavbarProps) {
+export default function AppNavbar({ user, title }: AppNavbarProps) {
   const isManager = user.accountType === AccountTypes.Manager;
 
+  useEffect(() => {document.title = `Agility | ${title}`}, [title]);
+
   return (
-    <Navbar className="navbar">
+    <Navbar className="navbar" expand="lg" sticky="top">
       <Container fluid className="navbar-container">
-        <Navbar.Brand as={Link} to="/kanban" className="navbar-brand">
-          <svg className="navbar-logo" viewBox="0 0 18 18">
-            <rect
-              className="fill-todo"
-              x="1"
-              y="2"
-              width="4"
-              height="14"
-              rx="1.5"
-            />
-            <rect
-              className="fill-progress"
-              x="7"
-              y="0"
-              width="4"
-              height="16"
-              rx="1.5"
-            />
-            <rect
-              className="fill-completed"
-              x="13"
-              y="4"
-              width="4"
-              height="12"
-              rx="1.5"
-            />
-          </svg>
+        <Navbar.Brand as={Link} to="/kanban" onClick={() => window.location.href="/kanban"} className="navbar-brand">
+          <AgilityLogo className="navbar-logo"/>
           <span>Agility</span>
         </Navbar.Brand>
         <Nav className="navbar-links me-auto">
-          <Nav.Link as={NavLink} to="/kanban">
+          <Nav.Link as={NavLink} to="/kanban" onClick={() => window.location.href="/kanban"}>
             Tasks
           </Nav.Link>
           {isManager && (
             <>
-              <Nav.Link as={NavLink} to="/phases">
+              <Nav.Link as={NavLink} to="/phases" onClick={() => window.location.href="/phases"}>
                 Plan Phases
               </Nav.Link>
-              <Nav.Link as={NavLink} to="/team">
+              <Nav.Link as={NavLink} to="/team" onClick={() => window.location.href="/team"}>
                 Manage Team
               </Nav.Link>
             </>
@@ -61,9 +42,7 @@ export default function AppNavbar({ user }: AppNavbarProps) {
         <Nav className="navbar-user" aria-label="Current user">
           <ProfileDropdown
             profileComponent={
-              <span className="navbar-avatar">
-                {user.name ? user.name.charAt(0).toUpperCase() : <Spinner animation="border" />}
-              </span>
+              <Avatar userFullName={user.name}/>
             }
           ></ProfileDropdown>
 

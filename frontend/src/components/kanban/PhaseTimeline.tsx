@@ -176,6 +176,7 @@ export default function PhaseTimeline({
                             key={item.key}
                             now={total === 0 ? 0 : (item.count / total) * 100}
                             style={{ backgroundColor: item.barFill }}
+                            aria-label={`${item.label}: ${item.count} of ${total} tickets`}
                         />
                     ))}
                 </ProgressBar>
@@ -292,7 +293,7 @@ export default function PhaseTimeline({
                                         y2="12"
                                     />
                                     <text
-                                        className="burnup-date"
+                                        className="burnup-date type-date"
                                         x={x}
                                         y="29"
                                         textAnchor="middle"
