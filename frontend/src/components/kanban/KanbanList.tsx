@@ -26,7 +26,7 @@ function KanbanList({
   NewTicketButton,
   ...props
 }: KanbanListProps) {
-  const countLabel = `${count} ${count === 1 ? "item" : "items"}`;
+  const countLabel = `${count} ${count === 1 ? "task" : "tasks"}`;
 
   return (
     <div className={`kanban-list ${className}`} {...props}>
