@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import { NavDropdown, Accordion } from "react-bootstrap";
 import DeleteProfile from "./DeleteProfile";
 import FormWindow from "../FormWindow";
@@ -31,33 +31,60 @@ export default function ManageProfileComponent() {
     setFormData(formData);
   }, [setFormData]) as () => void;
 
+  useEffect(() => void handleSetFormData(), [handleSetFormData]);
+
   const [activeKey, setActiveKey] = useState<string | null | undefined>(
     undefined
   );
 
-  handleSetFormData();
+  const firstItem = useRef<HTMLButtonElement>(null);
+
+  const handleItemSelected: React.MouseEventHandler<HTMLElement> = useCallback(
+    () => setActiveKey(null),
+    [setActiveKey]
+  );
+
+  const handleBlur: React.FocusEventHandler<HTMLElement> = useCallback(
+    (event) => {
+      if (!event.currentTarget.contains(event.relatedTarget))
+        setActiveKey(null);
+    },
+    [setActiveKey]
+  );
+
+  useEffect(() => {
+    if (activeKey) firstItem.current?.focus();
+    else firstItem.current?.blur();
+  }, [activeKey]);
 
   return (
     <>
       <Accordion
         flush
         activeKey={activeKey}
-        onClick={() => setActiveKey(activeKey ? null : "0")}
-        onBlur={(event) => {
-          if (!event.currentTarget.contains(event.relatedTarget))
-            setActiveKey(null);
-        }}
+        onClickCapture={() => setActiveKey(activeKey ? null : "0")}
+        onBlur={handleBlur}
       >
-        <Accordion.Item eventKey="0">
+        <Accordion.Item
+          eventKey="0"
+          onClick={() => {
+            if (activeKey) firstItem.current?.focus();
+            else firstItem.current?.blur();
+          }}
+        >
           <Accordion.Header>Manage profile</Accordion.Header>
-          <Accordion.Body aria-label="Manage Profile">
+          <Accordion.Body
+            aria-label="Manage Profile"
+            onBlur={handleBlur}
+            onClick={handleItemSelected}
+          >
             <FormWindow
-              Modes={[UpdateProfile]}
+              Forms={[UpdateProfile]}
               ModalButton={NavDropdown.Item}
               initialFormsData={formData ? [formData] : undefined}
               tabIndex={0}
               as="button"
-              autoFocus
+              ref={firstItem}
             />
             <DeleteProfile />
           </Accordion.Body>
