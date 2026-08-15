@@ -10,14 +10,12 @@ export default function AssignTicket({
   teamMembers,
   label = "Select Assignee for Ticket",
   "aria-label": ariaLabel = "Select Assignee for Ticket",
-  value=undefined,
   ...props
 }: AssignTicketProps) {
   return (
     <FloatingLabel label={label}>
       <Form.Select
         aria-label={ariaLabel}
-        value={value}
         {...props}
       >
         {teamMembers.map((member) =>

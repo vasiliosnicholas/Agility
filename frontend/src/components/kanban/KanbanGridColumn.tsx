@@ -29,7 +29,13 @@ interface KanbanGridColumnProps
   kanbanData: KanbanData;
   openNewTicketModal: (status: TicketCreationStatus) => void;
   handleDeleteTicket: (ticketId: string) => Promise<void>;
-  handleDrop: ({ dragItem, dragType, drop }: DropPayload) => Promise<void>;
+  handleDrop: (
+    { dragItem, dragType, drop }: DropPayload,
+    {
+      updatedList,
+      listPos,
+    }?: { updatedList?: KanbanColumn; listPos?: number }
+  ) => Promise<void>;
 }
 
 export default function KanbanGridColumn({
@@ -69,6 +75,7 @@ export default function KanbanGridColumn({
     }
   }, [setTeamMembers, kanbanData.user]);
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => void handleSetTeamMembers(), [handleSetTeamMembers]);
 
   return (
@@ -172,24 +179,42 @@ export default function KanbanGridColumn({
                     ? columns[listPos + 1].name
                     : undefined
                 }
-                teamMembers={list.name !== "Completed" ? teamMembers : undefined}
-                handleAssign={list.name !== "Completed" ? async (request: AssignPhaseTicketRequest) => {
-                  const response = await fetch(
-                    `/api/kanban/ticket/${request.ticketId}`,
-                    {
-                      method: "PATCH",
-                      headers: { "Content-Type": "application/json" },
-                      body: JSON.stringify(request),
-                    }
-                  );
-                  if (response.ok)
-                    void handleDrop({
-                      dragItem: card._id,
-                      dragType: "card",
-                      drop: `${request.assigneeId ? 1 : 0}-${cardPos}`,
-                    });
-                  return response.ok;
-                }: undefined}
+                teamMembers={
+                  list.name !== "Completed" ? teamMembers : undefined
+                }
+                handleAssign={
+                  list.name !== "Completed"
+                    ? async (request: AssignPhaseTicketRequest) => {
+                        const response = await fetch(
+                          `/api/kanban/ticket/${request.ticketId}`,
+                          {
+                            method: "PATCH",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(request),
+                          }
+                        );
+                        if (response.ok) {
+                          const updatedList: KanbanColumn = {
+                            ...list,
+                            cards: [...list.cards],
+                          };
+                          updatedList.cards[cardPos] = {
+                            ...list.cards[cardPos],
+                            assigneeId: request.assigneeId,
+                          };
+                          void handleDrop(
+                            {
+                              dragItem: card._id,
+                              dragType: "card",
+                              drop: `${request.assigneeId ? 1 : 0}-${cardPos}`,
+                            },
+                            { updatedList, listPos }
+                          );
+                        }
+                        return response.ok;
+                      }
+                    : undefined
+                }
                 {...handleRow(cardPos)}
               />
             </Drag.DragItem>

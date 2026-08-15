@@ -16,7 +16,7 @@ import AppNavbar from "../components/AppNavbar.tsx";
 import NewTicketModal from "../components/kanban/NewTicketModal.tsx";
 import KanbanGridColumn from "../components/kanban/KanbanGridColumn.tsx";
 import type { ColElementRefObject } from "../hooks/useGridKeyboardControls.ts";
-import {useImmer} from "use-immer";
+import { useImmer } from "use-immer";
 
 export interface KanbanColumn {
   id: TicketStatus;
@@ -184,7 +184,15 @@ export default function Kanban() {
     }
   }
 
-  async function handleDrop({ dragItem, dragType, drop }: DropPayload) {
+  async function handleDrop(
+    { dragItem, dragType, drop }: DropPayload,
+    {
+      updatedList = undefined,
+      listPos = undefined,
+    }: { updatedList?: KanbanColumn; listPos?: number } = {}
+  ) {
+    if (updatedList && listPos) columns[listPos] = updatedList;
+
     if (
       dragType === "card" &&
       drop !== null &&
@@ -406,7 +414,8 @@ export default function Kanban() {
                     setColumnRef={(colRef) => {
                       updateColumnRefs((draftColumnRefs) => {
                         // @ts-expect-error: Immer draft typing mismatch with React.RefObject
-                        draftColumnRefs[listPos] = colRef});
+                        draftColumnRefs[listPos] = colRef;
+                      });
                     }}
                     leftColumnRef={
                       listPos > 0 ? columnRefs[listPos - 1] : undefined
