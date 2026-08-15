@@ -4,11 +4,8 @@ import type {
   FormData,
   formIdSetter,
   FormWindowComponent,
+  SuccessfulCallback,
 } from "./FormComponents.d.ts";
-
-function successfulCallback(route: string | undefined) {
-  if (route) window.location.href = route;
-}
 
 const FormWindow: FormWindowComponent = ({
   Forms,
@@ -24,7 +21,9 @@ const FormWindow: FormWindowComponent = ({
     initialFormsData ? initialFormsData : Forms.map(() => undefined)
   );
 
-  useEffect(() => {if (initialFormsData) formsData.current = initialFormsData}, [initialFormsData]);
+  useEffect(() => {
+    if (initialFormsData) formsData.current = initialFormsData;
+  }, [initialFormsData]);
   const [currentForm, setCurrentForm] = useState(0);
   const [formId, setFormId] = useState<string>("");
 
@@ -52,6 +51,28 @@ const FormWindow: FormWindowComponent = ({
   const closeWindow = useCallback(() => {
     setDisplay(false);
   }, [setDisplay]);
+
+  const successfulCallback: SuccessfulCallback = ({
+    route,
+    closeFormWindow,
+    data,
+  } = {}) => {
+    if (closeFormWindow) {
+      closeWindow();
+    }
+    if (route) {
+      if (window.location.href == route) window.location.reload();
+      else if (route) window.location.href = route;
+    }
+    if (data) {
+      const { formName, formData } = data;
+      const nextForm = Forms.map(({ formName }) => formName).indexOf(formName);
+      if (nextForm > -1) {
+        formsData.current[nextForm] = formData;
+        setCurrentForm(nextForm);
+      }
+    }
+  };
 
   return (
     <>

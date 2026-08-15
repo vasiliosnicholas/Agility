@@ -3,7 +3,7 @@ import { Form, FloatingLabel } from "react-bootstrap";
 import useReactFormHook from "../../hooks/useReactFormHook";
 import type { SubmitHandler } from "react-hook-form";
 import * as yup from "yup";
-import type { FormComponent, RegisterFormData } from "../FormComponents";
+import type { FormComponent, LoginFormData, RegisterFormData } from "../FormComponents";
 import { AccountTypes } from "@shared/models/Users.ts";
 
 const MIN_USERNAME_LENGTH = 5;
@@ -69,7 +69,8 @@ const Register: FormComponent<RegisterFormData> = function ({
         if (response.ok) {
           alert("Registered Account!");
           if (successfulCallback) {
-            successfulCallback();
+            const loginData: LoginFormData = {username: data.username, password:  data.password};
+            successfulCallback({data: {formName: "Login", formData: loginData}});
           }
         } else {
           alert("Registration unsuccessful");

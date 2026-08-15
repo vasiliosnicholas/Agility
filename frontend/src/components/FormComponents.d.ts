@@ -13,12 +13,17 @@ export interface FormBaseProps<FormDataType extends FormData> {
 }
 
 export type formIdSetter = (formId: string) => void;
+export type SuccessfulCallback = (successfulCallbackProps?: {
+  route?: string;
+  closeFormWindow?: boolean;
+  data?: {formName: string, formData: FormData};
+}) => void;
 
 export interface FormComponentProps<
   FormDataType,
 > extends FormBaseProps<FormDataType> {
   setFormId: formIdSetter;
-  successfulCallback: (route?: string) => void;
+  successfulCallback: SuccessfulCallback;
 }
 
 export interface FormComponent<FormDataType extends FormData> extends FC<

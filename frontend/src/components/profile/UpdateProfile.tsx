@@ -86,7 +86,7 @@ const UpdateProfile: FormComponent<UpdateFormData> = function ({
     setFormData,
     schema,
   });
-  
+
   const submitHandler = useCallback(
     async (data) => {
       if (data) {
@@ -98,10 +98,12 @@ const UpdateProfile: FormComponent<UpdateFormData> = function ({
         if (response.ok) {
           alert("Updated Account!");
           if (successfulCallback) {
-            successfulCallback();
+            successfulCallback({
+              closeFormWindow: true,
+              route: window.location.href,
+            });
           }
         } else {
-          console.log(response);
           alert("Update unsuccessful");
         }
       } else {
