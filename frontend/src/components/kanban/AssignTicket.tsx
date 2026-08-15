@@ -13,9 +13,10 @@ export default function AssignTicket({
   ...props
 }: AssignTicketProps) {
   return (
-    <FloatingLabel label={label}>
+    <FloatingLabel label={label} controlId="select-assignee">
       <Form.Select
         aria-label={ariaLabel}
+        id="select-assignee"
         {...props}
       >
         {teamMembers.map((member) =>
