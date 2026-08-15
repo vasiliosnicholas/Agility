@@ -119,18 +119,21 @@ const ListDevs = ({
                   </Row>
                   {tickets && (
                     <Row>
-                      <TaskProgressBar
-                        phaseTickets={tickets.filter(
-                          ({ assigneeId }) => assigneeId == user._id
-                        )}
-                        total={
-                          tickets.filter(
+                      <section>
+                        <h5>{user.name}'s progress on the current phase</h5>
+                        <TaskProgressBar
+                          phaseTickets={tickets.filter(
                             ({ assigneeId }) => assigneeId == user._id
-                          ).length
-                        }
-                        className=""
-                        tabIndex={0}
-                      />
+                          )}
+                          total={
+                            tickets.filter(
+                              ({ assigneeId }) => assigneeId == user._id
+                            ).length
+                          }
+                          className="mb-2"
+                          tabIndex={0}
+                        />
+                      </section>
                     </Row>
                   )}
                 </Container>
