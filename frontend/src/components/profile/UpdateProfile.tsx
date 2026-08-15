@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-base-to-string */
 import { useCallback, useId, useState, type SubmitEventHandler } from "react";
 import { Form, FloatingLabel } from "react-bootstrap";
 import useReactFormHook from "../../hooks/useReactFormHook";
@@ -160,10 +161,10 @@ const UpdateProfile: FormComponent<UpdateFormData> = function ({
           {errors.name?.message?.toString()}
         </Form.Control.Feedback>
       </FloatingLabel>
-      <FloatingLabel className="mb-3" controlId="password" label="Password">
+      <FloatingLabel className="mb-3" controlId="password" label="Current Password">
         <Form.Control
           type="password"
-          placeholder="Enter your password"
+          placeholder="Enter your current password"
           isInvalid={!!errors.password}
           aria-invalid={!!errors.password}
           {...register("password")}
