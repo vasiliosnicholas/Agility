@@ -167,7 +167,7 @@ export default function ManageDevs() {
           <Container
             fluid
             className="mt-4 d-flex flex-row justify-content-center"
-            aria-label="Developer assignment lists. Press Enter to navigate through developers. Press Escape to move between lists."
+            aria-label="Developer assignment lists. Press Enter to navigate through developers in a section with navigation controls. Press Escape to navigation between assigned and unassigned developer sections with navigation controls. Alternatively, use the horizontal arrow keys for section traversal and vertical arrow keys for developer traversal"
           >
             <Row className="d-flex flex-row w-100">
               <Col>

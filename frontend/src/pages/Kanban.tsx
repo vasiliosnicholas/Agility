@@ -389,6 +389,7 @@ export default function Kanban() {
         )}
         {(kanbanData.phase ||
           kanbanData.user.accountType === AccountTypes.Manager) && (
+          // eslint-disable-next-line react-hooks/immutability
           <Drag handleDrop={(payload) => void handleDrop(payload)}>
             {({ activeItem, activeType, isDragging }) => (
               <div
@@ -397,6 +398,9 @@ export default function Kanban() {
                     ? " kanban-container-manager"
                     : ""
                 }`}
+                aria-label="
+                Kanban board. Press Enter to navigate through tickets in a section with navigation controls. Press Escape to move between kanban sections with navigation controls.
+                Alternatively, use the horizontal arrow keys for section traversal and vertical arrow keys for ticket traversal"
               >
                 {columns.map((list, listPos) => (
                   <KanbanGridColumn
