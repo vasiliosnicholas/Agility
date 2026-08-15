@@ -2,7 +2,12 @@
 
 **Agility** is a full-stack application that implements an agile framework for managing projects in an easy-to-use interface. Agility’s goal is to simplify the process of assigning, coordinating, and managing tasks across a project team, thereby reducing overhead for managers and project leaders. Its simplified, non-esoteric workflow helps newcomers to agile management benefit from a structured approach to product development without the complexity of traditional project-management tools. Agility was built with TypeScript, React, Vite, Node.js, Express, Bootstrap 5 / React-Bootstrap, Passport, and MongoDB.
 
-Use these credentials with our deployment to get an idea of what the project looks and functions like: user: manager pass: bb361234
+Use these credentials with our deployment to get an idea of what the project looks and functions like:
+
+```
+username: manager 
+password: bb361234
+```
 
 For our live demo, the database hosts sample project phases and tickets with mock data for certain fields. The seed tickets collection is composed of mock apparel/product-development style tasks.
 
@@ -19,15 +24,15 @@ For our live demo, the database hosts sample project phases and tickets with moc
 
 ## Live Demo and Documentation
 
-- **[Deployed Site Link](https://agility-1qtf.onrender.com/)**
-- **[Live Demo Video Walkthrough](https://youtu.be/SImYEdfxcVA)**
-- **[Project slides](https://docs.google.com/presentation/d/1lX3IiBtWi5AElx8y_LpXDi7BWCgt_Duwegf3cOfrIPI/edit?usp=sharing)**
+- **[Deployed Site Link](https://agility-9mgz.onrender.com)**
+- **[Live Demo Video Walkthrough](https://www.youtube.com/watch?v=d67X1zP1YWc)**
+- **[Project slides](https://docs.google.com/presentation/d/1HH5gNB5C2IYwxkiWIO7IowZV0NaZspN5yNxM82lwfjc/edit?usp=sharing)**
 - **[Design Document](https://docs.google.com/document/d/159umoDcDq4ZdloeNzaaqiC0UZGvfEbOEEepKRk__HHQ/edit?usp=sharing)**
 
 ## Authors
 
-* Aryan Yadav: Kanban/tasks and phases full-stack.
-* Vasilios Nicholas: Authentication and team management full-stack.
+- Aryan Yadav: Kanban/tasks and phases full-stack.
+- Vasilios Nicholas: Authentication and team management full-stack.
 
 ## Project Objective
 
@@ -37,11 +42,11 @@ This project was created as the third project for [CS5610 Web Development](https
 
 From a technical standpoint, the project was built to practice full-stack web development using Node.js, Express, MongoDB, TypeScript, and a React single-page application. Specific objectives include:
 
-* Building a React SPA with client-side routing, where the Express server serves the built frontend and protects routes by authentication and account type.
-* Implementing a REST API with Express that supports CRUD operations across three MongoDB collections: `users`, `tickets`, and `phases`.
-* Using session-based authentication with Passport Local and bcrypt-hashed passwords.
-* Enforcing role-based access so managers can plan phases and manage teams, while developers work tickets on the active-phase Kanban board.
-* Deploying the application to a public server so it is accessible to real users.
+- Building a React SPA with client-side routing, where the Express server serves the built frontend and protects routes by authentication and account type.
+- Implementing a REST API with Express that supports CRUD operations across three MongoDB collections: `users`, `tickets`, and `phases`.
+- Using session-based authentication with Passport Local and bcrypt-hashed passwords.
+- Enforcing role-based access so managers can plan phases and manage teams, while developers work tickets on the active-phase Kanban board.
+- Deploying the application to a public server so it is accessible to real users.
 
 ## App Instructions
 
@@ -173,7 +178,7 @@ Agility
 
 8. **Choose how to run the app:**
 
-   * For **local development**, run the backend and frontend in separate terminals:
+   - For **local development**, run the backend and frontend in separate terminals:
 
      ```bash
      npm run dev
@@ -186,7 +191,7 @@ Agility
 
      The Vite dev server proxies API requests to the Express backend on port 3000.
 
-   * For a **production-style local run**, build both projects, then start Express:
+   - For a **production-style local run**, build both projects, then start Express:
 
      ```bash
      cd frontend && npm run build && cd ..
@@ -196,22 +201,22 @@ Agility
 
 ## Third-Party APIs & Libraries & Deployment Environments
 
-* **Express** — Web framework for Node.js used to build the REST API and serve the built React SPA.
-* **MongoDB Node.js Driver** — Official driver used to connect to and query MongoDB collections.
-* **Passport / passport-local** — Session-based authentication with a local username/password strategy.
-* **bcrypt** — Password hashing for stored user credentials.
-* **express-session** — Server-side sessions and signed cookies.
-* **React + Vite** — SPA frontend toolchain and UI runtime.
-* **React Router** — Client-side routing for Tasks, Plan Phases, Manage Team, and auth pages.
-* **Bootstrap 5 / React-Bootstrap** — Responsive layout and UI components.
-* **react-hook-form + Yup** — Form state and validation for auth and profile flows.
-* **Render** — Deployment environment for the Express backend (and served frontend).
-* **MongoDB Atlas** — Deployment environment for the MongoDB database.
+- **Express** — Web framework for Node.js used to build the REST API and serve the built React SPA.
+- **MongoDB Node.js Driver** — Official driver used to connect to and query MongoDB collections.
+- **Passport / passport-local** — Session-based authentication with a local username/password strategy.
+- **bcrypt** — Password hashing for stored user credentials.
+- **express-session** — Server-side sessions and signed cookies.
+- **React + Vite** — SPA frontend toolchain and UI runtime.
+- **React Router** — Client-side routing for Tasks, Plan Phases, Manage Team, and auth pages.
+- **Bootstrap 5 / React-Bootstrap** — Responsive layout and UI components.
+- **react-hook-form + Yup** — Form state and validation for auth and profile flows.
+- **Render** — Deployment environment for the Express backend (and served frontend).
+- **MongoDB Atlas** — Deployment environment for the MongoDB database.
 
 ## Gen AI Usage Disclosure
 
-* Gemini used for searching through documentation and finding helpful resources.
-* Cursor AI used for generating this README and mock data.
+- Gemini used for searching through documentation and finding helpful resources.
+- Cursor AI used for generating this README and mock data.
 
 ## License
 
