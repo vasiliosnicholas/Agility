@@ -11,7 +11,7 @@ import {
   type TicketDocument,
 } from "./Database.ts";
 import { getUserById } from "./UserOperations.ts";
-import type { Developer, Manager } from "../../shared/models/Users.ts";
+import type { Developer } from "../../shared/models/Users.ts";
 
 interface CreateTicketOptions extends CreateTicketRequest {
   phaseId: string | null;
