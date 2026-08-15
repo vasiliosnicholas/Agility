@@ -8,7 +8,7 @@ const textAlignment = "text-center";
 export default function Unauthorized() {
   useEffect(() => {document.title = `Agility | 404`}, []);
   return (
-    <Modal show centered size="lg">
+    <Modal show centered size="lg" className="kanban-modal">
       <Modal.Header className={elementAlignment}>
         <h1 className={textAlignment}>404</h1>
       </Modal.Header>
@@ -16,7 +16,7 @@ export default function Unauthorized() {
         <h2 className={textAlignment}>Page not found!</h2>
       </Modal.Body>
       <Modal.Footer className={elementAlignment}>
-        <Button type="button" onClick={() => history.back()}>
+        <Button type="button" onClick={() => history.back()} className="btn-action-approve">
           Go Back
         </Button>
       </Modal.Footer>
