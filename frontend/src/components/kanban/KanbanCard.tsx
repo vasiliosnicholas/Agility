@@ -3,7 +3,15 @@ import type {
   AssignPhaseTicketRequest,
   TicketPriority,
 } from "@shared/models/Tickets.ts";
-import { Button, Form, OverlayTrigger, Tooltip } from "react-bootstrap";
+import {
+  Button,
+  Col,
+  Container,
+  Form,
+  OverlayTrigger,
+  Row,
+  Tooltip,
+} from "react-bootstrap";
 import { CaretLeftFill, CaretRightFill } from "react-bootstrap-icons";
 import type { UserMetaData } from "@shared/models/Users";
 import AssignTicket from "./AssignTicket";
@@ -67,12 +75,12 @@ function Card({
           ticketId: cardId,
           assigneeId: value,
         });
-        
+
         if (assigneeUpdated) setSelectedAssigneeId(value);
         else alert("Error updating ticket assignee");
       }
     },
-    [cardId, handleAssign]
+    [cardId, handleAssign],
   ) as React.ChangeEventHandler<HTMLSelectElement, HTMLSelectElement>;
 
   return (
@@ -113,50 +121,58 @@ function Card({
           </div>
           {description && <p className="card-description">{description}</p>}
           {(priorityBadge || assigneeName) && (
-            <div className="card-badges">
-              {priorityBadge && (
-                <Badge
-                  pill
-                  bg="light"
-                  className={`priority-badge ${priorityBadge.className}`}
-                >
-                  {priorityBadge.label}
-                </Badge>
-              )}
-              {assigneeName &&
-                (teamMembers ? (
-                  <OverlayTrigger
-                    placement="top"
-                    delay={{ show: 0, hide: 0 }}
-                    overlay={(props) => (
-                      <Tooltip {...props}>
-                       {assigneeName ? `Reassign ticket from ${assigneeName}` : "Assign ticket to a user"}
-                      </Tooltip>
-                    )}
-                  >
-                    <Form
-                      id="assign-ticket"
-                      noValidate
-                      className="modal-form w-100 "
-                      onPointerDown={(event) => event.stopPropagation()}
-                      onClick={(event) => event.stopPropagation()}
+            <Container className="card-badges justify-content-center px-0 mx-0">
+              <Row className=" w-100 justify-content-between justify-items-between">
+                <Col lg="3">
+                  {priorityBadge && (
+                    <Badge
+                      pill
+                      bg="light"
+                      className={`priority-badge ${priorityBadge.className}`}
                     >
-                      <AssignTicket
-                        label="Ticket Assignee"
-                        teamMembers={teamMembers}
-                        value={selectedAssigneeId || undefined}
-                        onChange={handleChange}
-                        className="rounded-4 assignee-badge"
-                        size="sm"
-                      />
-                    </Form>
-                  </OverlayTrigger>
-                ) : (
-                  <Badge pill bg="light" className="assignee-badge">
-                    Assigned to: {assigneeName}
-                  </Badge>
-                ))}
-            </div>
+                      {priorityBadge.label}
+                    </Badge>
+                  )}
+                </Col>
+                <Col xxl={9}>
+                  {assigneeName &&
+                    (teamMembers ? (
+                      <OverlayTrigger
+                        placement="top"
+                        delay={{ show: 0, hide: 0 }}
+                        overlay={(props) => (
+                          <Tooltip {...props}>
+                            {assigneeName
+                              ? `Reassign ticket from ${assigneeName}`
+                              : "Assign ticket to a user"}
+                          </Tooltip>
+                        )}
+                      >
+                        <Form
+                          id="assign-ticket"
+                          noValidate
+                          className="modal-form"
+                          onPointerDown={(event) => event.stopPropagation()}
+                          onClick={(event) => event.stopPropagation()}
+                        >
+                          <AssignTicket
+                            label="Ticket Assignee"
+                            teamMembers={teamMembers}
+                            value={selectedAssigneeId || undefined}
+                            onChange={handleChange}
+                            className="rounded-4 assignee-badge w-100"
+                            size="sm"
+                          />
+                        </Form>
+                      </OverlayTrigger>
+                    ) : (
+                      <Badge pill bg="light" className="assignee-badge">
+                        Assigned to: {assigneeName}
+                      </Badge>
+                    ))}
+                </Col>
+              </Row>
+            </Container>
           )}
         </div>
         <div className="d-flex flex-column align-content-start">

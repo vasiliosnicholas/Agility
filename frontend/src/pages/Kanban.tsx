@@ -191,6 +191,7 @@ export default function Kanban() {
       listPos = undefined,
     }: { updatedList?: KanbanColumn; listPos?: number } = {}
   ) {
+    // eslint-disable-next-line react-hooks/immutability
     if (updatedList && listPos) columns[listPos] = updatedList;
 
     if (
