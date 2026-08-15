@@ -8,6 +8,7 @@ import {
   parseDateFromDateTimeString,
 } from "../../utils/phaseDates.ts";
 import TaskProgressBar from "./TaskProgressBar.tsx";
+import { useEffect, useRef } from "react";
 
 interface PhaseTimelineProps {
   user: User;
@@ -108,10 +109,11 @@ export default function PhaseTimeline({
     todayIndex,
     total
   );
-
+  const headerRef = useRef<HTMLElement>(null);
+  useEffect(() => headerRef.current?.focus(), []);  
   return (
     <div className="progress-timeline">
-      <header className="progress-header">
+      <header className="progress-header" tabIndex={0} ref={headerRef}>
         <h1 className="type-hero text-ink">Hi, {user.name}!</h1>
         <p className="type-body text-muted progress-subcopy">
           {user.accountType === AccountTypes.Manager
@@ -120,7 +122,7 @@ export default function PhaseTimeline({
         </p>
       </header>
 
-      <TaskProgressBar phaseTickets={phaseTickets} total={total} />
+      <TaskProgressBar phaseTickets={phaseTickets} total={total} tabIndex={0} />
 
       <div className="burnup">
         <div className="burnup-chart">
