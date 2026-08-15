@@ -62,7 +62,7 @@ const FormWindow: FormWindowComponent = ({
     }
     if (route) {
       if (window.location.href == route) window.location.reload();
-      else if (route) window.location.href = route;
+      else window.location.href = route;
     }
     if (data) {
       const { formName, formData } = data;
@@ -80,6 +80,7 @@ const FormWindow: FormWindowComponent = ({
         {...props}
         onClick={openWindow}
         aria-label={Forms.map(({ formName }) => formName).join()}
+        className="btn-action-approve"
       >
         {Forms.map(({ formName }) => formName).join(" | ")}
       </ModalButton>
