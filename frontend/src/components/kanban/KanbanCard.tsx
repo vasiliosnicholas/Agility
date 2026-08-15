@@ -80,7 +80,7 @@ function Card({
         else alert("Error updating ticket assignee");
       }
     },
-    [cardId, handleAssign],
+    [cardId, handleAssign]
   ) as React.ChangeEventHandler<HTMLSelectElement, HTMLSelectElement>;
 
   return (
@@ -142,16 +142,27 @@ function Card({
                         delay={{ show: 0, hide: 0 }}
                         overlay={(props) => (
                           <Tooltip {...props}>
-                            {assigneeName
-                              ? `Reassign ticket from ${assigneeName}`
-                              : "Assign ticket to a user"}
+                            {assigneeName ? (
+                              <div>
+                                Reassign ticket from {assigneeName}
+                                {leftColName == "To-Do" && (
+                                  <>
+                                    <br />
+                                    Warning: Reassigning this ticket to another
+                                    user will move it back to the To-Do column
+                                  </>
+                                )}
+                              </div>
+                            ) : (
+                              "Assign ticket to a user"
+                            )}
                           </Tooltip>
                         )}
                       >
                         <Form
                           id="assign-ticket"
                           noValidate
-                          className="modal-form"
+                          className="modal-form w-100"
                           onPointerDown={(event) => event.stopPropagation()}
                           onClick={(event) => event.stopPropagation()}
                         >
@@ -160,7 +171,7 @@ function Card({
                             teamMembers={teamMembers}
                             value={selectedAssigneeId || undefined}
                             onChange={handleChange}
-                            className="rounded-4 assignee-badge w-100"
+                            className="rounded-4 assignee-badge w-100 mx-0"
                             size="sm"
                           />
                         </Form>
