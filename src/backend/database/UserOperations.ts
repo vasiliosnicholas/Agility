@@ -19,17 +19,6 @@ async function getUsersHelper(query: object = {}) {
   return (await getUsersCollection()).find(query);
 }
 
-/**
- * Gets alls users in the Users collection
- * @returns An array with all users
- */
-export async function getUsers() {
-  return (await (await getUsersHelper()).toArray()).map((user) => {
-    if (user && user.password) delete user.password;
-    convertToUser(user);
-  });
-} //TODO: Decide if needed.
-
 const devMetaData: Record<keyof UserMetaData, 1> = {
   _id: 1,
   name: 1,
