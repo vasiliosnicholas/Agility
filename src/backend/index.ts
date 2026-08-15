@@ -7,7 +7,6 @@ import {
   AccountTypeGuardFactoryFunction,
 } from "./middleware/AuthenticationMiddleware.ts";
 import AuthRouter from "./routes/Auth.ts";
-import UsersRouter from "./routes/Users.ts";
 import KanbanRouter from "./routes/Kanban.ts";
 import PhasesRouter from "./routes/Phases.ts";
 import DevelopersRouter from "./routes/Developers.ts";
@@ -51,9 +50,7 @@ app.set("trust proxy", 1);
 
 app.use(Authenticator.initialize());
 app.use(Authenticator.session());
-//TODO: Add routes/routers here
 app.use("/api/auth", AuthRouter);
-app.use("/api/users", UsersRouter);
 app.use("/api/kanban", KanbanRouter);
 app.use("/api/phases", PhasesRouter);
 app.use("/api/developers", DevelopersRouter);
