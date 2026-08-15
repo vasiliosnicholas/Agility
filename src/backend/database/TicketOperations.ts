@@ -10,6 +10,8 @@ import {
   getTicketsCollection,
   type TicketDocument,
 } from "./Database.ts";
+import { getUserById } from "./UserOperations.ts";
+import type { Developer, Manager } from "../../shared/models/Users.ts";
 
 interface CreateTicketOptions extends CreateTicketRequest {
   phaseId: string | null;
@@ -351,6 +353,8 @@ export async function unassignUserFromTickets(
     throw new Error("Cannot unassign tickets with no assigneeId!");
   assigneeId =
     typeof assigneeId == "string" ? new ObjectId(assigneeId) : assigneeId;
+  const manager = ((await getUserById(assigneeId)) as Developer | undefined)
+    ?.manager as Manager | undefined;
   return await Promise.all([
     (await getTicketsCollection()).updateMany(
       {
@@ -372,7 +376,7 @@ export async function unassignUserFromTickets(
       },
       {
         $set: {
-          assigneeId: null,
+          assigneeId: manager ? new ObjectId(manager._id) : null,
         },
       }
     ),
