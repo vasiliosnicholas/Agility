@@ -333,7 +333,7 @@ export async function updateTicketAssignee(
     },
     {
       $set: {
-        status: TicketStatuses.Todo, //Updating ticket status automatically sends it to Todo category.
+        status: assigneeId ? TicketStatuses.Todo : TicketStatuses.Backlog, //Updating ticket status automatically sends it to Todo category IFF assigned to a User, o.w. sent to Backlog.
         assigneeId: assigneeId ? new ObjectId(assigneeId) : null,
         completedAt: null,
       },
@@ -342,4 +342,39 @@ export async function updateTicketAssignee(
   );
 
   return updatedTicket ? convertToTicket(updatedTicket) : null;
+}
+
+export async function unassignUserFromTickets(
+  assigneeId: string | ObjectId | undefined
+) {
+  if (!assigneeId)
+    throw new Error("Cannot unassign tickets with no assigneeId!");
+  assigneeId =
+    typeof assigneeId == "string" ? new ObjectId(assigneeId) : assigneeId;
+  return await Promise.all([
+    (await getTicketsCollection()).updateMany(
+      {
+        assigneeId: assigneeId,
+        status: { $ne: TicketStatuses.Completed },
+      },
+      {
+        $set: {
+          status: TicketStatuses.Backlog,
+          assigneeId: null,
+          completedAt: null,
+        },
+      }
+    ),
+    (await getTicketsCollection()).updateMany(
+      {
+        assigneeId: assigneeId,
+        status: { $eq: TicketStatuses.Completed },
+      },
+      {
+        $set: {
+          assigneeId: null,
+        },
+      }
+    ),
+  ]);
 }

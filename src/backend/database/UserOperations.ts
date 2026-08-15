@@ -12,6 +12,7 @@ import {
   getUsersCollection,
   type UserDocument,
 } from "./Database.ts";
+import { unassignUserFromTickets } from "./TicketOperations.ts";
 
 async function getUsersHelper(query: object = {}) {
   return (await getUsersCollection()).find(query);
@@ -128,9 +129,12 @@ export async function addUser(user: User) {
 }
 
 async function deleteUserById(_id: string | ObjectId) {
-  await (
-    await getUsersCollection()
-  ).deleteOne({ _id: typeof _id == "string" ? new ObjectId(_id) : _id });
+  await Promise.all([
+    (await getUsersCollection()).deleteOne({
+      _id: typeof _id == "string" ? new ObjectId(_id) : _id,
+    }),
+    unassignUserFromTickets(_id),
+  ]);
 }
 
 export async function deleteUser(user: User) {
@@ -190,9 +194,16 @@ export async function updateManager(
   developer: Developer,
   manager: Manager | null
 ) {
-  return await updateUser(developer, {
-    manager: manager ? manager._id : undefined,
-  });
+  return !manager
+    ? await Promise.all([
+        updateUser(developer, {
+          manager: undefined,
+        }),
+        unassignUserFromTickets(developer._id),
+      ])
+    : await updateUser(developer, {
+        manager: manager ? manager._id : undefined,
+      });
 }
 
 /**
