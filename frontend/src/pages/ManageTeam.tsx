@@ -103,6 +103,7 @@ export default function ManageDevs() {
         await handleConcurrentUpdate(developer, newAssignedDevs, "PUT");
       if (assignDevelopersResponse.ok && assignManagerResponse.ok) {
         setAssignedAndUnassignedDevs([newAssignedDevs, newUnAssignedDevs]);
+        handleSetTickets();
       } else {
         alert(`Error assigning ${developer.username}`);
         window.location.reload();
