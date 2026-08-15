@@ -60,6 +60,7 @@ passport.serializeUser((user: User, done) => {
 
 async function deserializeUser(
   _id: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   done: (err: any, user?: false | Express.User | null) => void
 ) {
   try {

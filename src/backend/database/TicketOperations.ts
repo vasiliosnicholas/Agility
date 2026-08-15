@@ -353,8 +353,8 @@ export async function unassignUserFromTickets(
     throw new Error("Cannot unassign tickets with no assigneeId!");
   assigneeId =
     typeof assigneeId == "string" ? new ObjectId(assigneeId) : assigneeId;
-  const manager = ((await getUserById(assigneeId)) as Developer | undefined)
-    ?.manager as Manager | undefined;
+  const manager_id = ((await getUserById(assigneeId)) as Developer | null)
+    ?.manager;
   return await Promise.all([
     (await getTicketsCollection()).updateMany(
       {
@@ -376,7 +376,7 @@ export async function unassignUserFromTickets(
       },
       {
         $set: {
-          assigneeId: manager ? new ObjectId(manager._id) : null,
+          assigneeId: manager_id ? new ObjectId(manager_id) : null,
         },
       }
     ),

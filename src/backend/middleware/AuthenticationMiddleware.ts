@@ -1,6 +1,9 @@
 import type { RequestHandler } from "express";
-import type { User } from "../../shared/models/Users.ts";
-import { hashPassword } from "../authentication/CredentialsManager.ts";
+import type { User, UserAccountUpdate } from "../../shared/models/Users.ts";
+import {
+  hashPassword,
+  validatePassword,
+} from "../authentication/CredentialsManager.ts";
 import type { UserRequestHandler } from "../ExpressTypes.d.ts";
 
 /**
@@ -65,13 +68,42 @@ export const AccountTypeGuardFactoryFunction: (
  * @param res a Response instance.
  * @param next Express NextFunction
  */
-export const SecureUserPassword: RequestHandler<object, any, User> =
-  async function (req, res, next) {
-    if (req.body.password) {
-      //for login requests
-      req.body.password = await hashPassword(req.body.password);
-    } else if (req.user && req.user?.password) {
-      delete req.user.password;
-    }
+export const SecureUserPassword: RequestHandler<
+  object,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  any,
+  User & UserAccountUpdate
+> = async function (req, res, next) {
+  if (req.body.password) {
+    //for login requests
+    req.body.password = await hashPassword(req.body.password);
+  } else if (req.user && req.user?.password) {
+    delete req.user.password;
+  }
+
+  if (req.body.newPassword)
+    req.body.newPassword = await hashPassword(req.body.newPassword);
+  if (req.body.confirmNewPassword)
+    req.body.confirmNewPassword = await hashPassword(
+      req.body.confirmNewPassword
+    );
+  next();
+};
+
+const ConfirmAuth: UserRequestHandler = async (req, res, next) => {
+  if (
+    req.body.password &&
+    req.user?.password &&
+    (await validatePassword(req.body.password, req.user.password))
+  ) {
     next();
-  };
+  } else {
+    res.status(401).json({ message: "Confirming Authentication Failed" });
+  }
+};
+
+export const ConfirmAuthentication = [
+  AuthenticationGuard,
+  ConfirmAuth,
+  SecureUserPassword,
+];

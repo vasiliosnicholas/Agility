@@ -3,6 +3,7 @@ import {
   type Developer,
   type Manager,
   type User,
+  type UserAccountUpdate,
   type UserMetaData,
   AccountTypes,
 } from "../../shared/models/Users.ts";
@@ -147,7 +148,7 @@ export async function deleteUser(user: User) {
  */
 export async function updateUser(
   user: User,
-  userFieldsToUpdate: Partial<User> | Partial<Developer> | Partial<Manager>
+  userFieldsToUpdate: UserAccountUpdate
 ) {
   if (!user._id) {
     throw new Error("User doesn't have an id!");
@@ -156,32 +157,25 @@ export async function updateUser(
     throw new Error("No fields to update");
   }
 
-  const userDocument = convertToUserDocument(user);
+  if (userFieldsToUpdate.newPassword)
+    userFieldsToUpdate = {
+      ...userFieldsToUpdate,
+      password: userFieldsToUpdate.newPassword,
+    };
+  delete userFieldsToUpdate.newPassword;
+  delete userFieldsToUpdate.confirmNewPassword;
 
-  //Special case where changing account type
-  if (
-    userFieldsToUpdate.accountType &&
-    userFieldsToUpdate.accountType !== user.accountType
-  ) {
-    //delete old user accountType from DB
-    await deleteUser(user);
-    /* Merge user with userFieldsToUpdate and add new user to DB
-     * Since old user has an ObjectId in their _id field,
-     * should just insert new document with same ObjectId as old one.
-     */
-    return await addUser({ ...user, ...userFieldsToUpdate });
-  } else {
-    return await (
-      await getUsersCollection()
-    ).updateOne(
-      { _id: userDocument._id },
-      {
-        $set: userFieldsToUpdate as MatchKeysAndValues<
-          UserDocument & Developer & Manager
-        >,
-      }
-    );
-  }
+  const userDocument = convertToUserDocument(user);
+  return await (
+    await getUsersCollection()
+  ).updateOne(
+    { _id: userDocument._id },
+    {
+      $set: userFieldsToUpdate as MatchKeysAndValues<
+        UserDocument & Developer & Manager
+      >,
+    }
+  );
 }
 
 /**

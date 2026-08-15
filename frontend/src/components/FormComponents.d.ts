@@ -1,7 +1,9 @@
 import type { FC, JSX } from "react";
-import type { BaseUser, User, UserPrototype } from "@shared/models/Users.ts";
-import type { FieldValues } from "react-hook-form";
-import type { FormComponent, FormData } from "./FormComponents";
+import type {
+  BaseUser,
+  User,
+  UserAccountUpdate,
+} from "@shared/models/Users.ts";
 import type { ButtonProps } from "react-bootstrap";
 
 export interface FormBaseProps<FormDataType extends FormData> {
@@ -26,7 +28,10 @@ export interface FormComponent<FormDataType extends FormData> extends FC<
   formName: string;
 }
 
-export type FormData = FieldValues;
+export type FormData = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [x: string]: any;
+};
 
 export interface LoginFormData
   extends FormData, Partial<Pick<User, "username" | "password">> {}
@@ -35,10 +40,7 @@ export interface RegisterFormData extends FormData, Partial<BaseUser> {
   confirmPassword?: string;
 }
 
-export interface UpdateFormData extends Partial<UserPrototype> {
-  newPassword?: string;
-  confirmNewPassword?: string;
-}
+export interface UpdateFormData extends UserAccountUpdate, FormData {}
 
 interface FormWindowComponentProps
   extends

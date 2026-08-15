@@ -3,12 +3,13 @@ import { Form, FloatingLabel } from "react-bootstrap";
 import useReactFormHook from "../../hooks/useReactFormHook";
 import type { SubmitHandler } from "react-hook-form";
 import * as yup from "yup";
-import type { FormComponent, RegisterFormData } from "../FormComponents";
+import type { FormComponent, UpdateFormData } from "../FormComponents";
 import { type User } from "@shared/models/Users.ts";
 
 const MIN_USERNAME_LENGTH = 5;
 const MIN_PASSWORD_LENGTH = 8;
-const requiredMessage = (field: string) => `A ${field} is required in order to update your account`;
+const requiredMessage = (field: string) =>
+  `A ${field} is required in order to update your account`;
 const minCharMessage = (field: string, minLength: number) =>
   `${field} must be at least ${minLength} characters`;
 const schema = yup.object().shape({
@@ -20,12 +21,27 @@ const schema = yup.object().shape({
   email: yup.string().required(requiredMessage("email")).email(),
   password: yup
     .string()
-    .required(requiredMessage("password"))
+    .required("Your current password is required to update your account")
     .min(MIN_PASSWORD_LENGTH, minCharMessage("Password", MIN_PASSWORD_LENGTH)),
-  confirmPassword: yup
+  newPassword: yup
     .string()
-    .required("You must confirm your password")
-    .oneOf([yup.ref("password")], "Passwords must be identical."),
+    .optional()
+    .trim()
+    .transform((value: string) => (value === "" ? undefined : value))
+    .min(
+      MIN_PASSWORD_LENGTH,
+      minCharMessage("New password", MIN_PASSWORD_LENGTH)
+    ),
+  confirmNewPassword: yup
+    .string()
+    .trim()
+    .transform((value: string) => (value === "" ? undefined : value))
+    .when("newPassword", {
+      is: (newPassword: string) => newPassword && newPassword.trim().length > 0,
+      then: (schema) => schema.required("You must confirm your new password"),
+      otherwise: (schema) => schema.notRequired(),
+    })
+    .oneOf([yup.ref("newPassword")], "Passwords must be identical."),
 });
 
 const fetchUserInfo = async () => {
@@ -33,20 +49,20 @@ const fetchUserInfo = async () => {
 
   if (response.ok) {
     const user = (await response.json()) as User;
-    const userData: RegisterFormData = {
-      accountType: user.accountType,
+    const userData: UpdateFormData = {
       name: user.name,
       username: user.username,
       email: user.email,
       password: undefined,
-      confirmPassword: undefined,
+      newPassword: undefined,
+      confirmNewPassword: undefined,
     };
     return userData;
   }
   return undefined;
 };
 
-const UpdateProfile: FormComponent<RegisterFormData> = function ({
+const UpdateProfile: FormComponent<UpdateFormData> = function ({
   setSubmitStatus,
   formData,
   setFormId,
@@ -54,7 +70,7 @@ const UpdateProfile: FormComponent<RegisterFormData> = function ({
   successfulCallback,
 }) {
   const [initialFormData, setInitialFormData] = useState<
-    RegisterFormData | undefined
+    UpdateFormData | undefined
   >();
   const handleSetFormData = useCallback(async () => {
     const formData = await fetchUserInfo();
@@ -64,18 +80,16 @@ const UpdateProfile: FormComponent<RegisterFormData> = function ({
   handleSetFormData();
   const formId = useId();
   setFormId(formId);
-  const { register, handleSubmit, errors } = useReactFormHook<RegisterFormData>(
-    {
-      setSubmitStatus,
-      formData: initialFormData ? initialFormData : formData,
-      setFormData,
-      schema,
-    }
-  );
+  const { register, handleSubmit, errors } = useReactFormHook<UpdateFormData>({
+    setSubmitStatus,
+    formData: initialFormData ? initialFormData : formData,
+    setFormData,
+    schema,
+  });
+  
   const submitHandler = useCallback(
     async (data) => {
       if (data) {
-        delete data.confirmPassword;
         const response = await fetch("/api/auth/user", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -95,7 +109,7 @@ const UpdateProfile: FormComponent<RegisterFormData> = function ({
       }
     },
     [successfulCallback]
-  ) as SubmitHandler<RegisterFormData>;
+  ) as SubmitHandler<UpdateFormData>;
 
   return (
     <Form
@@ -106,7 +120,6 @@ const UpdateProfile: FormComponent<RegisterFormData> = function ({
       }
       className="modal-form"
     >
-
       <FloatingLabel className="mb-3" controlId="email" label="Email Address">
         <Form.Control
           type="email"
@@ -148,30 +161,42 @@ const UpdateProfile: FormComponent<RegisterFormData> = function ({
       <FloatingLabel className="mb-3" controlId="password" label="Password">
         <Form.Control
           type="password"
-          placeholder="Enter a password"
-          isInvalid={!!errors.password || !!errors.ConfirmPassword}
-          aria-invalid={!!errors.password || !!errors.ConfirmPassword}
+          placeholder="Enter your password"
+          isInvalid={!!errors.password}
+          aria-invalid={!!errors.password}
           {...register("password")}
         />
         <Form.Control.Feedback type="invalid" role="alert">
-          {errors.password?.message?.toString() ||
-            errors.confirmPassword?.message?.toString()}
+          {errors.password?.message?.toString()}
+        </Form.Control.Feedback>
+      </FloatingLabel>
+      <FloatingLabel className="mb-3" controlId="password" label="New Password">
+        <Form.Control
+          type="password"
+          placeholder="Enter a new password"
+          isInvalid={!!errors.newPassword || !!errors.confirmNewPassword}
+          aria-invalid={!!errors.newPassword || !!errors.confirmNewPassword}
+          {...register("newPassword")}
+        />
+        <Form.Control.Feedback type="invalid" role="alert">
+          {errors.newPassword?.message?.toString() ||
+            errors.confirmNewPassword?.message?.toString()}
         </Form.Control.Feedback>
       </FloatingLabel>
       <FloatingLabel
         className="mb-3"
         controlId="password-confirm"
-        label="Confirm Password"
+        label="Confirm New Password"
       >
         <Form.Control
           type="password"
           placeholder="Re-enter your password"
-          isInvalid={!!errors.confirmPassword}
-          aria-invalid={!!errors.confirmPassword}
-          {...register("confirmPassword")}
+          isInvalid={!!errors.confirmNewPassword}
+          aria-invalid={!!errors.confirmNewPassword}
+          {...register("confirmNewPassword")}
         />
         <Form.Control.Feedback type="invalid" role="alert">
-          {errors.confirmPassword?.message?.toString()}
+          {errors.confirmNewPassword?.message?.toString()}
         </Form.Control.Feedback>
       </FloatingLabel>
     </Form>

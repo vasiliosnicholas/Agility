@@ -45,6 +45,17 @@ export interface Manager extends User {
   developers: Array<string>; //Will be array of MongoDB ObjectId
 }
 
+/**
+ * Contract for updating accounts
+ */
+export interface UserAccountUpdate
+  extends
+    Partial<Omit<Developer, "accountType">>,
+    Partial<Omit<Manager, "accountType">> {
+  newPassword?: string;
+  confirmNewPassword?: string;
+}
+
 abstract class AbstractUserAccount implements User {
   _id: string | undefined;
   accountType: string;

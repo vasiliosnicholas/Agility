@@ -3,6 +3,7 @@ import type { UserRequestHandler } from "../ExpressTypes.d.ts";
 import Authenticator from "../authentication/Authenticator.ts";
 import {
   AuthenticationGuard,
+  ConfirmAuthentication,
   SecureUserPassword,
 } from "../middleware/AuthenticationMiddleware.ts";
 import { addUser, deleteUser, updateUser } from "../database/UserOperations.ts";
@@ -89,12 +90,7 @@ const handleUserUpdateRequest: UserRequestHandler = async (req, res) => {
 /**
  * Update user details
  */
-AuthRouter.put(
-  "/user",
-  AuthenticationGuard,
-  SecureUserPassword,
-  handleUserUpdateRequest
-);
+AuthRouter.put("/user", ...ConfirmAuthentication, handleUserUpdateRequest);
 
 const handleUserAccountDelete: UserRequestHandler = async (req, res) => {
   try {
