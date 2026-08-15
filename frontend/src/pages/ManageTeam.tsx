@@ -13,6 +13,8 @@ import {
 import ListDevs from "../components/management/ListDevs";
 import VerticalMotionIndicator from "../components/VerticalMotionIndicator";
 import type { ColElementRefObject } from "../hooks/useGridKeyboardControls";
+import type { KanbanData } from "@shared/models/Kanban";
+import type { StoredTicket } from "@shared/models/Tickets";
 
 const fetchManagerInfo = async () => {
   const response = await fetch("/api/auth/user");
@@ -27,6 +29,11 @@ const fetchUnassignedDevs = async () => {
 const fetchAssignedDevs = async () => {
   const response = await fetch("/api/developers?assigned=true");
   return response.ok ? ((await response.json()) as User[]) : undefined;
+};
+
+const fetchKanbanData = async () => {
+  const response = await fetch("/api/kanban");
+  return response.ok ? ((await response.json()) as KanbanData) : undefined;
 };
 
 async function handleConcurrentUpdate(
@@ -51,14 +58,15 @@ async function handleConcurrentUpdate(
 type UserTuple = [User[] | undefined, User[] | undefined];
 
 export default function ManageDevs() {
-  const headingRef = useRef<HTMLHeadingElement>(null);
+  const headingRef = useRef<HTMLElement>(null);
   const [manager, setManager] = useState<User | undefined>();
   const [[assignedDevs, unassignedDevs], setAssignedAndUnassignedDevs] =
     useState<UserTuple>([undefined, undefined]);
+
+  const [tickets, setTickets] = useState<StoredTicket[]>();
   const handleSetManager = useCallback(async () => {
     const user = await fetchManagerInfo();
     setManager(user);
-    headingRef.current?.focus();
   }, [setManager]) as () => void;
 
   const [leftColumnRef, setLeftColumnRef] =
@@ -73,6 +81,15 @@ export default function ManageDevs() {
     ]);
     setAssignedAndUnassignedDevs(devs);
   }, [setAssignedAndUnassignedDevs]) as () => void;
+
+  const handleSetTickets = useCallback(async () => {
+    const response = await fetchKanbanData();
+    setTickets(
+      response?.tickets.filter(
+        (ticket) => ticket.phaseId === response?.phase?._id
+      )
+    );
+  }, [setTickets]) as () => void;
 
   function handleAssignment(developer: User) {
     return async () => {
@@ -115,7 +132,9 @@ export default function ManageDevs() {
   useEffect(() => {
     handleSetManager();
     handleSetDevs();
-  }, [handleSetManager, handleSetDevs]);
+    handleSetTickets();
+    headingRef.current?.focus();
+  }, [handleSetManager, handleSetDevs, handleSetTickets]);
 
   return (
     <>
@@ -125,12 +144,13 @@ export default function ManageDevs() {
       ></AppNavbar>
       <div className="kanban-page">
         <main className="kanban-page-content management-page">
-          <header className="management-page-header">
+          <header
+            className="management-page-header"
+            ref={headingRef}
+            tabIndex={0}
+          >
             {manager ? (
-              <h1
-                className="type-hero"
-                ref={headingRef}
-              >{`${manager.name}'s Team`}</h1>
+              <h1 className="type-hero">{`${manager.name}'s Team`}</h1>
             ) : (
               <Placeholder as="h1" animation="wave">
                 <Placeholder xs={5} className="rounded-2" />
@@ -153,6 +173,7 @@ export default function ManageDevs() {
                 <ListDevs
                   title="Developers assigned to your team"
                   developers={assignedDevs}
+                  tickets={tickets}
                   action={handleUnassignment}
                   actionName="Unassign"
                   actionChildren={

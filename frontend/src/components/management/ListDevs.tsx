@@ -4,6 +4,8 @@ import {
   Placeholder,
   OverlayTrigger,
   Tooltip,
+  Container,
+  Row,
 } from "react-bootstrap";
 import { EnvelopeFill } from "react-bootstrap-icons";
 import type { User } from "@shared/models/Users.ts";
@@ -11,11 +13,14 @@ import Avatar from "../profile/Avatar";
 import useGridKeyboardControls, {
   type AdjacentColumnRefObjectProps,
 } from "../../hooks/useGridKeyboardControls";
+import type React from "react";
+import TaskProgressBar from "../kanban/TaskProgressBar";
+import type { StoredTicket } from "@shared/models/Tickets";
 
-interface ListDevsPropTypes
-  extends AdjacentColumnRefObjectProps<HTMLElement>{
+interface ListDevsPropTypes extends AdjacentColumnRefObjectProps<HTMLElement> {
   title: string;
   developers: User[] | undefined;
+  tickets?: StoredTicket[];
   action: (developer: User) => () => void;
   actionName: string;
   actionChildren: React.JSX.Element;
@@ -26,6 +31,7 @@ interface ListDevsPropTypes
 const ListDevs = ({
   title,
   developers,
+  tickets,
   action,
   actionName,
   actionChildren,
@@ -81,33 +87,53 @@ const ListDevs = ({
                 action
                 {...handleRow(index)}
               >
-                <div className="d-flex flex-row justify-content-between align-items-start w-100 p-2">
-                  <div className={`ms-2 me-4`}>
-                    <h4 className="management-list-title">
-                      <Avatar userFullName={user.name} /> {user.name}
-                    </h4>
-                    <div>
-                      <span className="management-list-meta type-meta">{`@${user.username}`}</span>
-                    </div>
-                  </div>
+                <Container fluid>
+                  <Row>
+                    <div className="d-flex flex-row justify-content-between align-items-start w-100 p-2">
+                      <div className={`ms-2 me-4`}>
+                        <h4 className="management-list-title">
+                          <Avatar userFullName={user.name} /> {user.name}
+                        </h4>
+                        <div>
+                          <span className="management-list-meta type-meta">{`@${user.username}`}</span>
+                        </div>
+                      </div>
 
-                  <OverlayTrigger
-                    placement="left"
-                    delay={{ show: 0, hide: 0 }}
-                    overlay={(props) => (
-                      <Tooltip {...props}>Email {user.name}</Tooltip>
-                    )}
-                  >
-                    <Button
-                      as="a"
-                      className="btn-action-info text-center px-sm-3 rounded-5 py-lg-2 hover-actions"
-                      aria-label={`email ${user.name}`}
-                      href={`mailto:${user.email}`}
-                    >
-                      <EnvelopeFill />
-                    </Button>
-                  </OverlayTrigger>
-                </div>
+                      <OverlayTrigger
+                        placement="left"
+                        delay={{ show: 0, hide: 0 }}
+                        overlay={(props) => (
+                          <Tooltip {...props}>Email {user.name}</Tooltip>
+                        )}
+                      >
+                        <Button
+                          as="a"
+                          className="btn-action-info text-center px-sm-3 rounded-5 py-lg-2 hover-actions"
+                          aria-label={`email ${user.name}`}
+                          href={`mailto:${user.email}`}
+                        >
+                          <EnvelopeFill />
+                        </Button>
+                      </OverlayTrigger>
+                    </div>
+                  </Row>
+                  {tickets && (
+                    <Row>
+                      <TaskProgressBar
+                        phaseTickets={tickets.filter(
+                          ({ assigneeId }) => assigneeId == user._id
+                        )}
+                        total={
+                          tickets.filter(
+                            ({ assigneeId }) => assigneeId == user._id
+                          ).length
+                        }
+                        className=""
+                        tabIndex={0}
+                      />
+                    </Row>
+                  )}
+                </Container>
                 <div
                   className={`hover-actions flex-column flex-lg-row order-${actionOrder}`}
                 >
