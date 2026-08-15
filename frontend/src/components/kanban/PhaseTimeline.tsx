@@ -1,6 +1,5 @@
-import ProgressBar from "react-bootstrap/ProgressBar";
 import type { StoredPhase } from "@shared/models/Phases.ts";
-import { TicketStatuses, type StoredTicket } from "@shared/models/Tickets.ts";
+import type { StoredTicket } from "@shared/models/Tickets.ts";
 import { AccountTypes, type User } from "@shared/models/Users.ts";
 import {
   addDays,
