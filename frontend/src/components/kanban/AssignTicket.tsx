@@ -13,7 +13,7 @@ export default function AssignTicket({
   ...props
 }: AssignTicketProps) {
   return (
-    <FloatingLabel label={label} controlId="select-assignee">
+    <FloatingLabel label={label} controlId="select-assignee" className="w-100">
       <Form.Select
         aria-label={ariaLabel}
         id="select-assignee"
