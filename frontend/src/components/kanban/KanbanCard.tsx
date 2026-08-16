@@ -69,7 +69,10 @@ function Card({
         });
 
         if (assigneeUpdated) setSelectedAssigneeId(value);
-        else alert("Error updating ticket assignee");
+        else {
+          alert("Error updating ticket assignee");
+          window.location.reload();
+        }
       }
     },
     [cardId, handleAssign]
