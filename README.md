@@ -70,17 +70,24 @@ Agility
 ├── tsconfig.json                               # TypeScript project config.
 ├── README.md                                   # Project README.
 ├── data
-│   └── seed-tickets.json                       # Optional mock ticket documents for MongoDB.
-├── res                                         # README screenshots.
+│   ├── seed-users.json                         # Optional mock user documents for MongoDB.
+│   ├── seed-tickets.json                       # Optional mock ticket documents for MongoDB.
+│   ├── seed-phases.json                        # Optional mock phase documents for MongoDB.
+│   └── snapshots                               # Optional DB snapshot fixtures.
+├── res                                         # README screenshots and design assets.
 │   ├── login.png
 │   ├── tasks.png
 │   ├── phases.png
 │   ├── manageteam.png
-│   └── updateprofile.png
+│   ├── updateprofile.png
+│   ├── thumb.png
+│   └── wireframes                              # Early board wireframes and PDF.
 ├── frontend                                    # React + Vite SPA.
 │   ├── package.json
 │   ├── vite.config.ts
 │   ├── index.html
+│   ├── public
+│   │   └── favicon.svg
 │   └── src
 │       ├── main.tsx                            # SPA entry point and router.
 │       ├── pages
@@ -92,19 +99,22 @@ Agility
 │       │   ├── Unauthorized.tsx
 │       │   └── NotFound.tsx
 │       ├── components
+│       │   ├── AgilityLogo.tsx
 │       │   ├── AppNavbar.tsx
 │       │   ├── FormWindow.tsx
+│       │   ├── VerticalMotionIndicator.tsx
 │       │   ├── authentication                  # Login / register UI.
-│       │   ├── kanban                          # Board, cards, drag-and-drop, new ticket modal.
+│       │   ├── kanban                          # Board, cards, drag-and-drop, timeline, new ticket modal.
 │       │   ├── phases                          # Phase list and ticket assignment modals.
 │       │   ├── management                      # Team assignment UI.
 │       │   └── profile                         # Update / delete profile.
-│       ├── hooks
-│       ├── styles
+│       ├── hooks                               # Form helpers and grid keyboard controls.
+│       ├── styles                              # App CSS tokens, typography, and layout.
 │       └── utils
 └── src
     ├── shared
-    │   └── models                              # Shared TypeScript models for users, tickets, phases, Kanban.
+    │   ├── models                              # Shared TypeScript models for users, tickets, phases, Kanban.
+    │   └── validation                          # Shared validation helpers.
     └── backend
         ├── index.ts                            # Creates Express app, mounts routes, serves SPA, starts server.
         ├── managerTeam.ts                      # Manager ↔ developer team helpers.
@@ -119,8 +129,7 @@ Agility
         │   ├── TicketOperations.ts
         │   └── PhaseOperations.ts
         └── routes
-            ├── Auth.ts                         # Register, login, logout, current user.
-            ├── Users.ts                        # Profile update / delete.
+            ├── Auth.ts                         # Register, login, logout, current user, profile update / delete.
             ├── Kanban.ts                       # Ticket CRUD and status moves.
             ├── Phases.ts                       # Phase CRUD and phase ticket management.
             └── Developers.ts                   # Assign / unassign developers to a manager.
