@@ -740,6 +740,7 @@ svg .fill-completed {
   transition: box-shadow 0.15s ease-in-out;
   box-shadow: var(--bs-box-shadow-sm);
   transform: rotate(0deg);
+  min-height: 7rem;
 }
 
 .kanban-list .card.card-rotated {
