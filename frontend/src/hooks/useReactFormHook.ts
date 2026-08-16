@@ -30,7 +30,7 @@ export default function useReactFormHook<Fields extends FieldValues>({
       fields[field] = "";
       return fields;
     },
-    {} as Record<string, string>
+    {} as Record<string, string>,
   ) as DefaultValues<Fields>;
   const {
     register,
@@ -47,7 +47,8 @@ export default function useReactFormHook<Fields extends FieldValues>({
       ? (formData as DefaultValues<Fields>)
       : defaultValues,
   });
-  const values: Fields = watch(); //TODO: See if subscribe is a better option.
+  // eslint-disable-next-line react-hooks/incompatible-library
+  const values: Fields = watch();
   const init = useRef(true);
   // console.log(formData);
   useEffect(() => {
@@ -71,11 +72,6 @@ export default function useReactFormHook<Fields extends FieldValues>({
     }
   }, [formData, setValues, init]);
 
-  useEffect(
-    () => setFormData(values),
-    Object.values(values).length > 0
-      ? Object.values(values)
-      : Object.values(schema.fields).map(() => undefined)
-  );
+  useEffect(() => setFormData(values), [setFormData, values]);
   return { register, handleSubmit, errors };
 }
