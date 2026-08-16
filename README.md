@@ -287,6 +287,7 @@ Agility
 - **React Router** — Client-side routing for Tasks, Plan Phases, Manage Team, and auth pages.
 - **Bootstrap 5 / React-Bootstrap** — Responsive layout and UI components.
 - **react-hook-form + Yup** — Form state and validation for auth and profile flows.
+- **use-immer** — For deeply reactive state.
 - **Render** — Deployment environment for the Express backend (and served frontend).
 - **MongoDB Atlas** — Deployment environment for the MongoDB database.
 
