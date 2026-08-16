@@ -977,7 +977,7 @@ svg .fill-completed {
 }
 .card-body:hover {
   cursor: move;
-} 
+}
 
 .card-description {
   margin-bottom: 0;
@@ -1026,6 +1026,8 @@ svg .fill-completed {
   line-height: 1.2;
   white-space: normal;
   text-align: left;
+  min-width: max-content;
+  min-width: -webkit-fill-available;
 }
 
 .priority-badge-urgent {
@@ -1281,4 +1283,3 @@ svg .fill-completed {
   color: var(--bs-secondary-color);
   font-size: var(--type-meta-size);
 }
-
