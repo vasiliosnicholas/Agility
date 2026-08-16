@@ -18,7 +18,7 @@
     "start": "node ./dist/backend/index.js",
     "build": "tsc -b",
     "dev": "node --watch ./src/backend/index.ts",
-    "lint": "eslint ."
+    "lint": "eslint src/"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
