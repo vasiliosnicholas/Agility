@@ -131,7 +131,6 @@ const ListDevs = ({
                             ).length
                           }
                           className="mb-2"
-                          tabIndex={0}
                         />
                       </section>
                     </Row>
