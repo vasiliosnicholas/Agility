@@ -168,7 +168,6 @@ function Card({
                         className="modal-form w-100"
                         onPointerDown={(event) => event.stopPropagation()}
                         onClick={(event) => event.stopPropagation()}
-                        tabIndex={tabIndex}
                       >
                         <AssignTicket
                           label="Ticket Assignee"
