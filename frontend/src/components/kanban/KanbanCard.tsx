@@ -77,7 +77,7 @@ function Card({
     },
     [cardId, handleAssign]
   ) as React.ChangeEventHandler<HTMLSelectElement, HTMLSelectElement>;
-
+  const { tabIndex } = props;
   return (
     <div className={`card${isBeingDragged ? " card-rotated" : ""}`}>
       <div
@@ -168,6 +168,7 @@ function Card({
                         className="modal-form w-100"
                         onPointerDown={(event) => event.stopPropagation()}
                         onClick={(event) => event.stopPropagation()}
+                        tabIndex={tabIndex}
                       >
                         <AssignTicket
                           label="Ticket Assignee"
@@ -176,6 +177,7 @@ function Card({
                           onChange={handleChange}
                           className="rounded-4 assignee-badge w-100 mx-0"
                           size="sm"
+                          tabIndex={tabIndex}
                         />
                       </Form>
                     </OverlayTrigger>
@@ -245,9 +247,7 @@ function Card({
               </Button>
             </OverlayTrigger>
           ) : (
-            <div className="hover-actions p-0 ps-1 m-0 align-items-center h-100">
-              {" "}
-            </div>
+            <div className="hover-actions p-0 ps-1 m-0 align-items-center h-100"></div>
           )}
         </div>
       </div>
