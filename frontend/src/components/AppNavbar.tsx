@@ -14,25 +14,30 @@ interface AppNavbarProps {
 export default function AppNavbar({ user, title }: AppNavbarProps) {
   const isManager = user.accountType === AccountTypes.Manager;
 
-  useEffect(() => {document.title = `Agility | ${title}`}, [title]);
+  useEffect(() => {
+    document.title = `Agility | ${title}`;
+  }, [title]);
 
   return (
     <Navbar className="navbar" expand="lg" sticky="top">
       <Container fluid className="navbar-container">
-        <Navbar.Brand as={Link} to="/kanban" onClick={() => window.location.href="/kanban"} className="navbar-brand">
-          <AgilityLogo className="navbar-logo"/>
+        <Navbar.Brand as={Link} to="/kanban" className="navbar-brand">
+          <AgilityLogo className="navbar-logo" />
           <span>Agility</span>
         </Navbar.Brand>
+
         <Nav className="navbar-links me-auto">
-          <Nav.Link as={NavLink} to="/kanban" onClick={() => window.location.href="/kanban"}>
+          <Nav.Link as={NavLink} to="/kanban">
             Tasks
           </Nav.Link>
+
           {isManager && (
             <>
-              <Nav.Link as={NavLink} to="/phases" onClick={() => window.location.href="/phases"}>
+              <Nav.Link as={NavLink} to="/phases">
                 Plan Phases
               </Nav.Link>
-              <Nav.Link as={NavLink} to="/team" onClick={() => window.location.href="/team"}>
+
+              <Nav.Link as={NavLink} to="/team">
                 Manage Team
               </Nav.Link>
             </>
@@ -41,12 +46,14 @@ export default function AppNavbar({ user, title }: AppNavbarProps) {
 
         <Nav className="navbar-user" aria-label="Current user">
           <ProfileDropdown
-            profileComponent={
-              <Avatar userFullName={user.name}/>
-            }
-          ></ProfileDropdown>
+            userName={user.name}
+            profileComponent={<Avatar userFullName={user.name} />}
+          />
 
-          <span>{user.name ? user.name : <Spinner animation="border" />}</span>
+          <span>
+            {user.name ? user.name : <Spinner animation="border" />}
+          </span>
+
           {isManager && (
             <Badge pill bg="light" className="navbar-role">
               ADMIN
