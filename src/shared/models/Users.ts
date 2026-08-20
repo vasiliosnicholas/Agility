@@ -64,7 +64,13 @@ abstract class AbstractUserAccount implements User {
   email: string;
   password: string;
 
-  constructor({ accountType, name, username, email, password }: BaseUser) {
+  constructor({
+    accountType,
+    name,
+    username,
+    email,
+    password: password,
+  }: BaseUser) {
     this._id = undefined;
     this.accountType = accountType;
     this.name = name;
