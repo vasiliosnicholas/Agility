@@ -8,7 +8,7 @@ import {
   Row,
 } from "react-bootstrap";
 import { EnvelopeFill } from "react-bootstrap-icons";
-import type { User } from "@shared/models/Users.ts";
+import type { Developer } from "@shared/models/Users.ts";
 import Avatar from "../profile/Avatar";
 import useGridKeyboardControls, {
   type AdjacentColumnRefObjectProps,
@@ -19,9 +19,9 @@ import type { StoredTicket } from "@shared/models/Tickets";
 
 interface ListDevsPropTypes extends AdjacentColumnRefObjectProps<HTMLElement> {
   title: string;
-  developers: User[] | undefined;
+  developers: Developer[] | undefined;
   tickets?: StoredTicket[];
-  action: (developer: User) => () => void;
+  action: (developer: Developer) => () => void;
   actionName: string;
   actionChildren: React.JSX.Element;
   actionOrientation: "first" | "last";
@@ -78,7 +78,7 @@ const ListDevs = ({
       </header>
       {developers ? (
         developers.length > 0 ? (
-          <ListGroup className="d-flex flex-column management-list overflow-y-auto">
+          <ListGroup className="overflow-y-auto d-flex flex-column management-list">
             {developers.map((user, index) => (
               <ListGroup.Item
                 key={index}
@@ -89,7 +89,7 @@ const ListDevs = ({
               >
                 <Container fluid>
                   <Row>
-                    <div className="d-flex flex-row justify-content-between align-items-start w-100 p-2">
+                    <div className="flex-row p-2 d-flex justify-content-between align-items-start w-100">
                       <div className={`ms-2 me-4`}>
                         <h4 className="management-list-title">
                           <Avatar userFullName={user.name} /> {user.name}
@@ -108,7 +108,7 @@ const ListDevs = ({
                       >
                         <Button
                           as="a"
-                          className="btn-action-info text-center px-sm-3 rounded-5 py-lg-2 hover-actions"
+                          className="text-center btn-action-info px-sm-3 rounded-5 py-lg-2 hover-actions"
                           aria-label={`email ${user.name}`}
                           href={`mailto:${user.email}`}
                         >
@@ -123,11 +123,11 @@ const ListDevs = ({
                         <h5>{user.name}'s progress on the current phase</h5>
                         <TaskProgressBar
                           phaseTickets={tickets.filter(
-                            ({ assigneeId }) => assigneeId == user._id
+                            ({ assigneeId }) => assigneeId == user._id,
                           )}
                           total={
                             tickets.filter(
-                              ({ assigneeId }) => assigneeId == user._id
+                              ({ assigneeId }) => assigneeId == user._id,
                             ).length
                           }
                           className="mb-2"
@@ -163,15 +163,19 @@ const ListDevs = ({
             ))}
           </ListGroup>
         ) : (
-          <p className=" management-list-meta m-2 text-center">
+          <p className="m-2 text-center management-list-meta">
             No {title.toLowerCase()}
           </p>
         )
       ) : (
         <Placeholder as="section" animation="wave">
           <Placeholder xs={6} className="rounded-2" />
-          <Placeholder className="w-75 rounded-2" />
-          <Placeholder className="rounded-2" style={{ width: "25%" }} />
+          <Placeholder
+            className="ww-75 rounded-2 />
+          <Placeholder className="
+            rrounded-2
+            style={{ width: "25%" }}
+          />
         </Placeholder>
       )}
     </section>

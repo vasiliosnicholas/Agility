@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { Container, Row, Col, Placeholder } from "react-bootstrap";
 import AppNavbar from "../components/AppNavbar";
-import type { User } from "@shared/models/Users";
+import type { Developer, Manager, User } from "@shared/models/Users";
 import {
   CaretLeftFill,
   CaretRightFill,
@@ -18,17 +18,17 @@ import type { StoredTicket } from "@shared/models/Tickets";
 
 const fetchManagerInfo = async () => {
   const response = await fetch("/api/auth/user");
-  return response.ok ? ((await response.json()) as User) : undefined;
+  return response.ok ? ((await response.json()) as Manager) : undefined;
 };
 
 const fetchUnassignedDevs = async () => {
   const response = await fetch("/api/developers/");
-  return response.ok ? ((await response.json()) as User[]) : undefined;
+  return response.ok ? ((await response.json()) as Developer[]) : undefined;
 };
 
 const fetchAssignedDevs = async () => {
   const response = await fetch("/api/developers?assigned=true");
-  return response.ok ? ((await response.json()) as User[]) : undefined;
+  return response.ok ? ((await response.json()) as Developer[]) : undefined;
 };
 
 const fetchKanbanData = async () => {
@@ -37,31 +37,22 @@ const fetchKanbanData = async () => {
 };
 
 async function handleConcurrentUpdate(
-  developer: User,
-  newAssignedDevs: User[],
-  devUpdateMethod: "PUT" | "DELETE"
+  developer: Developer,
+  devUpdateMethod: "PUT" | "DELETE",
 ) {
-  return Promise.all([
-    fetch("/api/developers", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newAssignedDevs),
-    }),
-    fetch(`/api/developers/${developer._id}`, {
+  return fetch(`/api/developers/${developer._id}`, {
       method: devUpdateMethod,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(developer),
-    }),
-  ]);
+    });
 }
 
-type UserTuple = [User[] | undefined, User[] | undefined];
+type DevTuple = [Developer[] | undefined, Developer[] | undefined];
 
 export default function ManageDevs() {
   const headingRef = useRef<HTMLElement>(null);
   const [manager, setManager] = useState<User | undefined>();
   const [[assignedDevs, unassignedDevs], setAssignedAndUnassignedDevs] =
-    useState<UserTuple>([undefined, undefined]);
+    useState<DevTuple>([undefined, undefined]);
 
   const [tickets, setTickets] = useState<StoredTicket[]>();
   const handleSetManager = useCallback(async () => {
@@ -86,12 +77,12 @@ export default function ManageDevs() {
     const response = await fetchKanbanData();
     setTickets(
       response?.tickets.filter(
-        (ticket) => ticket.phaseId === response?.phase?._id
-      )
+        (ticket) => ticket.phaseId === response?.phase?._id,
+      ),
     );
   }, [setTickets]) as () => void;
 
-  function handleAssignment(developer: User) {
+  function handleAssignment(developer: Developer) {
     return async () => {
       const newAssignedDevs = assignedDevs
         ? [...assignedDevs, developer]
@@ -99,9 +90,9 @@ export default function ManageDevs() {
       const newUnAssignedDevs = unassignedDevs
         ? unassignedDevs.filter((dev) => dev._id !== developer._id)
         : [];
-      const [assignDevelopersResponse, assignManagerResponse] =
-        await handleConcurrentUpdate(developer, newAssignedDevs, "PUT");
-      if (assignDevelopersResponse.ok && assignManagerResponse.ok) {
+      const assignDevelopersResponse =
+        await handleConcurrentUpdate(developer, "PUT");
+      if (assignDevelopersResponse.ok ) {
         setAssignedAndUnassignedDevs([newAssignedDevs, newUnAssignedDevs]);
         handleSetTickets();
       } else {
@@ -111,7 +102,7 @@ export default function ManageDevs() {
     };
   }
 
-  function handleUnassignment(developer: User) {
+  function handleUnassignment(developer: Developer) {
     return async () => {
       const newUnAssignedDevs = unassignedDevs
         ? [...unassignedDevs, developer]
@@ -119,9 +110,9 @@ export default function ManageDevs() {
       const newAssignedDevs = assignedDevs
         ? assignedDevs.filter((dev) => dev._id !== developer._id)
         : [];
-      const [assignDevelopersResponse, assignManagerResponse] =
-        await handleConcurrentUpdate(developer, newAssignedDevs, "DELETE");
-      if (assignDevelopersResponse.ok && assignManagerResponse.ok) {
+      const assignDevelopersResponse =
+        await handleConcurrentUpdate(developer, "DELETE");
+      if (assignDevelopersResponse.ok ) {
         setAssignedAndUnassignedDevs([newAssignedDevs, newUnAssignedDevs]);
       } else {
         alert(`Error unassigning ${developer.username}`);
@@ -166,10 +157,10 @@ export default function ManageDevs() {
 
           <Container
             fluid
-            className="mt-4 d-flex flex-row justify-content-center"
+            className="flex-row mt-4 d-flex justify-content-center"
             aria-label="Developer assignment lists. Press Enter to navigate through developers in a section with navigation controls. Press Escape to navigation between assigned and unassigned developer sections with navigation controls. Alternatively, use the horizontal arrow keys for section traversal and vertical arrow keys for developer traversal"
           >
-            <Row className="d-flex flex-row w-100">
+            <Row className="flex-row d-flex w-100">
               <Col>
                 <ListDevs
                   title="Developers assigned to your team"
@@ -191,9 +182,9 @@ export default function ManageDevs() {
               </Col>
               <VerticalMotionIndicator />
 
-              <div className="d-lg-none vstack align-items-center justify-items-center my-4">
+              <div className="my-4 d-lg-none vstack align-items-center justify-items-center">
                 <CaretUp color="grey" />
-                <hr className="w-100 my-2" />
+                <hr className="my-2 w-100" />
                 <CaretDown color="grey" />
               </div>
               <Col>

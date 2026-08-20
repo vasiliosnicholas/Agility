@@ -4,6 +4,7 @@ import {
   getDevelopersMetadata,
   updateManager,
   updateDevelopers,
+  getUserById,
 } from "../database/UserOperations.ts";
 import {
   AccountTypes,
@@ -44,10 +45,17 @@ DevelopersRouter.put("/:id", async (req, res) => {
     if (!req.params.id) {
       throw new Error("id required!");
     }
-    const updateResponse = await updateManager(
-      req.body as Developer,
+    const developer = (await getUserById(req.params.id)) as Developer;
+    if (developer.accountType !== AccountTypes.Developer)
+      throw new Error("Must pass the id of a developer!");
+    const developers = (await getDevelopersMetadata(
       req.user as Manager
-    );
+    )) as Developer[];
+    if (!developers.includes(developer)) developers.push(developer);
+    const updateResponse = await Promise.all([
+      updateManager(developer, req.user as Manager),
+      updateDevelopers(req.user as Manager, developers),
+    ]);
     res.status(201).json(updateResponse);
   } catch (error) {
     console.error("Set developer's manager:", error);
@@ -64,30 +72,27 @@ DevelopersRouter.delete("/:id", async (req, res) => {
       throw new Error("Error user must be authenticated for this route");
     }
 
-    const updateResponse = await updateManager(req.body as Developer, null);
+    if (!req.params.id) {
+      throw new Error("id required!");
+    }
+    const developer = (await getUserById(req.params.id)) as Developer;
+    if (developer.accountType !== AccountTypes.Developer)
+      throw new Error("Must pass the id of a developer!");
+    const developers = (await getDevelopersMetadata(
+      req.user as Manager
+    )) as Developer[];
+    if (developers.includes(developer))
+      developers.splice(
+        developers.findIndex(({ _id }) => _id === developer._id),
+        1
+      );
+    const updateResponse = await Promise.all([
+      updateManager(developer, null),
+      updateDevelopers(req.user as Manager, developers),
+    ]);
     res.status(201).json(updateResponse);
   } catch (error) {
     console.error("Remove developer's manager:", error);
-    res.status(500).json({ message: (error as Error).message });
-  }
-});
-
-/**
- * Set a manager's developers
- */
-DevelopersRouter.put("/", async (req, res) => {
-  try {
-    if (!req.user) {
-      throw new Error("Error user must be authenticated for this route");
-    }
-
-    const updateResponse = await updateDevelopers(
-      req.user as Manager,
-      req.body as Developer[]
-    );
-    res.status(201).json(updateResponse);
-  } catch (error) {
-    console.error("Set manager's developer:", error);
     res.status(500).json({ message: (error as Error).message });
   }
 });
