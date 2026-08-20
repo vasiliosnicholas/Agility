@@ -1,95 +1,240 @@
 import { Router } from "express";
-import { AccountTypeGuardFactoryFunction } from "../middleware/AuthenticationMiddleware.ts";
+import { ObjectId } from "mongodb";
+
+import {
+  AccountTypeGuardFactoryFunction,
+} from "../middleware/AuthenticationMiddleware.ts";
+
 import {
   getDevelopersMetadata,
+  getUserById,
   updateManager,
-  updateDevelopers,
+  updateUser,
 } from "../database/UserOperations.ts";
+
 import {
   AccountTypes,
   type Developer,
   type Manager,
 } from "../../shared/models/Users.ts";
 
-/**
- * Specific Operations on Developer's accounts.
- */
-const DevelopersRouter = Router({ mergeParams: true });
+const DevelopersRouter = Router({
+  mergeParams: true,
+});
 
-DevelopersRouter.use(...AccountTypeGuardFactoryFunction(AccountTypes.Manager));
+DevelopersRouter.use(
+  ...AccountTypeGuardFactoryFunction(
+    AccountTypes.Manager
+  )
+);
 
-/**
- * Route for getting developers metadata
- */
 DevelopersRouter.get("/", async (req, res) => {
   try {
-    if (!req.user) throw new Error("Could not get user details");
+    if (!req.user) {
+      res.status(401).json({
+        message: "Could not get user details",
+      });
+
+      return;
+    }
+
     const developers = req.query.assigned
-      ? await getDevelopersMetadata(req.user as Manager)
+      ? await getDevelopersMetadata(
+          req.user as Manager
+        )
       : await getDevelopersMetadata();
-    res.status(201).json(developers);
-  } catch (error) {
-    res.status(500).json({ error: (error as Error).message });
-  }
-});
 
-/**
- * Set a developer's manager
- */
-DevelopersRouter.put("/:id", async (req, res) => {
-  try {
-    if (!req.user) {
-      throw new Error("Error user must be authenticated for this route");
-    }
-    if (!req.params.id) {
-      throw new Error("id required!");
-    }
-    const updateResponse = await updateManager(
-      req.body as Developer,
-      req.user as Manager
+    res.status(200).json(developers);
+  } catch (error) {
+    console.error(
+      "Could not load developers",
+      error
     );
-    res.status(201).json(updateResponse);
-  } catch (error) {
-    console.error("Set developer's manager:", error);
-    res.status(500).json({ message: (error as Error).message });
+
+    res.status(500).json({
+      message: "Could not load developers",
+    });
   }
 });
+
+DevelopersRouter.put(
+  "/:id",
+  async (req, res) => {
+    try {
+      if (!req.user?._id) {
+        res.status(401).json({
+          message:
+            "Authenticated manager not found",
+        });
+
+        return;
+      }
+
+      const developerId = req.params.id;
+
+      if (!ObjectId.isValid(developerId)) {
+        res.status(400).json({
+          message: "Invalid developer ID",
+        });
+
+        return;
+      }
+
+      const developer = (await getUserById(
+        developerId
+      )) as Developer | null;
+
+      if (
+        !developer ||
+        developer.accountType !==
+          AccountTypes.Developer
+      ) {
+        res.status(404).json({
+          message: "Developer not found",
+        });
+
+        return;
+      }
+
+      if (
+        developer.manager &&
+        developer.manager !== req.user._id
+      ) {
+        res.status(409).json({
+          message:
+            "Developer is already on another team",
+        });
+
+        return;
+      }
+
+      const manager = req.user as Manager;
+
+      const currentDeveloperIds =
+        Array.isArray(manager.developers)
+          ? manager.developers
+          : [];
+
+      const nextDeveloperIds = [
+        ...new Set([
+          ...currentDeveloperIds,
+          developerId,
+        ]),
+      ];
+
+      await Promise.all([
+        updateManager(developer, manager),
+
+        updateUser(manager, {
+          developers: nextDeveloperIds,
+        }),
+      ]);
+
+      res.status(200).json({
+        message: "Developer assigned",
+      });
+    } catch (error) {
+      console.error(
+        "Set developer's manager:",
+        error
+      );
+
+      res.status(500).json({
+        message:
+          "Could not assign developer",
+      });
+    }
+  }
+);
 
 /**
- * Remove developer's manager
+ * Remove a developer from the manager's team.
  */
-DevelopersRouter.delete("/:id", async (req, res) => {
-  try {
-    if (!req.user) {
-      throw new Error("Error user must be authenticated for this route");
+DevelopersRouter.delete(
+  "/:id",
+  async (req, res) => {
+    try {
+      if (!req.user?._id) {
+        res.status(401).json({
+          message:
+            "Authenticated manager not found",
+        });
+
+        return;
+      }
+
+      const developerId = req.params.id;
+
+      if (!ObjectId.isValid(developerId)) {
+        res.status(400).json({
+          message: "Invalid developer ID",
+        });
+
+        return;
+      }
+
+      const developer = (await getUserById(
+        developerId
+      )) as Developer | null;
+
+      if (
+        !developer ||
+        developer.accountType !==
+          AccountTypes.Developer
+      ) {
+        res.status(404).json({
+          message: "Developer not found",
+        });
+
+        return;
+      }
+
+      if (
+        developer.manager !== req.user._id
+      ) {
+        res.status(403).json({
+          message:
+            "Developer is not on your team",
+        });
+
+        return;
+      }
+
+      const manager = req.user as Manager;
+
+      const currentDeveloperIds =
+        Array.isArray(manager.developers)
+          ? manager.developers
+          : [];
+
+      const nextDeveloperIds =
+        currentDeveloperIds.filter(
+          (id) => id !== developerId
+        );
+
+      await Promise.all([
+        updateManager(developer, null),
+
+        updateUser(manager, {
+          developers: nextDeveloperIds,
+        }),
+      ]);
+
+      res.status(200).json({
+        message: "Developer unassigned",
+      });
+    } catch (error) {
+      console.error(
+        "Remove developer's manager:",
+        error
+      );
+
+      res.status(500).json({
+        message:
+          "Could not unassign developer",
+      });
     }
-
-    const updateResponse = await updateManager(req.body as Developer, null);
-    res.status(201).json(updateResponse);
-  } catch (error) {
-    console.error("Remove developer's manager:", error);
-    res.status(500).json({ message: (error as Error).message });
   }
-});
-
-/**
- * Set a manager's developers
- */
-DevelopersRouter.put("/", async (req, res) => {
-  try {
-    if (!req.user) {
-      throw new Error("Error user must be authenticated for this route");
-    }
-
-    const updateResponse = await updateDevelopers(
-      req.user as Manager,
-      req.body as Developer[]
-    );
-    res.status(201).json(updateResponse);
-  } catch (error) {
-    console.error("Set manager's developer:", error);
-    res.status(500).json({ message: (error as Error).message });
-  }
-});
+);
 
 export default DevelopersRouter;
