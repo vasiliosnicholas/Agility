@@ -8,7 +8,7 @@
 >
 > **password:** bb361234
 
-For our live demo, the database hosts sample project phases and tickets with mock data for certain fields. The seed tickets collection is composed of mock apparel/product-development style tasks.
+For our live demo, the database hosts sample project phases and tickets with mock data for all fields. The seed tickets collection is composed of mock apparel/product-development style tasks.
 
 > _Login page of Agility._
 > ![Login Page Screenshot](./res/login.png)
