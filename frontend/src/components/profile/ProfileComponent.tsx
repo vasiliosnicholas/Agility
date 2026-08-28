@@ -1,56 +1,64 @@
-import { useCallback, useState, type JSX } from "react";
-import { NavDropdown, Placeholder } from "react-bootstrap";
-import type { User } from "@shared/models/Users";
+import { useState, type JSX } from "react";
+import { Alert, NavDropdown } from "react-bootstrap";
 import ManageProfileComponent from "./ManageProfileComponent";
 
-const logout = async () => {
-  const reponse = await fetch("/api/auth/logout", { method: "POST" });
-  if (reponse.ok) window.location.href = "/login#logout";
-};
+interface ProfileDropdownProps {
+  profileComponent: JSX.Element;
+  userName: string;
+}
 
-const defaultName = "";
-
-const fetchUsername = async () => {
-  const response = await fetch("/api/auth/user");
-  return `Hello, ${response.ok ? ((await response.json()) as User).name : defaultName}`;
-};
-
-/**
- * Dropdown with profile actions: Manage profile, and logout
- * @returns Dropdown button.
- */
 export default function ProfileDropdown({
   profileComponent,
-}: {
-  profileComponent: JSX.Element;
-}) {
-  const [name, setName] = useState(defaultName);
-  const handleSetName = useCallback(async () => {
-    const username = await fetchUsername();
-    setName(username);
-  }, [setName]) as () => void;
+  userName,
+}: ProfileDropdownProps) {
+  const [logoutError, setLogoutError] = useState("");
+  const [loggingOut, setLoggingOut] = useState(false);
 
-  handleSetName();
+  async function logout() {
+    setLogoutError("");
+    setLoggingOut(true);
+
+    try {
+      const response = await fetch("/api/auth/logout", { method: "POST" });
+
+      if (!response.ok) {
+        setLogoutError("Could not log out. Please try again.");
+        return;
+      }
+
+      window.location.href = "/login#logout";
+    } catch {
+      setLogoutError("Could not connect to the server.");
+    } finally {
+      setLoggingOut(false);
+    }
+  }
 
   return (
-    <>
-      <NavDropdown title={<span aria-label="Profile Actions Dropdown">{profileComponent} </span>}>
-        <NavDropdown.Header>
-          {name ? (
-            name
-          ) : (
-            <Placeholder as="span" animation="wave">
-              <Placeholder xs={12} className="rounded-2"></Placeholder>
-            </Placeholder>
-          )}
-        </NavDropdown.Header>
+    <NavDropdown
+      title={
+        <span aria-label="Profile actions dropdown">{profileComponent}</span>
+      }
+    >
+      <NavDropdown.Header>
+        {userName ? `Hello, ${userName}` : "Profile"}
+      </NavDropdown.Header>
 
-        <ManageProfileComponent />
+      <ManageProfileComponent />
 
-        <NavDropdown.Item as="button" onClick={() => void logout()} disabled={!name}>
-          Logout
-        </NavDropdown.Item>
-      </NavDropdown>
-    </>
+      <NavDropdown.Item
+        as="button"
+        onClick={() => void logout()}
+        disabled={loggingOut}
+      >
+        {loggingOut ? "Logging out..." : "Logout"}
+      </NavDropdown.Item>
+
+      {logoutError && (
+        <Alert variant="danger" className="m-2 py-2" role="alert">
+          {logoutError}
+        </Alert>
+      )}
+    </NavDropdown>
   );
 }
